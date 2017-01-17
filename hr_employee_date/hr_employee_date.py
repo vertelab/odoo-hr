@@ -16,10 +16,10 @@ class hr_employee(models.Model):
     @api.one
     def _get_earliest_contract_date(self):
         date = '2099-12-31'
-        for c in self.contract_ids:
-            if c.trial_date_start < date:
+        for c in self.sudo().contract_ids:
+            if c.trial_date_start and c.trial_date_start < date:
                 date = c.trial_date_start
-            if c.date_start < date:
+            if c.date_start and c.date_start < date:
                 date = c.date_start
         if date == '2099-12-31':
             self.date_start = None
