@@ -7,11 +7,15 @@
 
 {
     'name': 'Employee Contract Start Date',
-    'version': '1.0',
+    'version': '1.1',
     'category': 'Human Resources',
+    'licence': 'AGPL-3',
     'description': """
-Employee start date.
-=========================================================================================================
+Employee start date
+===================
+
+Field on hr.employee that finds first employee date from
+hr.contract
     """,
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
