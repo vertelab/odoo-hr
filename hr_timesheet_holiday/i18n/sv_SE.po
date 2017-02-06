@@ -1,0 +1,62 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* hr_timesheet_holiday
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20161208\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-06 15:57+0000\n"
+"PO-Revision-Date: 2017-02-06 15:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_timesheet_holiday
+#: field:hr_timesheet_sheet.sheet,add_holiday_ids:0
+msgid "Earned Holidays"
+msgstr "Intjänad semester"
+
+#. module: hr_timesheet_holiday
+#: view:hr_timesheet_sheet.sheet:hr_timesheet_holiday.hr_timesheet_sheet_form
+msgid "Attendances"
+msgstr "Närvaro"
+
+#. module: hr_timesheet_holiday
+#: view:hr_timesheet_sheet.sheet:hr_timesheet_holiday.hr_timesheet_sheet_form
+msgid "Holidays"
+msgstr "Frånvaro"
+
+#. module: hr_timesheet_holiday
+#: model:ir.model,name:hr_timesheet_holiday.model_hr_holidays
+msgid "Leave"
+msgstr "Ledig"
+
+#. module: hr_timesheet_holiday
+#: field:hr_timesheet_sheet.sheet,remove_holiday_ids:0
+msgid "Spent Holidays"
+msgstr "Använd semester"
+
+#. module: hr_timesheet_holiday
+#: field:hr.holidays,date_start:0
+msgid "Start Date"
+msgstr "Startdatum"
+
+#. module: hr_timesheet_holiday
+#: field:hr.holidays,date_stop:0
+msgid "Stop Date"
+msgstr "Slutdatum"
+
+#. module: hr_timesheet_holiday
+#: field:hr.holidays,time_factor:0
+msgid "Time Factor"
+msgstr "Tidsfaktor"
+
+#. module: hr_timesheet_holiday
+#: model:ir.model,name:hr_timesheet_holiday.model_hr_timesheet_sheet_sheet
+msgid "Timesheet"
+msgstr "Tidrapport"
+
