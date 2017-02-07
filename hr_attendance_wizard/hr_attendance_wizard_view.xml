@@ -13,6 +13,7 @@
                     <field name="date_from"/>
                     <field name="date_to"/>
                 </group>
+                <group/>
             </group>
             <footer>
                 <div>
