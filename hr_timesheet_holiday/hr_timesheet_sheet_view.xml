@@ -13,9 +13,29 @@
                         <field name="holiday_ids" invisible="1"/>
 -->
                         <label for="remove_holiday_ids"/>
-                        <field name="remove_holiday_ids" domain="[('employee_id', '=', employee_id), ('type', '=', 'remove')]" context="{'default_type': 'remove', 'default_employee_id': employee_id}"/>
+                        <field name="remove_holiday_ids" domain="[('employee_id', '=', employee_id), ('type', '=', 'remove')]" context="{'default_type': 'remove', 'default_employee_id': employee_id}">
+                            <tree string="Used Holidays" editable="bottom">
+                                <field name="employee_id"/>
+                                <field name="date_from"/>
+                                <field name="date_to"/>
+                                <field name="holiday_status_id"/>
+                                <field name="name"/>
+                                <field name="number_of_days" string="Number of Days" sum="Remaining Days"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
                         <label for="add_holiday_ids"/>
-                        <field name="add_holiday_ids" domain="[('employee_id', '=', employee_id), ('type', '=', 'add')]" context="{'default_type': 'add', 'default_employee_id': employee_id}"/>
+                        <field name="add_holiday_ids" domain="[('employee_id', '=', employee_id), ('type', '=', 'add')]" context="{'default_type': 'add', 'default_employee_id': employee_id}">
+                            <tree string="Used Holidays" editable="bottom">
+                                <field name="employee_id"/>
+                                <field name="date_start"/>
+                                <field name="date_stop"/>
+                                <field name="holiday_status_id"/>
+                                <field name="name"/>
+                                <field name="number_of_days" string="Number of Days" sum="Remaining Days"/>
+                                <field name="state"/>
+                            </tree>
+                        </field>
                     </page>
                 </page>
             </field>
