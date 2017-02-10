@@ -32,6 +32,21 @@ class hr_attendance_add_wizard(models.TransientModel):
     date_to = fields.Datetime('Sign Out Time', required = True)
     
     @api.multi
+    def get_values_dict(self, type):
+        """Override to add more values to attendance creation."""
+        if type == 'sign_in':
+            return {
+                'employee_id': self.employee_id.id,
+                'name': self.date_from,
+                'action': 'sign_in'
+            }
+        return {
+            'employee_id': self.employee_id.id,
+            'name': self.date_to,
+            'action': 'sign_out'
+        }
+    
+    @api.multi
     def create_attendances(self):
         if self.date_from >= self.date_to:
             raise Warning(_("Can't create attendance records! Sign out must come after sign in."))
@@ -43,7 +58,8 @@ class hr_attendance_add_wizard(models.TransientModel):
             raise Warning(_("Can't create attendance records! Sign in must be followed by sign out.%s%s") %(
                 prev_so and prev_so.action == 'sign_in' and (_(" Previous attendance (%s (GMT))  is a Sign In.") % prev_so.name) or '',
                 next_so and next_so.action == 'sign_out' and (_(" Next attendance (%s (GMT))  is a Sign Out.") % next_so.name) or ''))
-        self.env.cr.execute("INSERT INTO hr_attendance (name, action, employee_id) VALUES (%s, %s, %s)", (self.date_from, 'sign_in', self.employee_id.id))
-        self.env.cr.execute("INSERT INTO hr_attendance (name, action, employee_id) VALUES (%s, %s, %s)", (self.date_to, 'sign_out', self.employee_id.id))
-    
+        values = self.get_values_dict('sign_in')
+        self.env.cr.execute("INSERT INTO hr_attendance (%s) VALUES (%s)" % (','.join(values.keys()), ','.join(['%s' for v in values.keys()])), [values[v] for v in values.keys()])
+        values = self.get_values_dict('sign_out')
+        self.env.cr.execute("INSERT INTO hr_attendance (%s) VALUES (%s)" % (','.join(values.keys()), ','.join(['%s' for v in values.keys()])), [values[v] for v in values.keys()])
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
