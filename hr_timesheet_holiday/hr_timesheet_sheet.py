@@ -31,7 +31,7 @@ class hr_holidays(models.Model):
     date_start = fields.Datetime('Start Date')
     date_stop = fields.Datetime('Stop Date')
     time_factor = fields.Float('Time Factor', default = 1.0)
-    break_time = fields.Integer('Break Time (minutes)', default = 0)
+    break_time = fields.Integer('Break Time (minutes)', default = 60, help="The total amount of minutes that were spent on breaks.")
     
     @api.one
     @api.onchange('date_start', 'date_stop', 'time_factor', 'break_time')

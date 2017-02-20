@@ -16,14 +16,19 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: hr_timesheet_holiday
-#: field:hr_timesheet_sheet.sheet,add_holiday_ids:0
-msgid "Earned Holidays"
-msgstr "Intjänad semester"
-
-#. module: hr_timesheet_holiday
 #: view:hr_timesheet_sheet.sheet:hr_timesheet_holiday.hr_timesheet_sheet_form
 msgid "Attendances"
 msgstr "Närvaro"
+
+#. module: hr_timesheet_holiday
+#: field:hr.holidays,break_time:0
+msgid "Break Time (minutes)"
+msgstr "Rast (minuter)"
+
+#. module: hr_timesheet_holiday
+#: field:hr_timesheet_sheet.sheet,add_holiday_ids:0
+msgid "Earned Holidays"
+msgstr "Intjänad semester"
 
 #. module: hr_timesheet_holiday
 #: view:hr_timesheet_sheet.sheet:hr_timesheet_holiday.hr_timesheet_sheet_form
@@ -31,9 +36,14 @@ msgid "Holidays"
 msgstr "Frånvaro"
 
 #. module: hr_timesheet_holiday
-#: model:ir.model,name:hr_timesheet_holiday.model_hr_holidays
-msgid "Leave"
-msgstr "Ledig"
+#: view:hr_timesheet_sheet.sheet:hr_timesheet_holiday.hr_timesheet_sheet_form
+msgid "Number of Days"
+msgstr "Antal dagar"
+
+#. module: hr_timesheet_holiday
+#: view:hr_timesheet_sheet.sheet:hr_timesheet_holiday.hr_timesheet_sheet_form
+msgid "Remaining Days"
+msgstr "Kvarvarande dagar"
 
 #. module: hr_timesheet_holiday
 #: field:hr_timesheet_sheet.sheet,remove_holiday_ids:0
@@ -49,6 +59,11 @@ msgstr "Startdatum"
 #: field:hr.holidays,date_stop:0
 msgid "Stop Date"
 msgstr "Slutdatum"
+
+#. module: hr_timesheet_holiday
+#: help:hr.holidays,break_time:0
+msgid "The total amount of minutes that were spent on breaks."
+msgstr "Det totala antalet minuter som spenderades på rast."
 
 #. module: hr_timesheet_holiday
 #: field:hr.holidays,time_factor:0
