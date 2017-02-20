@@ -52,6 +52,7 @@
                         <field name="date_stop" nolabel="1" class="oe_inline"/>
                     </group>
                     <group attrs="{'invisible': [('type', '!=', 'add')]}">
+                        <field name="break_time" class="oe_inline"/>
                         <field name="time_factor"/>
                     </group>
                 </group>

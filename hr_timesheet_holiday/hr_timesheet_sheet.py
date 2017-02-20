@@ -31,12 +31,13 @@ class hr_holidays(models.Model):
     date_start = fields.Datetime('Start Date')
     date_stop = fields.Datetime('Stop Date')
     time_factor = fields.Float('Time Factor', default = 1.0)
+    break_time = fields.Integer('Break Time (minutes)', default = 0)
     
     @api.one
-    @api.onchange('date_start', 'date_stop', 'time_factor')
+    @api.onchange('date_start', 'date_stop', 'time_factor', 'break_time')
     def onchange_start_stop_date(self):
         if self.date_start and self.date_stop:
-            self.number_of_days_temp = (fields.Datetime.from_string(self.date_stop) - fields.Datetime.from_string(self.date_start)).total_seconds() * self.time_factor / 60 / 60 / 24
+            self.number_of_days_temp = ((fields.Datetime.from_string(self.date_stop) - fields.Datetime.from_string(self.date_start)).total_seconds() / 60 - self.break_time) / 60 * self.time_factor / (self.employee_id.get_working_hours_per_day() or 8) #Assume 8 h working day if not specified.
 
 class hr_timesheet_sheet(models.Model):
     _inherit = "hr_timesheet_sheet.sheet"

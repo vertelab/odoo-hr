@@ -13,7 +13,7 @@
 """,
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
-    'depends': ['hr_timesheet_sheet','hr_holidays'],
+    'depends': ['hr_timesheet_sheet','hr_holidays', 'hr_weekly_working_hours'],
     'data': [
         'hr_timesheet_sheet_view.xml',
        ],
