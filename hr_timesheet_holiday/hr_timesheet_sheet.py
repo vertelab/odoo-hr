@@ -20,6 +20,7 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
+from datetime import timedelta
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -36,6 +37,14 @@ class hr_holidays(models.Model):
     @api.one
     @api.onchange('date_start', 'date_stop', 'time_factor', 'break_time')
     def onchange_start_stop_date(self):
+        if self.date_start:
+            if self.date_start[-2:] != '00':
+                self.date_start = self.date_start[:-2] + '00'
+            if not self.date_stop:
+                self.date_stop = fields.Datetime.to_string(fields.Datetime.from_string(self.date_start) + timedelta(hours = 9))
+        if self.date_stop:
+            if self.date_stop[-2:] != '00':
+                self.date_stop = self.date_stop[:-2] + '00'
         if self.date_start and self.date_stop:
             self.number_of_days_temp = ((fields.Datetime.from_string(self.date_stop) - fields.Datetime.from_string(self.date_start)).total_seconds() / 60 - self.break_time) / 60 * self.time_factor / (self.employee_id.get_working_hours_per_day() or 8) #Assume 8 h working day if not specified.
 
