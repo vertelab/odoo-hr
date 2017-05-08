@@ -14,7 +14,7 @@
     tag = env.ref('hr_recruitment_create_partner.partner_tag_mail_contact')
     partner = env['res.partner'].create({'name': object.partner_name, 'email': object.email_from, 'category_id': [(6, 0, [tag.id])]})
     object.message_subscribe([partner.id])
-    object.partner_id = partner</field>
+    object.write({'partner_id': partner.id})</field>
     </record>
     
     <record id="action_rule_create_partner" model="base.action.rule">
