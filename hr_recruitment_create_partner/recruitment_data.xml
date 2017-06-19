@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    
+    <record id="partner_tag_mail_contact" model="res.partner.category">
+      <field name="name">Mail Contact</field>
+    </record>
+    
+    <record id="action_create_partner" model="ir.actions.server">
+      <field name="name">Application - Create Partner</field>
+      <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+      <field name="state">code</field>
+      <field name="code">if not env['res.partner'].search([('email', '=', object.email_from)]):
+    tag = env.ref('hr_recruitment_create_partner.partner_tag_mail_contact')
+    partner = env['res.partner'].create({'name': object.partner_name, 'email': object.email_from, 'category_id': [(6, 0, [tag.id])]})
+    object.message_subscribe([partner.id])
+    object.write({'partner_id': partner.id})</field>
+    </record>
+    
+    <record id="action_rule_create_partner" model="base.action.rule">
+      <field name="name">Application - Create Partner</field>
+      <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+      <field name="kind">on_create</field>
+      <field name="state">code</field>
+      <field name="server_action_ids" eval="[(6, 0, [ref('action_create_partner')])]"/>
+    </record>
+    
+  </data>
+</openerp>
