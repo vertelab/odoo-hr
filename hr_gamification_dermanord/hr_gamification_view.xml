@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <template id="hr_attendance_form" inherit_id="hr_attendance_terminal.hr_attendance_form">
+            <xpath expr="//div[@class='col-md-6 col-sm-6 col-xs-6 text-center']" position="after">
+                <div class="col-md-6 col-md-offset-6 col-sm-6 col-sm-offset-6 col-xs-6 col-xs-offset-6 text-center">
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <button id="go_training" class="btn btn-primary btn-lg hidden" onclick="go_training()">Go Training</button>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6">
+                        <button id="go_workout" class="btn btn-info btn-lg hidden" onclick="go_workout()">Go Workout</button>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//body" position="inside">
+                <script src="/hr_gamification_dermanord/static/src/js/main.js" type="text/javascript" />
+            </xpath>
+        </template>
+
+
+
+    </data>
+</openerp>

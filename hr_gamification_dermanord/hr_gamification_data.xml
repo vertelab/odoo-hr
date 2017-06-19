@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!-- project.project & project.task -->
+        <record id="project_workout" model="project.project">
+            <field name="name">Workout Project</field>
+            <field name="use_tasks" eval="True"/>
+        </record>
+        <record id="task_training" model="project.task">
+            <field name="name">Traning Task</field>
+            <field name="project_id" ref="hr_gamification_dermanord.project_workout"/>
+        </record>
+        <record id="task_workout" model="project.task">
+            <field name="name">7-minutes-workout Task</field>
+            <field name="project_id" ref="hr_gamification_dermanord.project_workout"/>
+        </record>
+
+        <!-- gamification.goal.definition -->
+        <record id="gamification_goal_definition_training" model="gamification.goal.definition">
+            <field name="name">Def Training</field>
+            <field name="computation_mode">count</field>
+            <field name="model_id" ref="project.model_project_task_work"/>
+            <field name="domain" eval="[('task_id', '=', ref('hr_gamification_dermanord.task_training'))]"/>
+            <field name="condition">higher</field>
+            <field name="display_mode">progress</field>
+        </record>
+        <record id="gamification_goal_definition_workout" model="gamification.goal.definition">
+            <field name="name">Def Workout</field>
+            <field name="computation_mode">count</field>
+            <field name="model_id" ref="project.model_project_task_work"/>
+            <field name="domain" eval="[('task_id', '=', ref('hr_gamification_dermanord.task_workout'))]"/>
+            <field name="condition">higher</field>
+            <field name="display_mode">progress</field>
+        </record>
+
+        <!-- gamification.badge -->
+        <record id="gamification_badge_training_gold" model="gamification.badge">
+            <field name="name">Training Gold</field>
+        </record>
+        <record id="gamification_badge_training_silver" model="gamification.badge">
+            <field name="name">Training Silver</field>
+        </record>
+        <record id="gamification_badge_training_bronze" model="gamification.badge">
+            <field name="name">Training Bronze</field>
+        </record>
+        <record id="gamification_badge_workout_gold" model="gamification.badge">
+            <field name="name">Workout Gold</field>
+        </record>
+        <record id="gamification_badge_workout_silver" model="gamification.badge">
+            <field name="name">Workout Silver</field>
+        </record>
+        <record id="gamification_badge_workout_bronze" model="gamification.badge">
+            <field name="name">Workout Bronze</field>
+        </record>
+
+        <!-- gamification.challenge -->
+        <record id="gamification_challenge_training_gold" model="gamification.challenge">
+            <field name="name">Training Gold</field>
+            <field name="period">monthly</field>
+            <field name="visibility_mode">ranking</field>
+            <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_training_gold"/>
+        </record>
+        <record id="gamification_challenge_training_silver" model="gamification.challenge">
+            <field name="name">Training Silver</field>
+            <field name="period">monthly</field>
+            <field name="visibility_mode">ranking</field>
+            <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_training_silver"/>
+        </record>
+        <record id="gamification_challenge_training_bronze" model="gamification.challenge">
+            <field name="name">Training Bronze</field>
+            <field name="period">monthly</field>
+            <field name="visibility_mode">ranking</field>
+            <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_training_bronze"/>
+        </record>
+        <record id="gamification_challenge_workout_gold" model="gamification.challenge">
+            <field name="name">Workout Gold</field>
+            <field name="period">monthly</field>
+            <field name="visibility_mode">ranking</field>
+            <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_workout_gold"/>
+        </record>
+        <record id="gamification_challenge_workout_silver" model="gamification.challenge">
+            <field name="name">Workout Silver</field>
+            <field name="period">monthly</field>
+            <field name="visibility_mode">ranking</field>
+            <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_workout_silver"/>
+        </record>
+        <record id="gamification_challenge_workout_bronze" model="gamification.challenge">
+            <field name="name">Workout Bronze</field>
+            <field name="period">monthly</field>
+            <field name="visibility_mode">ranking</field>
+            <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_workout_bronze"/>
+        </record>
+
+        <!-- gamification.challenge.line -->
+        <record id="gamification_challenge_line_training_gold" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_training"/>
+            <field name="condition">higher</field>
+            <field name="target_goal">20.0</field>
+            <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_training_gold"/>
+        </record>
+        <record id="gamification_challenge_line_training_silver" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_training"/>
+            <field name="condition">higher</field>
+            <field name="target_goal">16.0</field>
+            <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_training_silver"/>
+        </record>
+        <record id="gamification_challenge_line_training_bronze" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_training"/>
+            <field name="condition">higher</field>
+            <field name="target_goal">12.0</field>
+            <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_training_bronze"/>
+        </record>
+        <record id="gamification_challenge_line_workout_gold" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_workout"/>
+            <field name="condition">higher</field>
+            <field name="target_goal">20.0</field>
+            <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_workout_gold"/>
+        </record>
+        <record id="gamification_challenge_line_workout_silver" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_workout"/>
+            <field name="condition">higher</field>
+            <field name="target_goal">16.0</field>
+            <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_workout_silver"/>
+        </record>
+        <record id="gamification_challenge_line_workout_bronze" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_workout"/>
+            <field name="condition">higher</field>
+            <field name="target_goal">12.0</field>
+            <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_workout_bronze"/>
+        </record>
+
+    </data>
+</openerp>
