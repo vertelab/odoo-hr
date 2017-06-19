@@ -35,6 +35,7 @@ function go_training(){
         'employee_id': $("#hr_employee").val(),
     }).done(function(data){
         if(data == "done"){
+            $('#hr_employee option[value=""]').attr('selected', true);
             window.location.reload();
         }
         else
@@ -48,6 +49,7 @@ function go_workout(){
         'employee_id': $("#hr_employee").val(),
     }).done(function(data){
         if(data == "done"){
+            $('#hr_employee option[value=""]').attr('selected', true);
             window.location.reload();
         }
         else
