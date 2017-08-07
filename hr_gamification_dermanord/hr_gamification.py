@@ -37,7 +37,7 @@ class Workout(http.Controller):
     def training(self, employee_id=None, **kw):
         employee = request.env['hr.employee'].browse(int(employee_id))
         work = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).create({
-            'name': 'training pass (%s) - %s' %(self.convert_to_local(fields.Datetime.now(), self._context.get('tz') or self.env.user.tz), employee.name),
+            'name': 'training pass (%s) - %s' %(self.convert_to_local(fields.Datetime.now(), request.env.context.get('tz') or request.env.user.tz), employee.name),
             'hours': 0.0,
             'date': fields.Datetime.now(),
             'user_id': employee.user_id.id,
@@ -49,7 +49,7 @@ class Workout(http.Controller):
     def workout(self, employee_id=None, **kw):
         employee = request.env['hr.employee'].browse(int(employee_id))
         work = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id)]).create({
-            'name': 'workout pass (%s) - %s' %(self.convert_to_local(fields.Datetime.now(), self._context.get('tz') or self.env.user.tz), employee.name),
+            'name': 'workout pass (%s) - %s' %(self.convert_to_local(fields.Datetime.now(), request.env.context.get('tz') or request.env.user.tz), employee.name),
             'hours': 0.0,
             'date': fields.Datetime.now(),
             'user_id': employee.user_id.id,
