@@ -21,7 +21,8 @@
             <field name="name">Def Training</field>
             <field name="computation_mode">count</field>
             <field name="model_id" ref="project.model_project_task_work"/>
-            <field name="domain" eval="[('task_id', '=', ref('hr_gamification_dermanord.task_training'))]"/>
+            <field name="field_date_id" ref="project.field_project_task_work_date"/>
+            <field name="domain" eval="'''[('task_id', '=', %s), ('user_id', '=', user.id)]''' %ref('hr_gamification_dermanord.task_training')"/>
             <field name="condition">higher</field>
             <field name="display_mode">progress</field>
         </record>
@@ -29,7 +30,8 @@
             <field name="name">Def Workout</field>
             <field name="computation_mode">count</field>
             <field name="model_id" ref="project.model_project_task_work"/>
-            <field name="domain" eval="[('task_id', '=', ref('hr_gamification_dermanord.task_workout'))]"/>
+            <field name="field_date_id" ref="project.field_project_task_work_date"/>
+            <field name="domain" eval="'''[('task_id', '=', %s), ('user_id', '=', user.id)]''' %ref('hr_gamification_dermanord.task_workout')"/>
             <field name="condition">higher</field>
             <field name="display_mode">progress</field>
         </record>
