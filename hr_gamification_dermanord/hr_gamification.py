@@ -27,6 +27,13 @@ import pytz
 import logging
 _logger = logging.getLogger(__name__)
 
+class hr_contract(models.Model):
+    _inherit = 'hr.contract'
+
+    max_training_count_per_day = fields.Integer(string='Max training per day', help='This parameter presents how many time this employee can do training each day. Leave empty if this employee is not allowed to go training.', default=1)
+    max_training_count_per_week = fields.Integer(string='Max training per week', help='This parameter presents how many time this employee can do training each week. Leave empty if this employee is not allowed to go training.', default=2)
+    max_workout_count_per_day = fields.Integer(string='Max workout per day', help='This parameter presents how many time this employee can do training each day.  Leave empty if this employee is not allowed to go workout.', default=1)
+
 class Workout(http.Controller):
 
     def convert_to_local(self, timestamp, tz_name):
@@ -40,7 +47,7 @@ class Workout(http.Controller):
         dates_in_week = [today + datetime.timedelta(days=i) for i in range(0 - today.weekday(), 7 - today.weekday())]
         employee = request.env['hr.employee'].browse(int(employee_id))
         works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
-        if len(works_in_day) < 1:
+        if len(works_in_day):
             works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in dates_in_week)
             return 'confirm' if len(works_in_week) < 2 else 'receipt'
         else:
@@ -51,7 +58,8 @@ class Workout(http.Controller):
         today = datetime.date.today()
         employee = request.env['hr.employee'].browse(int(employee_id))
         works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
-        return 'confirm' if len(works_in_day) < 1 else 'receipt'
+        #~ return 'confirm' if len(works_in_day) < 1 else 'receipt'
+        return 'confirm'
 
     @http.route(['/hr/attendance/training'], type='json', auth="user", website=True)
     def training(self, employee_id=None, **kw):

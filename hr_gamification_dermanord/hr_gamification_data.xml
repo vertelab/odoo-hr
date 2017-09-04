@@ -79,36 +79,42 @@
             <field name="name">Training Gold</field>
             <field name="period">monthly</field>
             <field name="visibility_mode">ranking</field>
+            <field name="reward_realtime" eval="False"/>
             <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_training_gold"/>
         </record>
         <record id="gamification_challenge_training_silver" model="gamification.challenge">
             <field name="name">Training Silver</field>
             <field name="period">monthly</field>
             <field name="visibility_mode">ranking</field>
+            <field name="reward_realtime" eval="False"/>
             <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_training_silver"/>
         </record>
         <record id="gamification_challenge_training_bronze" model="gamification.challenge">
             <field name="name">Training Bronze</field>
             <field name="period">monthly</field>
             <field name="visibility_mode">ranking</field>
+            <field name="reward_realtime" eval="False"/>
             <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_training_bronze"/>
         </record>
         <record id="gamification_challenge_workout_gold" model="gamification.challenge">
             <field name="name">Workout Gold</field>
             <field name="period">monthly</field>
             <field name="visibility_mode">ranking</field>
+            <field name="reward_realtime" eval="False"/>
             <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_workout_gold"/>
         </record>
         <record id="gamification_challenge_workout_silver" model="gamification.challenge">
             <field name="name">Workout Silver</field>
             <field name="period">monthly</field>
             <field name="visibility_mode">ranking</field>
+            <field name="reward_realtime" eval="False"/>
             <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_workout_silver"/>
         </record>
         <record id="gamification_challenge_workout_bronze" model="gamification.challenge">
             <field name="name">Workout Bronze</field>
             <field name="period">monthly</field>
             <field name="visibility_mode">ranking</field>
+            <field name="reward_realtime" eval="False"/>
             <field name="reward_id" ref="hr_gamification_dermanord.gamification_badge_workout_bronze"/>
         </record>
 

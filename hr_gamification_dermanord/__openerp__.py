@@ -31,7 +31,7 @@ Gamification for Dermanord
     """,
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
-    'depends': ['hr_gamification', 'project', 'hr_attendance_terminal'],
+    'depends': ['hr_gamification', 'hr_contract', 'project', 'hr_attendance_terminal'],
     'data': [
         'hr_gamification_data.xml',
         'hr_gamification_view.xml',
