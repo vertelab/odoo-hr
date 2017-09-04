@@ -46,10 +46,17 @@ class Workout(http.Controller):
         today = datetime.date.today()
         dates_in_week = [today + datetime.timedelta(days=i) for i in range(0 - today.weekday(), 7 - today.weekday())]
         employee = request.env['hr.employee'].browse(int(employee_id))
-        works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
-        if len(works_in_day):
-            works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in dates_in_week)
-            return 'confirm' if len(works_in_week) < 2 else 'receipt'
+        contract = employee.contract_ids[0]
+        if contract:
+            works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
+            _logger.warn(works_in_day)
+            if contract.max_training_count_per_day and len(works_in_day) < contract.max_training_count_per_day:
+                works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in dates_in_week)
+                return 'confirm' if len(works_in_week) < contract.max_training_count_per_week else 'receipt'
+            elif not contract.max_training_count_per_day or contract.max_training_count_per_day == 0:
+                return 'confirm'
+            else:
+                return 'receipt'
         else:
             return 'receipt'
 
@@ -57,9 +64,12 @@ class Workout(http.Controller):
     def workout_validate(self, employee_id=None, **kw):
         today = datetime.date.today()
         employee = request.env['hr.employee'].browse(int(employee_id))
-        works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
-        #~ return 'confirm' if len(works_in_day) < 1 else 'receipt'
-        return 'confirm'
+        contract = employee.contract_ids[0]
+        if contract:
+            works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
+            return 'confirm' if len(works_in_day) < contract.max_workout_count_per_day else 'receipt'
+        else:
+            return 'receipt'
 
     @http.route(['/hr/attendance/training'], type='json', auth="user", website=True)
     def training(self, employee_id=None, **kw):
