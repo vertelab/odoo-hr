@@ -22,17 +22,37 @@
 from openerp import models, fields, api, _
 from openerp import http
 from openerp.http import request
+import datetime
 import pytz
 import logging
 _logger = logging.getLogger(__name__)
 
 class Workout(http.Controller):
-    
+
     def convert_to_local(self, timestamp, tz_name):
         dt = fields.Datetime.from_string(timestamp)
         local_dt = pytz.utc.localize(dt).astimezone(pytz.timezone(tz_name))
         return fields.Datetime.to_string(local_dt)
-    
+
+    @http.route(['/hr/attendance/training_validate'], type='json', auth="user", website=True)
+    def training_validate(self, employee_id=None, **kw):
+        today = datetime.date.today()
+        dates_in_week = [today + datetime.timedelta(days=i) for i in range(0 - today.weekday(), 7 - today.weekday())]
+        employee = request.env['hr.employee'].browse(int(employee_id))
+        works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
+        if len(works_in_day) < 1:
+            works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in dates_in_week)
+            return 'confirm' if len(works_in_week) < 2 else 'receipt'
+        else:
+            return 'receipt'
+
+    @http.route(['/hr/attendance/workout_validate'], type='json', auth="user", website=True)
+    def workout_validate(self, employee_id=None, **kw):
+        today = datetime.date.today()
+        employee = request.env['hr.employee'].browse(int(employee_id))
+        works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
+        return 'confirm' if len(works_in_day) < 1 else 'receipt'
+
     @http.route(['/hr/attendance/training'], type='json', auth="user", website=True)
     def training(self, employee_id=None, **kw):
         employee = request.env['hr.employee'].browse(int(employee_id))

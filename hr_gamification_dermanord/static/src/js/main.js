@@ -9,8 +9,16 @@ function employee_state(id){
                 $("#hr_employee").val(data['id']);
                 $("#login").addClass("hidden");
                 $("#logout").removeClass("hidden");
-                $("#go_training").removeClass("hidden");
-                $("#go_workout").removeClass("hidden");
+                openerp.jsonRpc("/hr/attendance/training_validate", 'call', {
+                    'employee_id': $("#hr_employee").val(),
+                }).done(function(data){
+                    return (data == 'confirm') ? $("#go_training").removeClass("hidden") : $("#go_training").addClass("hidden");
+                });
+                openerp.jsonRpc("/hr/attendance/workout_validate", 'call', {
+                    'employee_id': $("#hr_employee").val(),
+                }).done(function(data){
+                    return (data == 'confirm') ? $("#go_workout").removeClass("hidden") : $("#go_workout").addClass("hidden");
+                });
             }
             if(data['state'] == "absent") {
                 $("#hr_employee").val(data['id']);

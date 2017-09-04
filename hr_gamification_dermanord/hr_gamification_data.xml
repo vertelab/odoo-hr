@@ -17,8 +17,8 @@
         </record>
 
         <!-- gamification.goal.definition -->
-        <record id="gamification_goal_definition_training" model="gamification.goal.definition">
-            <field name="name">Def Training</field>
+        <record id="gamification_goal_definition_training_max" model="gamification.goal.definition">
+            <field name="name">Def Training Max</field>
             <field name="computation_mode">count</field>
             <field name="model_id" ref="project.model_project_task_work"/>
             <field name="field_date_id" ref="project.field_project_task_work_date"/>
@@ -26,8 +26,26 @@
             <field name="condition">higher</field>
             <field name="display_mode">progress</field>
         </record>
-        <record id="gamification_goal_definition_workout" model="gamification.goal.definition">
-            <field name="name">Def Workout</field>
+        <record id="gamification_goal_definition_training_min" model="gamification.goal.definition">
+            <field name="name">Def Training Min</field>
+            <field name="computation_mode">count</field>
+            <field name="model_id" ref="project.model_project_task_work"/>
+            <field name="field_date_id" ref="project.field_project_task_work_date"/>
+            <field name="domain" eval="'''[('task_id', '=', %s), ('user_id', '=', user.id)]''' %ref('hr_gamification_dermanord.task_training')"/>
+            <field name="condition">higher</field>
+            <field name="display_mode">progress</field>
+        </record>
+        <record id="gamification_goal_definition_workout_max" model="gamification.goal.definition">
+            <field name="name">Def Workout Max</field>
+            <field name="computation_mode">count</field>
+            <field name="model_id" ref="project.model_project_task_work"/>
+            <field name="field_date_id" ref="project.field_project_task_work_date"/>
+            <field name="domain" eval="'''[('task_id', '=', %s), ('user_id', '=', user.id)]''' %ref('hr_gamification_dermanord.task_workout')"/>
+            <field name="condition">higher</field>
+            <field name="display_mode">progress</field>
+        </record>
+        <record id="gamification_goal_definition_workout_min" model="gamification.goal.definition">
+            <field name="name">Def Workout Min</field>
             <field name="computation_mode">count</field>
             <field name="model_id" ref="project.model_project_task_work"/>
             <field name="field_date_id" ref="project.field_project_task_work_date"/>
@@ -95,40 +113,69 @@
         </record>
 
         <!-- gamification.challenge.line -->
-        <record id="gamification_challenge_line_training_gold" model="gamification.challenge.line">
-            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_training"/>
+        <record id="gamification_challenge_line_training_gold_min" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_training_min"/>
             <field name="condition">higher</field>
             <field name="target_goal">20.0</field>
             <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_training_gold"/>
         </record>
-        <record id="gamification_challenge_line_training_silver" model="gamification.challenge.line">
-            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_training"/>
+
+        <record id="gamification_challenge_line_training_silver_min" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_training_min"/>
             <field name="condition">higher</field>
             <field name="target_goal">16.0</field>
             <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_training_silver"/>
         </record>
-        <record id="gamification_challenge_line_training_bronze" model="gamification.challenge.line">
-            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_training"/>
+        <record id="gamification_challenge_line_training_silver_max" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_training_max"/>
+            <field name="condition">lower</field>
+            <field name="target_goal">19.0</field>
+            <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_training_silver"/>
+        </record>
+
+        <record id="gamification_challenge_line_training_bronze_min" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_training_min"/>
             <field name="condition">higher</field>
             <field name="target_goal">12.0</field>
             <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_training_bronze"/>
         </record>
-        <record id="gamification_challenge_line_workout_gold" model="gamification.challenge.line">
-            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_workout"/>
+        <record id="gamification_challenge_line_training_bronze_max" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_training_max"/>
+            <field name="condition">lower</field>
+            <field name="target_goal">15.0</field>
+            <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_training_bronze"/>
+        </record>
+
+        <record id="gamification_challenge_line_workout_gold_min" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_workout_min"/>
             <field name="condition">higher</field>
             <field name="target_goal">20.0</field>
             <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_workout_gold"/>
         </record>
-        <record id="gamification_challenge_line_workout_silver" model="gamification.challenge.line">
-            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_workout"/>
+
+        <record id="gamification_challenge_line_workout_silver_min" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_workout_min"/>
             <field name="condition">higher</field>
             <field name="target_goal">16.0</field>
             <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_workout_silver"/>
         </record>
-        <record id="gamification_challenge_line_workout_bronze" model="gamification.challenge.line">
-            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_workout"/>
+        <record id="gamification_challenge_line_workout_silver_max" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_workout_max"/>
+            <field name="condition">lower</field>
+            <field name="target_goal">19.0</field>
+            <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_workout_silver"/>
+        </record>
+
+        <record id="gamification_challenge_line_workout_bronze_min" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_workout_min"/>
             <field name="condition">higher</field>
             <field name="target_goal">12.0</field>
+            <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_workout_bronze"/>
+        </record>
+        <record id="gamification_challenge_line_workout_bronze_max" model="gamification.challenge.line">
+            <field name="definition_id" ref="hr_gamification_dermanord.gamification_goal_definition_workout_max"/>
+            <field name="condition">lower</field>
+            <field name="target_goal">15.0</field>
             <field name="challenge_id" ref="hr_gamification_dermanord.gamification_challenge_workout_bronze"/>
         </record>
 
