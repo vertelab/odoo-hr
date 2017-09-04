@@ -22,7 +22,7 @@
 from openerp import models, fields, api, _
 from openerp import http
 from openerp.http import request
-import datetime
+import datetime, calendar
 import pytz
 import logging
 _logger = logging.getLogger(__name__)
@@ -41,37 +41,39 @@ class Workout(http.Controller):
         local_dt = pytz.utc.localize(dt).astimezone(pytz.timezone(tz_name))
         return fields.Datetime.to_string(local_dt)
 
+    def get_dates_in_week(self):
+        today = datetime.date.today()
+        return [today + datetime.timedelta(days=i) for i in range(0 - today.weekday(), 7 - today.weekday())]
+
+    def get_dates_in_month(self):
+        today = fields.Date.today()
+        year = int(fields.Date.today()[:4])
+        month = int(fields.Date.today()[5:7])
+        num_days = calendar.monthrange(year, month)[1]
+        return [datetime.date(year, month, day) for day in range(1, num_days+1)]
+
     @http.route(['/hr/attendance/training_validate'], type='json', auth="user", website=True)
     def training_validate(self, employee_id=None, **kw):
-        today = datetime.date.today()
-        dates_in_week = [today + datetime.timedelta(days=i) for i in range(0 - today.weekday(), 7 - today.weekday())]
         employee = request.env['hr.employee'].browse(int(employee_id))
         contract = employee.contract_ids[0]
         if contract:
-            works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
+            works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
             if not contract.max_training_count_per_day and contract.max_training_count_per_day != 0:
                 return 'confirm'
             elif len(works_in_day) < contract.max_training_count_per_day:
-                works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in dates_in_week)
+                works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_week())
                 return 'confirm' if len(works_in_week) < contract.max_training_count_per_week else 'receipt'
             else:
                 return 'receipt'
         else:
             return 'receipt'
 
-    @http.route(['/hr/attendance/workout_validate'], type='json', auth="user", website=True)
-    def workout_validate(self, employee_id=None, **kw):
-        today = datetime.date.today()
+    @http.route(['/hr/attendance/training_status'], type='json', auth="user", website=True)
+    def training_status(self, employee_id=None, **kw):
         employee = request.env['hr.employee'].browse(int(employee_id))
-        contract = employee.contract_ids[0]
-        if contract:
-            works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
-            if not contract.max_workout_count_per_day and contract.max_workout_count_per_day != 0:
-                return 'confirm'
-            else:
-                return 'confirm' if len(works_in_day) < contract.max_workout_count_per_day else 'receipt'
-        else:
-            return 'receipt'
+        works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_week())
+        works_in_month = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_month())
+        return {'works_in_week': len(works_in_week), 'works_in_month': len(works_in_month)}
 
     @http.route(['/hr/attendance/training'], type='json', auth="user", website=True)
     def training(self, employee_id=None, **kw):
@@ -84,6 +86,26 @@ class Workout(http.Controller):
             'task_id': request.env.ref('hr_gamification_dermanord.task_training').id,
         })
         return 'done' if work else ''
+
+    @http.route(['/hr/attendance/workout_validate'], type='json', auth="user", website=True)
+    def workout_validate(self, employee_id=None, **kw):
+        employee = request.env['hr.employee'].browse(int(employee_id))
+        contract = employee.contract_ids[0]
+        if contract:
+            works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
+            if not contract.max_workout_count_per_day and contract.max_workout_count_per_day != 0:
+                return 'confirm'
+            else:
+                return 'confirm' if len(works_in_day) < contract.max_workout_count_per_day else 'receipt'
+        else:
+            return 'receipt'
+
+    @http.route(['/hr/attendance/workout_status'], type='json', auth="user", website=True)
+    def workout_status(self, employee_id=None, **kw):
+        employee = request.env['hr.employee'].browse(int(employee_id))
+        works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_week())
+        works_in_month = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_month())
+        return {'works_in_week': len(works_in_week), 'works_in_month': len(works_in_month)}
 
     @http.route(['/hr/attendance/workout'], type='json', auth="user", website=True)
     def workout(self, employee_id=None, **kw):

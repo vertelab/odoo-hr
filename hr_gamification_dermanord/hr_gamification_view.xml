@@ -34,14 +34,19 @@
                     </div>
                 </div>
             </xpath>
+            <xpath expr="//div[@id='employee_time_bank']" position="after">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <h4 id="training_status"/>
+                    <h4 id="workout_status"/>
+                </div>
+            </xpath>
             <xpath expr="//head" position="inside">
                 <link href="/hr_gamification_dermanord/static/src/css/main.css" rel="stylesheet"/>
             </xpath>
-            <xpath expr="//body" position="inside">
+            <xpath expr="//script[@src='/hr_attendance_terminal/static/src/js/attendance.js']" position="after">
                 <script src="/hr_gamification_dermanord/static/src/js/main.js" type="text/javascript" />
             </xpath>
         </template>
-
 
     </data>
 </openerp>
