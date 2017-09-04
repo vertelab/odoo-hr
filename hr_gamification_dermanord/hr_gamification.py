@@ -30,9 +30,9 @@ _logger = logging.getLogger(__name__)
 class hr_contract(models.Model):
     _inherit = 'hr.contract'
 
-    max_training_count_per_day = fields.Integer(string='Max training per day', help='This parameter presents how many time this employee can do training each day. Leave empty if this employee is not allowed to go training.', default=1)
-    max_training_count_per_week = fields.Integer(string='Max training per week', help='This parameter presents how many time this employee can do training each week. Leave empty if this employee is not allowed to go training.', default=2)
-    max_workout_count_per_day = fields.Integer(string='Max workout per day', help='This parameter presents how many time this employee can do training each day.  Leave empty if this employee is not allowed to go workout.', default=1)
+    max_training_count_per_day = fields.Integer(string='Max training per day', help='This parameter presents how many time this employee can do training each day. Set to 0 if this employee is not allowed to go training. Leave empty to unlimit.', default=1)
+    max_training_count_per_week = fields.Integer(string='Max training per week', help='This parameter presents how many time this employee can do training each week. Set to 0 if this employee is not allowed to go training. Leave empty to unlimit.', default=2)
+    max_workout_count_per_day = fields.Integer(string='Max workout per day', help='This parameter presents how many time this employee can do training each day.  Set to 0 if this employee is not allowed to go workout. Leave empty to unlimit.', default=1)
 
 class Workout(http.Controller):
 
@@ -49,12 +49,11 @@ class Workout(http.Controller):
         contract = employee.contract_ids[0]
         if contract:
             works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
-            _logger.warn(works_in_day)
-            if contract.max_training_count_per_day and len(works_in_day) < contract.max_training_count_per_day:
+            if not contract.max_training_count_per_day and contract.max_training_count_per_day != 0:
+                return 'confirm'
+            elif len(works_in_day) < contract.max_training_count_per_day:
                 works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in dates_in_week)
                 return 'confirm' if len(works_in_week) < contract.max_training_count_per_week else 'receipt'
-            elif not contract.max_training_count_per_day or contract.max_training_count_per_day == 0:
-                return 'confirm'
             else:
                 return 'receipt'
         else:
@@ -67,7 +66,10 @@ class Workout(http.Controller):
         contract = employee.contract_ids[0]
         if contract:
             works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
-            return 'confirm' if len(works_in_day) < contract.max_workout_count_per_day else 'receipt'
+            if not contract.max_workout_count_per_day and contract.max_workout_count_per_day != 0:
+                return 'confirm'
+            else:
+                return 'confirm' if len(works_in_day) < contract.max_workout_count_per_day else 'receipt'
         else:
             return 'receipt'
 
