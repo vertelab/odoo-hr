@@ -51,8 +51,14 @@ msgstr "Anställd"
 #. module: mobile_punch_clock
 #: code:addons/mobile_punch_clock/mobile_punch_clock.py:50
 #, python-format
-msgid "Last %s %s"
-msgstr "Senaste %s %s"
+msgid "Last"
+msgstr "Senaste"
+
+#. module: mobile_punch_clock
+#: code:addons/mobile_punch_clock/mobile_punch_clock.py:50
+#, python-format
+msgid " %s %s"
+msgstr " %s %s"
 
 #. module: mobile_punch_clock
 #: model:ir.actions.server,name:mobile_punch_clock.mobile_punch_clock_server_action

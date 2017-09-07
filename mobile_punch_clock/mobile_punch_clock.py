@@ -47,7 +47,7 @@ class website_punch_clock(http.Controller):
         ctx = {
             'user' : user,
             'signed_in': _("Punch Out") if user.employee_ids[0].state == 'present' else _("Punch In"),
-            'last': _('Last %s %s') %(_("punched in") if user.employee_ids[0].state == 'present' else _("punched out"), fields.Datetime.to_string(last)[:16]),
+            'last': _('Last') + _(' %s %s') %(_("punched in") if user.employee_ids[0].state == 'present' else _("punched out"), fields.Datetime.to_string(last)[:16]),
             }
         return request.render('mobile_punch_clock.mobile_punch_clock_template', ctx)
 

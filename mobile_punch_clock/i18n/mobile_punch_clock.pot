@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * mobile_punch_clock
+#	* mobile_punch_clock
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0-20170906\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-07 11:37+0000\n"
-"PO-Revision-Date: 2017-09-07 11:37+0000\n"
+"POT-Creation-Date: 2017-09-07 13:40+0000\n"
+"PO-Revision-Date: 2017-09-07 13:40+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -33,6 +33,12 @@ msgid " ${'Link for check in'}"
 msgstr ""
 
 #. module: mobile_punch_clock
+#: code:addons/mobile_punch_clock/mobile_punch_clock.py:50
+#, python-format
+msgid " %s %s"
+msgstr ""
+
+#. module: mobile_punch_clock
 #: model:ir.model,name:mobile_punch_clock.model_hr_employee
 msgid "Employee"
 msgstr ""
@@ -40,7 +46,7 @@ msgstr ""
 #. module: mobile_punch_clock
 #: code:addons/mobile_punch_clock/mobile_punch_clock.py:50
 #, python-format
-msgid "Last %s %s"
+msgid "Last"
 msgstr ""
 
 #. module: mobile_punch_clock
