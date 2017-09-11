@@ -2,14 +2,18 @@ function go_training(){
     openerp.jsonRpc("/hr/attendance/training", 'call', {
         'employee_id': $("#hr_employee").val(),
     }).done(function(data){
+        $("#login").addClass("hidden");
+        $("#logout").addClass("hidden");
+        $("#attendance_div").load(document.URL +  " #attendance_div");
         clearContent();
         if(data == "done"){
             $('#hr_employee option[value=""]').attr('selected', true);
-            window.location.reload();
         }
-        else
+        else{
+            clearContent();
             $("#employee_message_error").html("<h2 style='color: #f00;'>" + _t("Cannot registrate your training pass") + "</h2>");
             $('#Log_div').delay(15000).fadeOut('slow');
+        }
     });
 }
 
@@ -17,14 +21,17 @@ function go_workout(){
     openerp.jsonRpc("/hr/attendance/workout", 'call', {
         'employee_id': $("#hr_employee").val(),
     }).done(function(data){
+        $("#login").addClass("hidden");
+        $("#logout").addClass("hidden");
+        $("#attendance_div").load(document.URL +  " #attendance_div");
         clearContent();
         if(data == "done"){
             $('#hr_employee option[value=""]').attr('selected', true);
-            window.location.reload();
         }
-        else
+        else{
             $("#employee_message_error").html("<h2 style='color: #f00;'>" + _t("Cannot registrate your workout pass") + "</h2>");
             $('#Log_div').delay(15000).fadeOut('slow');
+        }
     });
 }
 
