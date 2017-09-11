@@ -2,6 +2,7 @@ function go_training(){
     openerp.jsonRpc("/hr/attendance/training", 'call', {
         'employee_id': $("#hr_employee").val(),
     }).done(function(data){
+        clearContent();
         if(data == "done"){
             $('#hr_employee option[value=""]').attr('selected', true);
             window.location.reload();
@@ -16,6 +17,7 @@ function go_workout(){
     openerp.jsonRpc("/hr/attendance/workout", 'call', {
         'employee_id': $("#hr_employee").val(),
     }).done(function(data){
+        clearContent();
         if(data == "done"){
             $('#hr_employee option[value=""]').attr('selected', true);
             window.location.reload();
@@ -69,7 +71,6 @@ function employee_state(id){
 function get_attendance(id){
 openerp.jsonRpc("/hr/attendance/" + id, 'call', {
     }).done(function(data){
-        console.log($("#hr_employee").val());
         $("#login").addClass("hidden");
         $("#logout").addClass("hidden");
         $("#attendance_div").load(document.URL +  " #attendance_div");
