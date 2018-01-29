@@ -194,5 +194,17 @@
             id="hr_timesheet_invoice_factor_view"
             parent="account.menu_finance_configuration" sequence="25" groups="base.group_no_one"/>
 
+        <record id="hr_timesheet_line_tree" model="ir.ui.view">
+            <field name="name">account.analytic.line.tree.hr_timesheet.inherited.hr_time_sheet_invoice</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="unit_amount" position="after">
+                    <field name="to_invoice"/>
+                    <field name="account_id"/>
+                </field>
+            </field>
+        </record>
+
     </data>
 </odoo>

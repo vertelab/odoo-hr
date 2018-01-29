@@ -33,7 +33,7 @@ You can define price lists in analytic account, make some theoretical revenue
 reports.""",
     'author': 'Vertel AB',
     'website': 'https://vertel.se',
-    'depends': ['account', 'hr_timesheet', 'report'],
+    'depends': ['hr_timesheet', 'report'],
     'data': [
         #~ 'security/ir.model.access.csv',
         'data/hr_timesheet_invoice_data.xml',
