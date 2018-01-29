@@ -140,8 +140,7 @@ class account_analytic_line(models.Model):
         if (not vals.has_key('invoice_id')) or vals['invoice_id' ] == False:
             for line in self.browse(select):
                 if line.invoice_id:
-                    raise Warning(_('Error!'),
-                        _('You cannot modify an invoiced analytic line!'))
+                    raise Warning(_('You cannot modify an invoiced analytic line!'))
         return True
 
     @api.model
@@ -179,6 +178,15 @@ class account_analytic_line(models.Model):
     @api.model
     def _prepare_cost_invoice_line(self, invoice_id, product_id, uom, user_id, factor_id, account, analytic_lines, data):
         total_price = sum(l.amount for l in analytic_lines)
+        if total_price == 0.0:
+            for l in analytic_lines:
+                l.amount = l.product_id.with_context(
+                    partner=l.account_id.partner_id.id,
+                    date_order=l.date,
+                    pricelist=l.account_id.pricelist_id.id,
+                    uom=l.product_uom_id.id
+                ).price*l.unit_amount
+            total_price = sum(l.amount for l in analytic_lines)
         total_qty = sum(l.unit_amount for l in analytic_lines)
 
         if data.get('product'):
@@ -187,7 +195,14 @@ class account_analytic_line(models.Model):
                 product_id = data['product'][0]
             else:
                 product_id = data['product']
-            unit_price = self.with_context(uom=uom)._get_invoice_price(account, product_id, user_id, total_qty)
+            #~ unit_price = self.with_context(uom=uom)._get_invoice_price(account, product_id, user_id, total_qty)
+            unit_price = product_id.with_context(
+                partner=analytic_lines[0].account_id.partner_id.id,
+                date_order=analytic_lines[0].date,
+                pricelist=analytic_lines[0].account_id.pricelist_id.id,
+                uom=analytic_lines[0].product_uom_id.id
+            ).price
+
         #~ elif journal_type == 'general' and product_id:
             # timesheets, use sale price
             #~ unit_price = self.with_context(uom=uom)._get_invoice_price(account, product_id, user_id, total_qty)
