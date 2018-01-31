@@ -361,9 +361,9 @@ class account_move_line(models.Model):
         for move_line in self:
             #For customer invoice, link analytic line to the invoice so it is not proposed for invoicing in Bill Tasks Work
             invoice_id = move_line.invoice_id and move_line.invoice_id.type in ('out_invoice','out_refund') and move_line.invoice_id.id or False
-            for line in move_line.analytic_lines:
-                self.env['account.analytic.line'].write(line.id, {
-                    'invoice_id': invoice_id.id,
+            for line in move_line.analytic_line_ids:
+                line.env['account.analytic.line'].write({
+                    'invoice_id': invoice_id,
                     'to_invoice': line.account_id.to_invoice and line.account_id.to_invoice.id or False
                 })
         return res
