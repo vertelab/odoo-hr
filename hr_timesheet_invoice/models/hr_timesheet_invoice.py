@@ -196,7 +196,7 @@ class account_analytic_line(models.Model):
             else:
                 product_id = data['product']
             #~ unit_price = self.with_context(uom=uom)._get_invoice_price(account, product_id, user_id, total_qty)
-            unit_price = product_id.with_context(
+            unit_price = self.env['product.product'].browse(product_id).with_context(
                 partner=analytic_lines[0].account_id.partner_id.id,
                 date_order=analytic_lines[0].date,
                 pricelist=analytic_lines[0].account_id.pricelist_id.id,
