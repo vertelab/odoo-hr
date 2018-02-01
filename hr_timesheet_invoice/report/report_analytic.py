@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
@@ -23,6 +23,11 @@ from openerp.osv import fields,osv
 from openerp import tools
 from openerp.addons.decimal_precision import decimal_precision as dp
 
+# security rows, copy to access file when report is actived
+#~ access_report_analytic_account_close,report.analytic.account.close,model_report_analytic_account_close,account.group_account_manager,1,0,0,0
+#~ access_report_analytic_account_close_manager,report.analytic.account.close.manager,model_report_analytic_account_close,hr.group_hr_manager,1,1,1,1
+#~ access_report_account_analytic_line_to_invoice,report.account.analytic.line.to.invoice,model_report_account_analytic_line_to_invoice,account.group_account_manager,1,0,0,0
+#~ access_report_account_analytic_line_to_invoice_manager,report.account.analytic.line.to.invoice.manager,model_report_account_analytic_line_to_invoice,hr.group_hr_manager,1,1,1,1
 
 class report_analytic_account_close(osv.osv):
     _name = "report.analytic.account.close"

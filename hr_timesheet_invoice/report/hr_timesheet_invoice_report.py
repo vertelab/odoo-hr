@@ -22,6 +22,14 @@
 from openerp.osv import fields,osv
 from openerp.tools.sql import drop_view_if_exists
 
+# security rows, copy to access file when report is actived
+#~ access_report_timesheet_user,report_timesheet.user,model_report_timesheet_user,hr.group_hr_manager,1,1,1,1
+#~ access_report_timesheet_account,report_timesheet.account,model_report_timesheet_account,hr.group_hr_manager,1,1,1,1
+#~ access_report_timesheet_account_date,report_timesheet.account.date,model_report_timesheet_account_date,hr.group_hr_manager,1,1,1,1
+#~ access_report_timesheet_invoice,report_timesheet.invoice,model_report_timesheet_invoice,hr.group_hr_manager,1,1,1,1
+#~ access_report_timesheet_line_employee,report.timesheet.line.employee,model_report_timesheet_line,hr.group_hr_user,1,1,1,1
+#~ access_report_timesheet_line_employee_user,report.timesheet.line,model_report_timesheet_line,base.group_user,1,1,1,0
+
 class report_timesheet_line(osv.osv):
     _name = "report.timesheet.line"
     _description = "Timesheet Line"
