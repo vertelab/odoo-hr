@@ -35,7 +35,7 @@ reports.""",
     'website': 'https://vertel.se',
     'depends': ['hr_timesheet', 'report'],
     'data': [
-        #~ 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'data/hr_timesheet_invoice_data.xml',
         'views/hr_timesheet_invoice_view.xml',
         'hr_timesheet_invoice_wizard.xml',
