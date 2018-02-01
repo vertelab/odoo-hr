@@ -50,16 +50,17 @@ class hr_timesheet_invoice_create(models.TransientModel):
 
     @api.multi
     def do_create(self):
-        data = self[0].read()[0]
+        data = self.read()[0]
         # Create an invoice based on selected timesheet lines
-        ids = self.env['account.analytic.line'].search([('invoice_id', '=' ,False), ('to_invoice', '<>', False)])
-        invs = []
-        for i in self.env['account.analytic.line'].invoice_cost_create(ids.mapped('id'), data):
-            invs.append(i.id)
+        ids = self.env['account.analytic.line'].search([('invoice_id', '=' ,False), ('to_invoice', '<>', False), ('id', 'in', self._context['active_ids'])])
+        if len(ids) > 0:
+            invs = ids.invoice_cost_create(data)
+        else:
+            invs = self.env['account.analytic.line'].browse()
         mod_ids = self.env['ir.model.data'].search([('name', '=', 'action_invoice_tree1')])
         res_id = mod_ids.read(['res_id'])[0]['res_id']
         act_win = self.env['ir.actions.act_window'].browse(res_id).read()[0]
-        act_win['domain'] = [('id','in',invs),('type','=','out_invoice')]
+        act_win['domain'] = [('id','in',[i.id for i in invs]),('type','=','out_invoice')]
         act_win['name'] = _('Invoices')
         return act_win
 

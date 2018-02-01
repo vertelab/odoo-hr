@@ -222,7 +222,6 @@ class account_analytic_line(models.Model):
             #~ 'uos_id': uom,
             'account_analytic_id': account.id,
         }
-
         if product_id:
             product = self.env['product.product'].with_context(uom=uom).browse(product_id)
             factor_name = self.env['product.product'].with_context(uom=uom).browse(product_id).name_get()[0][1]
@@ -234,8 +233,10 @@ class account_analytic_line(models.Model):
                 raise Warning(_('Error!'), _("Configuration Error!") + '\n' + _("Please define income account for product '%s'.") % product.name)
             taxes = product.taxes_id or general_account.tax_ids
             tax = self.env['account.fiscal.position'].map_tax(account.partner_id.property_account_position_id, taxes)
+            if len(tax) == 0:
+                tax = taxes
             curr_invoice_line.update({
-                'invoice_line_tax_ids': [(6, 0, tax)],
+                'invoice_line_tax_ids': [(6, 0, tax.mapped('id'))],
                 'name': factor_name,
                 'account_id': general_account.id,
             })
@@ -259,8 +260,8 @@ class account_analytic_line(models.Model):
                 curr_invoice_line['name'] += "\n" + ("\n".join(map(lambda x: unicode(x) or '', note)))
         return curr_invoice_line
 
-    @api.model
-    def invoice_cost_create(self, ids, data=None):
+    @api.multi
+    def invoice_cost_create(self, data=None):
         invoices = []
         if data is None:
             data = {}
@@ -271,7 +272,7 @@ class account_analytic_line(models.Model):
 
         currency_id = False
         # prepare for iteration on journal and accounts
-        for line in self.env['account.analytic.line'].browse(ids):
+        for line in self:
 
             key = (line.account_id.id,
                    line.account_id.company_id.id,
@@ -286,6 +287,8 @@ class account_analytic_line(models.Model):
 
             curr_invoice = self._prepare_cost_invoice(partner, company_id, currency_id, analytic_lines)
             last_invoice = self.env['account.invoice'].with_context(lang=partner.lang, force_company=company_id, company_id=company_id).create(curr_invoice)
+            #~ _logger.warn(last_invoice.tax_line_ids)
+            #~ last_invoice._compute_amount()
             invoices.append(last_invoice)
 
             # use key (product, uom, user, invoiceable, analytic account, journal type)
@@ -314,7 +317,6 @@ class account_analytic_line(models.Model):
                 self.env['account.invoice.line'].create(curr_invoice_line)
             for l in analytic_lines:
                 l.invoice_id = last_invoice.id
-            self.env['account.invoice'].compute_taxes()
         return invoices
 
     @api.multi

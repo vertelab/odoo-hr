@@ -47,14 +47,13 @@ class final_invoice_create(models.TransientModel):
     def do_create(self):
         data = self.read()[0]
         # hack for fixing small issue (context should not propagate implicitly between actions)
-        if 'default_type' in self.context:
-            del context['default_type']
-        ids = self.env['account.analytic.line'].search([('invoice_id','=',False),('to_invoice','<>', False), ('account_id', 'in', context['active_ids'])])
-        invs = self.env['account.analytic.line'].invoice_cost_create(data)
-        mod_ids = self.env['ir.model.data'].search([('name', '=', 'action_invoice_tree1')])[0]
-        res_id = self.env['ir.model.data'].read(mod_ids, ['res_id'])['res_id']
-        act_win = self.env['ir.actions.act_window'].read(cr, uid, [res_id], context=context)[0]
-        act_win['domain'] = [('id','in',invs),('type','=','out_invoice')]
+        if 'default_type' in self._context:
+            del self._context['default_type']
+        self.env['account.analytic.line'].search([('invoice_id','=',False),('to_invoice','<>', False), ('id', 'in', self._context['active_ids'])]).invoice_cost_create(data)
+        mod_ids = self.env['ir.model.data'].search([('name', '=', 'action_invoice_tree1')])
+        res_id = mod_ids.read(['res_id'])[0]['res_id']
+        act_win = self.env['ir.actions.act_window'].read([res_id]).read()[0]
+        act_win['domain'] = [('id','in',[i.id for i in invs]),('type','=','out_invoice')]
         act_win['name'] = _('Invoices')
         return act_win
 
