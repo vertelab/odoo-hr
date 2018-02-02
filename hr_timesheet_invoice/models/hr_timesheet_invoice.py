@@ -176,7 +176,7 @@ class account_analytic_line(models.Model):
         }
 
     @api.model
-    def _prepare_cost_invoice_line(self, invoice_id, product_id, uom, user_id, factor_id, account, analytic_lines, data):
+    def _prepare_cost_invoice_line(self, product_id, uom, user_id, factor_id, account, analytic_lines, data):
         total_price = sum(l.amount for l in analytic_lines)
         if total_price == 0.0:
             for l in analytic_lines:
@@ -217,7 +217,7 @@ class account_analytic_line(models.Model):
             'quantity': total_qty,
             'product_id': product_id,
             'discount': factor.factor,
-            'invoice_id': invoice_id.id,
+            #~ 'invoice_id': invoice_id.id,
             'name': factor_name,
             #~ 'uos_id': uom,
             'account_analytic_id': account.id,
@@ -286,10 +286,7 @@ class account_analytic_line(models.Model):
                 raise Warning(_('Contract incomplete. Please fill in the Customer and Pricelist fields for %s.') % (account.name))
 
             curr_invoice = self._prepare_cost_invoice(partner, company_id, currency_id, analytic_lines)
-            last_invoice = self.env['account.invoice'].with_context(lang=partner.lang, force_company=company_id, company_id=company_id).create(curr_invoice)
-            #~ _logger.warn(last_invoice.tax_line_ids)
-            #~ last_invoice._compute_amount()
-            invoices.append(last_invoice)
+            curr_invoice['invoice_line_ids'] = []
 
             # use key (product, uom, user, invoiceable, analytic account, journal type)
             # creates one invoice line per key
@@ -312,9 +309,16 @@ class account_analytic_line(models.Model):
 
             # finally creates the invoice line
             for (product_id, uom, user_id, factor_id, account), lines_to_invoice in invoice_lines_grouping.items():
-                curr_invoice_line = self.with_context(lang=partner.lang, force_company=company_id, company_id=company_id)._prepare_cost_invoice_line(last_invoice,
+                curr_invoice_line = self.with_context(lang=partner.lang, force_company=company_id, company_id=company_id)._prepare_cost_invoice_line(
                     product_id, uom, user_id, factor_id, account, lines_to_invoice, data)
-                self.env['account.invoice.line'].create(curr_invoice_line)
+                curr_invoice['invoice_line_ids'].append((0,0,curr_invoice_line))
+                #~ self.env['account.invoice.line'].create(curr_invoice_line)
+            last_invoice = self.env['account.invoice'].with_context(lang=partner.lang, force_company=company_id, company_id=company_id).create(curr_invoice)
+            last_invoice.compute_taxes()
+            invoices.append(last_invoice)
+            last_invoice.message_post_with_view('mail.message_origin_link',
+                        values={'self': last_invoice, 'origin': analytic_lines[0]},
+                        subtype_id=self.env.ref('mail.mt_note').id)
             for l in analytic_lines:
                 l.invoice_id = last_invoice.id
         return invoices
