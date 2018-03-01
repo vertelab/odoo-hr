@@ -33,6 +33,7 @@ class hr_timesheet_invoice_create(models.TransientModel):
     name = fields.Boolean(string='Description', default=True, help='The detail of each work done will be displayed on the invoice')
     price = fields.Boolean(string='Cost', help='The cost of each work done will be displayed on the invoice. You probably don\'t want to check this')
     product = fields.Many2one(comodel_name='product.product', string='Force Product', help='Fill this field only if you want to force to use a specific product. Keep empty to use the real product that comes from the cost.')
+    separate_work_lines = fields.Boolean(string='Separate Work Lines')
 
     @api.multi
     def view_init(self, fields):
@@ -54,7 +55,7 @@ class hr_timesheet_invoice_create(models.TransientModel):
         # Create an invoice based on selected timesheet lines
         ids = self.env['account.analytic.line'].search([('invoice_id', '=' ,False), ('to_invoice', '<>', False), ('id', 'in', self._context['active_ids'])])
         if len(ids) > 0:
-            invs = ids.invoice_cost_create(data)
+            invs = ids.invoice_cost_create(data, self.separate_work_lines)
         else:
             invs = self.env['account.analytic.line'].browse()
         mod_ids = self.env['ir.model.data'].search([('name', '=', 'action_invoice_tree1')])

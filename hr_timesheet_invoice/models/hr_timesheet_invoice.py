@@ -261,7 +261,7 @@ class account_analytic_line(models.Model):
         return curr_invoice_line
 
     @api.multi
-    def invoice_cost_create(self, data=None):
+    def invoice_cost_create(self, data=None, separate_work_lines=False):
         invoices = []
         if data is None:
             data = {}
@@ -309,9 +309,15 @@ class account_analytic_line(models.Model):
 
             # finally creates the invoice line
             for (product_id, uom, user_id, factor_id, account), lines_to_invoice in invoice_lines_grouping.items():
-                curr_invoice_line = self.with_context(lang=partner.lang, force_company=company_id, company_id=company_id)._prepare_cost_invoice_line(
-                    product_id, uom, user_id, factor_id, account, lines_to_invoice, data)
-                curr_invoice['invoice_line_ids'].append((0,0,curr_invoice_line))
+                if separate_work_lines:
+                    for line_to_invoice in lines_to_invoice:
+                        curr_invoice_line = self.with_context(lang=partner.lang, force_company=company_id, company_id=company_id)._prepare_cost_invoice_line(
+                            product_id, uom, user_id, factor_id, account, line_to_invoice, data)
+                        curr_invoice['invoice_line_ids'].append((0,0,curr_invoice_line))
+                else:
+                    curr_invoice_line = self.with_context(lang=partner.lang, force_company=company_id, company_id=company_id)._prepare_cost_invoice_line(
+                        product_id, uom, user_id, factor_id, account, lines_to_invoice, data)
+                    curr_invoice['invoice_line_ids'].append((0,0,curr_invoice_line))
                 #~ self.env['account.invoice.line'].create(curr_invoice_line)
             _logger.warn(curr_invoice)
             last_invoice = self.env['account.invoice'].with_context(lang=partner.lang, force_company=company_id, company_id=company_id).create(curr_invoice)
