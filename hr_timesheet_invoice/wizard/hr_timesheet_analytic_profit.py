@@ -30,14 +30,8 @@ class account_analytic_profit(models.TransientModel):
     _name = 'hr.timesheet.analytic.profit'
     _description = 'Print Timesheet Profit'
 
-    def _date_from(*a):
-        return datetime.date.today().replace(day=1).strftime('%Y-%m-%d')
-
-    def _date_to(*a):
-        return datetime.date.today().strftime('%Y-%m-%d')
-
-    date_from = fields.Date(string='From', required=True, default=_date_from)
-    date_to = fields.Date(string='To', required=True, default=_date_to)
+    date_from = fields.Date(string='From', required=True, default=lambda *a : fields.Date.today()[:8]+'01')
+    date_to = fields.Date(string='To', required=True, default=lambda *a : fields.Date.today())
     #~ journal_ids = fields.Many2many(comodel_name='account.analytic.journal', relation='analytic_profit_journal_rel', column1='analytic_id', column2='journal_id', string='Journal', required=True)
     employee_ids = fields.Many2many(comodel_name='res.users', relation='analytic_profit_emp_rel', column1='analytic_id', column2='emp_id', string='User', required=True)
 

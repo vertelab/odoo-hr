@@ -159,13 +159,13 @@ class account_analytic_line(models.Model):
 
         date_due = False
         if partner.property_payment_term_id:
-            pterm_list = self.env['account.payment.term'].compute(partner.property_payment_term_id.id, value=1, date_ref=time.strftime('%Y-%m-%d'))
+            pterm_list = partner.property_payment_term_id.compute(value=1, date_ref=fields.Date.today())
             if pterm_list:
                 pterm_list = [line[0] for line in pterm_list]
                 pterm_list.sort()
-                date_due = pterm_list[-1]
+                date_due = pterm_list[-1][0]
         return {
-            'name': "%s - %s" % (time.strftime('%d/%m/%Y'), invoice_name),
+            'name': "%s - %s" % (fields.Date.today(), invoice_name),
             'partner_id': partner.id,
             'company_id': company_id,
             'payment_term_id': partner.property_payment_term_id.id or False,
@@ -313,6 +313,7 @@ class account_analytic_line(models.Model):
                     product_id, uom, user_id, factor_id, account, lines_to_invoice, data)
                 curr_invoice['invoice_line_ids'].append((0,0,curr_invoice_line))
                 #~ self.env['account.invoice.line'].create(curr_invoice_line)
+            _logger.warn(curr_invoice)
             last_invoice = self.env['account.invoice'].with_context(lang=partner.lang, force_company=company_id, company_id=company_id).create(curr_invoice)
             last_invoice.compute_taxes()
             invoices.append(last_invoice)
