@@ -35,25 +35,25 @@ class hr_timesheet_invoice_create(models.TransientModel):
     product = fields.Many2one(comodel_name='product.product', string='Force Product', help='Fill this field only if you want to force to use a specific product. Keep empty to use the real product that comes from the cost.')
     separate_work_lines = fields.Boolean(string='Separate Work Lines')
 
-    @api.multi
-    def view_init(self, fields):
-        """
-        This function checks for precondition before wizard executes
-        @param self: The object pointer
-        @param cr: the current row, from the database cursor,
-        @param uid: the current user’s ID for security checks,
-        @param fields: List of fields for default value
-        @param context: A standard dictionary for contextual values
-        """
-        for analytic in self.env['account.analytic.line'].browse(self.env.context.get('active_ids', [])):
-            if analytic.invoice_id:
-                raise Warning(_("Invoice is already linked to some of the analytic line(s)!"))
+    #~ @api.multi
+    #~ def view_init(self, fields):
+        #~ """
+        #~ This function checks for precondition before wizard executes
+        #~ @param self: The object pointer
+        #~ @param cr: the current row, from the database cursor,
+        #~ @param uid: the current user’s ID for security checks,
+        #~ @param fields: List of fields for default value
+        #~ @param context: A standard dictionary for contextual values
+        #~ """
+        #~ for analytic in self.env['account.analytic.line'].browse(self.env.context.get('active_ids', [])).filtered(lambda l: not l.invoice_id):
+            #~ if analytic.invoice_id:
+                #~ raise Warning(_("Invoice is already linked to some of the analytic line(s)!"))
 
     @api.multi
     def do_create(self):
         data = self.read()[0]
         # Create an invoice based on selected timesheet lines
-        ids = self.env['account.analytic.line'].search([('invoice_id', '=' ,False), ('to_invoice', '<>', False), ('id', 'in', self._context['active_ids'])])
+        ids = self.env['account.analytic.line'].search([('invoice_id', '=' ,False), ('to_invoice', '<>', False), ('id', 'in', self._context['active_ids'])]).filtered(lambda l: not l.invoice_id)
         if len(ids) > 0:
             invs = ids.invoice_cost_create(data, self.separate_work_lines)
         else:
