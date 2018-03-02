@@ -202,6 +202,7 @@
             <field name="arch" type="xml">
                 <field name="unit_amount" position="after">
                     <field name="to_invoice"/>
+                    <field name="invoice_id"/>
                 </field>
             </field>
         </record>
