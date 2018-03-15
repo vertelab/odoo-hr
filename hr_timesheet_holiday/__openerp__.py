@@ -12,6 +12,7 @@
     'description': """View spent and earned holiday on the timesheets.
 """,
     'author': 'Vertel AB',
+    'license': 'AGPL-3',
     'website': 'http://www.vertel.se',
     'depends': ['hr_timesheet_sheet','hr_holidays', 'hr_weekly_working_hours'],
     'data': [

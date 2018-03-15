@@ -25,6 +25,7 @@
 'category': 'payroll',
 'description': """""",
 'author': 'Vertel AB',
+    'license': 'AGPL-3',
 'website': 'http://www.vertel.se',
 'depends': ['hr_attendance_wizard', 'hr_timesheet_sheet'],
 'data': [],
