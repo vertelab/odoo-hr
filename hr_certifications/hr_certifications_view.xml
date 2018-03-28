@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_employee_form_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="job_id" position="after">
+                    <field name="date_start"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_employee_tree_inherit" model="ir.ui.view">
+            <field name="name">hr.employee.tree.inherit</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_tree"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="date_start"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+                <notebook position="inside">
+                    <page string="Certifications/quittance">
+                    
+                        <field name="certification_o"
+                    </page>
+                
+                
+                </notebook>
+
+            <field name="arch" type="xml">
+                <form string="Employee">
+                    <sheet>
+                        <field name="image_medium" widget='image' class="oe_left oe_avatar"/>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                            <label for="category_ids" class="oe_edit_only" groups="base.group_hr_user"/>
+                            <field name="category_ids" widget="many2many_tags" placeholder="e.g. Part Time" groups="base.group_hr_user"/>
+                            <label for="work_email" class="oe_edit_only"/>
+                            <field name="work_email" widget="email"/>
+                            <label for="work_phone" class="oe_edit_only"/>
+                            <field name="work_phone"/>
+                        </div>
+                        <div class="oe_right oe_button_box" name="button_box">
+                            <!-- Put here related buttons -->
+                        </div>
+                        <notebook>
+
+
+
+        <!-- Employee Certification State -->
+
+        <record id="view_hr_certification_state_form" model="ir.ui.view">
+            <field name="name">hr.certification.state.form</field>
+            <field name="model">hr.certification.state</field>
+            <field name="arch" type="xml">
+                <form string="Employee Certification State">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <div>
+                            <field name="fold" class="oe_inline"/>
+                        </div>
+                        <group>
+                            <field name="sequence"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_hr_certification_state_tree" model="ir.ui.view">
+            <field name="name">hr.certification.state.tree</field>
+            <field name="model">hr.certification.state</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Certification State">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="fold"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_certification_state_filter" model="ir.ui.view">
+            <field name="name">hr.certification.state.filter</field>
+            <field name="model">hr.certification.state</field>
+            <field name="arch" type="xml">
+                <search string="Search Employee Certification State">
+                    <field name="name" string="Name"/>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_hr_certification_state" model="ir.actions.act_window">
+            <field name="name">Employee Certification State</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.certification.state</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_hr_certification_state_filter"/>
+        </record>
+
+        <menuitem action="action_hr_certification_state" id="menu_state" parent="menu_hr" sequence="21" groups="base.group_hr_manager"/>
+
+
+
+    </data>
+</openerp>
