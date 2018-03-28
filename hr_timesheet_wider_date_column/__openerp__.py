@@ -30,6 +30,7 @@ Add CSS for HR timesheet date column to make it wider
 """,
     'images': [],
     'author': 'Vertel AB',
+    'license': 'AGPL-3',
     'website': 'http://www.vertel.se',
     'depends': ['hr_timesheet'],
     'data': ['hr_timesheet_view.xml',

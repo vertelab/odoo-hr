@@ -12,6 +12,7 @@
     'description': """Adds employee names to holiday descriptions, so they show in the event calendar when holiday is confirmed.
 """,
     'author': 'Vertel AB',
+    'license': 'AGPL-3',
     'website': 'http://www.vertel.se',
     'depends': ['hr_holidays'],
     'data': [],

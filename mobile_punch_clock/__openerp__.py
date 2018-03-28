@@ -30,6 +30,7 @@ url: /punchclock/
 """,
     'images': ['static/description/img.png'],
     'author': 'Vertel AB',
+    'license': 'AGPL-3',
     'website': 'http://www.vertel.se',
     'depends': ['mail', 'website', 'hr_attendance'],
     'data': ['mobile_punch_clock_view.xml',
