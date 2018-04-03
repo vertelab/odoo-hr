@@ -20,7 +20,7 @@ non-disclosure agreements and such documents
     """,
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
-    'depends': ['hr'],
+    'depends': ['hr','account_asset'],
     'data': [
         'hr_certifications_view.xml',
         'hr_certifications_data.xml',

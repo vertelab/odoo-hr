@@ -1,9 +1,9 @@
 id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
-access_hr_certifications_user,hr.certifications.user,model_hr_certifications,base.group_hr_user,1,0,0,0
-access_hr_certifications_officer,hr.certifications.officer,model_hr_certifications,base.group_hr_officer,1,1,1,1
-access_hr_certifications_type_user,hr.certifications.type.user,model_hr_certifications_type,base.group_hr_user,1,0,0,0
-access_hr_certifications_type_officer,hr.certifications.type.officer,model_hr_certifications_type,base.group_hr_officer,1,1,1,1
-access_hr_certifications_state_user,hr.certifications.state.user,model_hr_certifications_state,base.group_hr_user,1,0,0,0
-access_hr_certifications_state_officer,hr.certifications.state.officer,model_hr_certifications_state,base.group_hr_officer,1,1,1,1
+access_hr_certifications_user,hr.certifications.user,model_hr_certification,base.group_user,1,0,0,0
+access_hr_certifications_officer,hr.certifications.officer,model_hr_certification,base.group_hr_user,1,1,1,1
+access_hr_certifications_type_user,hr.certifications.type.user,model_hr_certification_type,base.group_user,1,0,0,0
+access_hr_certifications_type_officer,hr.certifications.type.officer,model_hr_certification_type,base.group_hr_user,1,1,1,1
+access_hr_certifications_state_user,hr.certifications.state.user,model_hr_certification_state,base.group_user,1,0,0,0
+access_hr_certifications_state_officer,hr.certifications.state.officer,model_hr_certification_state,base.group_hr_user,1,1,1,1
 
 

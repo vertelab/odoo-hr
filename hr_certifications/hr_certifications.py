@@ -28,6 +28,17 @@ class hr_employee(models.Model):
     _inherit = 'hr.employee'
 
     certification_ids = fields.One2many(comodel_name="hr.certification",inverse_name='employee_id')
+    @api.one
+    def _cert_count(self):
+        self.cert_count = len(self.certification_ids)
+    cert_count = fields.Integer(compute='_cert_count')
+
+    assets_ids = fields.One2many(comodel_name="account.asset.asset",inverse_name='employee_id')
+    
+    @api.one
+    def _asset_count(self):
+        self.asset_count = len(self.assets_ids)
+    asset_count = fields.Integer(compute='_asset_count')
 
 class hr_certification(models.Model):
     """
@@ -36,22 +47,33 @@ class hr_certification(models.Model):
     _name = 'hr.certification'
     _description = "Employee Certification"
     _inherit = ['mail.thread']
-
-    @api.model
-    def _get_state_selection(self):
-        states = self.env['hr.certifications.state'].search([], order='sequence')
-        return [(state.technical_name, state.name) for state in states]
+    
     
     name = fields.Char(string="Name", translate=True, required=True)
     color = fields.Integer(string='Color Index')
-    state_id = fields.Many2one(comodel_name='hr.certifications.state', string='State', required=True, default=_default_state_id, track_visibility='onchange')
-    state = fields.Selection(selection=_get_state_selection, compute='_compute_state')
-    type_id = fields.Many2one(comodel_name='hr.certifications.type', string='Type', required=True,)
+    type_id = fields.Many2one(comodel_name='hr.certification.type', string='Type', required=True,)
     employee_id = fields.Many2one(comodel_name='hr.employee', string='Employee',)
     product_id = fields.Many2one(comodel_name='product.product')
     serial_no = fields.Char()
     imei_no = fields.Char()
-    mode = fields.Reference(related='type_id.mode', string="Mode", help="")
+    #~ mode = fields.Selection(related='type_id.mode', string="Mode", help="")
+
+    @api.model
+    def _get_state_selection(self):
+        states = self.env['hr.certification.state'].search([], order='sequence')
+        return [(state.technical_name, state.name) for state in states]
+    
+    @api.model
+    def _default_state_id(self):
+        return self.env['hr.certification.state'].search([], order='sequence', limit=1)
+    
+    @api.one
+    def _compute_state(self):
+        self.state = self.state_id.technical_name
+
+    state_id = fields.Many2one(comodel_name='hr.certification.state', string='State', required=True, default=_default_state_id, track_visibility='onchange')
+    state = fields.Selection(selection=_get_state_selection, compute='_compute_state')
+    
 
 
 class hr_certification_type(models.Model):
@@ -78,3 +100,28 @@ class hr_certification_state(models.Model):
     sequence = fields.Integer(string='Sequence')
     fold = fields.Boolean(string='Folded in Kanban View', help='This stage is folded in the kanban view when there are no records in that state to display.')
 
+
+
+class account_asset_asset(models.Model):
+    _name = 'account.asset.asset'
+    _inherit = ['account.asset.asset','mail.thread']
+    employee_id = fields.Many2one(comodel_name='hr.employee',string="Employee",track_visibility='onchange')
+
+    #~ field_code = fields.Char(string='Code',required=lambda s: s.category_id.field_code,invisible=lambda s: not s.category_id.field_code )
+    field_code = fields.Char(string='Code',required=False,invisible=False)
+    field_cat_code = fields.Boolean(related="category_id.field_code",invisible=True)
+    field_serialno = fields.Char(string='Serial Number')
+    field_cat_serialno = fields.Boolean(related="category_id.field_serialno",invisible=True)
+    field_imei = fields.Char(string='IMEI',help="International Mobile Equipment Identity (Phone) ")
+    field_cat_imei = fields.Boolean(related="category_id.field_imei",invisible=True)
+    field_license_plate = fields.Char(string='License Plate',help="Licence plate on a vehicle")
+    field_cat_license_plate = fields.Boolean(related="category_id.field_license_plate",invisible=True)
+
+
+class account_asset_category(models.Model):
+    _inherit = 'account.asset.category'
+
+    field_code = fields.Boolean('Code field')
+    field_serialno = fields.Boolean('Serial Number field')
+    field_imei = fields.Boolean('IMEI field',help="International Mobile Equipment Identity (Phone) ")
+    field_license_plate = fields.Boolean('License Plate field',help="Licence plate on a vehicle")
