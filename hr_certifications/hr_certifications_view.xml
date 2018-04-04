@@ -31,7 +31,7 @@
         <field name="res_model">account.asset.asset</field>
         <field name="view_type">tree</field>
         <field name="domain">[('employee_id','=',1)]</field>
-        <field name="view_id" ref="account_asset_management.view_account_asset_asset_tree"/>
+        <field name="view_id" ref="account_asset.view_account_asset_asset_tree"/>
     </record>
 -->
 
@@ -54,7 +54,7 @@
         <field name="view_type">form</field>
         <field name="view_id" ref="view_my_account_asset_asset_tree"/>
 <!--
-        <field name="search_view_id" ref="account_asset_management.view_account_asset_search"/>
+        <field name="search_view_id" ref="account_asset.view_account_asset_search"/>
 -->
         <field name="domain">[('employee_id','=',uid)]</field>
     </record>
@@ -64,8 +64,8 @@
         <field name="name">Assets</field>
         <field name="res_model">account.asset.asset</field>
         <field name="view_type">form</field>
-        <field name="view_id" ref="account_asset_management.view_account_asset_asset_tree"/>
-        <field name="search_view_id" ref="account_asset_management.view_account_asset_search"/>
+        <field name="view_id" ref="account_asset.view_account_asset_asset_tree"/>
+        <field name="search_view_id" ref="account_asset.view_account_asset_search"/>
         <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id,'default_remaining_value': 0.001 , 'default_depreciated_value': 0.001 }</field>
     </record>
     
@@ -73,7 +73,7 @@
         <record id="view_account_asset_search" model="ir.ui.view">
         <field name="name">account.asset.asset.search</field>
         <field name="model">account.asset.asset</field>
-            <field name="inherit_id" ref="account_asset_management.view_account_asset_search"/>
+            <field name="inherit_id" ref="account_asset.view_account_asset_search"/>
 
         <field name="arch" type="xml">
                 <field name="category_id" position='after'>
@@ -82,11 +82,11 @@
                     <field name="parent_id"/>
                 </field> 
                 
-                <filter string="Category" position='after'>
+                <field name="partner_id" position='after'>
                     <filter string="Employee"  domain="" context="{'group_by':'employee_id'}"/>
                     <filter string="Parent Category"  domain="" context="{'group_by':'parent_id'}"/>
                 
-                </filter>
+                </field>
         </field>
     </record>
     
@@ -288,7 +288,7 @@
     <record model="ir.ui.view" id="view_account_asset_category_form">
         <field name="name">account.asset.category.form</field>
         <field name="model">account.asset.category</field>
-        <field name="inherit_id" ref="account_asset_management.view_account_asset_category_form"/>
+        <field name="inherit_id" ref="account_asset.view_account_asset_category_form"/>
         <field name="arch" type="xml">
              <field name="company_id" position='after'>
                 <field name="field_code"/>
@@ -306,7 +306,7 @@
     <record model="ir.ui.view" id="view_account_asset_asset_form">
         <field name="name">account.asset.asset.form</field>
         <field name="model">account.asset.asset</field>
-        <field name="inherit_id" ref="account_asset_management.view_account_asset_asset_form"/>
+        <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
         <field name="arch" type="xml">
             <field name="partner_id" position='after'>
                 <field name="employee_id"/>
