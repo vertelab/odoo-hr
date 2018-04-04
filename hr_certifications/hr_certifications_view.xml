@@ -34,6 +34,31 @@
         <field name="view_id" ref="account_asset_management.view_account_asset_asset_tree"/>
     </record>
 -->
+
+    <record model="ir.ui.view" id="view_my_account_asset_asset_tree">
+        <field name="name">account.asset.asset.my.tree</field>
+        <field name="model">account.asset.asset</field>
+        <field name="arch" type="xml">
+            <tree string="Assets" colors="blue:(state == 'draft');grey:(state == 'close')">
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="is_signed"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_my_account_asset_asset_tree">
+        <field name="name">My Assets</field>
+        <field name="res_model">account.asset.asset</field>
+        <field name="view_type">form</field>
+        <field name="view_id" ref="view_my_account_asset_asset_tree"/>
+<!--
+        <field name="search_view_id" ref="account_asset_management.view_account_asset_search"/>
+-->
+        <field name="domain">[('employee_id','=',uid)]</field>
+    </record>
+    
     
     <record model="ir.actions.act_window" id="action_account_asset_asset_tree">
         <field name="name">Assets</field>
@@ -41,6 +66,7 @@
         <field name="view_type">form</field>
         <field name="view_id" ref="account_asset_management.view_account_asset_asset_tree"/>
         <field name="search_view_id" ref="account_asset_management.view_account_asset_search"/>
+        <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id,'default_remaining_value': 0.001 , 'default_depreciated_value': 0.001 }</field>
     </record>
     
     
@@ -52,10 +78,13 @@
         <field name="arch" type="xml">
                 <field name="category_id" position='after'>
                     <field name="employee_id"/>
+                    <field name="is_signed"/>
+                    <field name="parent_id"/>
                 </field> 
                 
                 <filter string="Category" position='after'>
                     <filter string="Employee"  domain="" context="{'group_by':'employee_id'}"/>
+                    <filter string="Parent Category"  domain="" context="{'group_by':'parent_id'}"/>
                 
                 </filter>
         </field>
@@ -73,18 +102,29 @@
             <field name="model">hr.certification</field>
             <field name="arch" type="xml">
                 <form string="Employee Certification">
+                    <header>
+                        <field name="state" widget="statusbar" clickable="True"/>
+                    </header>
                     <sheet>
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>
                             <h1><field name="name"/></h1>
                         </div>
-                        <div>
-                                                <field name="name"/>
-                    <field name="type_id"/>
-                    <field name="state"/>
-                        </div>
-
+                     
+                    <group> 
+                        <field name="type_id"/>
+                        <field name="is_signed"/>
+                        <field name="date_start" class="oe_inline"/> " - "
+                        <field name="date_end" class="oe_inline"/> 
+                        <field name="template" readonly="1" attrs="{'invisible': [('template', '==', None)]}"/>                   
+                    </group>
+                    <div><field name="description"/></div>
+                
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -108,6 +148,7 @@
                 <search string="Search Employee Certification">
                     <field name="name" string="Name"/>
                     <field name="type_id" />
+                    <field name="employee_id" />
                     <field name="state" />
                      <filter string="Type"  domain="" context="{'group_by':'type_id'}"/>
                      <filter string="State"  domain="" context="{'group_by':'state_id'}"/>
@@ -123,6 +164,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
             <field name="search_view_id" ref="view_hr_certification_filter"/>
+            <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id}</field>
         </record>
 
 
@@ -137,7 +179,7 @@
                         <field name="asset_count" widget="statinfo" string="Assets"/>
                     </button>
                     <button name="%(action_hr_certification)d" type="action" class="oe_stat_button" icon="fa-book" groups="base.group_hr_user">
-                        <field name="asset_count" widget="statinfo" string="Cert/Agreement"/>
+                        <field name="cert_count" widget="statinfo" string="Cert/Agreement"/>
                     </button>
                     
                 </div>
@@ -156,6 +198,32 @@
                 
                 </notebook>
 -->
+            </field>
+        </record>
+
+   <!-- Employee Certification State -->
+
+        <record id="view_hr_certification_type_form" model="ir.ui.view">
+            <field name="name">hr.certification.type.form</field>
+            <field name="model">hr.certification.type</field>
+            <field name="arch" type="xml">
+                <form string="Employee Certification Type">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <div>
+                           
+                        </div>
+                        <group>
+                             <field name="mode" />
+                             <field name="template" />
+                             <field name="validity_days" />
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
             </field>
         </record>
 
@@ -242,11 +310,12 @@
         <field name="arch" type="xml">
             <field name="partner_id" position='after'>
                 <field name="employee_id"/>
+                <field name="is_signed"/>
                 <field name="field_code" attrs="{'invisible': [('field_cat_code', '!=', True)],'required': [('field_cat_code', '==', True)]}"/>
                 <field name="field_serialno" attrs="{'invisible': [('field_cat_serialno', '!=', True)],'required': [('field_cat_serialno', '==', True)]}"/>
-
                 <field name="field_imei" attrs="{'invisible': [('field_cat_imei', '!=', True)],'required': [('field_cat_imei', '==', True)]}"/>
                 <field name="field_license_plate" attrs="{'invisible': [('field_cat_license_plate', '!=', True)],'required': [('field_cat_license_plate', '==', True)]}"/>
+                
                 <field name="field_cat_license_plate" invisible="1"/>
                 <field name="field_cat_imei" invisible="1"/>
                 <field name="field_cat_serialno" invisible="1"/>

@@ -20,6 +20,8 @@
 ##############################################################################
 
 from openerp import models, fields, api, _
+from datetime import datetime, timedelta
+
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -51,12 +53,18 @@ class hr_certification(models.Model):
     
     name = fields.Char(string="Name", translate=True, required=True)
     color = fields.Integer(string='Color Index')
-    type_id = fields.Many2one(comodel_name='hr.certification.type', string='Type', required=True,)
-    employee_id = fields.Many2one(comodel_name='hr.employee', string='Employee',)
-    product_id = fields.Many2one(comodel_name='product.product')
-    serial_no = fields.Char()
-    imei_no = fields.Char()
-    #~ mode = fields.Selection(related='type_id.mode', string="Mode", help="")
+    type_id = fields.Many2one(comodel_name='hr.certification.type', string='Type', required=True,track_visibility='onchange')
+    employee_id = fields.Many2one(comodel_name='hr.employee', string='Employee',track_visibility='onchange')
+    is_signed = fields.Boolean(string="Signed",help="This certification/agreement is signed by the employee",track_visibility='onchange')
+    date_start = fields.Date(string="Start",default=lambda s: fields.Date.today(),track_visibility='onchange')
+    @api.one
+    @api.depends('date_start','type_id')
+    @api.onchange('date_start','type_id')
+    def _date_end(self):
+        self.date_end = fields.Date.to_string(fields.Datetime.from_string(self.date_start) + timedelta(days=self.type_id.validity_days)) if self.type_id and self.type_id.validity_days else None
+    date_end = fields.Date(string="End",default=lambda s: fields.Date.today(),help="Leave blank if there is no expiery",track_visibility='onchange')
+    template = fields.Binary(string='Template',related='type_id.template')
+    description = fields.Text()
 
     @api.model
     def _get_state_selection(self):
@@ -69,10 +77,17 @@ class hr_certification(models.Model):
     
     @api.one
     def _compute_state(self):
-        self.state = self.state_id.technical_name
+        if not self.state_id:
+           self.state = self.env['hr.certification.state'].search([], order='sequence', limit=1).technical_name
+        else:
+            self.state = self.state_id.technical_name 
 
-    state_id = fields.Many2one(comodel_name='hr.certification.state', string='State', required=True, default=_default_state_id, track_visibility='onchange')
-    state = fields.Selection(selection=_get_state_selection, compute='_compute_state')
+    @api.one
+    def _set_state(self):
+        self.state_id = self.env['hr.certification.state'].search([('technical_name','=',self.state)]).id
+
+    state_id = fields.Many2one(comodel_name='hr.certification.state', string='State', default=_default_state_id, track_visibility='onchange')
+    state = fields.Selection(selection=_get_state_selection, compute='_compute_state',inverse='_set_state')
     
 
 
@@ -86,8 +101,9 @@ class hr_certification_type(models.Model):
 
     name = fields.Char(string='Name')
     description = fields.Text()
-    mode = fields.Selection([('cert','Certification'),('agreement','Agreement'),('permission','Permission'),('key','Key'),('card','Entry device'),('phone','Phone')],string='Mode')
-
+    mode = fields.Selection([('cert','Certification'),('agreement','Agreement'),('permission','Permission'),],string='Mode')
+    validity_days = fields.Integer(string="Validity",help="Number of days before it deprecates")
+    template = fields.Binary(string="Template",help="Document to sign")
 
 class hr_certification_state(models.Model):
     """
@@ -116,6 +132,8 @@ class account_asset_asset(models.Model):
     field_cat_imei = fields.Boolean(related="category_id.field_imei",invisible=True)
     field_license_plate = fields.Char(string='License Plate',help="Licence plate on a vehicle")
     field_cat_license_plate = fields.Boolean(related="category_id.field_license_plate",invisible=True)
+    is_signed = fields.Boolean(string="Signed",help="This asset is signed by the employee",track_visibility='onchange')
+
 
 
 class account_asset_category(models.Model):
