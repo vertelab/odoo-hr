@@ -15,7 +15,7 @@ Employee Certifications
 =======================
 
 A possibility to store information of signed certifications, licenses, 
-non-disclosure agreements and such documents
+non-disclosure agreements and such documents. Loans of assets.
 
     """,
     'author': 'Vertel AB',

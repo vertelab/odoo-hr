@@ -135,6 +135,10 @@ class account_asset_asset(models.Model):
     is_signed = fields.Boolean(string="Signed",help="This asset is signed by the employee",track_visibility='onchange')
 
 
+    @api.one
+    def do_sign(self):
+        self.is_signed = True
+
 
 class account_asset_category(models.Model):
     _inherit = 'account.asset.category'
