@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="0">
+    <record id="my_assets" model="ir.rule">
+      <field name="name">My Assets on loan</field>
+      <field name="model_id" ref="account_asset.model_account_asset_asset" />
+      <field name="groups" eval="[(4, ref('base.group_user'))]" />
+      <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+      <field name="perm_read" eval="True" />
+      <field name="perm_write" eval="False" />
+      <field name="perm_create" eval="False" />
+      <field name="perm_unlink" eval="False" />
+    </record>
+    <record id="my_assets_accountant" model="ir.rule">
+      <field name="name">Assets for accountant</field>
+      <field name="model_id" ref="account_asset.model_account_asset_asset" />
+      <field name="groups" eval="[(4, ref('account.group_account_user'))]" />
+      <field name="domain_force">[(1, '=', 1)]</field>
+      <field name="perm_read" eval="True" />
+      <field name="perm_write" eval="True" />
+      <field name="perm_create" eval="False" />
+      <field name="perm_unlink" eval="False" />
+    </record>
+    <record id="my_assets_accountant_manager" model="ir.rule">
+      <field name="name">Assets for accountant manager</field>
+      <field name="model_id" ref="account_asset.model_account_asset_asset" />
+      <field name="groups" eval="[(4, ref('account.group_account_manager'))]" />
+      <field name="domain_force">[(1, '=', 1)]</field>
+      <field name="perm_read" eval="True" />
+      <field name="perm_write" eval="True" />
+      <field name="perm_create" eval="True" />
+      <field name="perm_unlink" eval="True" />
+    </record>
+  </data>
+</openerp>

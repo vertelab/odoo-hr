@@ -21,6 +21,17 @@
         <field name="technical_name">canceled</field>
         <field name="sequence">40</field>
     </record>
+    
+            
+    
+            <record id="asset_filter" model="ir.filters">
+            <field name="name">My Assets</field>
+            <field name="model_id">account.asset.asset</field>
+            <field name="user_id"></field>
+            <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+            <field name="context">{}</field>
+        </record>
+    
   </data>
 </openerp>
 

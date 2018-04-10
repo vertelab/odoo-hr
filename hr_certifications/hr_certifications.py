@@ -36,6 +36,7 @@ class hr_employee(models.Model):
     cert_count = fields.Integer(compute='_cert_count')
 
     assets_ids = fields.One2many(comodel_name="account.asset.asset",inverse_name='employee_id')
+
     
     @api.one
     def _asset_count(self):
@@ -89,6 +90,27 @@ class hr_certification(models.Model):
     state_id = fields.Many2one(comodel_name='hr.certification.state', string='State', default=_default_state_id, track_visibility='onchange')
     state = fields.Selection(selection=_get_state_selection, compute='_compute_state',inverse='_set_state')
     
+    @api.one
+    def do_sign(self):
+        self.sudo().is_signed = True
+
+    @api.model
+    def create(self, vals):
+        res = super(hr_certification, self).create(vals)
+        if res.employee_id:
+            res.message_subscribe_users(user_ids=[res.employee_id.user_id.id])
+        return res
+    
+  #~ def message_subscribe_users(self, cr, uid, ids, user_ids=None, subtype_ids=None, context=None):
+        #~ """ Wrapper on message_subscribe, using users. If user_ids is not
+            #~ provided, subscribe uid instead. """
+        #~ if user_ids is None:
+            #~ user_ids = [uid]
+        #~ partner_ids = [user.partner_id.id for user in self.pool.get('res.users').browse(cr, uid, user_ids, context=context)]
+        #~ result = self.message_subscribe(cr, uid, ids, partner_ids, subtype_ids=subtype_ids, context=context)
+        #~ if partner_ids and result:
+            #~ self.pool['ir.ui.menu'].clear_cache()
+        #~ return result
 
 
 class hr_certification_type(models.Model):
@@ -133,11 +155,18 @@ class account_asset_asset(models.Model):
     field_license_plate = fields.Char(string='License Plate',help="Licence plate on a vehicle")
     field_cat_license_plate = fields.Boolean(related="category_id.field_license_plate",invisible=True)
     is_signed = fields.Boolean(string="Signed",help="This asset is signed by the employee",track_visibility='onchange')
-
+    
 
     @api.one
     def do_sign(self):
-        self.is_signed = True
+        self.sudo().is_signed = True
+
+    @api.model
+    def create(self, vals):
+        res = super(account_asset_asset, self).create(vals)
+        if res.employee_id:
+            res.message_subscribe_users(user_ids=[res.employee_id.user_id.id])
+        return res
 
 
 class account_asset_category(models.Model):
@@ -147,3 +176,10 @@ class account_asset_category(models.Model):
     field_serialno = fields.Boolean('Serial Number field')
     field_imei = fields.Boolean('IMEI field',help="International Mobile Equipment Identity (Phone) ")
     field_license_plate = fields.Boolean('License Plate field',help="Licence plate on a vehicle")
+    
+class res_users(models.Model):
+    _inherit = 'res.users'
+
+    @api.one
+    def _employee_id(self):
+        self.employee_id = self.env['hr.employee'].search([('user_id','=',self.id)])

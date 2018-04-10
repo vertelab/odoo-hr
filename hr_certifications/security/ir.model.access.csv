@@ -5,5 +5,6 @@ access_hr_certifications_type_user,hr.certifications.type.user,model_hr_certific
 access_hr_certifications_type_officer,hr.certifications.type.officer,model_hr_certification_type,base.group_hr_user,1,1,1,1
 access_hr_certifications_state_user,hr.certifications.state.user,model_hr_certification_state,base.group_user,1,0,0,0
 access_hr_certifications_state_officer,hr.certifications.state.officer,model_hr_certification_state,base.group_hr_user,1,1,1,1
+access_asset_employee,account.asset.asset.employee,account_asset.model_account_asset_asset,base.group_user,1,0,0,0
 
 

@@ -25,6 +25,7 @@ non-disclosure agreements and such documents. Loans of assets.
         'hr_certifications_view.xml',
         'hr_certifications_data.xml',
         'security/ir.model.access.csv',
+        'security/rules.xml',
        ],
     'installable': True,
 }

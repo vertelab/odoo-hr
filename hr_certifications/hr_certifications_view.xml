@@ -1,337 +1,505 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>
-
-<!--
-        <record id="view_employee_form_inherit" model="ir.ui.view">
-            <field name="name">hr.employee.form.inherit</field>
-            <field name="model">hr.employee</field>
-            <field name="inherit_id" ref="hr.view_employee_form"/>
-            <field name="arch" type="xml">
-                <field name="job_id" position="after">
-                    <field name="date_start"/>
-                </field>
-            </field>
-        </record>
-        <record id="view_employee_tree_inherit" model="ir.ui.view">
-            <field name="name">hr.employee.tree.inherit</field>
-            <field name="model">hr.employee</field>
-            <field name="inherit_id" ref="hr.view_employee_tree"/>
-            <field name="arch" type="xml">
-                <field name="parent_id" position="after">
-                    <field name="date_start"/>
-                </field>
-            </field>
-        </record>
--->
-<!--
-
-    <record model="ir.actions.act_window" id="action_account_asset_asset_tree">
-        <field name="name">Assets</field>
-        <field name="res_model">account.asset.asset</field>
-        <field name="view_type">tree</field>
-        <field name="domain">[('employee_id','=',1)]</field>
-        <field name="view_id" ref="account_asset.view_account_asset_asset_tree"/>
-    </record>
--->
-
-    <record model="ir.ui.view" id="view_my_account_asset_asset_tree">
-        <field name="name">account.asset.asset.my.tree</field>
-        <field name="model">account.asset.asset</field>
-        <field name="arch" type="xml">
-            <tree string="Assets" colors="blue:(state == 'draft');grey:(state == 'close')">
-                <field name="name"/>
-                <field name="category_id"/>
-                <field name="is_signed"/>
-                <field name="state"/>
-            </tree>
-        </field>
-    </record>
-
-    <record model="ir.actions.act_window" id="action_my_account_asset_asset_tree">
-        <field name="name">My Assets</field>
-        <field name="res_model">account.asset.asset</field>
-        <field name="view_type">form</field>
-        <field name="view_id" ref="view_my_account_asset_asset_tree"/>
-<!--
-        <field name="search_view_id" ref="account_asset.view_account_asset_search"/>
--->
-        <field name="domain">[('employee_id','=',uid)]</field>
-    </record>
-    
-    
-    <record model="ir.actions.act_window" id="action_account_asset_asset_tree">
-        <field name="name">Assets</field>
-        <field name="res_model">account.asset.asset</field>
-        <field name="view_type">form</field>
-        <field name="view_id" ref="account_asset.view_account_asset_asset_tree"/>
-        <field name="search_view_id" ref="account_asset.view_account_asset_search"/>
-        <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id,'default_remaining_value': 0.001 , 'default_depreciated_value': 0.001 }</field>
-    </record>
-    
-    
-        <record id="view_account_asset_search" model="ir.ui.view">
-        <field name="name">account.asset.asset.search</field>
-        <field name="model">account.asset.asset</field>
-            <field name="inherit_id" ref="account_asset.view_account_asset_search"/>
-
-        <field name="arch" type="xml">
-                <field name="category_id" position='after'>
-                    <field name="employee_id"/>
-                    <field name="is_signed"/>
-                    <field name="parent_id"/>
-                </field> 
-                
-                <field name="partner_id" position='after'>
-                    <filter string="Employee"  domain="" context="{'group_by':'employee_id'}"/>
-                    <filter string="Parent Category"  domain="" context="{'group_by':'parent_id'}"/>
-                
-                </field>
-        </field>
-    </record>
-    
-    
-    
-
-
-
-  <!-- Employee Certification -->
-
-        <record id="view_hr_certification_form" model="ir.ui.view">
-            <field name="name">hr.certification.form</field>
-            <field name="model">hr.certification</field>
-            <field name="arch" type="xml">
-                <form string="Employee Certification">
-                    <header>
-                        <field name="state" widget="statusbar" clickable="True"/>
-                    </header>
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
-                        </div>
-                     
-                    <group> 
-                        <field name="type_id"/>
-                        <field name="is_signed"/>
-                        <field name="date_start" class="oe_inline"/> " - "
-                        <field name="date_end" class="oe_inline"/> 
-                        <field name="template" readonly="1" attrs="{'invisible': [('template', '==', None)]}"/>                   
-                    </group>
-                    <div><field name="description"/></div>
-                
-                    </sheet>
-                    <div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
-                        <field name="message_ids" widget="mail_thread"/>
-                    </div>
-                </form>
-            </field>
-        </record>
-
-        <record id="view_hr_certification_tree" model="ir.ui.view">
-            <field name="name">hr.certification.tree</field>
-            <field name="model">hr.certification</field>
-            <field name="arch" type="xml">
-                <tree string="Employee Certification">
-                    <field name="name"/>
-                    <field name="type_id"/>
-                    <field name="state"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="view_hr_certification_filter" model="ir.ui.view">
-            <field name="name">hr.certification.filter</field>
-            <field name="model">hr.certification</field>
-            <field name="arch" type="xml">
-                <search string="Search Employee Certification">
-                    <field name="name" string="Name"/>
-                    <field name="type_id" />
-                    <field name="employee_id" />
-                    <field name="state" />
-                     <filter string="Type"  domain="" context="{'group_by':'type_id'}"/>
-                     <filter string="State"  domain="" context="{'group_by':'state_id'}"/>
-                     <filter string="Employee"  domain="" context="{'group_by':'employee_id'}"/>
-               </search>
-            </field>
-        </record>
-
-        <record id="action_hr_certification" model="ir.actions.act_window">
-            <field name="name">Employee Certification</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">hr.certification</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_hr_certification_filter"/>
-            <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id}</field>
-        </record>
-
-
-        <record id="view_employee_form" model="ir.ui.view">
-            <field name="name">hr.employee.form</field>
-            <field name="model">hr.employee</field>
-            <field name="inherit_id" ref="hr.view_employee_form"/>
-            <field name="arch" type="xml">
-            
-                <div name="button_box" position='inside'>                    
-                    <button name="%(action_account_asset_asset_tree)d" type="action" class="oe_stat_button" icon="fa-book" groups="base.group_hr_user">
-                        <field name="asset_count" widget="statinfo" string="Assets"/>
-                    </button>
-                    <button name="%(action_hr_certification)d" type="action" class="oe_stat_button" icon="fa-book" groups="base.group_hr_user">
-                        <field name="cert_count" widget="statinfo" string="Cert/Agreement"/>
-                    </button>
-                    
-                </div>
-<!--
-                <notebook position="inside">
-                    <page string="Certifications/agreements">
-                        <field name="certification_ids">
-                            <tree>
-                                <field name="name"/>
-                                <field name="type_id"/>
-                                <field name="state"/>
-                            </tree>
-                        </field>
-                    </page>
-                
-                
-                </notebook>
--->
-            </field>
-        </record>
-
-   <!-- Employee Certification State -->
-
-        <record id="view_hr_certification_type_form" model="ir.ui.view">
-            <field name="name">hr.certification.type.form</field>
-            <field name="model">hr.certification.type</field>
-            <field name="arch" type="xml">
-                <form string="Employee Certification Type">
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
-                        </div>
-                        <div>
-                           
-                        </div>
-                        <group>
-                             <field name="mode" />
-                             <field name="template" />
-                             <field name="validity_days" />
-                            <field name="description"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-
-        <!-- Employee Certification State -->
-
-        <record id="view_hr_certification_state_form" model="ir.ui.view">
-            <field name="name">hr.certification.state.form</field>
-            <field name="model">hr.certification.state</field>
-            <field name="arch" type="xml">
-                <form string="Employee Certification State">
-                    <sheet>
-                        <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
-                            <h1><field name="name"/></h1>
-                        </div>
-                        <div>
-                            <field name="fold" class="oe_inline"/>
-                        </div>
-                        <group>
-                            <field name="sequence"/>
-                        </group>
-                    </sheet>
-                </form>
-            </field>
-        </record>
-
-        <record id="view_hr_certification_state_tree" model="ir.ui.view">
-            <field name="name">hr.certification.state.tree</field>
-            <field name="model">hr.certification.state</field>
-            <field name="arch" type="xml">
-                <tree string="Employee Certification State">
-                    <field name="sequence" widget="handle"/>
-                    <field name="name"/>
-                    <field name="fold"/>
-                </tree>
-            </field>
-        </record>
-
-        <record id="view_hr_certification_state_filter" model="ir.ui.view">
-            <field name="name">hr.certification.state.filter</field>
-            <field name="model">hr.certification.state</field>
-            <field name="arch" type="xml">
-                <search string="Search Employee Certification State">
-                    <field name="name" string="Name"/>
-               </search>
-            </field>
-        </record>
-
-        <record id="action_hr_certification_state" model="ir.actions.act_window">
-            <field name="name">Employee Certification State</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">hr.certification.state</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
-            <field name="search_view_id" ref="view_hr_certification_state_filter"/>
-        </record>
-
-        <menuitem action="action_hr_certification_state" id="menu_state" parent="hr.menu_hr_main" sequence="21" groups="base.group_hr_manager"/>
-
-<!-- Asset Category -->
-    <record model="ir.ui.view" id="view_account_asset_category_form">
-        <field name="name">account.asset.category.form</field>
-        <field name="model">account.asset.category</field>
-        <field name="inherit_id" ref="account_asset.view_account_asset_category_form"/>
-        <field name="arch" type="xml">
-             <field name="company_id" position='after'>
-                <field name="field_code"/>
-                <field name="field_serialno"/>
-                <field name="field_imei"/>
-                <field name="field_license_plate"/>
-            </field>
-        </field>
-    </record>
-
+  <data>
     <!--
-        Asset
-     -->
+         <record id="view_employee_form_inherit" model="ir.ui.view">
+         <field name="name">hr.employee.form.inherit</field>
+         <field name="model">hr.employee</field>
+         <field name="inherit_id" ref="hr.view_employee_form"/>
+         <field name="arch" type="xml">
+         <field name="job_id" position="after">
+         <field name="date_start"/>
+         </field>
+         </field>
+         </record>
+         <record id="view_employee_tree_inherit" model="ir.ui.view">
+         <field name="name">hr.employee.tree.inherit</field>
+         <field name="model">hr.employee</field>
+         <field name="inherit_id" ref="hr.view_employee_tree"/>
+         <field name="arch" type="xml">
+         <field name="parent_id" position="after">
+         <field name="date_start"/>
+         </field>
+         </field>
+         </record>
+    -->
+    <!--
+         
+         <record model="ir.actions.act_window" id="action_account_asset_asset_tree">
+         <field name="name">Assets</field>
+         <field name="res_model">account.asset.asset</field>
+         <field name="view_type">tree</field>
+         <field name="domain">[('employee_id','=',1)]</field>
+         <field name="view_id" ref="account_asset.view_account_asset_asset_tree"/>
+         </record>
+    -->
+    <record model="ir.ui.view" id="view_my_account_asset_asset_tree">
+      <field name="name">account.asset.asset.my.tree</field>
+      <field name="model">account.asset.asset</field>
+      <field name="arch" type="xml">
+        <tree string="Assets" colors="blue:(state == 'draft');grey:(state == 'close')">
+          <field name="name" />
+          <field name="category_id" />
+          <field name="is_signed" />
+          <field name="state" />
+        </tree>
+      </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_my_account_asset_asset_tree">
+      <field name="name">My Assets</field>
+      <field name="res_model">account.asset.asset</field>
+      <field name="view_type">form</field>
+      <field name="view_id" ref="view_my_account_asset_asset_tree" />
+      <!--
+           <field name="search_view_id" ref="account_asset.view_account_asset_search"/>
+      -->
+      <field name="domain">[('employee_id', 'in', [e.id for e in user.employee_ids])]</field>
+    </record>
+    <record model="ir.actions.act_window" id="action_account_asset_asset_tree">
+      <field name="name">Assets</field>
+      <field name="res_model">account.asset.asset</field>
+      <field name="view_type">form</field>
+      <field name="view_id" ref="account_asset.view_account_asset_asset_tree" />
+      <field name="search_view_id" ref="account_asset.view_account_asset_search" />
+      <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id,'default_remaining_value': 0.001 , 'default_depreciated_value': 0.001 }</field>
+    </record>
+    <record id="view_account_asset_search" model="ir.ui.view">
+      <field name="name">account.asset.asset.search</field>
+      <field name="model">account.asset.asset</field>
+      <field name="inherit_id" ref="account_asset.view_account_asset_search" />
+      <field name="arch" type="xml">
+        <field name="category_id" position='after'>
+          <field name="employee_id" />
+          <field name="is_signed" />
+          <field name="parent_id" />
+        </field>
+        <field name="partner_id" position='after'>
+          <filter string="Employee" domain="" context="{'group_by':'employee_id'}" />
+          <filter string="Parent Category" domain="" context="{'group_by':'parent_id'}" />
+        </field>
+      </field>
+    </record>
+    <!-- Employee Certification -->
+    <record id="view_hr_certification_form" model="ir.ui.view">
+      <field name="name">hr.certification.form</field>
+      <field name="model">hr.certification</field>
+      <field name="arch" type="xml">
+        <form string="Employee Certification">
+          <header>
+            <field name="state" widget="statusbar" clickable="True" />
+          </header>
+          <sheet>
+            <div class="oe_title">
+              <label for="name" class="oe_edit_only" />
+              <h1>
+                <field name="name" />
+              </h1>
+            </div>
+            <group>
+              <field name="type_id" />
+              <field name="is_signed" />
+              <field name="date_start" class="oe_inline" />
+              " - "
+              <field name="date_end" class="oe_inline" />
+              <field name="template" readonly="1" attrs="{'invisible': [('template', '==', None)]}" />
+            </group>
+            <div>
+              <field name="description" />
+            </div>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+    <record id="view_hr_certification_tree" model="ir.ui.view">
+      <field name="name">hr.certification.tree</field>
+      <field name="model">hr.certification</field>
+      <field name="arch" type="xml">
+        <tree string="Employee Certification">
+          <field name="name" />
+          <field name="type_id" />
+          <field name="state" />
+        </tree>
+      </field>
+    </record>
+    <record id="view_hr_certification_filter" model="ir.ui.view">
+      <field name="name">hr.certification.filter</field>
+      <field name="model">hr.certification</field>
+      <field name="arch" type="xml">
+        <search string="Search Employee Certification">
+          <field name="name" string="Name" />
+          <field name="type_id" />
+          <field name="employee_id" />
+          <field name="state" />
+          <filter string="Type" domain="" context="{'group_by':'type_id'}" />
+          <filter string="State" domain="" context="{'group_by':'state_id'}" />
+          <filter string="Employee" domain="" context="{'group_by':'employee_id'}" />
+        </search>
+      </field>
+    </record>
+    <record id="action_hr_certification" model="ir.actions.act_window">
+      <field name="name">Employee Certification</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hr.certification</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_hr_certification_filter" />
+      <field name="context">{'search_default_employee_id': [active_id], 'default_employee_id': active_id}</field>
+    </record>
+    <record id="view_employee_form" model="ir.ui.view">
+      <field name="name">hr.employee.form</field>
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form" />
+      <field name="arch" type="xml">
+        <div name="button_box" position='inside'>
+          <button name="%(action_account_asset_asset_tree)d" type="action" class="oe_stat_button" icon="fa-book" groups="base.group_hr_user">
+            <field name="asset_count" widget="statinfo" string="Assets" />
+          </button>
+          <button name="%(action_hr_certification)d" type="action" class="oe_stat_button" icon="fa-book" groups="base.group_hr_user">
+            <field name="cert_count" widget="statinfo" string="Cert/Agreement" />
+          </button>
+        </div>
+        <!--
+             <notebook position="inside">
+             <page string="Certifications/agreements">
+             <field name="certification_ids">
+             <tree>
+             <field name="name"/>
+             <field name="type_id"/>
+             <field name="state"/>
+             </tree>
+             </field>
+             </page>
+             
+             
+             </notebook>
+        -->
+      </field>
+    </record>
+    <!-- Employee Certification State -->
+    <record id="view_hr_certification_type_form" model="ir.ui.view">
+      <field name="name">hr.certification.type.form</field>
+      <field name="model">hr.certification.type</field>
+      <field name="arch" type="xml">
+        <form string="Employee Certification Type">
+          <sheet>
+            <div class="oe_title">
+              <label for="name" class="oe_edit_only" />
+              <h1>
+                <field name="name" />
+              </h1>
+            </div>
+            <div />
+            <group>
+              <field name="mode" />
+              <field name="template" />
+              <field name="validity_days" />
+              <field name="description" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    
+    
+    
+        <record id="view_hr_certification_tree_sign" model="ir.ui.view">
+      <field name="name">hr.certification.tree</field>
+      <field name="model">hr.certification</field>
+      <field name="arch" type="xml">
+        <tree string="Employee Certification">
+          <field name="name" />
+          <field name="type_id" />
+          <field name="state" />
+                    <button type="object" name="do_sign" string="Sign" icon="terp-gtk-jump-to-ltr" attr="{'invisible': [('is_signed','=',True)]}" />
+          <field name="is_signed" />
 
+          
+        </tree>
+      </field>
+    </record>
+    
+    
+        <record model="ir.actions.act_window" id="action_sign_cert">
+      <field name="name">Signed Cert/agreements</field>
+      <field name="res_model">hr.certification</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="sequence" eval="99" />
+      <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+      <field name="view_id" ref="view_hr_certification_tree_sign" />
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">Your certifications and agreements.</p>
+        <p>Once you have got documents given to you, it will be listed here. You sign them as soon you have recieved it.</p>
+      </field>
+    </record>
+
+
+
+    <menuitem parent="mail.mail_my_stuff" id="menu_sign_cert" action="action_sign_cert" sequence="99" />
+    
+    
+    <!-- Employee Certification State -->
+    <record id="view_hr_certification_state_form" model="ir.ui.view">
+      <field name="name">hr.certification.state.form</field>
+      <field name="model">hr.certification.state</field>
+      <field name="arch" type="xml">
+        <form string="Employee Certification State">
+          <sheet>
+            <div class="oe_title">
+              <label for="name" class="oe_edit_only" />
+              <h1>
+                <field name="name" />
+              </h1>
+            </div>
+            <div>
+              <field name="fold" class="oe_inline" />
+            </div>
+            <group>
+              <field name="sequence" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <record id="view_hr_certification_state_tree" model="ir.ui.view">
+      <field name="name">hr.certification.state.tree</field>
+      <field name="model">hr.certification.state</field>
+      <field name="arch" type="xml">
+        <tree string="Employee Certification State">
+          <field name="sequence" widget="handle" />
+          <field name="name" />
+          <field name="fold" />
+        </tree>
+      </field>
+    </record>
+    <record id="view_hr_certification_state_filter" model="ir.ui.view">
+      <field name="name">hr.certification.state.filter</field>
+      <field name="model">hr.certification.state</field>
+      <field name="arch" type="xml">
+        <search string="Search Employee Certification State">
+          <field name="name" string="Name" />
+        </search>
+      </field>
+    </record>
+    <record id="action_hr_certification_state" model="ir.actions.act_window">
+      <field name="name">Employee Certification State</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">hr.certification.state</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_hr_certification_state_filter" />
+    </record>
+    <menuitem action="action_hr_certification_state" id="menu_state" parent="hr.menu_hr_main" sequence="21" groups="base.group_hr_manager" />
+    
+    
+    
+    
+    
+    <!-- Asset Category -->
+    <record model="ir.ui.view" id="view_account_asset_category_form">
+      <field name="name">account.asset.category.form</field>
+      <field name="model">account.asset.category</field>
+      <field name="inherit_id" ref="account_asset.view_account_asset_category_form" />
+      <field name="arch" type="xml">
+        <field name="company_id" position='after'>
+          <field name="field_code" />
+          <field name="field_serialno" />
+          <field name="field_imei" />
+          <field name="field_license_plate" />
+        </field>
+      </field>
+    </record>
+    <!--
+         Asset
+    -->
     <record model="ir.ui.view" id="view_account_asset_asset_form">
-        <field name="name">account.asset.asset.form</field>
+      <field name="name">account.asset.asset.form</field>
+      <field name="model">account.asset.asset</field>
+      <field name="inherit_id" ref="account_asset.view_account_asset_asset_form" />
+      <field name="arch" type="xml">
+<!--
+        <button name="validate" positition='attributes'>
+             <attribute name='groups'>account.group_account_manager,account.group_account_user</attribute>
+        </button>
+-->
+<!--
+        <button name="set_to_close" positition='after'>
+          <button name="set_to_close" states="open" string="Set to Close" type="object" class="oe_highlight" groups='account.group_account_manager,account.group_account_user' />
+        </button>
+        <button name="set_to_draft" positition='replace'>
+          <button name="set_to_draft" states="open" string="Set to Draft" type="object" groups='account.group_account_manager,account.group_account_user' />
+        </button>
+        <button name="open_entries" positition='replace'>
+          <button class="oe_inline oe_stat_button" name="open_entries" type="object" icon="fa-pencil" groups='account.group_account_manager,account.group_account_user'>
+            <field string="Entries" name="entry_count" widget="statinfo" />
+          </button>
+        </button>
+-->
+        <button name="%(account_asset.action_asset_modify)d" position="attributes">
+              <attribute name='groups'>account.group_account_manager,account.group_account_user</attribute>
+        </button>
+        <page string="Depreciation Board" position='attributes'>
+          <attribute name='groups'>account.group_account_manager,account.group_account_user</attribute>
+        </page>
+        <page string="History" position='attributes'>
+          <attribute name='groups'>account.group_account_manager,account.group_account_user</attribute>
+        </page>
+        <field name="partner_id" position='after'>
+          <field name="employee_id" />
+          <field name="is_signed" />
+          <field name="field_code" attrs="{'invisible': [('field_cat_code', '!=', True)],'required': [('field_cat_code', '==', True)]}" />
+          <field name="field_serialno" attrs="{'invisible': [('field_cat_serialno', '!=', True)],'required': [('field_cat_serialno', '==', True)]}" />
+          <field name="field_imei" attrs="{'invisible': [('field_cat_imei', '!=', True)],'required': [('field_cat_imei', '==', True)]}" />
+          <field name="field_license_plate" attrs="{'invisible': [('field_cat_license_plate', '!=', True)],'required': [('field_cat_license_plate', '==', True)]}" />
+          <field name="field_cat_license_plate" invisible="1" />
+          <field name="field_cat_imei" invisible="1" />
+          <field name="field_cat_serialno" invisible="1" />
+          <field name="field_cat_code" invisible="1" />
+        </field>
+        <form position='inside'>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_account_asset_asset_tree">
+      <field name="name">account.asset.asset.sign.tree</field>
+      <field name="model">account.asset.asset</field>
+      <field name="arch" type="xml">
+        <tree string="Assets" colors="blue:(is_signed == False);grey:(is_signed == True)">
+          <field name="name" />
+          <field name="category_id" />
+          <field name="field_code" />
+          <field name="field_serialno" />
+          <field name="field_imei" />
+          <field name="field_license_plate" />
+          <button type="object" name="do_sign" string="Sign" icon="terp-gtk-jump-to-ltr" attr="{'invisible': [('is_signed','=',True)]}" />
+          <field name="is_signed" />
+          <field name="state" invisible="1" />
+        </tree>
+      </field>
+    </record>
+    
+    
+    
+    
+        <record model="ir.ui.view" id="my_account_asset_asset_form">
+        <field name="name">account.asset.asset.my_form</field>
         <field name="model">account.asset.asset</field>
-        <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
         <field name="arch" type="xml">
-            <field name="partner_id" position='after'>
-                <field name="employee_id"/>
-                <field name="is_signed"/>
-                <field name="field_code" attrs="{'invisible': [('field_cat_code', '!=', True)],'required': [('field_cat_code', '==', True)]}"/>
-                <field name="field_serialno" attrs="{'invisible': [('field_cat_serialno', '!=', True)],'required': [('field_cat_serialno', '==', True)]}"/>
-                <field name="field_imei" attrs="{'invisible': [('field_cat_imei', '!=', True)],'required': [('field_cat_imei', '==', True)]}"/>
-                <field name="field_license_plate" attrs="{'invisible': [('field_cat_license_plate', '!=', True)],'required': [('field_cat_license_plate', '==', True)]}"/>
-                
-                <field name="field_cat_license_plate" invisible="1"/>
-                <field name="field_cat_imei" invisible="1"/>
-                <field name="field_cat_serialno" invisible="1"/>
-                <field name="field_cat_code" invisible="1"/>
-
-            </field>
-            <form position='inside'>
-                <div class="oe_chatter">
-                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
-                        <field name="message_ids" widget="mail_thread"/>
+            <form string="Asset">
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box oe_right">
                     </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="category_id" on_change="onchange_category_id(category_id)"/>
+                            <field name="code"/>
+                            <field name="parent_id"/>
+                        </group>
+                        <group>
+                            <field name="purchase_date"/>
+<!--
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+-->
+                            <field name="company_id" widget="selection" groups="base.group_multi_company" on_change="onchange_company_id(company_id)"/>
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="General">
+                            <group>
+                                <group>
+                                    <field name="partner_id"/>
+                                     <field name="employee_id" />
+                                      <field name="is_signed" />
+                                      <field name="field_code" attrs="{'invisible': [('field_cat_code', '!=', True)],'required': [('field_cat_code', '==', True)]}" />
+                                      <field name="field_serialno" attrs="{'invisible': [('field_cat_serialno', '!=', True)],'required': [('field_cat_serialno', '==', True)]}" />
+                                      <field name="field_imei" attrs="{'invisible': [('field_cat_imei', '!=', True)],'required': [('field_cat_imei', '==', True)]}" />
+                                      <field name="field_license_plate" attrs="{'invisible': [('field_cat_license_plate', '!=', True)],'required': [('field_cat_license_plate', '==', True)]}" />
+                                      <field name="field_cat_license_plate" invisible="1" />
+                                      <field name="field_cat_imei" invisible="1" />
+                                      <field name="field_cat_serialno" invisible="1" />
+                                      <field name="field_cat_code" invisible="1" />
+                                    
+                                    
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" placeholder="Add an internal note here..."/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers" groups="base.group_user" />
+            <field name="message_ids" widget="mail_thread" />
+          </div>
+                
             </form>
         </field>
     </record>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <record model="ir.actions.act_window" id="action_sign_assets">
+      <field name="name">Assets on loan</field>
+      <field name="res_model">account.asset.asset</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">tree,form</field>
+      <field name="sequence" eval="99" />
+      <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+      <field name="view_id" ref="view_account_asset_asset_tree" />
+      <field name="help" type="html">
+        <p class="oe_view_nocontent_create">Your assets on outloan.</p>
+        <p>Once you have got assets on loan, it will be listed here. You sign them as soon you have recieved it.</p>
+      </field>
+    </record>
 
+    <record model="ir.actions.act_window.view" id="subwindow_tree">
+      <field name="act_window_id" ref="action_sign_assets"/>
+      <field name="sequence" eval="10"/>
+      <field name="view_id" ref="view_account_asset_asset_tree"/>
+      <field name="view_mode">tree</field>
+    </record>
+    <record model="ir.actions.act_window.view" id="subwindow_form">
+      <field name="act_window_id" ref="action_sign_assets"/>
+      <field name="sequence" eval="20"/>
+      <field name="view_id" ref="my_account_asset_asset_form"/>
+      <field name="view_mode">form</field>
+    </record>
 
-
-    </data>
+    <menuitem parent="mail.mail_my_stuff" id="menu_sign_assets" action="action_sign_assets" sequence="99" />
+    
+    
+    
+  </data>
 </openerp>
