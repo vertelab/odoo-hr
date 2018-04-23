@@ -88,11 +88,13 @@ class hr_certification(models.Model):
         self.state_id = self.env['hr.certification.state'].search([('technical_name','=',self.state)]).id
 
     state_id = fields.Many2one(comodel_name='hr.certification.state', string='State', default=_default_state_id, track_visibility='onchange')
-    state = fields.Selection(selection=_get_state_selection, compute='_compute_state',inverse='_set_state')
+    state = fields.Selection(selection=_get_state_selection, compute='_compute_state',inverse='_set_state',store=True)
     
     @api.one
     def do_sign(self):
         self.sudo().is_signed = True
+        self.sudo().state = self.env.ref('hr_certifications.state_active').technical_name
+        #~ raise Warning('Hello')
 
     @api.model
     def create(self, vals):
