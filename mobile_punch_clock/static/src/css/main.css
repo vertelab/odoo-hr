@@ -1,5 +1,5 @@
 body {
-    font-size: 12px;
+    font-size: 10px;
 }
 
 #main_div {
@@ -20,7 +20,7 @@ body {
 
 input[name=signin_button] {
     font-family: 'Orbitron', sans-serif;
-    font-size: 2em;
+    font-size: 1.5em;
     margin:auto;
     box-shadow: 0px 0px 5px #333;
     border-radius: 100px;
@@ -29,5 +29,6 @@ input[name=signin_button] {
 }
 
 #status {
+    font-size: 22px;
     font-family: 'Lato', sans-serif;
 }
