@@ -101,7 +101,8 @@
               <field name="date_start" class="oe_inline" />
               " - "
               <field name="date_end" class="oe_inline" />
-              <field name="template" readonly="1" attrs="{'invisible': [('template', '==', None)]}" />
+              <field name="template" readonly="1" filename='file_name' attrs="{'invisible': [('template', '==', None)]}" />
+              <field name="file_name" invisible="1" />
             </group>
             <div>
               <field name="description" />
@@ -195,7 +196,8 @@
             <div />
             <group>
               <field name="mode" />
-              <field name="template" />
+              <field name="template" filename="file_name"/>
+              <field name="file_name" invisible="1" />
               <field name="validity_days" />
               <field name="description" />
             </group>

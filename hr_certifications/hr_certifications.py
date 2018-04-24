@@ -65,6 +65,7 @@ class hr_certification(models.Model):
         self.date_end = fields.Date.to_string(fields.Datetime.from_string(self.date_start) + timedelta(days=self.type_id.validity_days)) if self.type_id and self.type_id.validity_days else None
     date_end = fields.Date(string="End",default=lambda s: fields.Date.today(),help="Leave blank if there is no expiery",track_visibility='onchange')
     template = fields.Binary(string='Template',related='type_id.template')
+    file_name = fields.Char(related='type_id.file_name')
     description = fields.Text()
 
     @api.model
@@ -128,6 +129,7 @@ class hr_certification_type(models.Model):
     mode = fields.Selection([('cert','Certification'),('agreement','Agreement'),('permission','Permission'),],string='Mode')
     validity_days = fields.Integer(string="Validity",help="Number of days before it deprecates")
     template = fields.Binary(string="Template",help="Document to sign")
+    file_name = fields.Char()
 
 class hr_certification_state(models.Model):
     """
