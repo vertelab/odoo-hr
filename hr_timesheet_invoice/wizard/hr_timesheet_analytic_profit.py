@@ -46,7 +46,7 @@ class account_analytic_profit(models.TransientModel):
                 ('user_id', 'in', data['form']['employee_ids']),
                 ])
         if not ids_chk:
-            raise Warning(_('Insufficient Data!'), _('No record(s) found for this report.'))
+            raise Warning(_('No record(s) found for this report.'))
 
         #~ data['form']['journal_ids'] = [(6, 0, data['form']['journal_ids'])] # Improve me => Change the rml/sxw so that it can support withou [0][2]
         data['form']['employee_ids'] = [(6, 0, data['form']['employee_ids'])]
