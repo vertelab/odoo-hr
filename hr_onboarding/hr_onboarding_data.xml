@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data noupdate="1">
+    <record id="state_draft" model="hr.certification.state">
+        <field name="name">Draft</field>
+        <field name="technical_name">draft</field>
+        <field name="sequence">10</field>
+    </record>
+    <record id="state_pending" model="hr.certification.state">
+        <field name="name">Pending</field>
+        <field name="technical_name">pending</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="state_active" model="hr.certification.state">
+        <field name="name">Active</field>
+        <field name="technical_name">active</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="state_canceled" model="hr.certification.state">
+        <field name="name">Canceled</field>
+        <field name="technical_name">canceled</field>
+        <field name="sequence">40</field>
+    </record>
+    
+            
+    
+            <record id="asset_filter" model="ir.filters">
+            <field name="name">My Assets</field>
+            <field name="model_id">account.asset.asset</field>
+            <field name="user_id"></field>
+            <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+            <field name="context">{}</field>
+        </record>
+    
+  </data>
+</openerp>
+
+
