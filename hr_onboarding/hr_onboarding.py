@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    OpenERP,  Open Source Management Solution,  third party addon
-#    Copyright (C) 2004-2018 Vertel AB (<http://vertel.se>).
+#    Copyright (C) 2019 Vertel AB (<http://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,34 +18,46 @@
 #    along with this program.  If not,  see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 from openerp import models, fields, api, _
 from datetime import datetime, timedelta
-
-
 import logging
 _logger = logging.getLogger(__name__)
+
 
 class hr_employee(models.Model):
     _inherit = 'hr.employee'
 
-    onboard_stage_id = fields.Many2one(comodel_name="hr.onboard.stages")
+    onboard_stage_id = fields.Many2one(comodel_name="hr.onboard.stage")
     onboard_respons_ids = fields.Many2many(comodel_name='survey.user_input')
+    email = fields.Char(string='Email')
+    login = fields.Char(related='user_id.login')
+
+    @api.model
+    def _read_group_onboard_stage_id(self, present_ids, domain, **kwargs):
+        stages = self.env['hr.onboard.stage'].search([]).name_get()
+        folded = {
+            self.env.ref('hr_onboarding.state_completed').id: True
+        }
+        return stages, folded
+
+    _group_by_full = {
+        'onboard_stage_id': _read_group_onboard_stage_id
+    }
 
 
-class hr_onboard_stages(models.Model):
+class hr_onboard_stage(models.Model):
     """
    Stages in onboarding
     """
-    _name = 'hr.onboard.stages'
-    _description = "Onboard Stages"
-    
+    _name = 'hr.onboard.stage'
+    _description = "Onboard Stage"
+
     name = fields.Char(string='Name', required=True)
     technical_name = fields.Char(string='Technical Name', required=True)
     sequence = fields.Integer(string='Sequence')
     color = fields.Integer(string='Color Index')
     fold = fields.Boolean(string='Folded in Kanban View', help='This stage is folded in the kanban view when there are no records in that state to display.')
-    view_id = fields.Many2one(comodel_name='ir.ui.view')
-    survey_id = fields.Many2many(comodel_name='survey.survey')
-    
+    view_id = fields.Many2one(comodel_name='ir.ui.view', strig='View')
+    survey_id = fields.Many2many(comodel_name='survey.survey', string='Survey')
+
 
