@@ -21,6 +21,7 @@
             <field name="question">First Name</field>
             <field name="type">textbox</field>
             <field name="constr_mandatory" eval="True" />
+            <field name="fields_name">first_name</field>
         </record>
         <record id="survey_personal_info_question_last_name" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
@@ -28,6 +29,7 @@
             <field name="question">Last Name</field>
             <field name="type">textbox</field>
             <field name="constr_mandatory" eval="True" />
+            <field name="fields_name">last_name</field>
         </record>
         <record id="survey_personal_info_question_gender" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
@@ -36,6 +38,7 @@
             <field name="type">simple_choice</field>
             <field name="display_mode">dropdown</field>
             <field name="constr_mandatory" eval="True" />
+            <field name="fields_name">gender</field>
         </record>
         <record id="survey_personal_info_question_gender_choice_1" model="survey.label">
             <field name="question_id" ref="survey_personal_info_question_gender" />
@@ -47,17 +50,13 @@
             <field name="sequence">2</field>
             <field name="value">Female</field>
         </record>
-        <record id="survey_personal_info_question_gender_choice_3" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_gender" />
-            <field name="sequence">3</field>
-            <field name="value">Other</field>
-        </record>
         <record id="survey_personal_info_question_id_number" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
             <field name="sequence">4</field>
             <field name="question">ID Number</field>
             <field name="type">textbox</field>
             <field name="constr_mandatory" eval="True" />
+            <field name="fields_name">identification_id</field>
         </record>
         <record id="survey_personal_info_question_address_street" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
@@ -65,6 +64,7 @@
             <field name="question">Street</field>
             <field name="type">textbox</field>
             <field name="constr_mandatory" eval="False" />
+            <field name="fields_name">street</field>
         </record>
         <record id="survey_personal_info_question_address_zip" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
@@ -72,6 +72,7 @@
             <field name="question">Zip</field>
             <field name="type">textbox</field>
             <field name="constr_mandatory" eval="False" />
+            <field name="fields_name">zip</field>
         </record>
         <record id="survey_personal_info_question_address_city" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
@@ -79,6 +80,7 @@
             <field name="question">City</field>
             <field name="type">textbox</field>
             <field name="constr_mandatory" eval="False" />
+            <field name="fields_name">city</field>
         </record>
         <record id="survey_personal_info_question_mobile" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
@@ -86,6 +88,7 @@
             <field name="question">Mobile</field>
             <field name="type">textbox</field>
             <field name="constr_mandatory" eval="False" />
+            <field name="fields_name">mobile</field>
         </record>
         <record id="survey_personal_info_question_family_member_1_name" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
@@ -93,6 +96,7 @@
             <field name="question">Family member 1 name</field>
             <field name="type">textbox</field>
             <field name="constr_mandatory" eval="False" />
+            <field name="fields_name">member_name_1</field>
         </record>
         <record id="survey_personal_info_question_family_member_1_relation" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
@@ -101,6 +105,7 @@
             <field name="type">simple_choice</field>
             <field name="display_mode">dropdown</field>
             <field name="constr_mandatory" eval="False" />
+            <field name="fields_name">relation_1</field>
         </record>
         <record id="survey_personal_info_question_family_member_1_relation_choice_1" model="survey.label">
             <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
@@ -133,6 +138,7 @@
             <field name="question">Family member 1 phone number</field>
             <field name="type">textbox</field>
             <field name="constr_mandatory" eval="False" />
+            <field name="fields_name">member_contact_1</field>
         </record>
         <record id="survey_personal_info_question_family_member_2_name" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
@@ -140,6 +146,7 @@
             <field name="question">Family member 2 name</field>
             <field name="type">textbox</field>
             <field name="constr_mandatory" eval="False" />
+            <field name="fields_name">member_name_2</field>
         </record>
         <record id="survey_personal_info_question_family_member_2_relation" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
@@ -148,6 +155,7 @@
             <field name="type">simple_choice</field>
             <field name="display_mode">dropdown</field>
             <field name="constr_mandatory" eval="False" />
+            <field name="fields_name">relation_2</field>
         </record>
         <record id="survey_personal_info_question_family_member_2_relation_choice_1" model="survey.label">
             <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
@@ -180,6 +188,7 @@
             <field name="question">Family member 2 phone number</field>
             <field name="type">textbox</field>
             <field name="constr_mandatory" eval="False" />
+            <field name="fields_name">member_contact_2</field>
         </record>
         <record id="survey_personal_info_question_medical_status" model="survey.question">
             <field name="page_id" ref="survey_personal_info_page_1" />
@@ -187,6 +196,7 @@
             <field name="question">Medical status</field>
             <field name="type">free_text</field>
             <field name="constr_mandatory" eval="False" />
+            <field name="fields_name">medical_status</field>
         </record>
     </data>
     <data>

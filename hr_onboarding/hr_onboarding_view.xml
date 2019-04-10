@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
+        <record id="survey_question_form" model="ir.ui.view">
+            <field name="name">Form view for survey question.inherited.hr_onboarding</field>
+            <field name="model">survey.question</field>
+            <field name="inherit_id" ref="survey.survey_question_form"/>
+            <field name="arch" type="xml">
+                <page string="Options" position="inside">
+                    <group string="Meta Data">
+                        <field name="fields_name"/>
+                    </group>
+                </page>
+            </field>
+        </record>
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="name">hr.employee.form.inherited.hr_onboarding</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <page string="Personal Information" position="inside">
+                    <group string="Medical Status">
+                        <field name="medical_status"/>
+                    </group>
+                </page>
+            </field>
+        </record>
         <record id="wizard_employee_form_hr_onboard_company_info" model="ir.ui.view">
             <field name="name">Update Company Info</field>
             <field name="model">hr.employee.company.info.wizard</field>
