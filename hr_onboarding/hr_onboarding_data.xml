@@ -130,6 +130,11 @@
         <record id="survey_personal_info_question_family_member_1_relation_choice_5" model="survey.label">
             <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
             <field name="sequence">5</field>
+            <field name="value">Husband</field>
+        </record>
+        <record id="survey_personal_info_question_family_member_1_relation_choice_6" model="survey.label">
+            <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
+            <field name="sequence">6</field>
             <field name="value">Wife</field>
         </record>
         <record id="survey_personal_info_question_family_member_1_phone_number" model="survey.question">
@@ -180,6 +185,11 @@
         <record id="survey_personal_info_question_family_member_2_relation_choice_5" model="survey.label">
             <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
             <field name="sequence">5</field>
+            <field name="value">Husband</field>
+        </record>
+        <record id="survey_personal_info_question_family_member_2_relation_choice_6" model="survey.label">
+            <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
+            <field name="sequence">6</field>
             <field name="value">Wife</field>
         </record>
         <record id="survey_personal_info_question_family_member_2_phone_number" model="survey.question">
