@@ -186,7 +186,7 @@ class WebsiteSurvey(WebsiteSurvey):
                     member_name_1 = member_name_1.value_text
                 if relation_1:
                     relation_1 = relation_1.value_suggested.value.lower()
-                if member_name_1:
+                if member_contact_1:
                     member_contact_1 = member_contact_1.value_text
                 fams = employee.fam_ids
                 if len(fams) > 0:
@@ -211,7 +211,7 @@ class WebsiteSurvey(WebsiteSurvey):
                     member_name_2 = member_name_2.value_text
                 if relation_2:
                     relation_2 = relation_2.value_suggested.value.lower()
-                if member_name_2:
+                if member_contact_2:
                     member_contact_2 = member_contact_2.value_text
                 fams = employee.fam_ids
                 if len(fams) > 1:
