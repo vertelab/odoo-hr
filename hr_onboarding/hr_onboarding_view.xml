@@ -25,42 +25,6 @@
                 </page>
             </field>
         </record>
-        <record id="wizard_employee_form_hr_onboard_company_info" model="ir.ui.view">
-            <field name="name">Update Company Info</field>
-            <field name="model">hr.employee.company.info.wizard</field>
-            <field name="arch" type="xml">
-                <form string="Employee Company Info">
-                    <group>
-                        <field name="user_name"/>
-                        <field name="password"/>
-                        <field name="confirm_password"/>
-                        <field name="email"/>
-                    </group>
-                    <footer>
-                        <div>
-                            <button name="confirm" string="Confirm" type="object" class="oe_highlight"/> or
-                            <button special="cancel" string="Cancel" class="oe_link"/>
-                        </div>
-                    </footer>
-                </form>
-            </field>
-        </record>
-        <record id="wizard_employee_form_hr_onboard_contract_info" model="ir.ui.view">
-            <field name="name">Update Contract Info</field>
-            <field name="model">hr.employee.contract.info.wizard</field>
-            <field name="arch" type="xml">
-                <form string="Employee Contract Info">
-                    <field name="department_id"/>
-                    <field name="job_id"/>
-                    <footer>
-                        <div>
-                            <button name="confirm" string="Confirm" type="object" class="oe_highlight"/> or
-                            <button special="cancel" string="Cancel" class="oe_link"/>
-                        </div>
-                    </footer>
-                </form>
-            </field>
-        </record>
         <!-- Hr Onboard Kanban View -->
         <record id="view_hr_employee_kanban" model="ir.ui.view">
             <field name="name">hr.employee.kanban</field>
@@ -174,5 +138,71 @@
         </record>
         <menuitem id="menu_hr_onboard" name="Onboard" parent="base.menu_crm_case_job_req_main" action="act_hr_employee" groups="base.group_user" sequence="50" />
         <menuitem id="menu_hr_onboard_stage" name="Onboard Stage" parent="base.menu_crm_case_job_req_main" action="act_hr_onboard_stage" groups="base.group_user" sequence="55" />
+    </data>
+    <!-- wizards -->
+    <data>
+        <record id="wizard_employee_form_hr_onboard_company_info" model="ir.ui.view">
+            <field name="name">Update Company Info</field>
+            <field name="model">hr.employee.company.info.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Employee Company Info">
+                    <group>
+                        <field name="user_name"/>
+                        <field name="password"/>
+                        <field name="confirm_password"/>
+                        <field name="email"/>
+                    </group>
+                    <footer>
+                        <div>
+                            <button name="confirm" string="Confirm" type="object" class="oe_highlight"/> or
+                            <button special="cancel" string="Cancel" class="oe_link"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="wizard_employee_form_hr_onboard_contract_info" model="ir.ui.view">
+            <field name="name">Update Contract Info</field>
+            <field name="model">hr.employee.contract.info.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Employee Contract Info">
+                    <group>
+                        <field name="employee_id" invisible="1"/>
+                        <field name="partner_id" invisible="1"/>
+                        <group string="Position">
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                            <field name="coach_id"/>
+                            <field name="manager"/>
+                        </group>
+                        <group string="Contract">
+                            <field name="contract_type_id"/>
+                            <field name="struct_id"/>
+                            <label for="trial_date_start" string="Trial Period Duration"/>
+                            <div>
+                                <field name="trial_date_start"/> - <field name="trial_date_end"/>
+                            </div>
+                            <label for="duration_date_start" string="Duration"/>
+                            <div>
+                                <field name="duration_date_start"/> - <field name="duration_date_end"/>
+                            </div>
+                            <field name="working_hours"/>
+                            <field name="wage"/>
+                            <field name="prel_tax_amount"/>
+                            <field name="wage_tax_base"/>
+                        </group>
+                        <group string="Bank Accounts" attrs="{'invisible': [('partner_id', '=', False)]}">
+                            <field name="bank_id" context="{'default_partner_id': partner_id, 'form_view_ref': 'base.view_partner_bank_form'}" />
+                        </group>
+                    </group>
+                    <footer>
+                        <div>
+                            <button name="confirm" string="Confirm" type="object" class="oe_highlight"/> or
+                            <button special="cancel" string="Cancel" class="oe_link"/>
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
     </data>
 </openerp>
