@@ -21,7 +21,7 @@ This module depends on OpenHRMS
     """,
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
-    'depends': ['hr_employee_updation','survey','hr_recruitment'],
+    'depends': ['hr_employee_updation', 'survey', 'hr_recruitment', 'account'],
     'data': [
         'hr_onboarding_view.xml',
         'hr_onboarding_data.xml',

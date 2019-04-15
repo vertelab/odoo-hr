@@ -47,21 +47,67 @@ class hr_employee(models.Model):
         'onboard_stage_id': _read_group_onboard_stage_id
     }
 
+    # default value in wizard
+    @api.model
+    def get_partner_detail(self, employee):
+        res = {}
+        home_address = self.address_home_id
+        if home_address:
+            res.update({'default_partner_id': home_address.id})
+        banks = home_address.bank_ids
+        if len(banks) > 0:
+            res.update({'default_bank_id': banks[0].id})
+        return res
+
+    # default value in wizard
+    @api.model
+    def get_contract_detail(self, employee):
+        res = {
+            'default_department_id': employee.department_id.id if employee.department_id else None,
+            'default_job_id': employee.job_id.id if employee.job_id else None,
+            'default_coach_id': employee.coach_id.id if employee.coach_id else None,
+            'default_manager': employee.manager,
+        }
+        contracts = self.env['hr.contract'].search([('employee_id', '=', employee.id)])
+        contract = contracts[0].id if len(contracts) > 0 else None
+        if contract:
+            res.update({
+                'default_contract_type_id': contract.type_id.id if contract.type_id else None,
+                'default_struct_id': contract.struct_id.id if contract.struct_id else None,
+                'default_trial_date_start': contract.trial_date_start or '',
+                'default_trial_date_end': contract.trial_date_end or '',
+                'default_duration_date_start': contract.date_start or '',
+                'default_duration_date_end': contract.date_end or '',
+                'default_working_hours': contract.working_hours.id if contract.working_hours else None,
+                'default_wage': contract.wage,
+                'default_prel_tax_amount': contract.prel_tax_amount,
+                'default_wage_tax_base': contract.wage_tax_base,
+            })
+        return res
+
     @api.multi
     def action_onboard_form(self):
         self.ensure_one()
         if self.onboard_stage_id.view_id and not self.onboard_stage_id.survey_id:
-            view = self.env.ref('hr_onboarding.wizard_employee_form_hr_onboard_company_info')
+            context = {
+                'default_employee_id': self.id,
+            }
+            partner_detail = self.get_partner_detail(self)
+            if len(partner_detail) > 0:
+                context.update(partner_detail)
+            contract_detail = self.get_contract_detail(self)
+            if len(contract_detail) > 0:
+                context.update(contract_detail)
             return {
                 'type': 'ir.actions.act_window',
-                'name': _('Update Company Info'),
+                'name': self.onboard_stage_id.view_id.name,
                 'key2': 'client_action_multi',
-                'res_model': 'hr.employee.company.info.wizard',
+                'res_model': self.onboard_stage_id.view_id.model,
                 'view_type': 'form',
                 'view_mode': 'form',
-                'view_id': view.id,
+                'view_id': self.onboard_stage_id.view_id.id,
                 'target': 'new',
-                'context': {},
+                'context': context,
             }
         if self.onboard_stage_id.survey_id and not self.onboard_stage_id.view_id:
             return self.action_start_survey()
@@ -185,11 +231,27 @@ class hr_employee_company_info_wizard(models.TransientModel):
         # TODO: check password
         pass
 
+
 class hr_employee_contract_info_wizard(models.TransientModel):
     _name = 'hr.employee.contract.info.wizard'
 
-    department_id = fields.Char(string='Department', comodel_name='hr.department')
-    job_id = fields.Char(string='Job', comodel_name='hr.job')
+    employee_id = fields.Many2one(string='Employee', comodel_name='hr.employee')
+    partner_id = fields.Many2one(string='Home Address', comodel_name='res.partner')
+    department_id = fields.Many2one(string='Department', comodel_name='hr.department')
+    job_id = fields.Many2one(string='Job', comodel_name='hr.job')
+    coach_id = fields.Many2one(string='Coach', comodel_name='hr.employee')
+    manager = fields.Boolean(string='Manager')
+    contract_type_id = fields.Many2one(string='Contract Type', comodel_name='hr.contract.type')
+    struct_id = fields.Many2one(string='Contract Struct', comodel_name='hr.payroll.structure')
+    trial_date_start = fields.Date(string='Trail Date Start')
+    trial_date_end = fields.Date(string='Trail Date End')
+    duration_date_start = fields.Date(string='Trail Date Start')
+    duration_date_end = fields.Date(string='Trail Date End')
+    working_hours = fields.Many2one(string='Work schedule', comodel_name='resource.calendar')
+    wage = fields.Float(string='Wage')
+    prel_tax_amount = fields.Float(string='Tax Amount')
+    wage_tax_base = fields.Float(string='Wage Details')
+    bank_id = fields.Many2one(string='Bank Accounts', comodel_name='res.partner.bank', domain="[('partner_id', '=', partner_id)]")
 
     @api.multi
     def confirm(self):
