@@ -110,6 +110,39 @@ class survey_user_input(models.Model):
 
     employee_id = fields.Many2one(string='Employee', comodel_name='hr.employee')
 
+    @api.multi
+    def get_values(self):
+        values = {}
+        for line in self.user_input_line_ids.filtered(lambda l: not l.skipped):
+            _logger.warn('--------------> Answer Type %s %s' % (line.question_id.display_name,line.answer_type))
+            if line.answer_type == 'text':
+                if not values.get(line.question_id.fields_name or line.question_id.display_name,False):
+                    values[line.question_id.fields_name or line.question_id.display_name]={'value': line.value_text if not line.skipped else None,'type': line.answer_type, 'question_id': line.question_id}
+                else:
+                    values[line.question_id.fields_name or line.question_id.display_name]['value'] += ' ' + line.value_text
+            elif line.answer_type == 'free_text':
+                values[line.question_id.fields_name or line.question_id.display_name]={'value': line.value_free_text if not line.skipped else None,'type': line.answer_type, 'question_id': line.question_id }
+            elif line.answer_type == 'number':
+                values[line.question_id.fields_name or line.question_id.display_name]={'value': line.value_number if not line.skipped else None,'type': line.answer_type, 'question_id': line.question_id }
+            elif line.answer_type == 'date':
+                values[line.question_id.fields_name or line.question_id.display_name]={'value': line.value_date if not line.skipped else None,'type': line.answer_type, 'question_id': line.question_id }
+            elif line.answer_type == 'suggestion':  # self.question_id.type ->  simple_choice, multiple_choice, matrix
+                if line.question_id.type == 'simple_choice':
+                    values[line.question_id.fields_name or line.question_id.display_name]={'value': line.value_suggested.value if not line.skipped else None,'type': line.question_id.type, 'question_id': line.question_id }
+                if line.question_id.type == 'multiple_choice':
+                    if values.get(line.question_id.fields_name or line.question_id.display_name,False):
+                        values[line.question_id.fields_name or line.question_id.display_name]['value'].append(line.value_suggested.value)
+                    else:
+                        values[line.question_id.fields_name or line.question_id.display_name]={'value': [line.value_suggested.value if not line.skipped else None],'type': line.question_id.type, 'question_id': line.question_id }
+                if line.question_id.type == 'matrix':
+                    if values.get(line.question_id.fields_name or line.question_id.display_name,False):
+                        values[line.question_id.fields_name or line.question_id.display_name]['value'][line.value_suggested.value] = line.value_suggested_row.value
+                    else:
+                        values[line.question_id.fields_name or line.question_id.display_name]={'value': {},'type': line.question_id.type, 'question_id': line.question_id }
+                        values[line.question_id.fields_name or line.question_id.display_name]['value'][line.value_suggested.value] = line.value_suggested_row.value
+            else:
+                raise Warning('Unknown answer type %s' % line.answer_type)
+        return values
 
 class survey_user_input_line(models.Model):
     _inherit = 'survey.user_input_line'
@@ -118,6 +151,25 @@ class survey_user_input_line(models.Model):
     def save_lines(self, user_input_id, question, post, answer_tag):
         # TODO: catch question datas
         return super(survey_user_input_line, self).save_lines(user_input_id, question, post, answer_tag)
+
+    @api.multi
+    def get_value(self):
+        self.ensure_one()
+        _logger.warn('--------------> Answer Type %s' % self.answer_type)
+        if self.answer_type == 'text':
+            return self.value_text if not self.skipped else None
+        if self.answer_type == 'free_text':
+            return self.value_free_text if not self.skipped else None
+        elif self.answer_type == 'number':
+            return self.value_number if not self.skipped else None
+        elif self.answer_type == 'date':
+            return self.value_date if not self.skipped else None
+        elif self.answer_type == 'suggestion':  # self.question_id.type ->  simple_choice, multiple_choice, matrix
+            return (self.question_id.type,self.value_suggested.value,self.value_suggested_row.value) if not self.skipped else None
+        else:
+            raise Warning('Unknown answer type %s' % self.answer_type)
+            
+
 
 
 class hr_employee_company_info_wizard(models.TransientModel):
@@ -145,13 +197,20 @@ class hr_employee_contract_info_wizard(models.TransientModel):
 
 
 class WebsiteSurvey(WebsiteSurvey):
-
+    
     def update_info_employee(self, survey, token):
+        _logger.warn('Token %s Survey %s' % (token,survey))
         user_input = request.env['survey.user_input'].search([('survey_id', '=', survey.id), ('token', '=', token)])
+        raise Warning(user_input.user_input_line_ids)
         if user_input and user_input.employee_id:
             employee = user_input.employee_id
             vals = {}
             lines = user_input.user_input_line_ids.filtered(lambda l: not l.skipped)
+            
+            raise Warning(user_input.user_input_line_ids)
+            raise Warning([l.get_value() for l in lines])
+            
+            
             vals['name'] = '%s %s' %(lines.filtered(lambda l: l.question_id.fields_name == 'first_name').value_text, lines.filtered(lambda l: l.question_id.fields_name == 'last_name').value_text)
             gender = lines.filtered(lambda l: l.question_id.fields_name == 'gender').value_suggested.value
             if gender:
@@ -232,5 +291,47 @@ class WebsiteSurvey(WebsiteSurvey):
     @http.route(['/survey/submit/<model("survey.survey"):survey>'], type='http', methods=['POST'], auth='public', website=True)
     def submit(self, survey, **post):
         res = super(WebsiteSurvey, self).submit(survey, **post)
-        self.update_info_employee(survey, post['token'])
+        # ~ raise Warning("%s post %s" % (res,post))
+    
+        # ~ self.update_info_employee(survey, post['token'])
         return res
+
+    @http.route(['/survey/check/<string:token>'], type='http', methods=['GET'], auth='public', website=True)
+    def check(self, token, **post):
+        user_input = request.env['survey.user_input'].search([('token', '=', token)])
+        records = {}
+        for key,value in user_input.get_values().items():
+            if not '.' in key:
+                records['main'] = {}
+            else:
+                records[key.split('.')[0]] = {}
+        for key,value in user_input.get_values().items():
+            
+            if not '.' in key:
+                if value['type'] in ['text','number','date','free_text','simple_choice']:
+                    records['main'][key] = value['value']
+                elif value['type'] == 'multiple_choice':
+                    # Check related table, translate values to ids
+                    raise Warning('Multiple_choice not implemented yet')
+                    # ~ getattr(user_input.employee_id, key) = (6,0,value['value'])
+                elif value['type'] == 'matrix':
+                    raise Warning('Matrix not implemented yet')
+            else:
+                records[key.split('.')[0]][key.split('.')[1]] = value['value']
+                # ~ raise Warning('Slots %s ' % getattr(hr_employee, key.split('.')[0]._slots))
+        for key in records:
+            if key == 'main':
+                # ~ user_input.employee_id.write(records[key])
+                pass
+            elif key == 'address_home_id':
+                # if name is missing, use name from employee_id.name
+                partner = request.env['res.partner'].create({'name':'Pelle','street': 'Klocksippe','zip':'111 22','city':'Lkpg'})
+                # ~ user_input.employee_id.write({'address_home_id': request.env[getattr(user_input.employee_id,'address_home_id')._model].create(record['address_home_id'])})
+                user_input.employee_id.write({'address_home_id': partner.id})
+                
+                # ~ getattr(user_input.employee_id,'address_id')
+                # ~ raise Warning(getattr(user_input.employee_id,'address_id')._model)
+                # ~ raise Warning(user_input.employee_id.address_id._columns)
+        # ~ raise Warning('%s ' %(records ))
+        # ~ raise Warning([(l.get_value(),l.question_id.question) for l in user_input.user_input_line_ids])
+        # ~ raise Warning(user_input.user_input_line_ids)
