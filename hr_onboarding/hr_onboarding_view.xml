@@ -191,7 +191,7 @@
                             <field name="prel_tax_amount"/>
                             <field name="wage_tax_base"/>
                         </group>
-                        <group string="Bank Accounts" attrs="{'invisible': [('partner_id', '=', False)]}">
+                        <group string="Bank Accounts">
                             <field name="bank_id" context="{'default_partner_id': partner_id, 'form_view_ref': 'base.view_partner_bank_form'}" />
                         </group>
                     </group>
