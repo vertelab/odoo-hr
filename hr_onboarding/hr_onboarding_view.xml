@@ -37,7 +37,8 @@
                     <field name="work_email" />
                     <field name="work_phone" />
                     <field name="color" />
-                    <templates>
+                    <field name="onboard_stage_id" />
+                     <templates>
                         <t t-name="kanban-box">
                             <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
                                 <div class="oe_dropdown_toggle oe_dropdown_kanban" groups="base.group_user">
@@ -64,10 +65,7 @@
                                         Work phone:
                                         <field name="work_phone" />
                                     </div>
-<!--
-                                    <div class="oe_kanban_bottom_left" attrs="{'invisible': [('onboard_stage_id', 'not in', [%(hr_onboarding.state_personal_info)d, %(hr_onboarding.state_company_info)d, %(hr_onboarding.state_contract_info)d, %(hr_onboarding.state_assets)d, %(hr_onboarding.state_certifications)d, %(hr_onboarding.state_benefits)d])]}">
--->
-                                    <div class="oe_kanban_bottom_left">
+                                    <div class="oe_kanban_bottom_left" t-if="[%(hr_onboarding.state_personal_info)d, %(hr_onboarding.state_company_info)d, %(hr_onboarding.state_contract_info)d, %(hr_onboarding.state_assets)d, %(hr_onboarding.state_certifications)d, %(hr_onboarding.state_benefits)d].indexOf(record.onboard_stage_id.raw_value[0]) !== -1">
                                         <a name="action_onboard_form" type="object" groups="base.group_hr_user">Update</a>
                                     </div>
                                     <div class="oe_kanban_bottom_right">
