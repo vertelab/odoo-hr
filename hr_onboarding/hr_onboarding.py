@@ -215,7 +215,7 @@ class survey_user_input_line(models.Model):
             return (self.question_id.type,self.value_suggested.value,self.value_suggested_row.value) if not self.skipped else None
         else:
             raise Warning('Unknown answer type %s' % self.answer_type)
-            
+
 
 
 
@@ -295,8 +295,49 @@ class hr_employee_contract_info_wizard(models.TransientModel):
                 })
 
 
+class hr_employee_assets_wizard(models.TransientModel):
+    _name = 'hr.employee.assets.wizard'
+
+    employee_id = fields.Many2one(string='Employee', comodel_name='hr.employee')
+    mobile_pad_category = fields.Many2one(string='Mobile/Pad Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]", required=True)
+    mobile_pad_ids = fields.One2many(string='Mobile/Pad', comodel_name='hr.employee.assets.line.wizard', inverse_name='mobile_pad_employee_asset_id')
+    computer_category = fields.Many2one(string='Computer Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]", required=True)
+    computer_ids = fields.One2many(string='Computer', comodel_name='hr.employee.assets.line.wizard', inverse_name='computer_employee_asset_id')
+    entry_category = fields.Many2one(string='Entry Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]", required=True)
+    entry_ids = fields.One2many(string='Entry', comodel_name='hr.employee.assets.line.wizard', inverse_name='entry_employee_asset_id')
+
+    @api.multi
+    def confirm(self):
+        for a in self.mobile_pad_ids:
+            a.mobile_pad_id.employee_id = self.employee_id.id
+            a.mobile_pad_id.is_signed = a.mobile_pad_is_signed
+        for c in self.computer_ids:
+            c.computer_id.employee_id = self.employee_id.id
+            c.computer_id.is_signed = c.computer_is_signed
+        for e in self.entry_ids:
+            e.entry_id.employee_id = self.employee_id.id
+            e.entry_id.is_signed = e.entry_is_signed
+
+
+class hr_employee_assets_line_wizard(models.TransientModel):
+    _name = 'hr.employee.assets.line.wizard'
+
+    mobile_pad_employee_asset_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
+    mobile_pad_category = fields.Many2one(related='mobile_pad_employee_asset_id.mobile_pad_category', comodel_name='account.asset.category')
+    mobile_pad_id = fields.Many2one(string='Mobile/pad', comodel_name='account.asset.asset', domain="[('employee_id', '=', False), ('category_id', '=', mobile_pad_category), ('state', '=', 'draft')]")
+    mobile_pad_is_signed = fields.Boolean(string='Signed')
+    computer_employee_asset_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
+    computer_category = fields.Many2one(related='computer_employee_asset_id.computer_category', comodel_name='account.asset.category')
+    computer_id = fields.Many2one(string='Computer', comodel_name='account.asset.asset', domain="[('employee_id', '=', False), ('category_id', '=', computer_category), ('state', '=', 'draft')]")
+    computer_is_signed = fields.Boolean(string='Signed')
+    entry_employee_asset_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
+    entry_category = fields.Many2one(related='entry_employee_asset_id.entry_category', comodel_name='account.asset.category')
+    entry_id = fields.Many2one(string='Entry', comodel_name='account.asset.asset', domain="[('employee_id', '=', False), ('category_id', '=', entry_category), ('state', '=', 'draft')]")
+    entry_is_signed = fields.Boolean(string='Signed')
+
+
 class WebsiteSurvey(WebsiteSurvey):
-    
+
     def update_info_employee(self, survey, token):
         _logger.warn('Token %s Survey %s' % (token,survey))
         user_input = request.env['survey.user_input'].search([('survey_id', '=', survey.id), ('token', '=', token)])
@@ -305,11 +346,11 @@ class WebsiteSurvey(WebsiteSurvey):
             employee = user_input.employee_id
             vals = {}
             lines = user_input.user_input_line_ids.filtered(lambda l: not l.skipped)
-            
+
             raise Warning(user_input.user_input_line_ids)
             raise Warning([l.get_value() for l in lines])
-            
-            
+
+
             vals['name'] = '%s %s' %(lines.filtered(lambda l: l.question_id.fields_name == 'first_name').value_text, lines.filtered(lambda l: l.question_id.fields_name == 'last_name').value_text)
             gender = lines.filtered(lambda l: l.question_id.fields_name == 'gender').value_suggested.value
             if gender:
@@ -391,7 +432,7 @@ class WebsiteSurvey(WebsiteSurvey):
     def submit(self, survey, **post):
         res = super(WebsiteSurvey, self).submit(survey, **post)
         # ~ raise Warning("%s post %s" % (res,post))
-    
+
         # ~ self.update_info_employee(survey, post['token'])
         return res
 
@@ -405,7 +446,7 @@ class WebsiteSurvey(WebsiteSurvey):
             else:
                 records[key.split('.')[0]] = {}
         for key,value in user_input.get_values().items():
-            
+
             if not '.' in key:
                 if value['type'] in ['text','number','date','free_text','simple_choice']:
                     records['main'][key] = value['value']
@@ -427,7 +468,7 @@ class WebsiteSurvey(WebsiteSurvey):
                 partner = request.env['res.partner'].create({'name':'Pelle','street': 'Klocksippe','zip':'111 22','city':'Lkpg'})
                 # ~ user_input.employee_id.write({'address_home_id': request.env[getattr(user_input.employee_id,'address_home_id')._model].create(record['address_home_id'])})
                 user_input.employee_id.write({'address_home_id': partner.id})
-                
+
                 # ~ getattr(user_input.employee_id,'address_id')
                 # ~ raise Warning(getattr(user_input.employee_id,'address_id')._model)
                 # ~ raise Warning(user_input.employee_id.address_id._columns)
