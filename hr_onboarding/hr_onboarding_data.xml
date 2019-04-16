@@ -1,252 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>
-        <record id="survey_personal_info" model="survey.survey">
-            <field name="title">Personal Info</field>
-            <field name="stage_id" ref="survey.stage_in_progress" />
-            <field name="auth_required" eval="False" />
-            <field name="users_can_go_back" eval="True" />
-            <field name="description">&lt;p&gt;Your personal information.&lt;/p&gt;</field>
-            <field name="thank_you_message">&lt;p&gt;&lt;/p&gt;</field>
-        </record>
-        <record id="survey_personal_info_page_1" model="survey.page">
-            <field name="title">Personal Info</field>
-            <field name="survey_id" ref="survey_personal_info" />
-            <field name="sequence">1</field>
-            <field name="description">&lt;p&gt;&lt;/p&gt;</field>
-        </record>
-        <record id="survey_personal_info_question_first_name" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">1</field>
-            <field name="question">First Name</field>
-            <field name="type">textbox</field>
-            <field name="constr_mandatory" eval="True" />
-            <field name="fields_name">first_name</field>
-        </record>
-        <record id="survey_personal_info_question_last_name" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">2</field>
-            <field name="question">Last Name</field>
-            <field name="type">textbox</field>
-            <field name="constr_mandatory" eval="True" />
-            <field name="fields_name">last_name</field>
-        </record>
-        <record id="survey_personal_info_question_gender" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">3</field>
-            <field name="question">Gender</field>
-            <field name="type">simple_choice</field>
-            <field name="display_mode">dropdown</field>
-            <field name="constr_mandatory" eval="True" />
-            <field name="fields_name">gender</field>
-        </record>
-        <record id="survey_personal_info_question_gender_choice_1" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_gender" />
-            <field name="sequence">1</field>
-            <field name="value">Male</field>
-        </record>
-        <record id="survey_personal_info_question_gender_choice_2" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_gender" />
-            <field name="sequence">2</field>
-            <field name="value">Female</field>
-        </record>
-        <record id="survey_personal_info_question_id_number" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">4</field>
-            <field name="question">ID Number</field>
-            <field name="type">textbox</field>
-            <field name="constr_mandatory" eval="True" />
-            <field name="fields_name">identification_id</field>
-        </record>
-        <record id="survey_personal_info_question_address_street" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">5</field>
-            <field name="question">Street</field>
-            <field name="type">textbox</field>
-            <field name="constr_mandatory" eval="False" />
-            <field name="fields_name">street</field>
-        </record>
-        <record id="survey_personal_info_question_address_zip" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">6</field>
-            <field name="question">Zip</field>
-            <field name="type">textbox</field>
-            <field name="constr_mandatory" eval="False" />
-            <field name="fields_name">zip</field>
-        </record>
-        <record id="survey_personal_info_question_address_city" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">7</field>
-            <field name="question">City</field>
-            <field name="type">textbox</field>
-            <field name="constr_mandatory" eval="False" />
-            <field name="fields_name">city</field>
-        </record>
-        <record id="survey_personal_info_question_mobile" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">8</field>
-            <field name="question">Mobile</field>
-            <field name="type">textbox</field>
-            <field name="constr_mandatory" eval="False" />
-            <field name="fields_name">mobile</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_1_name" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">10</field>
-            <field name="question">Family member 1 name</field>
-            <field name="type">textbox</field>
-            <field name="constr_mandatory" eval="False" />
-            <field name="fields_name">member_name_1</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_1_relation" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">11</field>
-            <field name="question">Family member 1 relation</field>
-            <field name="type">simple_choice</field>
-            <field name="display_mode">dropdown</field>
-            <field name="constr_mandatory" eval="False" />
-            <field name="fields_name">relation_1</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_1_relation_choice_1" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
-            <field name="sequence">1</field>
-            <field name="value">Father</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_1_relation_choice_2" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
-            <field name="sequence">2</field>
-            <field name="value">Mother</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_1_relation_choice_3" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
-            <field name="sequence">3</field>
-            <field name="value">Daughter</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_1_relation_choice_4" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
-            <field name="sequence">4</field>
-            <field name="value">Son</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_1_relation_choice_5" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
-            <field name="sequence">5</field>
-            <field name="value">Husband</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_1_relation_choice_6" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
-            <field name="sequence">6</field>
-            <field name="value">Wife</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_1_phone_number" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">12</field>
-            <field name="question">Family member 1 phone number</field>
-            <field name="type">textbox</field>
-            <field name="constr_mandatory" eval="False" />
-            <field name="fields_name">member_contact_1</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_2_name" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">13</field>
-            <field name="question">Family member 2 name</field>
-            <field name="type">textbox</field>
-            <field name="constr_mandatory" eval="False" />
-            <field name="fields_name">member_name_2</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_2_relation" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">14</field>
-            <field name="question">Family member 2 relation</field>
-            <field name="type">simple_choice</field>
-            <field name="display_mode">dropdown</field>
-            <field name="constr_mandatory" eval="False" />
-            <field name="fields_name">relation_2</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_2_relation_choice_1" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
-            <field name="sequence">1</field>
-            <field name="value">Father</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_2_relation_choice_2" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
-            <field name="sequence">2</field>
-            <field name="value">Mother</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_2_relation_choice_3" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
-            <field name="sequence">3</field>
-            <field name="value">Daughter</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_2_relation_choice_4" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
-            <field name="sequence">4</field>
-            <field name="value">Son</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_2_relation_choice_5" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
-            <field name="sequence">5</field>
-            <field name="value">Husband</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_2_relation_choice_6" model="survey.label">
-            <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
-            <field name="sequence">6</field>
-            <field name="value">Wife</field>
-        </record>
-        <record id="survey_personal_info_question_family_member_2_phone_number" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">15</field>
-            <field name="question">Family member 2 phone number</field>
-            <field name="type">textbox</field>
-            <field name="constr_mandatory" eval="False" />
-            <field name="fields_name">member_contact_2</field>
-        </record>
-        <record id="survey_personal_info_question_medical_status" model="survey.question">
-            <field name="page_id" ref="survey_personal_info_page_1" />
-            <field name="sequence">20</field>
-            <field name="question">Medical status</field>
-            <field name="type">free_text</field>
-            <field name="constr_mandatory" eval="False" />
-            <field name="fields_name">medical_status</field>
-        </record>
-    </data>
-    <data>
-        <record id="state_personal_info" model="hr.onboard.stage">
-            <field name="name">Personal Info</field>
-            <field name="technical_name">personal_info</field>
-            <field name="survey_id" eval="[(6, 0, [ref('hr_onboarding.survey_personal_info')])]" />
-            <field name="sequence">10</field>
-        </record>
-        <record id="state_company_info" model="hr.onboard.stage">
-            <field name="name">Company Info</field>
-            <field name="technical_name">company_info</field>
-            <field name="view_id" ref="hr_onboarding.wizard_employee_form_hr_onboard_company_info" />
-            <field name="sequence">20</field>
-        </record>
-        <record id="state_contract_info" model="hr.onboard.stage">
-            <field name="name">Contract Info</field>
-            <field name="technical_name">contract_info</field>
-            <field name="view_id" ref="hr_onboarding.wizard_employee_form_hr_onboard_contract_info" />
-            <field name="sequence">30</field>
-        </record>
-        <record id="state_assets" model="hr.onboard.stage">
-            <field name="name">Assets</field>
-            <field name="technical_name">assets</field>
-            <field name="sequence">40</field>
-        </record>
-        <record id="state_certifications" model="hr.onboard.stage">
-            <field name="name">Certifications</field>
-            <field name="technical_name">certifications</field>
-            <field name="sequence">50</field>
-        </record>
-        <record id="state_benefits" model="hr.onboard.stage">
-            <field name="name">Benefits</field>
-            <field name="technical_name">benefits</field>
-            <field name="sequence">60</field>
-        </record>
-        <record id="state_completed" model="hr.onboard.stage">
-            <field name="name">Completed</field>
-            <field name="technical_name">completed</field>
-            <field name="sequence">70</field>
-        </record>
-    </data>
+  <data>
+    <record id="survey_personal_info" model="survey.survey">
+      <field name="title">Personal Info</field>
+      <field name="stage_id" ref="survey.stage_in_progress" />
+      <field name="auth_required" eval="False" />
+      <field name="users_can_go_back" eval="True" />
+      <field name="description">&lt;p&gt;Your personal information.&lt;/p&gt;</field>
+      <field name="thank_you_message">&lt;p&gt;&lt;/p&gt;</field>
+    </record>
+    <record id="survey_personal_info_page_1" model="survey.page">
+      <field name="title">Personal Info</field>
+      <field name="survey_id" ref="survey_personal_info" />
+      <field name="sequence">1</field>
+      <field name="description">&lt;p&gt;&lt;/p&gt;</field>
+    </record>
+    <record id="survey_personal_info_question_first_name" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">1</field>
+      <field name="question">First Name</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="True" />
+      <field name="fields_name">name</field>
+    </record>
+    <record id="survey_personal_info_question_last_name" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">2</field>
+      <field name="question">Last Name</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="True" />
+      <field name="fields_name">name</field>
+    </record>
+    <record id="survey_personal_info_question_gender" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">3</field>
+      <field name="question">Gender</field>
+      <field name="type">simple_choice</field>
+      <field name="display_mode">dropdown</field>
+      <field name="constr_mandatory" eval="True" />
+      <field name="fields_name">gender</field>
+    </record>
+    <record id="survey_personal_info_question_gender_choice_1" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_gender" />
+      <field name="sequence">1</field>
+      <field name="value">Male</field>
+      <field name="tecnical_value">male</field>
+    </record>
+    <record id="survey_personal_info_question_gender_choice_2" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_gender" />
+      <field name="sequence">2</field>
+      <field name="value">Female</field>
+      <field name="tecnical_value">female</field>
+    </record>
+    <record id="survey_personal_info_question_id_number" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">4</field>
+      <field name="question">ID Number</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="True" />
+      <field name="fields_name">identification_id</field>
+    </record>
+    <record id="survey_personal_info_question_address_street" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">5</field>
+      <field name="question">Street</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">address_home_id.street</field>
+    </record>
+    <record id="survey_personal_info_question_address_zip" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">6</field>
+      <field name="question">Zip</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">address_home_id.zip</field>
+    </record>
+    <record id="survey_personal_info_question_address_city" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">7</field>
+      <field name="question">City</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">address_home_id.city</field>
+    </record>
+    <record id="survey_personal_info_question_mobile" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">8</field>
+      <field name="question">Personal Mobile</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">address_home_id.mobile</field>
+    </record>
+    <record id="survey_personal_info_question_mobile" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">8</field>
+      <field name="question">Home Phone number</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">address_home_id.phone</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_1_name" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">10</field>
+      <field name="question">Family member 1 name</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">fam_ids.member_name</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_1_relation" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">11</field>
+      <field name="question">Family member 1 relation</field>
+      <field name="type">simple_choice</field>
+      <field name="display_mode">dropdown</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">relation_1</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_1_relation_choice_1" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
+      <field name="sequence">1</field>
+      <field name="value">Father</field>
+      <field name="tecnical_value">father</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_1_relation_choice_2" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
+      <field name="sequence">2</field>
+      <field name="value">Mother</field>
+      <field name="tecnical_value">mother</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_1_relation_choice_3" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
+      <field name="sequence">3</field>
+      <field name="value">Daughter</field>
+      <field name="tecnical_value">daughter</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_1_relation_choice_4" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
+      <field name="sequence">4</field>
+      <field name="value">Son</field>
+      <field name="tecnical_value">son</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_1_relation_choice_5" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
+      <field name="sequence">5</field>
+      <field name="value">Husband</field>
+      <field name="tecnical_value">husband</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_1_relation_choice_6" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
+      <field name="sequence">6</field>
+      <field name="value">Wife</field>
+      <field name="tecnical_value">wife</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_1_phone_number" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">12</field>
+      <field name="question">Family member 1 phone number</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">fam_ids.member_contact</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_2_name" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">13</field>
+      <field name="question">Family member 2 name</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">fam_ids.member_name</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_2_relation" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">14</field>
+      <field name="question">Family member 2 relation</field>
+      <field name="type">simple_choice</field>
+      <field name="display_mode">dropdown</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">fam_ids.relation</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_2_relation_choice_1" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
+      <field name="sequence">1</field>
+      <field name="value">Father</field>
+      <field name="tecnical_value">father</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_2_relation_choice_2" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
+      <field name="sequence">2</field>
+      <field name="value">Mother</field>
+      <field name="tecnical_value">mother</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_2_relation_choice_3" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
+      <field name="sequence">3</field>
+      <field name="value">Daughter</field>
+      <field name="tecnical_value">daughter</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_2_relation_choice_4" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
+      <field name="sequence">4</field>
+      <field name="value">Son</field>
+      <field name="tecnical_value">son</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_2_relation_choice_5" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
+      <field name="sequence">5</field>
+      <field name="value">Husband</field>
+      <field name="tecnical_value">husband</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_2_relation_choice_6" model="survey.label">
+      <field name="question_id" ref="survey_personal_info_question_family_member_2_relation" />
+      <field name="sequence">6</field>
+      <field name="value">Wife</field>
+    </record>
+    <record id="survey_personal_info_question_family_member_2_phone_number" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">15</field>
+      <field name="question">Family member 2 phone number</field>
+      <field name="type">textbox</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">fam_ids.member_contact</field>
+    </record>
+    <record id="survey_personal_info_question_medical_status" model="survey.question">
+      <field name="page_id" ref="survey_personal_info_page_1" />
+      <field name="sequence">20</field>
+      <field name="question">Medical status</field>
+      <field name="type">free_text</field>
+      <field name="constr_mandatory" eval="False" />
+      <field name="fields_name">medical_status</field>
+    </record>
+  </data>
+  <data>
+    <record id="state_personal_info" model="hr.onboard.stage">
+      <field name="name">Personal Info</field>
+      <field name="technical_name">personal_info</field>
+      <field name="survey_id" eval="[(6, 0, [ref('hr_onboarding.survey_personal_info')])]" />
+      <field name="sequence">10</field>
+    </record>
+    <record id="state_company_info" model="hr.onboard.stage">
+      <field name="name">Company Info</field>
+      <field name="technical_name">company_info</field>
+      <field name="view_id" ref="hr_onboarding.wizard_employee_form_hr_onboard_company_info" />
+      <field name="sequence">20</field>
+    </record>
+    <record id="state_contract_info" model="hr.onboard.stage">
+      <field name="name">Contract Info</field>
+      <field name="technical_name">contract_info</field>
+      <field name="view_id" ref="hr_onboarding.wizard_employee_form_hr_onboard_contract_info" />
+      <field name="sequence">30</field>
+    </record>
+    <record id="state_assets" model="hr.onboard.stage">
+      <field name="name">Assets</field>
+      <field name="technical_name">assets</field>
+      <field name="sequence">40</field>
+    </record>
+    <record id="state_certifications" model="hr.onboard.stage">
+      <field name="name">Certifications</field>
+      <field name="technical_name">certifications</field>
+      <field name="sequence">50</field>
+    </record>
+    <record id="state_benefits" model="hr.onboard.stage">
+      <field name="name">Benefits</field>
+      <field name="technical_name">benefits</field>
+      <field name="sequence">60</field>
+    </record>
+    <record id="state_completed" model="hr.onboard.stage">
+      <field name="name">Completed</field>
+      <field name="technical_name">completed</field>
+      <field name="sequence">70</field>
+    </record>
+  </data>
 </openerp>
