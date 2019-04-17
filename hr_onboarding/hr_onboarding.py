@@ -86,6 +86,17 @@ class hr_employee(models.Model):
             })
         return res
 
+    # default value in wizard
+    @api.model
+    def get_certification_detail(self, employee):
+        res = {
+            'default_department_id': employee.department_id.id if employee.department_id else None,
+            'default_job_id': employee.job_id.id if employee.job_id else None,
+            'default_coach_id': employee.coach_id.id if employee.coach_id else None,
+            'default_manager': employee.manager,
+        }
+        return res
+
     @api.multi
     def action_onboard_form(self):
         self.ensure_one()
@@ -99,11 +110,22 @@ class hr_employee(models.Model):
             contract_detail = self.get_contract_detail(self)
             if len(contract_detail) > 0:
                 context.update(contract_detail)
+            wizard_id = 0
+            if self.onboard_stage_id == self.env.ref('hr_onboarding.state_certifications'):
+                if len(self.job_id.certification_type_ids) > 0:
+                    cert = self.env['hr.employee.certification.wizard'].create({'employee_id': self.id})
+                    for t in self.job_id.certification_type_ids:
+                        self.env['hr.employee.certification.line.wizard'].create({
+                            'employee_certification_wizard_id': cert.id,
+                            'cert_type_id': t.id,
+                        })
+                    wizard_id = cert.id
             return {
                 'type': 'ir.actions.act_window',
                 'name': self.onboard_stage_id.view_id.name,
                 'key2': 'client_action_multi',
                 'res_model': self.onboard_stage_id.view_id.model,
+                'res_id': wizard_id,
                 'view_type': 'form',
                 'view_mode': 'form',
                 'view_id': self.onboard_stage_id.view_id.id,
@@ -136,6 +158,7 @@ class hr_job(models.Model):
     has_mobile_pad = fields.Boolean(string='Has Mobile/Pad')
     has_computer = fields.Boolean(string='Has Computer')
     has_key = fields.Boolean(string='Has Key')
+    certification_type_ids = fields.Many2many(string='Certification Types', comodel_name='hr.certification.type')
 
 
 class hr_onboard_stage(models.Model):
@@ -308,7 +331,7 @@ class hr_employee_certification_line_wizard(models.TransientModel):
     cert_is_signed = fields.Boolean(string='Signed')
     cert_date_start = fields.Date(string='Start')
     cert_date_end = fields.Date(string='End')
-    cert_state = fields.Selection(selection=[('draft', 'Draft'), ('peding', 'Peding'), ('active', 'Active'), ('canceled', 'Canceled')], default='draft')
+    cert_state = fields.Selection(selection=[('draft', 'Draft'), ('pending', 'Pending'), ('active', 'Active'), ('canceled', 'Canceled')], default='draft')
 
 
 class WebsiteSurvey(WebsiteSurvey):
@@ -317,13 +340,13 @@ class WebsiteSurvey(WebsiteSurvey):
     def submit(self, survey, **post):
         res = super(WebsiteSurvey, self).submit(survey, **post)
         user_input = request.env['survey.user_input'].search([('token', '=', post['token'])])
-        # ~ if user_input.employee_id:
-            # ~ user_input.save_values('employee_id')
+        if user_input.employee_id:
+            user_input.save_values('employee_id')
         return res
 
     @http.route(['/survey/check/<string:token>'], type='http', methods=['GET'], auth='public', website=True)
     def check(self, token, **post):
         user_input = request.env['survey.user_input'].search([('token', '=', token)])
-        # ~ if user_input.employee_id:
-            # ~ user_input.save_values('employee_id')
+        if user_input.employee_id:
+            user_input.save_values('employee_id')
         return 'Hello World'

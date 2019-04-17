@@ -27,6 +27,9 @@
                         <label for="has_key"/>
                         <field name="has_key" />
                     </div>
+                    <group>
+                        <field name="certification_type_ids" widget="many2many_tags" />
+                    </group>
                 </field>
             </field>
         </record>
@@ -290,19 +293,7 @@
                         <field name="employee_id" invisible="1" />
                         <group>
                             <field name="certification_ids" context="{'default_employee_id': employee_id}" nolabel="1">
-                                <form string="Certification">
-                                    <group>
-                                        <group>
-                                            <field name="employee_certification_wizard_id" invisible="1" />
-                                            <field name="cert_type_id" />
-                                            <field name="cert_is_signed" />
-                                            <field name="cert_date_start" />
-                                            <field name="cert_date_end" />
-                                            <field name="cert_state" />
-                                        </group>
-                                    </group>
-                                </form>
-                                <tree string="Certifications">
+                                <tree string="Certifications" editable="bottom">
                                     <field name="cert_type_id" />
                                     <field name="cert_is_signed" />
                                     <field name="cert_date_start" />
