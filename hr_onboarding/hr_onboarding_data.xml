@@ -230,44 +230,4 @@
       <field name="fields_name">medical_status</field>
     </record>
   </data>
-  <data>
-    <record id="state_personal_info" model="hr.onboard.stage">
-      <field name="name">Personal Info</field>
-      <field name="technical_name">personal_info</field>
-      <field name="survey_id" eval="[(6, 0, [ref('hr_onboarding.survey_personal_info')])]" />
-      <field name="sequence">10</field>
-    </record>
-    <record id="state_company_info" model="hr.onboard.stage">
-      <field name="name">Company Info</field>
-      <field name="technical_name">company_info</field>
-      <field name="view_id" ref="hr_onboarding.wizard_employee_form_hr_onboard_company_info" />
-      <field name="sequence">20</field>
-    </record>
-    <record id="state_contract_info" model="hr.onboard.stage">
-      <field name="name">Contract Info</field>
-      <field name="technical_name">contract_info</field>
-      <field name="view_id" ref="hr_onboarding.wizard_employee_form_hr_onboard_contract_info" />
-      <field name="sequence">30</field>
-    </record>
-    <record id="state_assets" model="hr.onboard.stage">
-      <field name="name">Assets</field>
-      <field name="technical_name">assets</field>
-      <field name="sequence">40</field>
-    </record>
-    <record id="state_certifications" model="hr.onboard.stage">
-      <field name="name">Certifications</field>
-      <field name="technical_name">certifications</field>
-      <field name="sequence">50</field>
-    </record>
-    <record id="state_benefits" model="hr.onboard.stage">
-      <field name="name">Benefits</field>
-      <field name="technical_name">benefits</field>
-      <field name="sequence">60</field>
-    </record>
-    <record id="state_completed" model="hr.onboard.stage">
-      <field name="name">Completed</field>
-      <field name="technical_name">completed</field>
-      <field name="sequence">70</field>
-    </record>
-  </data>
 </openerp>
