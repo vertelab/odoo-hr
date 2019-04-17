@@ -146,79 +146,6 @@ class hr_onboard_stage(models.Model):
     survey_id = fields.Many2many(comodel_name='survey.survey', string='Survey')
 
 
-class survey_question(models.Model):
-    _inherit = 'survey.question'
-
-    fields_name = fields.Char(string='Fields Name', help='The fields will be used to save survey question.')
-
-
-class survey_user_input(models.Model):
-    _inherit = 'survey.user_input'
-
-    employee_id = fields.Many2one(string='Employee', comodel_name='hr.employee')
-
-    @api.multi
-    def get_values(self):
-        values = {}
-        for line in self.user_input_line_ids.filtered(lambda l: not l.skipped):
-            _logger.warn('--------------> Answer Type %s %s' % (line.question_id.display_name,line.answer_type))
-            if line.answer_type == 'text':
-                if not values.get(line.question_id.fields_name or line.question_id.display_name,False):
-                    values[line.question_id.fields_name or line.question_id.display_name]={'value': line.value_text if not line.skipped else None,'type': line.answer_type, 'question_id': line.question_id}
-                else:
-                    values[line.question_id.fields_name or line.question_id.display_name]['value'] += ' ' + line.value_text
-            elif line.answer_type == 'free_text':
-                values[line.question_id.fields_name or line.question_id.display_name]={'value': line.value_free_text if not line.skipped else None,'type': line.answer_type, 'question_id': line.question_id }
-            elif line.answer_type == 'number':
-                values[line.question_id.fields_name or line.question_id.display_name]={'value': line.value_number if not line.skipped else None,'type': line.answer_type, 'question_id': line.question_id }
-            elif line.answer_type == 'date':
-                values[line.question_id.fields_name or line.question_id.display_name]={'value': line.value_date if not line.skipped else None,'type': line.answer_type, 'question_id': line.question_id }
-            elif line.answer_type == 'suggestion':  # self.question_id.type ->  simple_choice, multiple_choice, matrix
-                if line.question_id.type == 'simple_choice':
-                    values[line.question_id.fields_name or line.question_id.display_name]={'value': line.value_suggested.value if not line.skipped else None,'type': line.question_id.type, 'question_id': line.question_id }
-                if line.question_id.type == 'multiple_choice':
-                    if values.get(line.question_id.fields_name or line.question_id.display_name,False):
-                        values[line.question_id.fields_name or line.question_id.display_name]['value'].append(line.value_suggested.value)
-                    else:
-                        values[line.question_id.fields_name or line.question_id.display_name]={'value': [line.value_suggested.value if not line.skipped else None],'type': line.question_id.type, 'question_id': line.question_id }
-                if line.question_id.type == 'matrix':
-                    if values.get(line.question_id.fields_name or line.question_id.display_name,False):
-                        values[line.question_id.fields_name or line.question_id.display_name]['value'][line.value_suggested.value] = line.value_suggested_row.value
-                    else:
-                        values[line.question_id.fields_name or line.question_id.display_name]={'value': {},'type': line.question_id.type, 'question_id': line.question_id }
-                        values[line.question_id.fields_name or line.question_id.display_name]['value'][line.value_suggested.value] = line.value_suggested_row.value
-            else:
-                raise Warning('Unknown answer type %s' % line.answer_type)
-        return values
-
-class survey_user_input_line(models.Model):
-    _inherit = 'survey.user_input_line'
-
-    @api.model
-    def save_lines(self, user_input_id, question, post, answer_tag):
-        # TODO: catch question datas
-        return super(survey_user_input_line, self).save_lines(user_input_id, question, post, answer_tag)
-
-    @api.multi
-    def get_value(self):
-        self.ensure_one()
-        _logger.warn('--------------> Answer Type %s' % self.answer_type)
-        if self.answer_type == 'text':
-            return self.value_text if not self.skipped else None
-        if self.answer_type == 'free_text':
-            return self.value_free_text if not self.skipped else None
-        elif self.answer_type == 'number':
-            return self.value_number if not self.skipped else None
-        elif self.answer_type == 'date':
-            return self.value_date if not self.skipped else None
-        elif self.answer_type == 'suggestion':  # self.question_id.type ->  simple_choice, multiple_choice, matrix
-            return (self.question_id.type,self.value_suggested.value,self.value_suggested_row.value) if not self.skipped else None
-        else:
-            raise Warning('Unknown answer type %s' % self.answer_type)
-
-
-
-
 class hr_employee_company_info_wizard(models.TransientModel):
     _name = 'hr.employee.company.info.wizard'
 
@@ -370,141 +297,18 @@ class hr_employee_certification_line_wizard(models.TransientModel):
 
 
 class WebsiteSurvey(WebsiteSurvey):
-
-    def update_info_employee(self, survey, token):
-        _logger.warn('Token %s Survey %s' % (token,survey))
-        user_input = request.env['survey.user_input'].search([('survey_id', '=', survey.id), ('token', '=', token)])
-        raise Warning(user_input.user_input_line_ids)
-        if user_input and user_input.employee_id:
-            employee = user_input.employee_id
-            vals = {}
-            lines = user_input.user_input_line_ids.filtered(lambda l: not l.skipped)
-
-            raise Warning(user_input.user_input_line_ids)
-            raise Warning([l.get_value() for l in lines])
-
-
-            vals['name'] = '%s %s' %(lines.filtered(lambda l: l.question_id.fields_name == 'first_name').value_text, lines.filtered(lambda l: l.question_id.fields_name == 'last_name').value_text)
-            gender = lines.filtered(lambda l: l.question_id.fields_name == 'gender').value_suggested.value
-            if gender:
-                vals['gender'] = gender.lower()
-            vals['identification_id'] = lines.filtered(lambda l: l.question_id.fields_name == 'identification_id').value_text
-            street = lines.filtered(lambda l: l.question_id.fields_name == 'street')
-            zip = lines.filtered(lambda l: l.question_id.fields_name == 'zip')
-            city = lines.filtered(lambda l: l.question_id.fields_name == 'city')
-            if street or zip or city:
-                address_home_id = employee.address_home_id
-                if not address_home_id:
-                    address_home_id = request.env['res.partner'].create({
-                        'name': vals['name'],
-                        'street': street.value_text or '',
-                        'zip': zip.value_text or '',
-                        'city': city.value_text or '',
-                    })
-                    vals['address_home_id'] = address_home_id.id
-                else:
-                    address_home_id.write({
-                        'name': vals['name'],
-                        'street': street.value_text or '',
-                        'zip': zip.value_text or '',
-                        'city': city.value_text or '',
-                    })
-            employee.write(vals)
-            member_name_1 = lines.filtered(lambda l: l.question_id.fields_name == 'member_name_1')
-            relation_1 = lines.filtered(lambda l: l.question_id.fields_name == 'relation_1')
-            member_contact_1 = lines.filtered(lambda l: l.question_id.fields_name == 'member_contact_1')
-            if member_name_1 or relation_1 or member_contact_1:
-                if member_name_1:
-                    member_name_1 = member_name_1.value_text
-                if relation_1:
-                    relation_1 = relation_1.value_suggested.value.lower()
-                if member_contact_1:
-                    member_contact_1 = member_contact_1.value_text
-                fams = employee.fam_ids
-                if len(fams) > 0:
-                    member_1 = fams[0]
-                    member_1.write({
-                        'member_name': member_name_1 or '',
-                        'relation': relation_1 or '',
-                        'member_contact': member_contact_1 or '',
-                    })
-                else:
-                    request.env['hr.employee.family'].create({
-                        'member_name': member_name_1 or '',
-                        'relation': relation_1 or '',
-                        'member_contact': member_contact_1 or '',
-                        'employee_id': employee.id,
-                    })
-            member_name_2 = lines.filtered(lambda l: l.question_id.fields_name == 'member_name_2')
-            relation_2 = lines.filtered(lambda l: l.question_id.fields_name == 'relation_2')
-            member_contact_2 = lines.filtered(lambda l: l.question_id.fields_name == 'member_contact_2')
-            if member_name_2 or relation_2 or member_contact_2:
-                if member_name_2:
-                    member_name_2 = member_name_2.value_text
-                if relation_2:
-                    relation_2 = relation_2.value_suggested.value.lower()
-                if member_contact_2:
-                    member_contact_2 = member_contact_2.value_text
-                fams = employee.fam_ids
-                if len(fams) > 1:
-                    member_2 = fams[1]
-                    member_2.write({
-                        'member_name': member_name_2 or '',
-                        'relation': relation_2 or '',
-                        'member_contact': member_contact_2 or '',
-                    })
-                else:
-                    request.env['hr.employee.family'].create({
-                        'member_name': member_name_2 or '',
-                        'relation': relation_2 or '',
-                        'member_contact': member_contact_2 or '',
-                        'employee_id': employee.id,
-                    })
-
+    
     @http.route(['/survey/submit/<model("survey.survey"):survey>'], type='http', methods=['POST'], auth='public', website=True)
     def submit(self, survey, **post):
         res = super(WebsiteSurvey, self).submit(survey, **post)
-        # ~ raise Warning("%s post %s" % (res,post))
-
-        # ~ self.update_info_employee(survey, post['token'])
+        user_input = request.env['survey.user_input'].search([('token', '=', post['token'])])
+        if user_input.employee_id:
+            user_input.save_values('employee_id')
         return res
 
     @http.route(['/survey/check/<string:token>'], type='http', methods=['GET'], auth='public', website=True)
     def check(self, token, **post):
         user_input = request.env['survey.user_input'].search([('token', '=', token)])
-        records = {}
-        for key,value in user_input.get_values().items():
-            if not '.' in key:
-                records['main'] = {}
-            else:
-                records[key.split('.')[0]] = {}
-        for key,value in user_input.get_values().items():
-
-            if not '.' in key:
-                if value['type'] in ['text','number','date','free_text','simple_choice']:
-                    records['main'][key] = value['value']
-                elif value['type'] == 'multiple_choice':
-                    # Check related table, translate values to ids
-                    raise Warning('Multiple_choice not implemented yet')
-                    # ~ getattr(user_input.employee_id, key) = (6,0,value['value'])
-                elif value['type'] == 'matrix':
-                    raise Warning('Matrix not implemented yet')
-            else:
-                records[key.split('.')[0]][key.split('.')[1]] = value['value']
-                # ~ raise Warning('Slots %s ' % getattr(hr_employee, key.split('.')[0]._slots))
-        for key in records:
-            if key == 'main':
-                # ~ user_input.employee_id.write(records[key])
-                pass
-            elif key == 'address_home_id':
-                # if name is missing, use name from employee_id.name
-                partner = request.env['res.partner'].create({'name':'Pelle','street': 'Klocksippe','zip':'111 22','city':'Lkpg'})
-                # ~ user_input.employee_id.write({'address_home_id': request.env[getattr(user_input.employee_id,'address_home_id')._model].create(record['address_home_id'])})
-                user_input.employee_id.write({'address_home_id': partner.id})
-
-                # ~ getattr(user_input.employee_id,'address_id')
-                # ~ raise Warning(getattr(user_input.employee_id,'address_id')._model)
-                # ~ raise Warning(user_input.employee_id.address_id._columns)
-        # ~ raise Warning('%s ' %(records ))
-        # ~ raise Warning([(l.get_value(),l.question_id.question) for l in user_input.user_input_line_ids])
-        # ~ raise Warning(user_input.user_input_line_ids)
+        if user_input.employee_id:
+            user_input.save_values('employee_id')
+        return 'Hello World'

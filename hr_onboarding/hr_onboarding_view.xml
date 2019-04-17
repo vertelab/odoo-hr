@@ -1,40 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
-    <data>
-        <record id="survey_question_form" model="ir.ui.view">
-            <field name="name">Form view for survey question.inherited.hr_onboarding</field>
-            <field name="model">survey.question</field>
-            <field name="inherit_id" ref="survey.survey_question_form"/>
-            <field name="arch" type="xml">
-                <page string="Options" position="inside">
-                    <group string="Meta Data">
-                        <field name="fields_name"/>
-                    </group>
-                </page>
-            </field>
-        </record>
-        <record id="view_employee_form" model="ir.ui.view">
-            <field name="name">hr.employee.form.inherited.hr_onboarding</field>
-            <field name="model">hr.employee</field>
-            <field name="inherit_id" ref="hr.view_employee_form"/>
-            <field name="arch" type="xml">
-                <page string="Personal Information" position="inside">
-                    <group string="Medical Status">
-                        <field name="medical_status"/>
-                    </group>
-                </page>
-            </field>
-        </record>
-        <!-- Hr Onboard Kanban View -->
-        <record id="view_hr_employee_kanban" model="ir.ui.view">
-            <field name="name">hr.employee.kanban</field>
-            <field name="model">hr.employee</field>
-            <field name="arch" type="xml">
-                <kanban default_group_by="onboard_stage_id">
-                    <field name="image_medium" />
-                    <field name="name" />
+  <data>
+    <record id="survey_question_form" model="ir.ui.view">
+      <field name="name">Form view for survey question.inherited.hr_onboarding</field>
+      <field name="model">survey.question</field>
+      <field name="inherit_id" ref="survey.survey_question_form" />
+      <field name="arch" type="xml">
+        <page string="Options" position="inside">
+          <group string="Meta Data">
+            <field name="fields_name" />
+          </group>
+        </page>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="survey_question_form">
+      <field name="name">Form view for survey question</field>
+      <field name="model">survey.question</field>
+      <field name="inherit_id" ref="survey.survey_question_form" />
+      <field name="arch" type="xml">
+        <field name="quizz_mark" position='before'>
+          <field name='tecnical_value' />
+        </field>
+      </field>
+    </record>
+    <record id="view_employee_form" model="ir.ui.view">
+      <field name="name">hr.employee.form.inherited.hr_onboarding</field>
+      <field name="model">hr.employee</field>
+      <field name="inherit_id" ref="hr.view_employee_form" />
+      <field name="arch" type="xml">
+        <page string="Personal Information" position="inside">
+          <group string="Medical Status">
+            <field name="medical_status" />
+          </group>
+        </page>
+      </field>
+    </record>
+    <!-- Hr Onboard Kanban View -->
+    <record id="view_hr_employee_kanban" model="ir.ui.view">
+      <field name="name">hr.employee.kanban</field>
+      <field name="model">hr.employee</field>
+      <field name="arch" type="xml">
+        <kanban default_group_by="onboard_stage_id">
+          <field name="image_medium" />
+          <field name="name" />
+          <field name="job_id" />
+          <field name="work_email" />
+          <field name="work_phone" />
+          <field name="color" />
+          <templates>
+            <t t-name="kanban-box">
+              <div t-attf-class="oe_kanban_color_#{kanban_getcolor(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
+                <div class="oe_dropdown_toggle oe_dropdown_kanban" groups="base.group_user">
+                  <span class="oe_e">í</span>
+                  <ul class="oe_dropdown_menu">
+                    <li>
+                      <ul class="oe_kanban_colorpicker" data-field="color" />
+                    </li>
+                  </ul>
+                </div>
+                <div class="oe_kanban_content">
+                  <div>
+                    <b>
+                      <field name="name" />
+                    </b>
+                  </div>
+                  <div>
+                    Job:
                     <field name="job_id" />
+                    <br />
+                    Work Email:
                     <field name="work_email" />
+                    <br />
+                    Work phone:
                     <field name="work_phone" />
                     <field name="color" />
                     <field name="onboard_stage_id" />
