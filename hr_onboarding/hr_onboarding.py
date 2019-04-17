@@ -300,11 +300,11 @@ class hr_employee_assets_wizard(models.TransientModel):
 
     employee_id = fields.Many2one(string='Employee', comodel_name='hr.employee')
     mobile_pad_category = fields.Many2one(string='Mobile/Pad Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]", required=True)
-    mobile_pad_ids = fields.One2many(string='Mobile/Pad', comodel_name='hr.employee.assets.line.wizard', inverse_name='mobile_pad_employee_asset_id')
+    mobile_pad_ids = fields.One2many(string='Mobile/Pad', comodel_name='hr.employee.assets.line.wizard', inverse_name='mobile_pad_employee_assets_wizard_id')
     computer_category = fields.Many2one(string='Computer Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]", required=True)
-    computer_ids = fields.One2many(string='Computer', comodel_name='hr.employee.assets.line.wizard', inverse_name='computer_employee_asset_id')
+    computer_ids = fields.One2many(string='Computer', comodel_name='hr.employee.assets.line.wizard', inverse_name='computer_employee_assets_wizard_id')
     entry_category = fields.Many2one(string='Entry Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]", required=True)
-    entry_ids = fields.One2many(string='Entry', comodel_name='hr.employee.assets.line.wizard', inverse_name='entry_employee_asset_id')
+    entry_ids = fields.One2many(string='Entry', comodel_name='hr.employee.assets.line.wizard', inverse_name='entry_employee_assets_wizard_id')
 
     @api.multi
     def confirm(self):
@@ -322,18 +322,51 @@ class hr_employee_assets_wizard(models.TransientModel):
 class hr_employee_assets_line_wizard(models.TransientModel):
     _name = 'hr.employee.assets.line.wizard'
 
-    mobile_pad_employee_asset_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
-    mobile_pad_category = fields.Many2one(related='mobile_pad_employee_asset_id.mobile_pad_category', comodel_name='account.asset.category')
+    mobile_pad_employee_assets_wizard_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
+    mobile_pad_category = fields.Many2one(related='mobile_pad_employee_assets_wizard_id.mobile_pad_category', comodel_name='account.asset.category')
     mobile_pad_id = fields.Many2one(string='Mobile/pad', comodel_name='account.asset.asset', domain="[('employee_id', '=', False), ('category_id', '=', mobile_pad_category), ('state', '=', 'draft')]")
     mobile_pad_is_signed = fields.Boolean(string='Signed')
-    computer_employee_asset_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
-    computer_category = fields.Many2one(related='computer_employee_asset_id.computer_category', comodel_name='account.asset.category')
+    computer_employee_assets_wizard_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
+    computer_category = fields.Many2one(related='computer_employee_assets_wizard_id.computer_category', comodel_name='account.asset.category')
     computer_id = fields.Many2one(string='Computer', comodel_name='account.asset.asset', domain="[('employee_id', '=', False), ('category_id', '=', computer_category), ('state', '=', 'draft')]")
     computer_is_signed = fields.Boolean(string='Signed')
-    entry_employee_asset_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
-    entry_category = fields.Many2one(related='entry_employee_asset_id.entry_category', comodel_name='account.asset.category')
+    entry_employee_assets_wizard_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
+    entry_category = fields.Many2one(related='entry_employee_assets_wizard_id.entry_category', comodel_name='account.asset.category')
     entry_id = fields.Many2one(string='Entry', comodel_name='account.asset.asset', domain="[('employee_id', '=', False), ('category_id', '=', entry_category), ('state', '=', 'draft')]")
     entry_is_signed = fields.Boolean(string='Signed')
+
+
+class hr_employee_certification_wizard(models.TransientModel):
+    _name = 'hr.employee.certification.wizard'
+
+    employee_id = fields.Many2one(string='Employee', comodel_name='hr.employee')
+    certification_ids = fields.One2many(string='Certification', comodel_name='hr.employee.certification.line.wizard', inverse_name='employee_certification_wizard_id')
+
+    @api.multi
+    def confirm(self):
+        pass
+        # ~ for c in self.certification_ids:
+            # ~ _logger.warn('<<<<<<<<<<< %s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n' %(c.cert_type_id.name, self.employee_id.id, c.cert_type_id.id, c.cert_is_signed, c.cert_date_start, c.cert_date_end, c.cert_type_id.template, c.cert_type_id.description))
+            # ~ self.env['hr.certification'].create({
+                # ~ 'name': c.cert_type_id.name,
+                # ~ 'employee_id': self.employee_id.id,
+                # ~ 'type_id': c.cert_type_id.id,
+                # ~ 'is_signed': c.cert_is_signed,
+                # ~ 'date_start': c.cert_date_start,
+                # ~ 'date_end': c.cert_date_end,
+                # ~ 'template': c.cert_type_id.template,
+                # ~ 'description': c.cert_type_id.description,
+            # ~ })
+
+
+class hr_employee_certification_line_wizard(models.TransientModel):
+    _name = 'hr.employee.certification.line.wizard'
+
+    employee_certification_wizard_id = fields.Many2one(comodel_name='hr.employee.certification.wizard')
+    cert_type_id = fields.Many2one(string='Type', comodel_name='hr.certification.type', required=True)
+    cert_is_signed = fields.Boolean(string='Signed')
+    cert_date_start = fields.Date(string='Start')
+    cert_date_end = fields.Date(string='End')
 
 
 class WebsiteSurvey(WebsiteSurvey):

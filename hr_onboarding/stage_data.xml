@@ -28,6 +28,7 @@
         <record id="state_certifications" model="hr.onboard.stage">
             <field name="name">Certifications</field>
             <field name="technical_name">certifications</field>
+            <field name="view_id" ref="hr_onboarding.wizard_employee_form_hr_onboard_certification" />
             <field name="sequence">50</field>
         </record>
         <record id="state_benefits" model="hr.onboard.stage">
