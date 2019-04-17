@@ -37,7 +37,7 @@ class hr_employee(models.Model):
 
     assets_ids = fields.One2many(comodel_name="account.asset.asset",inverse_name='employee_id')
 
-    
+
     @api.one
     def _asset_count(self):
         self.asset_count = len(self.assets_ids)
@@ -50,8 +50,8 @@ class hr_certification(models.Model):
     _name = 'hr.certification'
     _description = "Employee Certification"
     _inherit = ['mail.thread']
-    
-    
+
+
     name = fields.Char(string="Name", translate=True, required=True)
     color = fields.Integer(string='Color Index')
     type_id = fields.Many2one(comodel_name='hr.certification.type', string='Type', required=True,track_visibility='onchange')
@@ -72,17 +72,17 @@ class hr_certification(models.Model):
     def _get_state_selection(self):
         states = self.env['hr.certification.state'].search([], order='sequence')
         return [(state.technical_name, state.name) for state in states]
-    
+
     @api.model
     def _default_state_id(self):
         return self.env['hr.certification.state'].search([], order='sequence', limit=1)
-    
+
     @api.one
     def _compute_state(self):
         if not self.state_id:
            self.state = self.env['hr.certification.state'].search([], order='sequence', limit=1).technical_name
         else:
-            self.state = self.state_id.technical_name 
+            self.state = self.state_id.technical_name
 
     @api.one
     def _set_state(self):
@@ -90,7 +90,7 @@ class hr_certification(models.Model):
 
     state_id = fields.Many2one(comodel_name='hr.certification.state', string='State', default=_default_state_id, track_visibility='onchange')
     state = fields.Selection(selection=_get_state_selection, compute='_compute_state',inverse='_set_state',store=True)
-    
+
     @api.one
     def do_sign(self):
         self.sudo().is_signed = True
@@ -100,10 +100,10 @@ class hr_certification(models.Model):
     @api.model
     def create(self, vals):
         res = super(hr_certification, self).create(vals)
-        if res.employee_id:
+        if res.employee_id and res.employee_id.user_id:
             res.message_subscribe_users(user_ids=[res.employee_id.user_id.id])
         return res
-    
+
   #~ def message_subscribe_users(self, cr, uid, ids, user_ids=None, subtype_ids=None, context=None):
         #~ """ Wrapper on message_subscribe, using users. If user_ids is not
             #~ provided, subscribe uid instead. """
@@ -118,7 +118,7 @@ class hr_certification(models.Model):
 
 class hr_certification_type(models.Model):
     """
-    The agreement (NDA), license or certification (drivers, forklift), 
+    The agreement (NDA), license or certification (drivers, forklift),
     diploma that the employee has signed
     """
     _name = 'hr.certification.type'
@@ -131,6 +131,7 @@ class hr_certification_type(models.Model):
     template = fields.Binary(string="Template",help="Document to sign")
     file_name = fields.Char()
 
+
 class hr_certification_state(models.Model):
     """
     draft, pending, signed, expired/canceled
@@ -141,7 +142,6 @@ class hr_certification_state(models.Model):
     technical_name = fields.Char(string='Technical Name', required=True)
     sequence = fields.Integer(string='Sequence')
     fold = fields.Boolean(string='Folded in Kanban View', help='This stage is folded in the kanban view when there are no records in that state to display.')
-
 
 
 class account_asset_asset(models.Model):
@@ -159,7 +159,7 @@ class account_asset_asset(models.Model):
     field_license_plate = fields.Char(string='License Plate',help="Licence plate on a vehicle")
     field_cat_license_plate = fields.Boolean(related="category_id.field_license_plate",invisible=True)
     is_signed = fields.Boolean(string="Signed",help="This asset is signed by the employee",track_visibility='onchange')
-    
+
 
     @api.one
     def do_sign(self):
@@ -180,7 +180,8 @@ class account_asset_category(models.Model):
     field_serialno = fields.Boolean('Serial Number field')
     field_imei = fields.Boolean('IMEI field',help="International Mobile Equipment Identity (Phone) ")
     field_license_plate = fields.Boolean('License Plate field',help="Licence plate on a vehicle")
-    
+
+
 class res_users(models.Model):
     _inherit = 'res.users'
 

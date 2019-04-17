@@ -146,6 +146,12 @@ class hr_onboard_stage(models.Model):
     survey_id = fields.Many2many(comodel_name='survey.survey', string='Survey')
 
 
+class survey_user_input(models.Model):
+    _inherit = 'survey.user_input'
+
+    employee_id = fields.Many2one(string='Employee', comodel_name='hr.employee')
+
+
 class hr_employee_company_info_wizard(models.TransientModel):
     _name = 'hr.employee.company.info.wizard'
 
@@ -226,11 +232,11 @@ class hr_employee_assets_wizard(models.TransientModel):
     _name = 'hr.employee.assets.wizard'
 
     employee_id = fields.Many2one(string='Employee', comodel_name='hr.employee')
-    mobile_pad_category = fields.Many2one(string='Mobile/Pad Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]", required=True)
+    mobile_pad_category = fields.Many2one(string='Mobile/Pad Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]")
     mobile_pad_ids = fields.One2many(string='Mobile/Pad', comodel_name='hr.employee.assets.line.wizard', inverse_name='mobile_pad_employee_assets_wizard_id')
-    computer_category = fields.Many2one(string='Computer Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]", required=True)
+    computer_category = fields.Many2one(string='Computer Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]")
     computer_ids = fields.One2many(string='Computer', comodel_name='hr.employee.assets.line.wizard', inverse_name='computer_employee_assets_wizard_id')
-    entry_category = fields.Many2one(string='Entry Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]", required=True)
+    entry_category = fields.Many2one(string='Entry Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]")
     entry_ids = fields.One2many(string='Entry', comodel_name='hr.employee.assets.line.wizard', inverse_name='entry_employee_assets_wizard_id')
 
     @api.multi
@@ -272,18 +278,18 @@ class hr_employee_certification_wizard(models.TransientModel):
     @api.multi
     def confirm(self):
         pass
-        # ~ for c in self.certification_ids:
-            # ~ _logger.warn('<<<<<<<<<<< %s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n' %(c.cert_type_id.name, self.employee_id.id, c.cert_type_id.id, c.cert_is_signed, c.cert_date_start, c.cert_date_end, c.cert_type_id.template, c.cert_type_id.description))
-            # ~ self.env['hr.certification'].create({
-                # ~ 'name': c.cert_type_id.name,
-                # ~ 'employee_id': self.employee_id.id,
-                # ~ 'type_id': c.cert_type_id.id,
-                # ~ 'is_signed': c.cert_is_signed,
-                # ~ 'date_start': c.cert_date_start,
-                # ~ 'date_end': c.cert_date_end,
-                # ~ 'template': c.cert_type_id.template,
-                # ~ 'description': c.cert_type_id.description,
-            # ~ })
+        for c in self.certification_ids:
+            self.env['hr.certification'].create({
+                'name': u'%s' %c.cert_type_id.name,
+                'employee_id': self.employee_id.id,
+                'type_id': c.cert_type_id.id,
+                'is_signed': c.cert_is_signed,
+                'date_start': c.cert_date_start,
+                'date_end': c.cert_date_end,
+                'template': c.cert_type_id.template,
+                'description': c.cert_type_id.description,
+                'state': c.cert_state if c.cert_state else 'draft',
+            })
 
 
 class hr_employee_certification_line_wizard(models.TransientModel):
@@ -294,21 +300,22 @@ class hr_employee_certification_line_wizard(models.TransientModel):
     cert_is_signed = fields.Boolean(string='Signed')
     cert_date_start = fields.Date(string='Start')
     cert_date_end = fields.Date(string='End')
+    cert_state = fields.Selection(selection=[('draft', 'Draft'), ('peding', 'Peding'), ('active', 'Active'), ('canceled', 'Canceled')], default='draft')
 
 
 class WebsiteSurvey(WebsiteSurvey):
-    
+
     @http.route(['/survey/submit/<model("survey.survey"):survey>'], type='http', methods=['POST'], auth='public', website=True)
     def submit(self, survey, **post):
         res = super(WebsiteSurvey, self).submit(survey, **post)
         user_input = request.env['survey.user_input'].search([('token', '=', post['token'])])
-        if user_input.employee_id:
-            user_input.save_values('employee_id')
+        # ~ if user_input.employee_id:
+            # ~ user_input.save_values('employee_id')
         return res
 
     @http.route(['/survey/check/<string:token>'], type='http', methods=['GET'], auth='public', website=True)
     def check(self, token, **post):
         user_input = request.env['survey.user_input'].search([('token', '=', token)])
-        if user_input.employee_id:
-            user_input.save_values('employee_id')
+        # ~ if user_input.employee_id:
+            # ~ user_input.save_values('employee_id')
         return 'Hello World'
