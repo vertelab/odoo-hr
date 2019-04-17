@@ -130,6 +130,14 @@ class hr_employee(models.Model):
         return self.onboard_stage_id.survey_id.with_context(survey_token=response.token).action_start_survey()
 
 
+class hr_job(models.Model):
+    _inherit = 'hr.job'
+
+    has_mobile_pad = fields.Boolean(string='Has Mobile/Pad')
+    has_computer = fields.Boolean(string='Has Computer')
+    has_key = fields.Boolean(string='Has Key')
+
+
 class hr_onboard_stage(models.Model):
     """
    Stages in onboarding
@@ -232,12 +240,12 @@ class hr_employee_assets_wizard(models.TransientModel):
     _name = 'hr.employee.assets.wizard'
 
     employee_id = fields.Many2one(string='Employee', comodel_name='hr.employee')
-    mobile_pad_category = fields.Many2one(string='Mobile/Pad Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]")
     mobile_pad_ids = fields.One2many(string='Mobile/Pad', comodel_name='hr.employee.assets.line.wizard', inverse_name='mobile_pad_employee_assets_wizard_id')
-    computer_category = fields.Many2one(string='Computer Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]")
     computer_ids = fields.One2many(string='Computer', comodel_name='hr.employee.assets.line.wizard', inverse_name='computer_employee_assets_wizard_id')
-    entry_category = fields.Many2one(string='Entry Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]")
     entry_ids = fields.One2many(string='Entry', comodel_name='hr.employee.assets.line.wizard', inverse_name='entry_employee_assets_wizard_id')
+    has_mobile_pad = fields.Boolean(string='Has Mobile/Pad', related='employee_id.job_id.has_mobile_pad')
+    has_computer = fields.Boolean(string='Has Computer', related='employee_id.job_id.has_computer')
+    has_key = fields.Boolean(string='Has Key', related='employee_id.job_id.has_key')
 
     @api.multi
     def confirm(self):
@@ -256,15 +264,15 @@ class hr_employee_assets_line_wizard(models.TransientModel):
     _name = 'hr.employee.assets.line.wizard'
 
     mobile_pad_employee_assets_wizard_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
-    mobile_pad_category = fields.Many2one(related='mobile_pad_employee_assets_wizard_id.mobile_pad_category', comodel_name='account.asset.category')
+    mobile_pad_category = fields.Many2one(string='Mobile/Pad Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]")
     mobile_pad_id = fields.Many2one(string='Mobile/pad', comodel_name='account.asset.asset', domain="[('employee_id', '=', False), ('category_id', '=', mobile_pad_category), ('state', '=', 'draft')]")
     mobile_pad_is_signed = fields.Boolean(string='Signed')
     computer_employee_assets_wizard_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
-    computer_category = fields.Many2one(related='computer_employee_assets_wizard_id.computer_category', comodel_name='account.asset.category')
+    computer_category = fields.Many2one(string='Computer Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]")
     computer_id = fields.Many2one(string='Computer', comodel_name='account.asset.asset', domain="[('employee_id', '=', False), ('category_id', '=', computer_category), ('state', '=', 'draft')]")
     computer_is_signed = fields.Boolean(string='Signed')
     entry_employee_assets_wizard_id = fields.Many2one(comodel_name='hr.employee.assets.wizard')
-    entry_category = fields.Many2one(related='entry_employee_assets_wizard_id.entry_category', comodel_name='account.asset.category')
+    entry_category = fields.Many2one(string='Entry Category', comodel_name='account.asset.category', domain="[('journal_id.type', '=', 'purchase'), ('account_asset_id.user_type.code', '=', 'asset')]")
     entry_id = fields.Many2one(string='Entry', comodel_name='account.asset.asset', domain="[('employee_id', '=', False), ('category_id', '=', entry_category), ('state', '=', 'draft')]")
     entry_is_signed = fields.Boolean(string='Signed')
 

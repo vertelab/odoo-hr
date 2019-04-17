@@ -23,8 +23,8 @@ This module depends on OpenHRMS
     'website': 'http://www.vertel.se',
     'depends': ['hr_employee_updation', 'survey_save', 'hr_recruitment', 'hr_certifications', 'account_asset'],
     'data': [
-        'stage_data.xml',
         'hr_onboarding_view.xml',
+        'stage_data.xml',
         'hr_onboarding_data.xml',
         'security/ir.model.access.csv',
         # ~ 'security/rules.xml',
