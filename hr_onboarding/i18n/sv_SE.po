@@ -1,0 +1,747 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_onboarding
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20171009\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-25 13:26+0000\n"
+"PO-Revision-Date: 2019-04-25 16:09+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: sv_SE\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: hr_onboarding
+#: model:survey.page,description:hr_onboarding.survey_personal_info_page_1
+#: model:survey.survey,thank_you_message:hr_onboarding.survey_personal_info
+msgid "<p></p>"
+msgstr "<p></p>"
+
+#. module: hr_onboarding
+#: model:survey.survey,description:hr_onboarding.survey_personal_info
+msgid "<p>Your personal information.</p>"
+msgstr "<p>Din personliga information.</p>"
+
+#. module: hr_onboarding
+#: selection:hr.employee.certification.line.wizard,cert_state:0
+msgid "Active"
+msgstr "Aktiv"
+
+#. module: hr_onboarding
+#: view:hr.employee.contract.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_contract_info
+#: field:hr.employee.contract.info.wizard,bank_id:0
+msgid "Bank Accounts"
+msgstr "Bankkonton"
+
+#. module: hr_onboarding
+#: view:hr.employee.assets.wizard:hr_onboarding.wizard_employee_form_hr_onboard_assets
+#: view:hr.employee.certification.wizard:hr_onboarding.wizard_employee_form_hr_onboard_certification
+#: view:hr.employee.company.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_company_info
+#: view:hr.employee.contract.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_contract_info
+msgid "Cancel"
+msgstr "Avbryt"
+
+#. module: hr_onboarding
+#: selection:hr.employee.certification.line.wizard,cert_state:0
+msgid "Canceled"
+msgstr "Avbruten"
+
+#. module: hr_onboarding
+#: field:hr.employee.certification.line.wizard,cert_state:0
+msgid "Cert state"
+msgstr "Cert status"
+
+#. module: hr_onboarding
+#: field:hr.employee.certification.wizard,certification_ids:0
+msgid "Certification"
+msgstr "Certifiering"
+
+#. module: hr_onboarding
+#: field:hr.job,certification_type_ids:0
+msgid "Certification Types"
+msgstr "Certifieringtyp"
+
+#. module: hr_onboarding
+#: view:hr.employee.certification.wizard:hr_onboarding.wizard_employee_form_hr_onboard_certification
+msgid "Certifications"
+msgstr "Certifieringar"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_address_city
+msgid "City"
+msgstr "Stad"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,coach_id:0
+msgid "Coach"
+msgstr "Handledare"
+
+#. module: hr_onboarding
+#: field:hr.onboard.stage,color:0
+msgid "Color Index"
+msgstr "Color Index"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,computer_id:0
+#: view:hr.employee.assets.wizard:hr_onboarding.wizard_employee_form_hr_onboard_assets
+#: field:hr.employee.assets.wizard,computer_ids:0
+msgid "Computer"
+msgstr "Dator"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,computer_category:0
+msgid "Computer Category"
+msgstr "Datorkategori"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,computer_employee_assets_wizard_id:0
+msgid "Computer employee assets wizard id"
+msgstr "Computer employee assets wizard id"
+
+#. module: hr_onboarding
+#: code:addons/hr_onboarding/hr_onboarding.py:261
+#, python-format
+msgid "Configurate identification ID for employee %s"
+msgstr "Konfigurera personnummer för anställda %s"
+
+#. module: hr_onboarding
+#: view:hr.employee.assets.wizard:hr_onboarding.wizard_employee_form_hr_onboard_assets
+#: view:hr.employee.certification.wizard:hr_onboarding.wizard_employee_form_hr_onboard_certification
+#: view:hr.employee.company.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_company_info
+#: view:hr.employee.contract.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_contract_info
+msgid "Confirm"
+msgstr "Bekräfta"
+
+#. module: hr_onboarding
+#: field:hr.employee.company.info.wizard,confirm_password:0
+msgid "Confirm Password"
+msgstr "Bekräfta lösenord"
+
+#. module: hr_onboarding
+#: view:hr.employee.contract.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_contract_info
+msgid "Contract"
+msgstr "Avtal"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,struct_id:0
+msgid "Contract Struct"
+msgstr "Kontraktsstruktur"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,contract_type_id:0
+msgid "Contract Type"
+msgstr "Kontraktstyp"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,create_uid:0
+#: field:hr.employee.assets.wizard,create_uid:0
+#: field:hr.employee.certification.line.wizard,create_uid:0
+#: field:hr.employee.certification.wizard,create_uid:0
+#: field:hr.employee.company.info.wizard,create_uid:0
+#: field:hr.employee.contract.info.wizard,create_uid:0
+#: field:hr.onboard.stage,create_uid:0
+msgid "Created by"
+msgstr "Skapad av"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,create_date:0
+#: field:hr.employee.assets.wizard,create_date:0
+#: field:hr.employee.certification.line.wizard,create_date:0
+#: field:hr.employee.certification.wizard,create_date:0
+#: field:hr.employee.company.info.wizard,create_date:0
+#: field:hr.employee.contract.info.wizard,create_date:0
+#: field:hr.onboard.stage,create_date:0
+msgid "Created on"
+msgstr "Skapad på"
+
+#. module: hr_onboarding
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_1_relation_choice_3
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_2_relation_choice_3
+msgid "Daughter"
+msgstr "Dotter"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,department_id:0
+msgid "Department"
+msgstr "Avdelning"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,display_name:0
+#: field:hr.employee.assets.wizard,display_name:0
+#: field:hr.employee.certification.line.wizard,display_name:0
+#: field:hr.employee.certification.wizard,display_name:0
+#: field:hr.employee.company.info.wizard,display_name:0
+#: field:hr.employee.contract.info.wizard,display_name:0
+#: field:hr.onboard.stage,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: hr_onboarding
+#: selection:hr.employee.certification.line.wizard,cert_state:0
+msgid "Draft"
+msgstr "Utkast"
+
+#. module: hr_onboarding
+#: view:hr.employee.contract.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_contract_info
+msgid "Duration"
+msgstr "Varaktighet"
+
+#. module: hr_onboarding
+#: field:hr.employee,email:0 field:hr.employee.company.info.wizard,email:0
+msgid "Email"
+msgstr "Epost"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.wizard,employee_id:0
+#: field:hr.employee.certification.wizard,employee_id:0
+#: field:hr.employee.contract.info.wizard,employee_id:0
+#: model:ir.model,name:hr_onboarding.model_hr_employee
+#: field:survey.user_input,employee_id:0
+msgid "Employee"
+msgstr "Anställd"
+
+#. module: hr_onboarding
+#: view:hr.employee.assets.wizard:hr_onboarding.wizard_employee_form_hr_onboard_assets
+msgid "Employee Assets"
+msgstr "Anställds tillgångar"
+
+#. module: hr_onboarding
+#: view:hr.employee.certification.wizard:hr_onboarding.wizard_employee_form_hr_onboard_certification
+msgid "Employee Certifications"
+msgstr "Anställds certifieringar"
+
+#. module: hr_onboarding
+#: view:hr.employee.company.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_company_info
+msgid "Employee Company Info"
+msgstr "Anställds företagsinformation Info"
+
+#. module: hr_onboarding
+#: view:hr.employee.contract.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_contract_info
+msgid "Employee Contract Info"
+msgstr "Anställds avtal Info"
+
+#. module: hr_onboarding
+#: field:hr.employee.certification.line.wizard,employee_certification_wizard_id:0
+msgid "Employee certification wizard id"
+msgstr "Employee certification wizard id"
+
+#. module: hr_onboarding
+#: model:ir.actions.act_window,name:hr_onboarding.act_hr_employee
+msgid "Employees Onboard Action"
+msgstr "Anställds ombord åtgärd"
+
+#. module: hr_onboarding
+#: field:hr.employee.certification.line.wizard,cert_date_end:0
+msgid "End"
+msgstr "Slut"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,entry_id:0
+#: view:hr.employee.assets.wizard:hr_onboarding.wizard_employee_form_hr_onboard_assets
+#: field:hr.employee.assets.wizard,entry_ids:0
+msgid "Entry"
+msgstr "Inpassering"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,entry_category:0
+msgid "Entry Category"
+msgstr "Inpasserings kategori"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,entry_employee_assets_wizard_id:0
+msgid "Entry employee assets wizard id"
+msgstr "Entry employee assets wizard id"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_family_member_1_name
+msgid "Family member 1 name"
+msgstr "Familjemedlem 1 namn"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_family_member_1_phone_number
+msgid "Family member 1 phone number"
+msgstr "Familjemedlem 1 telefonnummer"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_family_member_1_relation
+msgid "Family member 1 relation"
+msgstr "Familjemedlem 1 relation"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_family_member_2_name
+msgid "Family member 2 name"
+msgstr "Familjemedlem 2 namn"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_family_member_2_phone_number
+msgid "Family member 2 phone number"
+msgstr "Familjemedlem 2 telefonnummer"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_family_member_2_relation
+msgid "Family member 2 relation"
+msgstr "Familjemedlem 2 relation"
+
+#. module: hr_onboarding
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_1_relation_choice_1
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_2_relation_choice_1
+msgid "Father"
+msgstr "Far"
+
+#. module: hr_onboarding
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_gender_choice_2
+msgid "Female"
+msgstr "Kvinna"
+
+#. module: hr_onboarding
+#: field:survey.question,fields_name:0
+msgid "Fields Name"
+msgstr "Fältnamn"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_first_name
+msgid "First Name"
+msgstr "Förnamn"
+
+#. module: hr_onboarding
+#: field:hr.onboard.stage,fold:0
+msgid "Folded in Kanban View"
+msgstr "Vikande in kanbanvy"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_gender
+msgid "Gender"
+msgstr "Kön"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.wizard,has_computer:0 field:hr.job,has_computer:0
+msgid "Has Computer"
+msgstr "Har dator"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.wizard,has_key:0 field:hr.job,has_key:0
+msgid "Has Key"
+msgstr "Har nyckel"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.wizard,has_mobile_pad:0
+#: field:hr.job,has_mobile_pad:0
+msgid "Has Mobile/Pad"
+msgstr "Har mobil/platta"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,partner_id:0
+msgid "Home Address"
+msgstr "Hemadress"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_mobile
+msgid "Home Phone number"
+msgstr "Hemtelefonnummer"
+
+#. module: hr_onboarding
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_1_relation_choice_5
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_2_relation_choice_5
+msgid "Husband"
+msgstr "Make"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,id:0
+#: field:hr.employee.assets.wizard,id:0
+#: field:hr.employee.certification.line.wizard,id:0
+#: field:hr.employee.certification.wizard,id:0
+#: field:hr.employee.company.info.wizard,id:0
+#: field:hr.employee.contract.info.wizard,id:0 field:hr.onboard.stage,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_id_number
+msgid "ID Number"
+msgstr "Personnummer"
+
+#. module: hr_onboarding
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_address_city
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_address_street
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_address_zip
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_family_member_1_name
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_family_member_1_phone_number
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_family_member_1_relation
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_family_member_2_name
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_family_member_2_phone_number
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_family_member_2_relation
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_first_name
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_gender
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_id_number
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_last_name
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_medical_status
+#: model:survey.question,comments_message:hr_onboarding.survey_personal_info_question_mobile
+msgid "If other, precise:"
+msgstr "If other, precise:"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,job_id:0
+msgid "Job"
+msgstr "Jobb"
+
+#. module: hr_onboarding
+#: model:ir.model,name:hr_onboarding.model_hr_job
+msgid "Job Description"
+msgstr "Arbetsbeskrivning"
+
+#. module: hr_onboarding
+#: view:hr.employee:hr_onboarding.view_hr_employee_kanban
+msgid "Job:"
+msgstr "Jobb:"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,__last_update:0
+#: field:hr.employee.assets.wizard,__last_update:0
+#: field:hr.employee.certification.line.wizard,__last_update:0
+#: field:hr.employee.certification.wizard,__last_update:0
+#: field:hr.employee.company.info.wizard,__last_update:0
+#: field:hr.employee.contract.info.wizard,__last_update:0
+#: field:hr.onboard.stage,__last_update:0
+msgid "Last Modified on"
+msgstr "Senast ändrad den"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_last_name
+msgid "Last Name"
+msgstr "Efternamn"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,write_uid:0
+#: field:hr.employee.assets.wizard,write_uid:0
+#: field:hr.employee.certification.line.wizard,write_uid:0
+#: field:hr.employee.certification.wizard,write_uid:0
+#: field:hr.employee.company.info.wizard,write_uid:0
+#: field:hr.employee.contract.info.wizard,write_uid:0
+#: field:hr.onboard.stage,write_uid:0
+msgid "Last Updated by"
+msgstr "Senast uppdaterad av"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,write_date:0
+#: field:hr.employee.assets.wizard,write_date:0
+#: field:hr.employee.certification.line.wizard,write_date:0
+#: field:hr.employee.certification.wizard,write_date:0
+#: field:hr.employee.company.info.wizard,write_date:0
+#: field:hr.employee.contract.info.wizard,write_date:0
+#: field:hr.onboard.stage,write_date:0
+msgid "Last Updated on"
+msgstr "Senast uppdaterad den"
+
+#. module: hr_onboarding
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_gender_choice_1
+msgid "Male"
+msgstr "Man"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,manager:0
+msgid "Manager"
+msgstr "Chef"
+
+#. module: hr_onboarding
+#: view:hr.employee:hr_onboarding.view_employee_form
+#: field:hr.employee,medical_status:0
+msgid "Medical Status"
+msgstr "Medicinsk status"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_medical_status
+msgid "Medical status"
+msgstr "Medicinsk status"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,mobile_pad_employee_assets_wizard_id:0
+msgid "Mobile pad employee assets wizard id"
+msgstr "Mobile pad employee assets wizard id"
+
+#. module: hr_onboarding
+#: view:hr.employee.assets.wizard:hr_onboarding.wizard_employee_form_hr_onboard_assets
+#: field:hr.employee.assets.wizard,mobile_pad_ids:0
+msgid "Mobile/Pad"
+msgstr "Mobil/platta"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,mobile_pad_category:0
+msgid "Mobile/Pad Category"
+msgstr "Mobil/platta kategori"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,mobile_pad_id:0
+msgid "Mobile/pad"
+msgstr "Mobil/platta"
+
+#. module: hr_onboarding
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_1_relation_choice_2
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_2_relation_choice_2
+msgid "Mother"
+msgstr "Mor"
+
+#. module: hr_onboarding
+#: view:hr.onboard.stage:hr_onboarding.view_hr_onboard_stage_form
+#: field:hr.onboard.stage,name:0
+msgid "Name"
+msgstr "Namn"
+
+#. module: hr_onboarding
+#: help:hr.employee.company.info.wizard,user_name:0
+msgid "Name for login"
+msgstr "Namn för inloggning"
+
+#. module: hr_onboarding
+#: model:ir.ui.menu,name:hr_onboarding.menu_hr_onboard
+msgid "Onboard"
+msgstr "Ombord"
+
+#. module: hr_onboarding
+#: field:hr.employee,onboard_stage_id:0
+#: view:hr.onboard.stage:hr_onboarding.view_hr_onboard_stage_form
+#: model:ir.model,name:hr_onboarding.model_hr_onboard_stage
+#: model:ir.ui.menu,name:hr_onboarding.menu_hr_onboard_stage
+msgid "Onboard Stage"
+msgstr "Ombord etapp"
+
+#. module: hr_onboarding
+#: model:ir.actions.act_window,name:hr_onboarding.act_hr_onboard_stage
+msgid "Onboard Stage Action"
+msgstr "Ombord etapp åtgärd"
+
+#. module: hr_onboarding
+#: field:hr.employee,onboard_response_ids:0
+msgid "Onboard response ids"
+msgstr "Onboard response ids"
+
+#. module: hr_onboarding
+#: field:hr.employee.company.info.wizard,password:0
+msgid "Password"
+msgstr "Lösenord"
+
+#. module: hr_onboarding
+#: selection:hr.employee.certification.line.wizard,cert_state:0
+msgid "Pending"
+msgstr "Pågående"
+
+#. module: hr_onboarding
+#: model:survey.page,title:hr_onboarding.survey_personal_info_page_1
+#: model:survey.survey,title:hr_onboarding.survey_personal_info
+msgid "Personal Info"
+msgstr "Personlig info"
+
+#. module: hr_onboarding
+#: view:hr.employee:hr_onboarding.view_employee_form
+msgid "Personal Information"
+msgstr "Personlig information"
+
+#. module: hr_onboarding
+#: view:hr.employee.contract.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_contract_info
+msgid "Position"
+msgstr "Befattning"
+
+#. module: hr_onboarding
+#: field:hr.onboard.stage,sequence:0
+msgid "Sequence"
+msgstr "Sekvens"
+
+#. module: hr_onboarding
+#: field:hr.employee.assets.line.wizard,computer_is_signed:0
+#: field:hr.employee.assets.line.wizard,entry_is_signed:0
+#: field:hr.employee.assets.line.wizard,mobile_pad_is_signed:0
+#: field:hr.employee.certification.line.wizard,cert_is_signed:0
+msgid "Signed"
+msgstr "Signerad"
+
+#. module: hr_onboarding
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_1_relation_choice_4
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_2_relation_choice_4
+msgid "Son"
+msgstr "Son"
+
+#. module: hr_onboarding
+#: field:hr.employee.certification.line.wizard,cert_date_start:0
+msgid "Start"
+msgstr "Start"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_address_street
+msgid "Street"
+msgstr "Gata"
+
+#. module: hr_onboarding
+#: field:hr.onboard.stage,survey_id:0
+msgid "Survey"
+msgstr "Enkät"
+
+#. module: hr_onboarding
+#: model:ir.model,name:hr_onboarding.model_survey_question
+msgid "Survey Question"
+msgstr "Enkätfråga"
+
+#. module: hr_onboarding
+#: model:ir.model,name:hr_onboarding.model_survey_user_input
+msgid "Survey User Input"
+msgstr "Survey User Input"
+
+#. module: hr_onboarding
+#: model:ir.model,name:hr_onboarding.model_survey_user_input_line
+msgid "Survey User Input Line"
+msgstr "Survey User Input Line"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,prel_tax_amount:0
+msgid "Tax Amount"
+msgstr "Skattebeloppet"
+
+#. module: hr_onboarding
+#: field:hr.onboard.stage,technical_name:0
+msgid "Technical Name"
+msgstr "Tekniskt namn"
+
+#. module: hr_onboarding
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_address_city
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_address_street
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_address_zip
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_family_member_1_name
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_family_member_1_phone_number
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_family_member_1_relation
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_family_member_2_name
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_family_member_2_phone_number
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_family_member_2_relation
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_first_name
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_gender
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_id_number
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_last_name
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_medical_status
+#: model:survey.question,validation_error_msg:hr_onboarding.survey_personal_info_question_mobile
+msgid "The answer you entered has an invalid format."
+msgstr "Svaret du angav har ett ogiltigt format."
+
+#. module: hr_onboarding
+#: help:survey.question,fields_name:0
+msgid "The fields will be used to save survey question."
+msgstr "Fälten kommer att användas för att spara enkätfrågan."
+
+#. module: hr_onboarding
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_address_city
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_address_street
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_address_zip
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_family_member_1_name
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_family_member_1_phone_number
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_family_member_1_relation
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_family_member_2_name
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_family_member_2_phone_number
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_family_member_2_relation
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_first_name
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_gender
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_id_number
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_last_name
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_medical_status
+#: model:survey.question,constr_error_msg:hr_onboarding.survey_personal_info_question_mobile
+msgid "This question requires an answer."
+msgstr "Denna fråga kräver svar."
+
+#. module: hr_onboarding
+#: help:hr.onboard.stage,fold:0
+msgid "This stage is folded in the kanban view when there are no records in that state to display."
+msgstr "Det här fasen viks i kanbanvyn när det inte finns några poster i det tillståndet som ska visas."
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,duration_date_end:0
+#: field:hr.employee.contract.info.wizard,trial_date_end:0
+msgid "Trail Date End"
+msgstr "Slutdatum för Provanställning"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,duration_date_start:0
+#: field:hr.employee.contract.info.wizard,trial_date_start:0
+msgid "Trail Date Start"
+msgstr "Startdatum för Provanställning"
+
+#. module: hr_onboarding
+#: view:hr.employee.contract.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_contract_info
+msgid "Trial Period Duration"
+msgstr "Provanställningstid varaktighet"
+
+#. module: hr_onboarding
+#: field:hr.employee.certification.line.wizard,cert_type_id:0
+msgid "Type"
+msgstr "Typ"
+
+#. module: hr_onboarding
+#: view:hr.employee:hr_onboarding.view_hr_employee_kanban
+msgid "Update"
+msgstr "Uppdatera"
+
+#. module: hr_onboarding
+#: code:addons/hr_onboarding/hr_onboarding.py:118
+#, python-format
+msgid "Update Assets"
+msgstr "Uppdatera tillgångar"
+
+#. module: hr_onboarding
+#: code:addons/hr_onboarding/hr_onboarding.py:133
+#, python-format
+msgid "Update Certifications"
+msgstr "Uppdatera certifieringar"
+
+#. module: hr_onboarding
+#: field:hr.employee.company.info.wizard,user_name:0
+msgid "User Name"
+msgstr "Användarnamn"
+
+#. module: hr_onboarding
+#: field:hr.onboard.stage,view_id:0
+msgid "View id"
+msgstr "View id"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,wage:0
+msgid "Wage"
+msgstr "Lön"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,wage_tax_base:0
+msgid "Wage Details"
+msgstr "Löneunderlag"
+
+#. module: hr_onboarding
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_1_relation_choice_6
+#: model:survey.label,value:hr_onboarding.survey_personal_info_question_family_member_2_relation_choice_6
+msgid "Wife"
+msgstr "Maka"
+
+#. module: hr_onboarding
+#: view:hr.employee:hr_onboarding.view_hr_employee_kanban
+msgid "Work Email:"
+msgstr "Arbets epost:"
+
+#. module: hr_onboarding
+#: view:hr.employee:hr_onboarding.view_hr_employee_kanban
+msgid "Work phone:"
+msgstr "Arbetstelefon:"
+
+#. module: hr_onboarding
+#: field:hr.employee.contract.info.wizard,working_hours:0
+msgid "Work schedule"
+msgstr "Arbetsschema"
+
+#. module: hr_onboarding
+#: model:survey.question,question:hr_onboarding.survey_personal_info_question_address_zip
+msgid "Zip"
+msgstr "Postnr"
+
+#. module: hr_onboarding
+#: view:hr.employee.assets.wizard:hr_onboarding.wizard_employee_form_hr_onboard_assets
+#: view:hr.employee.certification.wizard:hr_onboarding.wizard_employee_form_hr_onboard_certification
+#: view:hr.employee.company.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_company_info
+#: view:hr.employee.contract.info.wizard:hr_onboarding.wizard_employee_form_hr_onboard_contract_info
+msgid "or"
+msgstr "eller"

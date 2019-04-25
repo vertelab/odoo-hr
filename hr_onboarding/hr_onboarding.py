@@ -30,7 +30,7 @@ _logger = logging.getLogger(__name__)
 class hr_employee(models.Model):
     _inherit = 'hr.employee'
 
-    onboard_stage_id = fields.Many2one(comodel_name="hr.onboard.stage", track_visibility='onchange')
+    onboard_stage_id = fields.Many2one(string='Onboard Stage', comodel_name="hr.onboard.stage", track_visibility='onchange')
     onboard_response_ids = fields.One2many(comodel_name='survey.user_input', inverse_name='employee_id')
     email = fields.Char(string='Email', track_visibility='onchange')
     login = fields.Char(related='user_id.login', string='login', track_visibility='onchange')
