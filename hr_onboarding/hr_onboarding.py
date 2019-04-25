@@ -30,7 +30,7 @@ _logger = logging.getLogger(__name__)
 class hr_employee(models.Model):
     _inherit = 'hr.employee'
 
-    onboard_stage_id = fields.Many2one(comodel_name="hr.onboard.stage")
+    onboard_stage_id = fields.Many2one(comodel_name="hr.onboard.stage", track_visibility='onchange')
     onboard_response_ids = fields.One2many(comodel_name='survey.user_input', inverse_name='employee_id')
     email = fields.Char(string='Email', track_visibility='onchange')
     login = fields.Char(related='user_id.login', string='login', track_visibility='onchange')
@@ -106,26 +106,45 @@ class hr_employee(models.Model):
             }
             partner_detail = self.get_partner_detail(self)
             if len(partner_detail) > 0:
-                context.update(partner_detail)
+                context.update(partner_detail) # pass in default partner data to context
             contract_detail = self.get_contract_detail(self)
             if len(contract_detail) > 0:
-                context.update(contract_detail)
-            wizard_id = 0
+                context.update(contract_detail) # pass in default contract data to context
+            if self.onboard_stage_id == self.env.ref('hr_onboarding.state_assets'):
+                # if assets are set, go to tree view and configure.
+                if len(self.assets_ids) > 0:
+                    return {
+                        'type': 'ir.actions.act_window',
+                        'name': _('Update Assets'),
+                        'key2': 'client_action_multi',
+                        'res_model': 'account.asset.asset',
+                        'view_type': 'form',
+                        'view_mode': 'tree,form',
+                        'view_ids': (6, 0, [self.env.ref('account_asset.view_account_asset_asset_tree').id, self.env.ref('account_asset.view_account_asset_asset_form').id]),
+                        'search_view_id': self.env.ref('account_asset.view_account_asset_search').id,
+                        'target': 'current',
+                        'context': {'search_default_employee_id': self.id, 'default_employee_id': self.id},
+                    }
             if self.onboard_stage_id == self.env.ref('hr_onboarding.state_certifications'):
+                # if certifications are set, go to tree view and configure.
                 if len(self.job_id.certification_type_ids) > 0:
-                    cert = self.env['hr.employee.certification.wizard'].create({'employee_id': self.id})
-                    for t in self.job_id.certification_type_ids:
-                        self.env['hr.employee.certification.line.wizard'].create({
-                            'employee_certification_wizard_id': cert.id,
-                            'cert_type_id': t.id,
-                        })
-                    wizard_id = cert.id
+                    return {
+                        'type': 'ir.actions.act_window',
+                        'name': _('Update Certifications'),
+                        'key2': 'client_action_multi',
+                        'res_model': 'hr.certification',
+                        'view_type': 'form',
+                        'view_mode': 'tree,form',
+                        'view_ids': (6, 0, [self.env.ref('hr_certifications.view_hr_certification_tree_sign').id, self.env.ref('hr_certifications.view_hr_certification_form').id]),
+                        'search_view_id': self.env.ref('hr_certifications.view_hr_certification_filter').id,
+                        'target': 'current',
+                        'context': {'search_default_employee_id': self.id, 'default_employee_id': self.id},
+                    }
             return {
                 'type': 'ir.actions.act_window',
                 'name': self.onboard_stage_id.view_id.name,
                 'key2': 'client_action_multi',
                 'res_model': self.onboard_stage_id.view_id.model,
-                'res_id': wizard_id,
                 'view_type': 'form',
                 'view_mode': 'form',
                 'view_id': self.onboard_stage_id.view_id.id,
