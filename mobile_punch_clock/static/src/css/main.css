@@ -1,0 +1,34 @@
+body {
+    font-size: 10px;
+}
+
+#main_div {
+    background-color: #f4f4f4;
+    padding: 20px;
+    height: 100%;
+}
+
+#clock_div {
+    top: 20%;
+}
+
+#punch_clock_btn {
+    color: #fff;
+    margin-top: 20%;
+    text-decoration: none;
+}
+
+input[name=signin_button] {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5em;
+    margin:auto;
+    box-shadow: 0px 0px 5px #333;
+    border-radius: 100px;
+    width: 200px;
+    height: 200px;
+}
+
+#status {
+    font-size: 22px;
+    font-family: 'Lato', sans-serif;
+}
