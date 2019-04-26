@@ -1,0 +1,90 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * mobile_punch_clock
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20170906\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-07 11:37+0000\n"
+"PO-Revision-Date: 2017-09-07 14:09+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: sv\n"
+"X-Generator: Poedit 2.0.1\n"
+
+#. module: mobile_punch_clock
+#: model:email.template,body_html:mobile_punch_clock.mobile_punch_clock_email_template
+msgid ""
+"\n"
+"                  \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"                    <h4>To sign in follow the link below: </h4>\n"
+"                    <a href=\"/punchclock\">${object.get_base_url()}/punchclock</a>\n"
+"                </div>\n"
+"                \n"
+"            "
+msgstr ""
+"\n"
+"                  \n"
+"                <div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"                    <h4>Följ länken nedan för att stämpla in: </h4>\n"
+"                    <a href=\"/punchclock\">${object.get_base_url()}/punchclock</a>\n"
+"                </div>\n"
+"                \n"
+"            "
+
+#. module: mobile_punch_clock
+#: model:email.template,subject:mobile_punch_clock.mobile_punch_clock_email_template
+msgid " ${'Link for check in'}"
+msgstr " ${'Länken för instämpling'}"
+
+#. module: mobile_punch_clock
+#: model:ir.model,name:mobile_punch_clock.model_hr_employee
+msgid "Employee"
+msgstr "Anställd"
+
+#. module: mobile_punch_clock
+#: code:addons/mobile_punch_clock/mobile_punch_clock.py:50
+#, python-format
+msgid "Last"
+msgstr "Senaste"
+
+#. module: mobile_punch_clock
+#: code:addons/mobile_punch_clock/mobile_punch_clock.py:50
+#, python-format
+msgid " %s %s"
+msgstr " %s %s"
+
+#. module: mobile_punch_clock
+#: model:ir.actions.server,name:mobile_punch_clock.mobile_punch_clock_server_action
+msgid "Mobile: Punch Clock"
+msgstr "Mobil: Stämpelklocka"
+
+#. module: mobile_punch_clock
+#: code:addons/mobile_punch_clock/mobile_punch_clock.py:49
+#, python-format
+msgid "Punch In"
+msgstr "Stämpla in"
+
+#. module: mobile_punch_clock
+#: code:addons/mobile_punch_clock/mobile_punch_clock.py:49
+#, python-format
+msgid "Punch Out"
+msgstr "Stämpla ut"
+
+#. module: mobile_punch_clock
+#: code:addons/mobile_punch_clock/mobile_punch_clock.py:50
+#, python-format
+msgid "punched in"
+msgstr "stämpling"
+
+#. module: mobile_punch_clock
+#: code:addons/mobile_punch_clock/mobile_punch_clock.py:50
+#, python-format
+msgid "punched out"
+msgstr "stämpling"

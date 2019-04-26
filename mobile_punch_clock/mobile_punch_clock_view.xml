@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="mobile_punch_clock_server_action" model="ir.actions.server">
+            <field name="name">Mobile: Punch Clock</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">for o in object.browse(context.get('active_ids', [])):
+    o.send_mail()
+            </field>
+        </record>
+
+        <record id="mobile_punch_clock_server_action_menu" model="ir.values">
+            <field name="name">Mobile: Punch Clock</field>
+            <field name="model">hr.employee</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,%d' % mobile_punch_clock_server_action" />
+        </record>
+
+        <record id="mobile_punch_clock_email_template" model="mail.template">
+            <field name="name">Email Template Mobile Punch Clock</field>
+            <field name="email_from">${object.user_id.mail or ''}</field>
+            <field name="subject"> ${'Link for check in'}</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="auto_delete" eval="True"/>
+            <field name="email_to">${object.user_id.mail or ''}</field>
+            <field name="body_html">
+                  <![CDATA[
+                <div style="font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); ">
+                    <h4>To sign in follow the link below: </h4>
+                    <a href="/punchclock">${object.get_base_url()}/punchclock</a>
+                </div>
+                ]]>
+            </field>
+        </record>
+
+        <template id="mobile_punch_clock_template" name="Mobile Punch Clock Template">
+            <html t-att-lang="lang and lang.replace('_', '-')" t-att-data-website-id="website.id if editable and website else None" t-att-data-editable="'1' if editable else None" t-att-data-translatable="'1' if translatable else None" t-att-data-view-xmlid="xmlid if editable else None" t-att-data-main-object="repr(main_object) if editable else None" t-att-data-oe-company-name="res_company.name">
+                <head>
+                    <meta charset="utf-8" />
+                    <meta name="mobile-web-app-capable" content="yes"/>
+                    <t t-if="main_object and 'website_meta_title' in main_object and not title">
+                        <t t-set="title" t-value="main_object.website_meta_title" />
+                    </t>
+                    <t t-if="main_object and 'name' in main_object and not title and not additional_title">
+                        <t t-set="additional_title" t-value="main_object.name" />
+                    </t>
+                    <t t-if="not title">
+                        <t t-set="title">
+                            <t t-if="additional_title">
+                                <t t-raw="additional_title" />
+                                |
+                            </t>
+                            <t t-esc="(website or res_company).name" />
+                        </t>
+                    </t>
+                    <title>
+                        <t t-esc="title" />
+                    </title>
+                    <t t-set="languages" t-value="website.get_languages() if website else None" />
+                    <t t-if="request and request.website_multilang and website">
+                        <t t-foreach="website.get_alternate_languages(request.httprequest)" t-as="lg">
+                            <link rel="alternate" t-att-hreflang="lg['hreflang']" t-att-href="lg['href']" />
+                        </t>
+                    </t>
+
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+                    <t t-call-assets="website.assets_frontend" t-js="false" />
+                    <link href="/mobile_punch_clock/static/src/css/main.css" rel="stylesheet"/>
+                    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
+                    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet"/>
+
+                    <link rel="shortcut icon" href="/static/description/icon_32.png"/>
+                    <link rel="icon" sizes="192x192" href="/static/description/icon_192.png"/>
+                    <link rel="icon" sizes="128x128" href="/static/description/icon_128.png"/>
+
+                    <meta name="apple-mobile-web-app-title" content="Punch Clock"/>
+                    <meta name="apple-mobile-web-app-capable" content="yes"/>
+                    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+                    <link rel="apple-touch-icon" href="/static/description/icon_120.png"/>
+                    <link rel="apple-touch-icon" sizes="120x120" href="/static/description/icon_120.png"/>
+                    <link rel="apple-touch-icon" sizes="152x152" href="/static/description/icon_152.png"/>
+                    <link rel="apple-touch-icon" sizes="167x167" href="/static/description/icon_167.png"/>
+                    <link rel="apple-touch-icon" sizes="180x180" href="/static/description/icon_180.png"/>
+
+                </head>
+                <body>
+                    <div id="main_div" class="container">
+                        <div id="clock_div" class="col-md-12 col-sm-12 col-xs-12">
+                            <form t-att-action="'/punchclock/%s' %user.id" method="POST" class="text-center">
+                                <div class="container">
+                                    <a id="punch_clock_btn">
+                                        <strong>
+                                            <input name="signin_button" type="submit" t-att-value="'%s' %signed_in" class="btn-primary text-center"/>
+                                        </strong>
+                                    </a>
+                                </div>
+                            </form>
+                            <h4 id="status" class="text-center mt32">
+                                <p class="hidden" t-att-value="'Last %s' %signed_in"/>
+                                <p t-esc="last"/>
+                            </h4>
+                        </div>
+                    </div>
+                    <t t-call-assets="web.assets_common" t-css="false"/>
+                    <t t-call-assets="website.assets_frontend" t-css="false" />
+                    <script type="text/javascript" src="/mobile_punch_clock/static/src/js/main.js" />
+                </body>
+            </html>
+        </template>
+
+    </data>
+</openerp>
