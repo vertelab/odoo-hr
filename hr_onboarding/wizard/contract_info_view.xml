@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="wizard_employee_form_hr_onboard_contract_info" model="ir.ui.view">
+            <field name="name">Update Contract Info</field>
+            <field name="model">hr.employee.contract.info.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Employee Contract Info">
+                    <group>
+                        <field name="employee_id" invisible="1" />
+                        <field name="partner_id" invisible="1" />
+                        <group string="Position">
+                            <field name="department_id" />
+                            <field name="job_id" />
+                            <field name="coach_id" />
+                            <field name="manager" />
+                        </group>
+                        <group string="Contract">
+                            <field name="contract_type_id" />
+                            <field name="struct_id" />
+                            <label for="trial_date_start" string="Trial Period Duration" />
+                            <div>
+                                <field name="trial_date_start" />
+                                -
+                                <field name="trial_date_end" />
+                            </div>
+                            <label for="duration_date_start" string="Duration" />
+                            <div>
+                                <field name="duration_date_start" />
+                                -
+                                <field name="duration_date_end" />
+                            </div>
+                            <field name="working_hours" />
+                            <field name="wage" />
+                            <field name="prel_tax_amount" />
+                            <field name="wage_tax_base" />
+                        </group>
+                        <group string="Bank Accounts">
+                            <field name="bank_id" context="{'default_partner_id': partner_id, 'form_view_ref': 'base.view_partner_bank_form'}" />
+                        </group>
+                    </group>
+                    <footer>
+                        <div>
+                            <button name="confirm" string="Confirm" type="object" class="oe_highlight" />
+                            or
+                            <button special="cancel" string="Cancel" class="oe_link" />
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

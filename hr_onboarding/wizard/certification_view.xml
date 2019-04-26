@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="wizard_employee_form_hr_onboard_certification" model="ir.ui.view">
+            <field name="name">Add Certification</field>
+            <field name="model">hr.employee.certification.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Employee Certifications">
+                    <group>
+                        <field name="employee_id" invisible="1" />
+                        <group>
+                            <field name="certification_ids" context="{'default_employee_id': employee_id}" nolabel="1">
+                                <tree string="Certifications" editable="bottom">
+                                    <field name="cert_type_id" />
+                                    <field name="cert_is_signed" />
+                                    <field name="cert_date_start" />
+                                    <field name="cert_date_end" />
+                                    <field name="cert_state" />
+                                </tree>
+                            </field>
+                        </group>
+                    </group>
+                    <footer>
+                        <div>
+                            <button name="confirm" string="Confirm" type="object" class="oe_highlight" />
+                            or
+                            <button special="cancel" string="Cancel" class="oe_link" />
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</openerp>

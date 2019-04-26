@@ -105,7 +105,7 @@ msgid "Computer employee assets wizard id"
 msgstr "Computer employee assets wizard id"
 
 #. module: hr_onboarding
-#: code:addons/hr_onboarding/hr_onboarding.py:261
+#: code:addons/hr_onboarding/wizard/contract_info.py:72
 #, python-format
 msgid "Configurate identification ID for employee %s"
 msgstr "Konfigurera personnummer för anställda %s"
@@ -193,7 +193,8 @@ msgid "Duration"
 msgstr "Varaktighet"
 
 #. module: hr_onboarding
-#: field:hr.employee,email:0 field:hr.employee.company.info.wizard,email:0
+#: field:hr.employee,email:0
+#: field:hr.employee.company.info.wizard,email:0
 msgid "Email"
 msgstr "Epost"
 
@@ -320,12 +321,14 @@ msgid "Gender"
 msgstr "Kön"
 
 #. module: hr_onboarding
-#: field:hr.employee.assets.wizard,has_computer:0 field:hr.job,has_computer:0
+#: field:hr.employee.assets.wizard,has_computer:0
+#: field:hr.job,has_computer:0
 msgid "Has Computer"
 msgstr "Har dator"
 
 #. module: hr_onboarding
-#: field:hr.employee.assets.wizard,has_key:0 field:hr.job,has_key:0
+#: field:hr.employee.assets.wizard,has_key:0
+#: field:hr.job,has_key:0
 msgid "Has Key"
 msgstr "Har nyckel"
 
@@ -357,7 +360,8 @@ msgstr "Make"
 #: field:hr.employee.certification.line.wizard,id:0
 #: field:hr.employee.certification.wizard,id:0
 #: field:hr.employee.company.info.wizard,id:0
-#: field:hr.employee.contract.info.wizard,id:0 field:hr.onboard.stage,id:0
+#: field:hr.employee.contract.info.wizard,id:0
+#: field:hr.onboard.stage,id:0
 msgid "ID"
 msgstr "ID"
 
@@ -681,13 +685,13 @@ msgid "Update"
 msgstr "Uppdatera"
 
 #. module: hr_onboarding
-#: code:addons/hr_onboarding/hr_onboarding.py:118
+#: code:addons/hr_onboarding/models/hr.py:118
 #, python-format
 msgid "Update Assets"
 msgstr "Uppdatera tillgångar"
 
 #. module: hr_onboarding
-#: code:addons/hr_onboarding/hr_onboarding.py:133
+#: code:addons/hr_onboarding/models/hr.py:133
 #, python-format
 msgid "Update Certifications"
 msgstr "Uppdatera certifieringar"
