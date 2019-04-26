@@ -213,6 +213,11 @@ msgid "Employee Assets"
 msgstr "Anställds tillgångar"
 
 #. module: hr_onboarding
+#: model:ir.actions.report.xml,name:hr_onboarding.action_employee_business_card
+msgid "Employee Business Card"
+msgstr "Anställds visitkort"
+
+#. module: hr_onboarding
 #: view:hr.employee.certification.wizard:hr_onboarding.wizard_employee_form_hr_onboard_certification
 msgid "Employee Certifications"
 msgstr "Anställds certifieringar"
@@ -234,8 +239,8 @@ msgstr "Employee certification wizard id"
 
 #. module: hr_onboarding
 #: model:ir.actions.act_window,name:hr_onboarding.act_hr_employee
-msgid "Employees Onboard Action"
-msgstr "Anställds ombord åtgärd"
+msgid "Employees Onboard"
+msgstr "Anställda ombord"
 
 #. module: hr_onboarding
 #: field:hr.employee.certification.line.wizard,cert_date_end:0
@@ -551,6 +556,11 @@ msgid "Position"
 msgstr "Befattning"
 
 #. module: hr_onboarding
+#: view:hr.employee:hr_onboarding.view_hr_employee_kanban
+msgid "Print Business Card"
+msgstr "Skriv ut anställds visitkort"
+
+#. module: hr_onboarding
 #: field:hr.onboard.stage,sequence:0
 msgid "Sequence"
 msgstr "Sekvens"
@@ -685,13 +695,13 @@ msgid "Update"
 msgstr "Uppdatera"
 
 #. module: hr_onboarding
-#: code:addons/hr_onboarding/models/hr.py:118
+#: code:addons/hr_onboarding/models/hr.py:120
 #, python-format
 msgid "Update Assets"
 msgstr "Uppdatera tillgångar"
 
 #. module: hr_onboarding
-#: code:addons/hr_onboarding/models/hr.py:133
+#: code:addons/hr_onboarding/models/hr.py:135
 #, python-format
 msgid "Update Certifications"
 msgstr "Uppdatera certifieringar"

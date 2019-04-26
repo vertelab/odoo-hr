@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="action_employee_business_card" model="ir.actions.report.xml">
+            <field name="name">Employee Business Card</field>
+            <field name="model">hr.employee</field>
+            <field name="report_type">scribus_pdf</field>
+            <field name="report_name">business_card.sla</field>
+            <field name="scribus_template" type="base64" file="hr_onboarding/report/sample.sla" />
+        </record>
+    </data>
+</openerp>

@@ -36,10 +36,15 @@
             <field name="technical_name">benefits</field>
             <field name="sequence">60</field>
         </record>
+        <record id="state_business_card" model="hr.onboard.stage">
+            <field name="name">Business Card</field>
+            <field name="technical_name">business_card</field>
+            <field name="sequence">70</field>
+        </record>
         <record id="state_completed" model="hr.onboard.stage">
             <field name="name">Completed</field>
             <field name="technical_name">completed</field>
-            <field name="sequence">70</field>
+            <field name="sequence">80</field>
         </record>
     </data>
 </openerp>

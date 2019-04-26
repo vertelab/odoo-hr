@@ -33,6 +33,7 @@ class hr_onboard_stage(models.Model):
     """
     _name = 'hr.onboard.stage'
     _description = "Onboard Stage"
+    _order = 'sequence'
 
     name = fields.Char(string='Name', required=True)
     technical_name = fields.Char(string='Technical Name', required=True)

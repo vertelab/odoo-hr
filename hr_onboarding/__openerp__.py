@@ -21,9 +21,17 @@ This module depends on OpenHRMS
     """,
     'author': 'Vertel AB',
     'website': 'http://www.vertel.se',
-    'depends': ['hr_employee_updation', 'survey_save', 'hr_recruitment', 'hr_certifications', 'account_asset'],
+    'depends': [
+        'hr_employee_updation',
+        'survey_save',
+        'hr_recruitment',
+        'hr_certifications',
+        'account_asset',
+        'report_scribus',
+    ],
     'data': [
         'data/survey_data.xml',
+        'report/employee_business_card_report.xml',
         'wizard/company_info_view.xml',
         'wizard/contract_info_view.xml',
         'wizard/assets_view.xml',

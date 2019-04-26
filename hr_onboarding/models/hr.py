@@ -40,7 +40,9 @@ class hr_employee(models.Model):
     def _read_group_onboard_stage_id(self, present_ids, domain, **kwargs):
         stages = self.env['hr.onboard.stage'].search([]).name_get()
         folded = {
-            self.env.ref('hr_onboarding.state_completed').id: True
+            self.env.ref('hr_onboarding.state_benefits').id: True,
+            self.env.ref('hr_onboarding.state_business_card').id: True,
+            self.env.ref('hr_onboarding.state_completed').id: True,
         }
         return stages, folded
 
@@ -153,6 +155,18 @@ class hr_employee(models.Model):
             }
         if self.onboard_stage_id.survey_id and not self.onboard_stage_id.view_id:
             return self.action_start_survey()
+    
+    @api.multi
+    def action_onboard_business_card_print(self):
+        self.ensure_one()
+        # print business card
+        return {
+            'type': 'ir.actions.report.xml',
+            'id': self.env.ref('hr_onboarding.action_employee_business_card').id,
+            'model': 'hr.employee',
+            'report_type': 'scribus_pdf',
+            'report_name': 'business_card.sla',
+        }
 
     @api.multi
     def action_start_survey(self):
