@@ -115,7 +115,7 @@
       <field name="type">simple_choice</field>
       <field name="display_mode">dropdown</field>
       <field name="constr_mandatory" eval="False" />
-      <field name="fields_name">relation_1</field>
+      <field name="fields_name">fam_ids.relation</field>
     </record>
     <record id="survey_personal_info_question_family_member_1_relation_choice_1" model="survey.label">
       <field name="question_id" ref="survey_personal_info_question_family_member_1_relation" />
