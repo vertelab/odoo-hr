@@ -18,19 +18,17 @@
         </record>
 
         <template id="hr_attendance_form" inherit_id="hr_attendance_terminal.hr_attendance_form">
-            <xpath expr="//div[@class='col-md-6 col-sm-6 col-xs-6 text-center']" position="after">
-                <div class="col-md-6 col-md-offset-6 col-sm-6 col-sm-offset-6 col-xs-6 col-xs-offset-6 text-center">
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div id="go_training" class="hidden">
-                            <img onclick="go_training()" src="/hr_gamification_dermanord/static/src/img/training_512.png"/>
-                            <h3>Go Training</h3>
-                        </div>
+            <xpath expr="//div[@id='extra_buttons']" position="inside">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div id="go_training" class="hidden">
+                        <img onclick="go_training()" src="/hr_gamification_dermanord/static/src/img/training_512.png"/>
+                        <h3>Go Training</h3>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-                        <div id="go_workout" class="hidden">
-                            <img onclick="go_workout()" src="/hr_gamification_dermanord/static/src/img/vacation_512.png"/>
-                            <h3>Go Workout</h3>
-                        </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div id="go_workout" class="hidden">
+                        <img onclick="go_workout()" src="/hr_gamification_dermanord/static/src/img/vacation_512.png"/>
+                        <h3>Go Workout</h3>
                     </div>
                 </div>
             </xpath>

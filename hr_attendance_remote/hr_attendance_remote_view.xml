@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="hr_attendance_employee_remote" model="ir.ui.view">
+            <field name="name">hr.employee.form.remote</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_attendance.hr_attendance_employee"/>
+            <field name="arch" type="xml">
+                <button name="attendance_action_change" string="Sign In" position="after">
+                        <button class="oe_link" name="attendance_action_change" states="absent" string="Sign In (remote location)" type="object" context="{'type':'sign_in', 'remote':'True'}" groups="base.group_hr_user"/>
+                </button>
+            </field>
+        </record>
+
+        <template id="hr_attendance_form" inherit_id="hr_attendance_terminal.hr_attendance_form">
+            <xpath expr="//div[@id='extra_buttons']" position="inside">
+                <div class="col-md-6 col-sm-6 col-xs-6">
+                    <div id="check_in_out" class="hidden">
+                        <img id="check_in_img" class="hidden" onclick="check_in_out()" src="/hr_attendance_remote/static/src/img/check_in_512.png"/>
+                        <img id="check_out_img" class="hidden" onclick="check_in_out()" src="/hr_attendance_remote/static/src/img/check_out_512.png"/>
+                        <h3 id="check_in_label" class="hidden">Check In</h3>
+                        <h3 id="check_out_label" class="hidden">Check Out</h3>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//head" position="inside">
+                <link href="/hr_attendance_remote/static/src/css/main.css" rel="stylesheet"/>
+            </xpath>
+            <xpath expr="//script[@src='/hr_attendance_terminal/static/src/js/attendance.js']" position="after">
+                <script src="/hr_attendance_remote/static/src/js/main.js" type="text/javascript" />
+            </xpath>
+        </template>
+        
+        <template id="mobile_punch_clock_template" inherit_id="mobile_punch_clock.mobile_punch_clock_template">
+            <xpath expr="//form[@class='text-center']" position="after">
+                <form t-if="employee.state == 'present'" t-att-action="'/punchclock/presence/%s' %user.id" method="POST" class="text-center">
+                    <div class="container">
+                        <a id="punch_clock_presence_btn">
+                            <strong>
+                                <input name="presence_button" type="submit" t-att-value="presence" class="btn-primary text-center"/>
+                            </strong>
+                        </a>
+                    </div>
+                </form>
+            </xpath>
+        </template>
+        
+    </data>
+</openerp>

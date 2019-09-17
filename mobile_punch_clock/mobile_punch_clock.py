@@ -34,21 +34,26 @@ class website_punch_clock(http.Controller):
     def punchclock(self, user=False, clicked=False, **post):
         if not user:
             return request.redirect('/punchclock/%s' %request.env.uid, 302)
+        employee = user.employee_ids[0]
         if clicked:
-            user.employee_ids[0].attendance_action_change()
+            employee.attendance_action_change()
         if post.get('signin_button',False):
-            user.employee_ids[0].attendance_action_change()
+            employee.attendance_action_change()
 
-        last=user.employee_ids[0].last_sign
+        last=employee.last_sign
         tz = pytz.timezone(user.partner_id.tz or 'UTC')
 
         last = pytz.utc.localize(datetime.strptime(last or "1969-01-01 01:01:01", '%Y-%m-%d %H:%M:%S')).astimezone(tz).replace(tzinfo=None)
 
         ctx = {
+            'employee' : employee,
             'user' : user,
-            'signed_in': _("Punch Out") if user.employee_ids[0].state == 'present' else _("Punch In"),
-            'last': _('Last') + _(' %s %s') %(_("punched in") if user.employee_ids[0].state == 'present' else _("punched out"), fields.Datetime.to_string(last)[:16]),
-            }
+            'signed_in': _("Punch Out") if employee.state == 'present' else _("Punch In"),
+            'last': _('Last') + _(' %s %s') %(_("punched in") if employee.state == 'present' else _("punched out"), fields.Datetime.to_string(last)[:16]),
+        }
+        if hasattr(employee, 'presence_check'):
+            ctx['presence'] = _('Check out') if employee.presence_check() else _('Check in')
+            
         return request.render('mobile_punch_clock.mobile_punch_clock_template', ctx)
 
 

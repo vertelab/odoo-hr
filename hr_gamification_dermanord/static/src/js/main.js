@@ -35,44 +35,34 @@ function go_workout(){
     });
 }
 
-/* overrider original */
-function employee_state(id){
-    clearContent();
-    if (id != "") {
-        openerp.jsonRpc("/hr/attendance/state", 'call', {
-            'employee': id,
+var gamification_original_attendance_state_update = attendance_state_update;
+
+attendance_state_update = function(data){
+    gamification_original_attendance_state_update(data);
+    if(data['state'] == "present") {
+        openerp.jsonRpc("/hr/attendance/training_validate", 'call', {
+            'employee_id': $("#hr_employee").val(),
         }).done(function(data){
-            if(data['state'] == "present") {
-                $("#hr_employee").val(data['id']);
-                $("#login").addClass("hidden");
-                $("#logout").removeClass("hidden");
-                openerp.jsonRpc("/hr/attendance/training_validate", 'call', {
-                    'employee_id': $("#hr_employee").val(),
-                }).done(function(data){
-                    return (data == 'confirm') ? $("#go_training").removeClass("hidden") : $("#go_training").addClass("hidden");
-                });
-                openerp.jsonRpc("/hr/attendance/workout_validate", 'call', {
-                    'employee_id': $("#hr_employee").val(),
-                }).done(function(data){
-                    return (data == 'confirm') ? $("#go_workout").removeClass("hidden") : $("#go_workout").addClass("hidden");
-                });
-            }
-            if(data['state'] == "absent") {
-                $("#hr_employee").val(data['id']);
-                employee_project(data['id']);
-                $("#login").removeClass("hidden");
-                $("#logout").addClass("hidden");
-                $("#go_training").addClass("hidden");
-                $("#go_workout").addClass("hidden");
-            }
+            return (data == 'confirm') ? $("#go_training").removeClass("hidden") : $("#go_training").addClass("hidden");
         });
+        openerp.jsonRpc("/hr/attendance/workout_validate", 'call', {
+            'employee_id': $("#hr_employee").val(),
+        }).done(function(data){
+            return (data == 'confirm') ? $("#go_workout").removeClass("hidden") : $("#go_workout").addClass("hidden");
+        });        
     }
-    else {
-        $("#login").addClass("hidden");
-        $("#logout").addClass("hidden");
+    if(data['state'] == "absent") {
         $("#go_training").addClass("hidden");
         $("#go_workout").addClass("hidden");
     }
+}
+
+var gamification_original_attendance_state_reset = attendance_state_reset;
+
+attendance_state_reset = function(id){
+    gamification_original_attendance_state_reset(id);
+    $("#go_training").addClass("hidden");
+    $("#go_workout").addClass("hidden");
 }
 
 function get_attendance(id){
