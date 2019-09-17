@@ -75,6 +75,18 @@ class attendancePresenceReport(http.Controller):
         employee.presence_change()
         return 'done'
 
+    # Used by hr_attendance_terminal
+    @http.route(['/hr/attendance/employees_presence'], type='json', auth="user", website=True)
+    def check_employees(self, **kw):
+        employees = request.env['hr.employee'].search([('active', '=', True), ('id', '!=', request.env.ref('hr.employee').id)]).filtered(lambda e: e.present == True)
+        employees_list = {}
+        for e in employees:
+            employees_list[e.name] = e.image_small
+        if len(employees_list) > 0:
+            return employees_list
+        else:
+            return ''
+
     # Used by mobile_punch_clock
     @http.route(['/punchclock/presence/<model("res.users"):user>', '/punchclock/presence/<model("res.users"):user>/<string:clicked>', '/punchclock/presence'], type='http', auth="user", website=True)
     def punchclock(self, user=False, clicked=False, **post):

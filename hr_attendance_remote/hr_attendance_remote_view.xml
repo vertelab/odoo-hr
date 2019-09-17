@@ -23,6 +23,11 @@
                     </div>
                 </div>
             </xpath>
+            <xpath expr="//div[@id='check_employees_div']" position="after">
+                <div id="check_employees_present_div">
+                    <button id="show_employees_present" class="btn btn-default" onclick="check_employees_present()"><span id="employees_qty"><t t-esc="len(employees.filtered(lambda e: e.present == True))"/></span> Present Users</button>
+                </div>
+            </xpath>
             <xpath expr="//head" position="inside">
                 <link href="/hr_attendance_remote/static/src/css/main.css" rel="stylesheet"/>
             </xpath>
@@ -43,6 +48,11 @@
                     </div>
                 </form>
             </xpath>
+            <xpath expr="//head" position="inside">
+                <link href="/hr_attendance_remote/static/src/css/punch_clock.css" rel="stylesheet"/>
+            </xpath>
+                                
+
         </template>
         
     </data>

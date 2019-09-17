@@ -34,7 +34,7 @@ class website_punch_clock(http.Controller):
     def punchclock(self, user=False, clicked=False, **post):
         if not user:
             return request.redirect('/punchclock/%s' %request.env.uid, 302)
-        employee = user.employee_ids[0]
+        employee = user.employee_ids[0].with_context(remote=True)
         if clicked:
             employee.attendance_action_change()
         if post.get('signin_button',False):
