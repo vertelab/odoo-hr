@@ -71,10 +71,13 @@ class Workout(http.Controller):
 
     @http.route(['/hr/attendance/training_status'], type='json', auth="user", website=True)
     def training_status(self, employee_id=None, **kw):
-        employee = request.env['hr.employee'].browse(int(employee_id))
-        works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_week())
-        works_in_month = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_month())
-        return {'works_in_week': len(works_in_week), 'works_in_month': len(works_in_month)}
+        if employee_id:
+            employee = request.env['hr.employee'].browse(int(employee_id))
+            works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_week())
+            works_in_month = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_month())
+            return {'works_in_week': len(works_in_week), 'works_in_month': len(works_in_month)}
+        else:
+            return {}
 
     @http.route(['/hr/attendance/training'], type='json', auth="user", website=True)
     def training(self, employee_id=None, **kw):
@@ -103,10 +106,13 @@ class Workout(http.Controller):
 
     @http.route(['/hr/attendance/workout_status'], type='json', auth="user", website=True)
     def workout_status(self, employee_id=None, **kw):
-        employee = request.env['hr.employee'].browse(int(employee_id))
-        works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_week())
-        works_in_month = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_month())
-        return {'works_in_week': len(works_in_week), 'works_in_month': len(works_in_month)}
+        if employee_id:
+            employee = request.env['hr.employee'].browse(int(employee_id))
+            works_in_week = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_week())
+            works_in_month = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_workout').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: fields.Date.from_string(w.date[:10]) in self.get_dates_in_month())
+            return {'works_in_week': len(works_in_week), 'works_in_month': len(works_in_month)}
+        else:
+            return {}
 
     @http.route(['/hr/attendance/workout'], type='json', auth="user", website=True)
     def workout(self, employee_id=None, **kw):
