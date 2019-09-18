@@ -1,0 +1,9 @@
+input[name=presence_button] {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.0em;
+    margin:auto;
+    box-shadow: 0px 0px 3px #333;
+    border-radius: 75px;
+    width: 150px;
+    height: 150px;
+}
