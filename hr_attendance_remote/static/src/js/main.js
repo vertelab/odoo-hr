@@ -14,6 +14,7 @@ function check_in_out(){
             $("#employee_message_error").html("<h2 style='color: #f00;'>" + _t("Cannot sense your presence") + "</h2>");
             $('#Log_div').delay(15000).fadeOut('slow');
         }
+        number_employees();
     });
 }
 
@@ -23,8 +24,6 @@ attendance_state_update = function(data){
     remote_original_attendance_state_update(data);
     if(data['state'] == "present") {
         $("#check_in_out").removeClass("hidden");
-        //~ $("#check_in_label").removeClass("hidden");
-        //~ $("#check_out_label").removeClass("hidden");
 
         openerp.jsonRpc("/hr/attendance/presence_status", 'call', {
             'employee_id': $("#hr_employee").val(),
@@ -96,5 +95,15 @@ function check_employees_presence(){
             $("#employees_list").html(employee_contect);
         }
         logTimeOut = setTimeout("$('#Log_div').fadeOut('slow')", 15000);
+    });
+}
+
+var remote_original_number_employees = number_employees;
+
+number_employees = function(){
+    remote_original_number_employees();
+    openerp.jsonRpc("/hr/attendance/employees_number_presence", 'call', {
+    }).done(function(data){
+        $("#employees_qty_present").html("<span>" + data +"</span>");
     });
 }

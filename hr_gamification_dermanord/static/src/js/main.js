@@ -113,17 +113,10 @@ function get_attendance(id){
         });
 }
 
-function clearContent(){
-    $("#employees_list").empty();
-    $("#employee_image").empty();
-    $("#employee_message").empty();
-    $("#employee_message_error").empty();
-    $("#employee_worked_hour").empty();
-    $("#employee_flex_time").empty();
-    $("#employee_time_bank").empty();
+var gamification_original_clearContent = clearContent;
+
+clearContent = function(){
+    gamification_original_clearContent();
     $("#training_status").empty();
     $("#workout_status").empty();
-    $('#Log_div').css("display", "unset");
-    $('#Log_div').stop();
-    clearTimeout(logTimeOut);
 }
