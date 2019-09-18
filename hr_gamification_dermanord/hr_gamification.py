@@ -55,7 +55,8 @@ class Workout(http.Controller):
     @http.route(['/hr/attendance/training_validate'], type='json', auth="user", website=True)
     def training_validate(self, employee_id=None, **kw):
         employee = request.env['hr.employee'].browse(int(employee_id))
-        contract = employee.contract_ids[0]
+        if employee.contract_ids:
+            contract = employee.contract_ids[0]
         if contract:
             works_in_day = request.env['project.task.work'].search([('task_id', '=', request.env.ref('hr_gamification_dermanord.task_training').id), ('user_id', '=', employee.user_id.id)]).filtered(lambda w: w.date[:10] == fields.Datetime.now()[:10])
             if not contract.max_training_count_per_day and contract.max_training_count_per_day != 0:

@@ -39,8 +39,11 @@ class hr_employee(models.Model):
             self.env.context = {}
 
         is_remote = self.env.context.get('remote', False)
+        # ~ _logger.warn("DAER: is_remote: %s" % is_remote)
         for employee in self:
-            if is_remote:
+            if employee.state == 'present':
+                employee.present = False
+            elif is_remote:
                 employee.present = False
             else:
                 employee.present = True
@@ -77,7 +80,7 @@ class attendancePresenceReport(http.Controller):
 
     # Used by hr_attendance_terminal
     @http.route(['/hr/attendance/employees_presence'], type='json', auth="user", website=True)
-    def check_employees(self, **kw):
+    def check_employees_presence(self, **kw):
         employees = request.env['hr.employee'].search([('active', '=', True), ('id', '!=', request.env.ref('hr.employee').id)]).filtered(lambda e: e.present == True)
         employees_list = {}
         for e in employees:

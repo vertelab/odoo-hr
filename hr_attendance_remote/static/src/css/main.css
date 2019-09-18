@@ -3,3 +3,9 @@
     background-color: #61BA61;
     max-width: 200px;
 }
+
+#check_employees_present_div{
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}

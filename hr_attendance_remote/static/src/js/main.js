@@ -76,3 +76,25 @@ attendance_state_reset = function(id){
     }
 }
 
+function check_employees_presence(){
+    openerp.jsonRpc("/hr/attendance/employees_presence", 'call', {
+    }).done(function(data){
+        clearContent();
+        if(data == "") {
+            number_employees();
+            $("#employees_list").html("<h2 style='color: #f00;' class='text-center'>" + _t("No User is logged in") +"</h2>");
+        }
+        else {
+            var employee_contect = "";
+            $.each( data, function( name, image ) {
+                var img = "<img src='/hr_attendance_terminal/static/src/img/icon-user.png' style='width: 64px; height: 64px; margin: auto; display: block;'/>";
+                if (image !== null)
+                    img = "<img src='data:image/png;base64," + image + "' style='margin: auto; display: block;'/>";
+                employee_contect += "<div class='col-md-2 col-sm-2 col-xs-2'>" + img + "<p class='text-center'>" + name + "</p></div>"
+            });
+            number_employees();
+            $("#employees_list").html(employee_contect);
+        }
+        logTimeOut = setTimeout("$('#Log_div').fadeOut('slow')", 15000);
+    });
+}
