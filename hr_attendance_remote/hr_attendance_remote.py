@@ -39,7 +39,6 @@ class hr_employee(models.Model):
             self.env.context = {}
 
         is_remote = self.env.context.get('remote', False)
-        # ~ _logger.warn("DAER: is_remote: %s" % is_remote)
         for employee in self:
             if employee.state == 'present':
                 employee.present = False
