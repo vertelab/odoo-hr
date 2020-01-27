@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="hr_attendance assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/hr_attendance_kiosk/static/src/js/greeting_message.js"></script>
+            <script type="text/javascript" src="/hr_attendance_kiosk/static/src/js/weather.js"></script>
+            <link rel="stylesheet" type="text/css" href="/hr_attendance_kiosk/static/src/css/kiosk_mode.css"/>
+        </xpath>
+    </template>
+</odoo>

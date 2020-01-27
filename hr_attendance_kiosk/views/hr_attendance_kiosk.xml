@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record model="ir.actions.client" id="hr_attendance_action_kiosk_mode">
+        <field name="name">Kiosk mode</field>
+        <field name="tag">hr_attendance_kiosk_mode</field>
+        <field name="target">fullscreen</field>
+    </record>
+	<menuitem id="menu_hr_attendance_kiosk_mode" name="Kiosk Mode" action="hr_attendance_action_kiosk_mode"/>
+</odoo>

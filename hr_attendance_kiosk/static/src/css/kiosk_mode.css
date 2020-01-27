@@ -1,0 +1,22 @@
+#weather-forecast {
+	max-width: 50%; 
+	max-height: 150px;
+	padding-left: 5px;
+}
+
+.weather-icon {
+	max-width: 48px;
+	max-height: 42px;
+}
+
+#temp {
+	font-size: 30px;
+}
+
+.margin-5 {
+	margin-top: -5px;
+}
+
+.margin-7 {
+	margin-top: -7px;
+}
