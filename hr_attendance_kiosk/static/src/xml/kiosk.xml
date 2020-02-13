@@ -6,20 +6,6 @@
     </t>
 
     <t t-name="HrAttendanceKioskMode">
-		<div id="weather-forecast">
-			<div id="date"/>
-			<div class="row no-gutters margin-5">
-				<div class="col-md-2">
-					<div id="icon"/>				
-				</div>
-				<div class="col-md-3 text-left">
-					<div id="temp"/>	
-				</div>
-			</div>
-			<div class="row no-gutters margin-7">
-				<div id="daily" class="col-md-12"/>
-			</div>
-		</div>
         <div class="o_hr_attendance_kiosk_mode_container o_home_menu_background">
             <span class="o_hr_attendance_kiosk_backdrop"/>
             <div class="o_hr_attendance_clock text-center"/>
@@ -27,10 +13,20 @@
                 <h1><small>Välkommen till</small> <t t-esc="widget.company_name"/></h1>
                 <img t-attf-src="{{widget.company_image_url}}" alt="Company Logo" class="o_hr_attendance_kiosk_company_image"/>
                 <div class="row justify-content-md-center o_hr_attendance_kiosk_welcome_row">
-                    <div class="col-sm-5">
-                        <img class="img img-fluid d-block mx-auto" src="/hr_attendance/static/src/img/barcode.png"/>
-                        <h5 class="mt8 mb0 text-muted">Skanna din tagg</h5>
-                    </div>
+						<div id="weather-forecast">
+							<div id="date"/>
+							<div class="row no-gutters justify-content-center">
+								<div class="col-md-2 text-right">
+									<div id="icon"/>				
+								</div>
+								<div class="col-md-4">
+									<div id="temp"/>	
+								</div>
+							</div>
+							<div class="row no-gutters">
+								<div id="daily" class="col-md-12"/>
+							</div>
+						</div>
                 </div>
             </div>
         </div>

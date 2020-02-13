@@ -18,16 +18,6 @@ WeatherKioskMode.include({
         this.weather();
     },
 	weather: function() {
-		// Array with days and months to be used in the render
-		var today = new Date(),
-			dd = today.getDate(),
-			mm = ['Januari', "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"],
-			weekday = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
-			dayOfWeek = weekday[today.getDay()],
-			month = mm[today.getMonth()];
-
-		// Render day of week & current date.
-		this.$("#date").html(dayOfWeek + ' ' + dd + ' ' + month);
 		
 		// Forecast API info
 		var self = this;
@@ -44,6 +34,17 @@ WeatherKioskMode.include({
 			$.getJSON(
 				jsonRequest,
 				function(data) {
+					// Array with days and months to be used in the render
+					var today = new Date(),
+						dd = today.getDate(),
+						mm = ['Januari', "Februari", "Mars", "April", "Maj", "Juni", "Juli", "Augusti", "September", "Oktober", "November", "December"],
+						weekday = ['Söndag', 'Måndag', 'Tisdag', 'Onsdag', 'Torsdag', 'Fredag', 'Lördag'],
+						dayOfWeek = weekday[today.getDay()],
+						month = mm[today.getMonth()];
+					
+					// Render day of week & current date.
+					self.$("#date").html(dayOfWeek + ' ' + dd + ' ' + month);
+					
 					var temperature = Math.floor(data.currently.temperature);
 					self.$("#temp").html(temperature + "° C");
 					var icon = data.currently.icon;
