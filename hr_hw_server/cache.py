@@ -20,27 +20,20 @@
 ##############################################################################
 from odoo import models, fields, api, _
 from odoo.exceptions import except_orm, Warning, RedirectWarning
-from odoo.tools.config import config
 from odoo import http
 from odoo.http import request
 from odoo import SUPERUSER_ID
 import logging
+import odoo
+
+import traceback
+import erppeek
 import time
 
-# Osäker på om denna behövs verkligen
-class hr_attendance(http.Controller):
-    @http.route('/hr_hw_server/command', auth='public', type='json')
-    def hr_request(self, password=None, command=None, **params):
-    	pwd = request.env['ir.config.param'].sudo().get_param('hr_hw_server.password')
-    	if not pwd or (pwd != password):
-    		# TODO: Skicka 401
-    		raise Warning('Wrong password!')
-    	if command == 'check_barcode':
-    		check = request.env['hr.employee'].sudo().search([('barcode', '=', params.get('barcode'))])
-    		if check:
-    			return True
-    		else:
-    			return False
-        
-        elif command == 'check_in_out':
-        	return request.env['hr.employee'].sudo().attendance_scan(params.get('barcode'))        	
+_logger = logging.getLogger(__name__)
+
+
+# class cache(models.TransientModel):
+	# _name = 'hr.cache'
+
+	

@@ -3,11 +3,12 @@ odoo.define('hr_attendance_kiosk.greeting_message', function (require) {
 
 var AbstractAction = require('web.AbstractAction');
 var core = require('web.core');
-
+var GreetingMessage = require('hr_attendance.greeting_message');
 var _t = core._t;
 
-// welcome_message & farewell_message is the 2 functions edited, just translations from English to Swedish. Should rework this to include rather than extend
-var GreetingMessage = AbstractAction.extend({
+// welcome_message & farewell_message is the 2 functions edited, just translations from English to Swedish.
+//~ var GreetingMessage = AbstractAction.extend({
+GreetingMessage.include({
     template: 'HrAttendanceGreetingMessage',
 
     events: {
@@ -167,7 +168,7 @@ var GreetingMessage = AbstractAction.extend({
     },
 });
 
-core.action_registry.add('hr_attendance_greeting_message', GreetingMessage);
+//~ core.action_registry.add('hr_attendance_greeting_message', GreetingMessage);
 
 return GreetingMessage;
 
