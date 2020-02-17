@@ -26,14 +26,26 @@ from odoo import SUPERUSER_ID
 import logging
 import odoo
 
-import traceback
-import erppeek
-import time
-
 _logger = logging.getLogger(__name__)
 
 
-# class cache(models.TransientModel):
-	# _name = 'hr.cache'
+class cache(models.TransientModel):
+    _name = 'hr.cache'
 
-	
+    employee_id = fields.Integer()
+    barcode = fields.Char()
+
+    # @api.model
+    # def create_cache(self):
+    #     cache = self.env['hr.cache'].search('employee_id', '=', employee_id)
+    #     if cache:
+    #         cache.employee_id = employee_id
+    #         cache.barcode = barcode
+    #     else:
+    #         self.env['hr.cache'].create({
+    #             'barcode':employee_id.barcode
+    #             'employee_id':employee_id
+    #             }) 
+
+
+    

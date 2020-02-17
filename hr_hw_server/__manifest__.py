@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    'name': 'Attendance Server',
+    'name': 'Server connections',
     'version': '12.0.1',
     'category': 'hr',
     'description': """
@@ -30,7 +30,7 @@
     'author': 'Vertel AB',
     'license': 'AGPL-3',
     'website': 'http://www.vertel.se',
-    'depends': ['hr_attendance'],
+    'depends': ['hr'],
     'data': [],
     'installable': True,
 }

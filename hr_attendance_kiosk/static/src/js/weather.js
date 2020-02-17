@@ -18,19 +18,16 @@ WeatherKioskMode.include({
         this.weather();
     },
 	weather: function() {
-		
 		// Forecast API info
 		var self = this;
-		var apiKey = "7351cdfa7ca3465be664155c718a0b09";
+		var apiKey = "";
 		var url = "https://api.darksky.net/forecast/";
 		var latitude = '58.41086';
 		var longitude = '15.62157';
 		
-		// The information needed for the function below
-		var jsonRequest = url + apiKey + "/" + latitude + "," + longitude + "?callback=?&" + "units=si&" + "lang=sv";
 		
 		// Retrieves information from the requested API url, extracts the information wanted and outputs it on the webpage
-		function update_weather(){
+		function update_weather(jsonRequest){
 			$.getJSON(
 				jsonRequest,
 				function(data) {
@@ -116,9 +113,24 @@ WeatherKioskMode.include({
 				}
 			)
 		}
-		// Runs the update_weather function every 30 minutes, 1.8 million milliseconds = 30 minutes
-		setInterval(update_weather, 1800000);
-		update_weather();
+		this._rpc({
+			model: 'ir.config_parameter',
+			method: 'get_param',
+			args: ['hr_attendance_kiosk.apiKey'],
+		})
+		.then(function (result) {
+			apiKey = result;
+			
+			// The information needed for the function below
+			var jsonRequest = url + apiKey + "/" + latitude + "," + longitude + "?callback=?&" + "units=si&" + "lang=sv";
+			
+			// Runs the update_weather function every 30 minutes, 1.8 million milliseconds = 30 minutes
+			setInterval(update_weather, 1800000, jsonRequest);
+			update_weather(jsonRequest);
+		},
+		function(){
+			console.log("test");
+			});
 	}
 });
 

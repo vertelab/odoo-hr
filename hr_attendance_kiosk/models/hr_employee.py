@@ -30,9 +30,9 @@ class HrEmployee(models.Model):
                 match = client.model('hr.employee').browse(employee_id)
             except:
                 _logger.warn("Something went wrong: \n %s"%traceback.format_exc())
+                return {'warning': _("Connection to server unestablished.")}
         else:
             return {'warning': _("No config parameter found for either server_url or password.")}
-        # ~ _logger.warn("test %s"%match)
         
         # Returns an action to either check in or out the employee, if none matches return error message 
         res = match and match.attendance_action('hr_attendance.hr_attendance_action_kiosk_mode') or \
