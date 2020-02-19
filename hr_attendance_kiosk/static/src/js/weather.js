@@ -113,6 +113,7 @@ WeatherKioskMode.include({
 				}
 			)
 		}
+		// Get the api key from system parameter in odoo
 		this._rpc({
 			model: 'ir.config_parameter',
 			method: 'get_param',

@@ -4,66 +4,12 @@ odoo.define('hr_attendance_kiosk.greeting_message', function (require) {
 var AbstractAction = require('web.AbstractAction');
 var core = require('web.core');
 var GreetingMessage = require('hr_attendance.greeting_message');
+var MyAttendances = require('hr_attendance.my_attendances');
 var _t = core._t;
 
 // welcome_message & farewell_message is the 2 functions edited, just translations from English to Swedish.
-//~ var GreetingMessage = AbstractAction.extend({
 GreetingMessage.include({
-    template: 'HrAttendanceGreetingMessage',
-
-    events: {
-        "click .o_hr_attendance_button_dismiss": function() { this.do_action(this.next_action, {clear_breadcrumbs: true}); },
-    },
-
-    init: function(parent, action) {
-        var self = this;
-        this._super.apply(this, arguments);
-        this.activeBarcode = true;
-
-        // if no correct action given (due to an erroneous back or refresh from the browser), we set the dismiss button to return
-        // to the (likely) appropriate menu, according to the user access rights
-        if(!action.attendance) {
-            this.activeBarcode = false;
-            this.getSession().user_has_group('hr_attendance.group_hr_attendance_user').then(function(has_group) {
-                if(has_group) {
-                    self.next_action = 'hr_attendance.hr_attendance_action_kiosk_mode';
-                } else {
-                    self.next_action = 'hr_attendance.hr_attendance_action_my_attendances';
-                }
-            });
-            return;
-        }
-
-        this.next_action = action.next_action || 'hr_attendance.hr_attendance_action_my_attendances';
-        // no listening to barcode scans if we aren't coming from the kiosk mode (and thus not going back to it with next_action)
-        if (this.next_action != 'hr_attendance.hr_attendance_action_kiosk_mode' && this.next_action.tag != 'hr_attendance_kiosk_mode') {
-            this.activeBarcode = false;
-        }
-
-        this.attendance = action.attendance;
-        // We receive the check in/out times in UTC
-        // This widget only deals with display, which should be in browser's TimeZone
-        this.attendance.check_in = this.attendance.check_in && moment.utc(this.attendance.check_in).local();
-        this.attendance.check_out = this.attendance.check_out && moment.utc(this.attendance.check_out).local();
-        this.previous_attendance_change_date = action.previous_attendance_change_date && moment.utc(action.previous_attendance_change_date).local();
-
-        // check in/out times displayed in the greeting message template.
-        this.format_time = 'HH:mm:ss';
-        this.attendance.check_in_time = this.attendance.check_in && this.attendance.check_in.format(this.format_time);
-        this.attendance.check_out_time = this.attendance.check_out && this.attendance.check_out.format(this.format_time);
-        this.employee_name = action.employee_name;
-        this.attendanceBarcode = action.barcode;
-    },
-
-    start: function() {
-        if (this.attendance) {
-            this.attendance.check_out ? this.farewell_message() : this.welcome_message();
-        }
-        if (this.activeBarcode) {
-            core.bus.on('barcode_scanned', this, this._onBarcodeScanned);
-        }
-    },
-
+	
     welcome_message: function() {
         var self = this;
         var now = this.attendance.check_in.clone();
@@ -134,41 +80,33 @@ GreetingMessage.include({
                 this.$('.o_hr_attendance_message_message').append(_t("Ha en trevlig kväll"));
             }
         }
-    },
-
-    _onBarcodeScanned: function(barcode) {
-        var self = this;
-        if (this.attendanceBarcode !== barcode){
-            if (this.return_to_main_menu) {  // in case of multiple scans in the greeting message view, delete the timer, a new one will be created.
-                clearTimeout(this.return_to_main_menu);
-            }
-            core.bus.off('barcode_scanned', this, this._onBarcodeScanned);
-            this._rpc({
-                    model: 'hr.employee',
-                    method: 'attendance_scan',
-                    args: [barcode, ],
-                })
-                .then(function (result) {
-                    if (result.action) {
-                        self.do_action(result.action);
-                    } else if (result.warning) {
-                        self.do_warn(result.warning);
-                        setTimeout( function() { self.do_action(self.next_action, {clear_breadcrumbs: true}); }, 5000);
-                    }
-                }, function () {
-                    setTimeout( function() { self.do_action(self.next_action, {clear_breadcrumbs: true}); }, 5000);
-                });
-        }
-    },
-
-    destroy: function () {
-        core.bus.off('barcode_scanned', this, this._onBarcodeScanned);
-        clearTimeout(this.return_to_main_menu);
-        this._super.apply(this, arguments);
-    },
+    }
 });
 
-//~ core.action_registry.add('hr_attendance_greeting_message', GreetingMessage);
+MyAttendances.include({
+	base_url: function() {
+		var self = this;
+		var base_url;
+		
+		var def = this._rpc({
+				model: 'ir.config_parameter',
+				method: 'get_param',
+				args: ['hr_attendance_kiosk.base_url'],
+			})
+			.then(function (res) {
+				base_url = res;
+			}, function(){
+				base_url = '';
+				}
+			);
+		
+		while(base_url === undefined){
+			
+		}
+		return base_url;
+	}
+});
+
 
 return GreetingMessage;
 

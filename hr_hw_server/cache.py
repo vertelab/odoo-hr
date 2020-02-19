@@ -31,6 +31,7 @@ _logger = logging.getLogger(__name__)
 
 class cache(models.TransientModel):
     _name = 'hr.cache'
+    _transient_max_hours = 120
 
     employee_id = fields.Integer()
     barcode = fields.Char()
