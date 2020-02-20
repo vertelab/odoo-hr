@@ -20,17 +20,17 @@
 ##############################################################################
 
 {
-    'name': 'Server connections',
+    'name': 'Cache for employees and barcodes',
     'version': '12.0.1',
     'category': 'hr',
     'description': """
-
+        A transient model which lets u cache certain values 
 """,
     'images': [],
     'author': 'Vertel AB',
     'license': 'AGPL-3',
     'website': 'http://www.vertel.se',
-    'depends': ['hr'],
+    'depends': [],
     'data': [],
     'installable': True,
 }

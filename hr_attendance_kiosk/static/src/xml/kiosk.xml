@@ -16,10 +16,10 @@
 						<div id="weather-forecast">
 							<div id="date"/>
 							<div class="row no-gutters justify-content-center">
-								<div class="col-md-2 text-right">
+								<div class="col-md-4 text-right">
 									<div id="icon"/>				
 								</div>
-								<div class="col-md-4">
+								<div class="col-md-6">
 									<div id="temp"/>	
 								</div>
 							</div>
