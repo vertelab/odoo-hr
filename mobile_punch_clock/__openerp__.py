@@ -34,7 +34,9 @@ url: /punchclock/
     'license': 'AGPL-3',
     'website': 'http://www.vertel.se',
     'depends': ['mail', 'website', 'hr_attendance'],
-    'data': ['mobile_punch_clock_view.xml',
+    'data': [
+        'mobile_punch_clock_view.xml',
+        'security/ir.model.access.csv',
     ],
     'installable': True,
 }
