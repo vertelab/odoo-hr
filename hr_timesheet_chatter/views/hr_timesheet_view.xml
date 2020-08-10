@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="view_account_analytic_line_form" model="ir.ui.view">
+      <field name="name">account.analytic.line.form.chatter</field>
+      <field name="model">account.analytic.line</field>
+      <field name="inherit_id" ref="analytic.view_account_analytic_line_form" />
+      <field name="arch" type="xml">
+          <form position="inside">
+                    <sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </sheet>          
+          </form>
+
+      </field>
+    </record>
+  </data>
+</odoo>
