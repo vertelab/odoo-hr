@@ -9,7 +9,7 @@ class HrDepartment(models.Model):
 
     office_code = fields.Char(string="Office code") #fyrställig
     organisation_number = fields.Char(string="Organisaiton Number") #sektionsnummer
-    location_ids = fields.Many2many(comodel_name='hr.campus', string="Campuses", inverse_name="office_id")
+    location_ids = fields.Many2many(comodel_name='hr.location', string="Campuses")
     
 
 
@@ -21,6 +21,7 @@ class Hrlocation(models.Model):
     personal_service_opening = fields.Char(string="Opening hours for personal service")
     workplace_number = fields.Char(string="Workplace number")
     location_code = fields.Char(string="Location code")
+    x500_id = fields.Char(string="x500 id")
     
     department_ids = fields.Many2many(comodel_name='hr.department', string="Office")
     
