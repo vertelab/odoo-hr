@@ -10,7 +10,7 @@
     'website': 'http://www.vertel.se',
     'depends': ['hr'],
     'data': [
-      'views/hr_location_view.xml',
+      #'views/hr_location_view.xml',
       'security/ir.model.access.csv'
     ],
     'installable': True,
