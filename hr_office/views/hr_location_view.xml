@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="af_office_department_action" model="ir.actions.act_window">
+        <field name="name">AF Offices</field>
+        <field name="res_model">hr.department</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="search_view_id" ref="hr.view_department_filter"/>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new department
+          </p><p>
+            Odoo's department structure is used to manage all documents
+            related to employees by departments: expenses, timesheets,
+            leaves, recruitments, etc.
+          </p>
+        </field>
+    </record>
+
+    <menuitem id="department_af_office_menu" name="AF Office" action="af_office_department_action" sequence="74"
+              groups="base.group_no_one"/>
+
+    <record id="view_location_form" model="ir.ui.view">
+        <field name="name">hr.location.form</field>
+        <field name="model">hr.location</field>
+        <field name="arch" type="xml">
+        <form string="Locations">
+            <field name="name"/>
+            <field name="location_code"/>
+            <field name="workplace_number"/>
+        </form>
+        </field>
+    </record>
+
+    <record id="view_location_tree" model="ir.ui.view">
+        <field name="name">hr.location.tree</field>
+        <field name="model">hr.location</field>
+        <field name="arch" type="xml">
+            <tree string="Locations">
+                <field name="name"/>
+                <field name="location_code"/>
+                <field name="workplace_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_location" model="ir.actions.act_window">
+        <field name="name">Locations</field>
+        <field name="res_model">hr.location</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_location_tree" />
+    </record>
+
+    <record id="action_view_location_tree" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_location" />
+        <field name="sequence" eval="1" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_location_tree" />
+    </record>
+
+    <record id="action_view_location_form" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_location" />
+        <field name="sequence" eval="2" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_location_form" />
+    </record>
+
+    <menuitem id="location_menu" name="locations" sequence="8" action="action_location" groups="base.group_no_one"/>
+
+</odoo> 
+
+
+
+    
