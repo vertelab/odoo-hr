@@ -10,6 +10,7 @@ class HrDepartment(models.Model):
     office_code = fields.Char(string="Office code") #fyrställig
     organisation_number = fields.Char(string="Organisaiton Number") #sektionsnummer
     location_ids = fields.Many2many(comodel_name='hr.location', string="Campuses")
+    partner_id = fields.Many2one(comodel_name="res.partner")
     
 
 
