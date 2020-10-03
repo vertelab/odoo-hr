@@ -103,13 +103,13 @@ msgstr "Aktiviteter"
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee__activity_state
 msgid "Activity State"
-msgstr "Aktivitets stadie"
+msgstr "Aktivitetsstatus"
 
 #. module: hr
 #: model_terms:ir.actions.act_window,help:hr.act_employee_from_department
 #: model_terms:ir.actions.act_window,help:hr.open_view_employee_list_my
 msgid "Add a new employee"
-msgstr "Lägg till ny anställd"
+msgstr "Lägg till en ny anställd person"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee__additional_note
@@ -121,7 +121,7 @@ msgstr "Ytterligare noteringar"
 #: model:ir.model.fields,field_description:hr.field_mail_alias_mixin__alias_contact
 #: model:ir.model.fields,field_description:hr.field_mail_channel__alias_contact
 msgid "Alias Contact Security"
-msgstr "Alias kontaktsäkerhet"
+msgstr ""
 
 #. module: hr
 #: model_terms:ir.ui.view,arch_db:hr.view_department_filter
@@ -139,7 +139,7 @@ msgstr "Antal bilagor"
 #. module: hr
 #: selection:mail.alias,alias_contact:0
 msgid "Authenticated Employees"
-msgstr "Auktoriserade anställda"
+msgstr "Autentiserade anställda"
 
 #. module: hr
 #: selection:mail.alias,alias_contact:0
@@ -1183,9 +1183,9 @@ msgstr "Räknare olästa meddelanden"
 msgid "Use here the home address of the employee.\n"
 "                                            This private address is used in the expense report reimbursement document.\n"
 "                                            It should be different from the work address."
-msgstr "Använda här den anställdes hemadress.\n"
-"Den här adressen används till kostnadsrapport utgiftsdokument.\n"
-"Det bör vara annorlunda än adressen för arbetsplatsen"
+msgstr "Ange den anställdes hemadress.\n"
+"Den här adressen används till utläggsräkningar.\n"
+"Det bör vara en annan adressen än till arbetsplatsen"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee__user_id
@@ -1200,7 +1200,7 @@ msgstr "Användare"
 #. module: hr
 #: model_terms:ir.ui.view,arch_db:hr.hr_job_view_kanban
 msgid "Vacancies :"
-msgstr "Lediga positioner"
+msgstr "Lediga tjänster"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee__visa_expire
@@ -1223,9 +1223,9 @@ msgstr "Änkling"
 msgid "With just a quick glance on the Odoo employee screen, you\n"
 "                can easily find all the information you need for each person;\n"
 "                contact data, job position, availability, etc."
-msgstr "Med bara en inblick på Odoo anställdes skärm,\n"
-"får du snabbt all information du behöver för varje person;\n"
-"kotaktadress, jobb position, tillgänglighet, osv."
+msgstr "Genom ett ögonkast på skärmen över medarbetare \n"
+"hittar du snabbt all information du behöver för varje person, \n"
+"t ex kontaktadress, befattning, tillgänglighet mm.\n"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee__address_id
@@ -1265,7 +1265,7 @@ msgstr "Arbetstillstånd"
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee__permit_no
 msgid "Work Permit No"
-msgstr "Arbetstillstånd nummer"
+msgstr "Arbetstillståndsnummer"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_employee__work_phone
@@ -1302,10 +1302,10 @@ msgstr "avdelning"
 #. module: hr
 #: model_terms:ir.ui.view,arch_db:hr.view_employee_form
 msgid "e.g. Part Time"
-msgstr "eg Deltid"
+msgstr "t.ex. Deltid"
 
 #. module: hr
 #: model_terms:ir.ui.view,arch_db:hr.view_hr_job_form
 msgid "e.g. Sales Manager"
-msgstr "Försäljningschef"
+msgstr "t.ex. Försäljningschef"
 
