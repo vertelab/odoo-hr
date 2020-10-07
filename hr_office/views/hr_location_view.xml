@@ -26,9 +26,13 @@
         <field name="model">hr.location</field>
         <field name="arch" type="xml">
         <form string="Locations">
-            <field name="name"/>
-            <field name="location_code"/>
-            <field name="workplace_number"/>
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="location_code"/>
+                    <field name="workplace_number"/>
+                </group>
+            </sheet>
         </form>
         </field>
     </record>
