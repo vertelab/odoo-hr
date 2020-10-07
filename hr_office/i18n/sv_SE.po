@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0-20200508\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-02 07:29+0000\n"
-"PO-Revision-Date: 2020-10-02 11:21+0200\n"
+"POT-Creation-Date: 2020-10-07 07:40+0000\n"
+"PO-Revision-Date: 2020-10-07 12:00+0200\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "Senast uppdaterad"
 #. module: hr_office
 #: model:ir.model.fields,field_description:hr_office.field_hr_location_accessibility__location_id
 msgid "Location"
-msgstr "Plats"
+msgstr "Kontaktväg "
 
 #. module: hr_office
 #: model:ir.model.fields,field_description:hr_office.field_hr_location__location_code
@@ -92,7 +92,7 @@ msgstr "Platskod"
 #. module: hr_office
 #: model:ir.model.fields,field_description:hr_office.field_hr_location__mailing_address_id
 msgid "Mailing address"
-msgstr "E-mail adress"
+msgstr "Postadress"
 
 #. module: hr_office
 #: model:ir.model.fields,field_description:hr_office.field_hr_location__name
