@@ -19,7 +19,7 @@
     </record>
 
     <menuitem id="department_af_office_menu" name="AF Office" action="af_office_department_action" sequence="74"
-              groups="base.group_no_one"/>
+              groups="base.group_system"/>
 
     <record id="view_location_form" model="ir.ui.view">
         <field name="name">hr.location.form</field>
@@ -66,7 +66,7 @@
         <field name="view_id" ref="view_location_form" />
     </record>
 
-    <menuitem id="location_menu" name="locations" sequence="8" action="action_location" groups="base.group_no_one"/>
+    <menuitem id="location_menu" name="locations" sequence="8" action="action_location" groups="base.group_system"/>
 
 </odoo> 
 
