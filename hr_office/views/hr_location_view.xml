@@ -18,8 +18,40 @@
         </field>
     </record>
 
+    <record id="view_department_form" model="ir.ui.view">
+        <field name="name">hr.department.form.inherit.office</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form" />
+        <field name="arch" type="xml">
+            <field name="manager_id" position="after">
+                <field name="office_code"/>
+            </field>
+        </field>
+    </record>
+    <record id="view_department_tree" model="ir.ui.view">
+        <field name="name">hr.department.tree.inherit.office</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree" />
+        <field name="arch" type="xml">
+            <field name="manager_id" position="after">
+                <field name="office_code"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_department_form" model="ir.ui.view">
+        <field name="name">hr.department.select.inherit.office</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_filter" />
+        <field name="arch" type="xml">
+            <field name="manager_id" position="after">
+                <field name="office_code"/>
+            </field>
+        </field>
+    </record>
+
     <menuitem id="department_af_office_menu" name="AF Office" action="af_office_department_action" sequence="74"
-              groups="base.group_system"/>
+              groups="base.group_user"/>
 
     <record id="view_location_form" model="ir.ui.view">
         <field name="name">hr.location.form</field>
@@ -70,7 +102,7 @@
         <field name="view_id" ref="view_location_form" />
     </record>
 
-    <menuitem id="location_menu" name="locations" sequence="8" action="action_location" groups="base.group_system"/>
+    <menuitem id="location_menu" name="Locations" sequence="8" action="action_location" groups="base.group_user"/>
 
 </odoo> 
 
