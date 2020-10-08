@@ -1,9 +1,10 @@
 {
     'name': 'HR Department offices',
-    'version': '12.0.0.1',
+    'version': '12.0.0.2',
     'category': 'Human resources',
       "description": """
     Offices
+    12.0.0.2 views
     """,
     'author': 'Vertel AB',
     'license': 'AGPL-3',
