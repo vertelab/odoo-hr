@@ -18,7 +18,7 @@
         </field>
     </record>
 
-    <record id="view_department_form" model="ir.ui.view">
+    <record id="view_department_form_office" model="ir.ui.view">
         <field name="name">hr.department.form.inherit.office</field>
         <field name="model">hr.department</field>
         <field name="inherit_id" ref="hr.view_department_form" />
@@ -26,9 +26,10 @@
             <field name="manager_id" position="after">
                 <field name="office_code"/>
             </field>
+            <div class="oe_chatter" position="replace"/>
         </field>
     </record>
-    <record id="view_department_tree" model="ir.ui.view">
+    <record id="view_department_tree_office" model="ir.ui.view">
         <field name="name">hr.department.tree.inherit.office</field>
         <field name="model">hr.department</field>
         <field name="inherit_id" ref="hr.view_department_tree" />
@@ -39,7 +40,7 @@
         </field>
     </record>
 
-    <record id="view_department_form" model="ir.ui.view">
+    <record id="view_department_filter_office" model="ir.ui.view">
         <field name="name">hr.department.select.inherit.office</field>
         <field name="model">hr.department</field>
         <field name="inherit_id" ref="hr.view_department_filter" />
