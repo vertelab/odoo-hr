@@ -88,8 +88,10 @@
         <field name="name">hr.location.select</field>
         <field name="model">hr.location</field>
         <field name="arch" type="xml">
-            <field name="name"/>
-            <field name="location_code"/>
+            <search string="Locations">
+                <field name="name"/>
+                <field name="location_code"/>
+            </search>
         </field>
     </record>
 
