@@ -23,6 +23,10 @@
         <field name="model">hr.department</field>
         <field name="inherit_id" ref="hr.view_department_form" />
         <field name="arch" type="xml">
+            <sheet position="inside">
+                <field name="member_ids"/>
+            </sheet>
+
             <field name="manager_id" position="after">
                 <field name="office_code"/>
             </field>
