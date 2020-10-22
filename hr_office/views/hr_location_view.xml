@@ -63,15 +63,17 @@
         <form string="operations">
             <sheet>
                 <group>
-                    <field name="name"/>
-                    <field name="operation_code"/>
-                    <field name="workplace_number"/>
-                    <field name="location_code"/>
-                </group>
-                <group>
-                    <field name="visitation_address_street"/>
-                    <field name="visitation_address_city"/>
-                    <field name="visitation_address_zip"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="operation_code"/>
+                        <field name="workplace_number"/>
+                        <field name="location_code"/>
+                    </group>
+                    <group>
+                        <field name="visitation_address_street"/>
+                        <field name="visitation_address_city"/>
+                        <field name="visitation_address_zip"/>
+                    </group>
                 </group>
             </sheet>
         </form>
