@@ -28,7 +28,5 @@ _logger = logging.getLogger(__name__)
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    office_id = fields.Many2one('hr.department', string="Office") #should check for type = "af office"
-    location_id = fields.Many2one('hr.location', string="Location")
-
-    office_code = fields.Char(string="Office code", related="office_id.office_code")
+    office_id = fields.Many2many('hr.department', string="Office") 
+    operation_id = fields.Many2one('hr.operation', string="Operation")

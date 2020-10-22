@@ -41,7 +41,7 @@ class HrOperation(models.Model):
     name = fields.Char(string="Name")
     opening_hours = fields.Char(string = 'Opening hours')
     personal_service_opening = fields.Char(string="Opening hours for personal service")
-    x500_id = fields.Char(string="x500 id")
+    operation_code = fields.Char(string="Operation Code")
     
     department_id = fields.Many2one(comodel_name='hr.department', string="Office")
     accessibilites_ids = fields.One2many(comodel_name='hr.location.accessibility', inverse_name='operation_id')
@@ -50,7 +50,17 @@ class HrOperation(models.Model):
     visitation_address_id = fields.Many2one('res.partner', string="Visitation address")
     mailing_address_id = fields.Many2one('res.partner', string="Mailing address")
 
+    visitation_address_street = fields.Char(string="Street", related="visitation_address_id.street")
+    visitation_address_city = fields.Char(string="City", related="visitation_address_id.city")
+    visitation_address_zip = fields.Char(string="Zip", related="visitation_address_id.zip")
+
     location_id = fields.Many2one(comodel_name='hr.location', string="Location")
+
+    workplace_number = fields.Char(string="Workplace number", related="location_id.workplace_number")
+    location_code = fields.Char(string="Location code", related="location_id.location_code")
+
+    user_ids = fields.One2many(string="Users", comodel_name='res.users', inverse_name='operation_id')
+
 
 class HrLocation(models.Model):
     _name = 'hr.location'
@@ -58,9 +68,13 @@ class HrLocation(models.Model):
     location_code = fields.Char(string="Location code")
     workplace_number = fields.Char(string="Workplace number")
 
-    operation_ids = fields.One2many(comodel_name='hr.operation', string="Operations", inverse_name='location_id')
+    visitation_address_id = fields.Many2one('res.partner', string="Visitation address")
 
-    user_ids = fields.One2many(string="Users", comodel_name='res.users', inverse_name='location_id')
+    visitation_address_street = fields.Char(string="Street", related="visitation_address_id.street")
+    visitation_address_city = fields.Char(string="City", related="visitation_address_id.city")
+    visitation_address_zip = fields.Char(string="Zip", related="visitation_address_id.zip")
+
+    operation_ids = fields.One2many(comodel_name='hr.operation', string="Operations", inverse_name='location_id')
 
     @api.model
     def get_workplace_number(self, location_code):

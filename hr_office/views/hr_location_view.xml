@@ -55,8 +55,75 @@
         </field>
     </record>
 
-    <menuitem id="department_af_office_menu" name="AF Office" action="af_office_department_action" sequence="74"
-              groups="base.group_user"/>
+        <record id="view_operation_form" model="ir.ui.view">
+        <field name="name">hr.operation.form</field>
+        <field name="model">hr.operation</field>
+        <field name="search_view_id" ref="hr.view_department_filter"/>
+        <field name="arch" type="xml">
+        <form string="operations">
+            <sheet>
+                <group>
+                    <field name="name"/>
+                    <field name="operation_code"/>
+                    <field name="workplace_number"/>
+                    <field name="location_code"/>
+                </group>
+                <group>
+                    <field name="visitation_address_street"/>
+                    <field name="visitation_address_city"/>
+                    <field name="visitation_address_zip"/>
+                </group>
+            </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="view_operation_tree" model="ir.ui.view">
+        <field name="name">hr.operation.tree</field>
+        <field name="model">hr.operation</field>
+        <field name="search_view_id" ref="hr.view_department_filter"/>
+        <field name="arch" type="xml">
+            <tree string="operations">
+                <field name="name"/>
+                <field name="operation_code"/>
+                <field name="workplace_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_operation_filter" model="ir.ui.view">
+        <field name="name">hr.operation.select</field>
+        <field name="model">hr.operation</field>
+        <field name="arch" type="xml">
+            <search string="Operations">
+                <field name="name"/>
+                <field name="operation_code"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_operation" model="ir.actions.act_window">
+        <field name="name">Operations</field>
+        <field name="res_model">hr.operation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_operation_tree" />
+    </record>
+
+    <record id="action_view_operation_tree" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_operation" />
+        <field name="sequence" eval="1" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_operation_tree" />
+    </record>
+
+    <record id="action_view_operation_form" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_operation" />
+        <field name="sequence" eval="2" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_operation_form" />
+    </record>
+
+    <menuitem id="operation_menu" name="Operations" sequence="8" action="action_operation" groups="base.group_user"/>
 
     <record id="view_location_form" model="ir.ui.view">
         <field name="name">hr.location.form</field>
@@ -69,6 +136,11 @@
                     <field name="name"/>
                     <field name="location_code"/>
                     <field name="workplace_number"/>
+                </group>
+                <group>
+                    <field name="visitation_address_street"/>
+                    <field name="visitation_address_city"/>
+                    <field name="visitation_address_zip"/>
                 </group>
             </sheet>
         </form>
@@ -120,7 +192,7 @@
         <field name="view_id" ref="view_location_form" />
     </record>
 
-    <menuitem id="location_menu" name="Locations" sequence="8" action="action_location" groups="base.group_user"/>
+    <menuitem id="location_menu" name="Locations" action="action_location" parent="hr_office.operation_menu" groups="base.group_user"/>
 
 </odoo> 
 
