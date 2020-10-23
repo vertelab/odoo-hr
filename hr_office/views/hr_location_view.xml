@@ -135,14 +135,16 @@
         <form string="Locations">
             <sheet>
                 <group>
-                    <field name="name"/>
-                    <field name="location_code"/>
-                    <field name="workplace_number"/>
-                </group>
-                <group>
-                    <field name="visitation_address_street"/>
-                    <field name="visitation_address_city"/>
-                    <field name="visitation_address_zip"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="location_code"/>
+                        <field name="workplace_number"/>
+                    </group>
+                    <group>
+                        <field name="visitation_address_street"/>
+                        <field name="visitation_address_city"/>
+                        <field name="visitation_address_zip"/>
+                    </group>
                 </group>
             </sheet>
         </form>
