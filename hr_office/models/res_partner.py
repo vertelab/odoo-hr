@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
@@ -25,10 +24,62 @@ import logging
 
 _logger = logging.getLogger(__name__)
 
+
 class ResPartner(models.Model):
     _inherit = "res.partner"
+    
+    #office_id for jobseekers and employers, not for administrative officers
+    office_id = fields.Many2one(string="office", comodel_name="hr.department")
+    
+class ResUsers(models.Model):
+    _inherit = "res.users"
 
-    office_id = fields.Many2one('hr.department', string="Office") #should check for type = "af office"
-    location_id = fields.Many2one('hr.location', string="Location")
+    office_ids = fields.Many2one(comodel_name="hr.department", compute="_compute_office_ids")
 
-    office_code = fields.Char(string="Office code", related="office_id.office_code")
+    @api.one
+    def _compute_office_ids(self):
+        for employee in self.employee_ids:
+            self.office_ids |= employee.office_ids
+
+    office_codes = fields.Char(string="Office codes", compute="compute_office_codes")
+
+    @api.one
+    def compute_office_codes(self):
+        office_codes = []
+        for office in self.office_ids:
+            office_codes.append(office.office_code)
+        if office_codes:
+            self.office_codes = ','.join([str(code) for code in office_codes]) 
+        else:
+            self.office_codes = ""
+
+
+
+class HrEmployee(models.Model):
+    _inherit = "hr.employee"
+
+    operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation")
+
+    office_ids = fields.Many2many(
+        'hr.department', string='Offices')
+
+    @api.one
+    # @api.onchange('department_id')
+    def update_office_ids(self):
+        """Add department_id to office_ids."""
+        if self.department_id not in self.office_ids:
+            self.office_ids |= self.department_id
+
+    @api.multi
+    def write(self, vals):
+        res = super(HrEmployee, self).write(vals)
+        if 'department_id' in vals:
+            self.update_office_ids()
+        return vals
+
+    @api.model_create_multi
+    @api.returns('self', lambda value: value.id)
+    def create(self, vals_list):
+        records = super(HrEmployee, self).create(vals_list)
+        records.update_office_ids()
+        return records
