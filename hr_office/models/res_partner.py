@@ -28,8 +28,8 @@ _logger = logging.getLogger(__name__)
 class ResPartner(models.Model):
     _inherit = "res.partner"
     
-    #department_id for jobseekers and employers, not for administrative officers
-    department_id = fields.Many2one(string="office", comodel_name="hr.department")
+    #office_id for jobseekers and employers, not for administrative officers
+    office_id = fields.Many2one(string="office", comodel_name="hr.department")
     
 class ResUsers(models.Model):
     _inherit = "res.users"
@@ -59,9 +59,6 @@ class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
     operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation")
-
-    
-    
 
     office_ids = fields.Many2many(
         'hr.department', string='Offices')
