@@ -29,7 +29,7 @@ class HrDepartment(models.Model):
     _inherit = "hr.department"
 
     office_code = fields.Char(string="Office code")  # fyrställig
-    organisation_number = fields.Char(string="Organisaiton Number")  # sektionsnummer
+    organisation_number = fields.Char(string="Organisaiton Number")  # verksamhetsnummer
     operation_ids = fields.One2many(
         comodel_name="hr.operation", string="Operations", inverse_name="department_id"
     )

@@ -27,11 +27,27 @@ _logger = logging.getLogger(__name__)
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
-
-    office_id = fields.Many2many("hr.department", string="Office")
+    
+    #office_id for jobseekers and employers, not for administrative officers
+    office_id = fields.Many2one(string="office", comodel_name="hr.department")
+    
 
 
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
     operation_id = fields.Many2one("hr.operation", string="Operation")
+
+    department_ids = fields.Many2many("hr.department", string="Office")
+    
+    office_codes = fields.Char(string="Office codes", compute="compute_office_codes")
+
+    @api.one
+    def compute_office_codes(self):
+        office_codes = []
+        for office in self.department_ids:
+            office_codes.append(office.office_code)
+        if office_codes:
+            self.office_codes = ','.join([str(code) for code in office_codes]) 
+        else:
+            self.office_codes = ""
