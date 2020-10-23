@@ -41,34 +41,34 @@ class HrEmployee(models.Model):
     
     office_codes = fields.Char(string="Office codes", compute="compute_office_codes")
 
-    department_ids = fields.Many2many(
+    office_ids = fields.Many2many(
         'hr.department', string='Offices')
 
     @api.one
     # @api.onchange('department_id')
-    def update_department_ids(self):
-        """Add department_id to department_ids."""
-        if self.department_id not in self.department_ids:
-            self.department_ids |= self.department_id
+    def update_office_ids(self):
+        """Add department_id to office_ids."""
+        if self.department_id not in self.office_ids:
+            self.office_ids |= self.department_id
 
     @api.multi
     def write(self, vals):
         res = super(HrEmployee, self).write(vals)
         if 'department_id' in vals:
-            self.update_department_ids()
+            self.update_office_ids()
         return vals
 
     @api.model_create_multi
     @api.returns('self', lambda value: value.id)
     def create(self, vals_list):
         records = super(HrEmployee, self).create(vals_list)
-        records.update_department_ids()
+        records.update_office_ids()
         return records
 
     @api.one
     def compute_office_codes(self):
         office_codes = []
-        for office in self.department_ids:
+        for office in self.office_ids:
             office_codes.append(office.office_code)
         if office_codes:
             self.office_codes = ','.join([str(code) for code in office_codes]) 
