@@ -31,6 +31,28 @@ class ResPartner(models.Model):
     #department_id for jobseekers and employers, not for administrative officers
     department_id = fields.Many2one(string="office", comodel_name="hr.department")
     
+class ResUsers(models.Model):
+    _inherit = "res.users"
+
+    office_ids = fields.Many2one(comodel_name="hr.department", compute="_compute_office_ids")
+
+    @api.one
+    def _compute_office_ids(self):
+        for employee in self.employee_ids:
+            self.office_ids |= employee.office_ids
+
+    office_codes = fields.Char(string="Office codes", compute="compute_office_codes")
+
+    @api.one
+    def compute_office_codes(self):
+        office_codes = []
+        for office in self.office_ids:
+            office_codes.append(office.office_code)
+        if office_codes:
+            self.office_codes = ','.join([str(code) for code in office_codes]) 
+        else:
+            self.office_codes = ""
+
 
 
 class HrEmployee(models.Model):
@@ -39,7 +61,7 @@ class HrEmployee(models.Model):
     operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation")
 
     
-    office_codes = fields.Char(string="Office codes", compute="compute_office_codes")
+    
 
     office_ids = fields.Many2many(
         'hr.department', string='Offices')
@@ -64,13 +86,3 @@ class HrEmployee(models.Model):
         records = super(HrEmployee, self).create(vals_list)
         records.update_office_ids()
         return records
-
-    @api.one
-    def compute_office_codes(self):
-        office_codes = []
-        for office in self.office_ids:
-            office_codes.append(office.office_code)
-        if office_codes:
-            self.office_codes = ','.join([str(code) for code in office_codes]) 
-        else:
-            self.office_codes = ""
