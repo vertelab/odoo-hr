@@ -34,6 +34,7 @@ class HrDepartment(models.Model):
         comodel_name="hr.operation", string="Operations", inverse_name="department_id"
     )
     partner_id = fields.Many2one(comodel_name="res.partner")
+    employee_ids = fields.Many2many(string="Employees", comodel_name="hr.employee")
 
 
 class HrOperation(models.Model):
