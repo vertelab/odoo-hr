@@ -41,7 +41,7 @@ class ResUsers(models.Model):
         for employee in self.employee_ids:
             self.office_ids |= employee.office_ids
 
-    office_codes = fields.Char(string="Office codes", compute="compute_office_codes")
+    office_codes = fields.Char(string="Office codes", compute="compute_office_codes", readonly=True)
 
     @api.one
     def compute_office_codes(self):
