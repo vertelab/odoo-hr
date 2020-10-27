@@ -41,6 +41,14 @@ class ResUsers(models.Model):
         for employee in self.employee_ids:
             self.office_ids |= employee.office_ids
 
+    operation_ids = fields.Many2many(comodel_name="hr.department", compute="_compute_operation_ids")
+
+    @api.one
+    def _compute_operation_ids(self):
+        for employee in self.employee_ids:
+            for office in employee.office_ids:
+                self.operation_ids |= office.operation_ids
+
     office_codes = fields.Char(string="Office codes", compute="compute_office_codes", readonly=True)
 
     @api.one
