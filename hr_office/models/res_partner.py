@@ -34,7 +34,7 @@ class ResPartner(models.Model):
 class ResUsers(models.Model):
     _inherit = "res.users"
 
-    office_ids = fields.Many2one(comodel_name="hr.department", compute="_compute_office_ids")
+    office_ids = fields.Many2many(comodel_name="hr.department", compute="_compute_office_ids")
 
     @api.one
     def _compute_office_ids(self):
