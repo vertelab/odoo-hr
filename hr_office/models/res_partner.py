@@ -41,13 +41,12 @@ class ResUsers(models.Model):
         for employee in self.employee_ids:
             self.office_ids |= employee.office_ids
 
-    operation_ids = fields.Many2many(comodel_name="hr.department", compute="_compute_operation_ids")
+    operation_ids = fields.Many2many(comodel_name="hr.operation", compute="_compute_operation_ids")
 
     @api.one
     def _compute_operation_ids(self):
         for employee in self.employee_ids:
-            for office in employee.office_ids:
-                self.operation_ids |= office.operation_ids
+            self.operation_ids |= employee.operation_ids
 
     office_codes = fields.Char(string="Office codes", compute="compute_office_codes", readonly=True)
 
@@ -66,10 +65,18 @@ class ResUsers(models.Model):
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
-    operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation")
+    operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation") #workplace
 
     office_ids = fields.Many2many(
         'hr.department', string='Offices')
+
+
+    operation_ids = fields.Many2many(comodel_name="hr.operation", compute="_compute_operation_ids")
+
+    @api.one
+    def _compute_operation_ids(self):
+        for office in self.office_ids:
+            self.operation_ids |= office.operation_ids
 
     @api.one
     # @api.onchange('department_id')
