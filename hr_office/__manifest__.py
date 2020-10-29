@@ -12,6 +12,7 @@
     'depends': ['hr'],
     'data': [
       'views/hr_location_view.xml',
+      'views/hr_employee_view.xml',
       'security/ir.model.access.csv'
     ],
     'installable': True,

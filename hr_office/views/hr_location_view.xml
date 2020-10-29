@@ -25,6 +25,7 @@
         <field name="arch" type="xml">
             <sheet position="inside">
                 <field name="employee_ids"/>
+                <field name="operation_ids"/>
             </sheet>
 
             <field name="manager_id" position="after">
@@ -68,6 +69,7 @@
                         <field name="operation_code"/>
                         <field name="workplace_number"/>
                         <field name="location_code"/>
+                        <field name="department_id"/>
                     </group>
                     <group>
                         <field name="visitation_address_street"/>
@@ -88,6 +90,7 @@
             <tree string="operations">
                 <field name="name"/>
                 <field name="operation_code"/>
+                <field name="location_code"/>
                 <field name="workplace_number"/>
             </tree>
         </field>
