@@ -48,6 +48,19 @@ class ResUsers(models.Model):
         for employee in self.employee_ids:
             self.operation_ids |= employee.operation_ids
 
+
+    location_names = fields.Char(string="Location codes", compute="compute_location_names", readonly=True)
+
+    @api.one
+    def compute_location_names(self):
+        location_names = []
+        for operation in self.operation_ids:
+            location_names.append(operation.name)
+        if location_names:
+            self.location_names = ','.join([str(code) for code in location_names]) 
+        else:
+            self.location_names = ""
+
     office_codes = fields.Char(string="Office codes", compute="compute_office_codes", readonly=True)
 
     @api.one
