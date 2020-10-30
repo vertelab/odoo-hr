@@ -49,7 +49,7 @@ class ResUsers(models.Model):
             self.operation_ids |= employee.operation_ids
 
 
-    operation_names = fields.Char(string="Location codes", compute="compute_operation_names", readonly=True)
+    operation_names = fields.Char(string="Operations", compute="compute_operation_names", readonly=True)
 
     @api.one
     def compute_operation_names(self):
@@ -79,12 +79,15 @@ class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
     operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation") #workplace
-
     office_ids = fields.Many2many(
         'hr.department', string='Offices')
 
-
     operation_ids = fields.Many2many(comodel_name="hr.operation", compute="_compute_operation_ids")
+
+    operation_names = fields.Char(string="Operations", related="user_id.operation_names")
+    office_codes = fields.Char(string="Office codes", related="user_id.office_codes")
+    signature = fields.Char(string="Signature", related="user_id.login")
+
 
     @api.one
     def _compute_operation_ids(self):

@@ -76,8 +76,7 @@
                         <field name="visitation_address_city"/>
                         <field name="visitation_address_zip"/>
                     </group>
-                </group>
-                <field name="employee_ids"/>
+                </group>                 
             </sheet>
         </form>
         </field>
