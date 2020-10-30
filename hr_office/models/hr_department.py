@@ -73,8 +73,8 @@ class HrOperation(models.Model):
         string="Location code", related="location_id.location_code"
     )
 
-    employee_ids = fields.One2many(
-        string="Employees", comodel_name="hr.employee", inverse_name="operation_id"
+    employee_ids = fields.Many2many(
+        string="Employees", comodel_name="hr.employee", related="department_id.employee_ids",
     )
 
 

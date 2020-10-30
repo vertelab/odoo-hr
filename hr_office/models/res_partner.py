@@ -48,6 +48,19 @@ class ResUsers(models.Model):
         for employee in self.employee_ids:
             self.operation_ids |= employee.operation_ids
 
+
+    operation_names = fields.Char(string="Operations", compute="compute_operation_names", readonly=True)
+
+    @api.one
+    def compute_operation_names(self):
+        operation_names = []
+        for operation in self.operation_ids:
+            operation_names.append(operation.name)
+        if operation_names:
+            self.operation_names = ','.join([str(code) for code in operation_names]) 
+        else:
+            self.operation_names = ""
+
     office_codes = fields.Char(string="Office codes", compute="compute_office_codes", readonly=True)
 
     @api.one
@@ -66,12 +79,15 @@ class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
     operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation") #workplace
-
     office_ids = fields.Many2many(
         'hr.department', string='Offices')
 
-
     operation_ids = fields.Many2many(comodel_name="hr.operation", compute="_compute_operation_ids")
+
+    operation_names = fields.Char(string="Operations", related="user_id.operation_names")
+    office_codes = fields.Char(string="Office codes", related="user_id.office_codes")
+    signature = fields.Char(string="Signature", related="user_id.login")
+
 
     @api.one
     def _compute_operation_ids(self):
