@@ -49,8 +49,9 @@ class ResUsers(models.Model):
             self.operation_ids |= employee.operation_ids
 
 
-    operation_names = fields.Char(string="Operations", compute="compute_operation_names", readonly=True)
+    operation_names = fields.Char(string="Operations", compute="compute_operation_names", store=True, readonly=True)
 
+    @api.depends('operation_ids')
     @api.one
     def compute_operation_names(self):
         operation_names = []
@@ -61,8 +62,9 @@ class ResUsers(models.Model):
         else:
             self.operation_names = ""
 
-    office_codes = fields.Char(string="Office codes", compute="compute_office_codes", readonly=True)
+    office_codes = fields.Char(string="Office codes", compute="compute_office_codes", store=True, readonly=True)
 
+    @api.depends('office_ids')
     @api.one
     def compute_office_codes(self):
         office_codes = []
