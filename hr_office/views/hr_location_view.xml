@@ -103,6 +103,7 @@
             <search string="Operations">
                 <field name="name"/>
                 <field name="operation_code"/>
+                <field name="location_code"/>
             </search>
         </field>
     </record>
