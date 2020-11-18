@@ -17,9 +17,9 @@
 
         <record id="employee_ronnie" model="hr.employee">
             <field name="name">Ronnie Hart</field>
-            <field name="department_id" ref="fenix_test_hr.marketing_dept"/>
-            <field name="job_id" ref="fenix_test_hr.marketing_job"/>
-            <field name="category_ids" eval="[(6, 0, [ref('fenix_test_hr.manager_cat')])]"/>
+            <field name="department_id" ref="hr_test-data_fenix.marketing_dept"/>
+            <field name="job_id" ref="hr_test-data_fenix.marketing_job"/>
+            <field name="category_ids" eval="[(6, 0, [ref('hr_test-data_fenix.manager_cat')])]"/>
             <field name="work_location">Building 1, Second Floor</field>
             <field name="work_phone">(376)-310-7863</field>
             <field name="work_email">ronnie.hart87@example.com</field>
@@ -27,9 +27,9 @@
 
         <record id="employee_anita" model="hr.employee">
             <field name="name">Anita Oliver</field>
-            <field name="department_id" ref="fenix_test_hr.marketing_dept"/>
-            <field name="job_id" ref="fenix_test_hr.marketing_job"/>
-            <field name="category_ids" eval="[(6, 0, [ref('fenix_test_hr.manager_cat')])]"/>
+            <field name="department_id" ref="hr_test-data_fenix.marketing_dept"/>
+            <field name="job_id" ref="hr_test-data_fenix.marketing_job"/>
+            <field name="category_ids" eval="[(6, 0, [ref('hr_test-data_fenix.manager_cat')])]"/>
             <field name="work_location">Building 1, Second Floor</field>
             <field name="work_phone">(538)-497-4804</field>
             <field name="mobile_phone">(538)-672-3185</field>
