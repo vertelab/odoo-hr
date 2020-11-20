@@ -37,7 +37,7 @@
     'data': [
         "security/ir.model.access.csv",
 
-        'views/ciam_client_config_views.xml',
+        'views/client_config_views.xml',
     ],
     'installable': True,
     'qweb': [
