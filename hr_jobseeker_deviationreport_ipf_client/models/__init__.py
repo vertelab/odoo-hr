@@ -21,4 +21,4 @@
 ################################################################################
 
 from . import client_config
-from  . import request_history
+from . import request_history
