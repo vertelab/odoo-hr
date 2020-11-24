@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<data>
+    <record model="ir.ui.view" id="ciam_client_config_view_list">
+        <field name="name">CIAM Client Config View List</field>
+        <field name="model">ciam.client.config</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="url"/>
+                <field name="environment"/>
+                <field name="client_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ciam_client_config_view_form">
+        <field name="name">CIAM Client Config View Form</field>
+        <field name="model">ciam.client.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <div class="oe_button_box" name="button_box">
+
+                    <button class="oe_stat_button" type="object"
+                            string="USER GET" name="user_get"/>
+
+                    <button class="oe_stat_button" type="object"
+                            string="USER ADD" name="user_add"/>
+
+                    <button class="oe_stat_button" type="object"
+                            string="USER UPDATE" name="user_update"/>
+
+                    <button class="oe_stat_button" type="object"
+                            string="user_delete" name="user_delete"/>
+
+                    <button class="oe_stat_button" type="object"
+                            string="user_requestDelete" name="user_requestDelete"/>
+
+                    <button class="oe_stat_button" type="object"
+                            string="role_assign" name="role_assign"/>
+
+                    <button class="oe_stat_button" type="object"
+                            string="role_listAssigned" name="role_listAssigned"/>
+
+                    <button class="oe_stat_button" type="object"
+                            string="role_listAvailable" name="role_listAvailable"/>
+
+                    <button class="oe_stat_button" type="object"
+                            string="role_revoke" name="role_revoke"/>
+
+                    <button class="oe_stat_button" type="object"
+                            string="role_request" name="role_request"/>
+
+                </div>
+                <group>
+                    <group>
+                        <field name="url"/>
+                        <field name="environment"/>
+                        <field name="client_id"/>
+                        <field name="client_secret" password="True"/>
+                    </group>
+                    <group string="Requests" colspan="4">
+                        <field name="request_history_ids" nolabel="1"
+                               colspan="4">
+                            <tree>
+                                <field name="url"/>
+                                <field name="method"/>
+                                <field name="response_code"/>
+                                <field name="message"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="url"/>
+                                    <field name="method"/>
+                                    <field name="payload"/>
+                                    <field name="request_headers"/>
+                                    <field name="params"/>
+                                    <field name="response_code"/>
+                                    <field name="response_headers"/>
+                                    <field name="message"/>
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="ciam_client_config_action_window">
+        <field name="name">CIAM Client Config</field>
+        <field name="res_model">ciam.client.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem id="ciam_client_config"
+              name="CIAM Client Config"
+              action="ciam_client_config_action_window"
+              parent="base.menu_custom"
+              sequence="120"/>
+</data>
