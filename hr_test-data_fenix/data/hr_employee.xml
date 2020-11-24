@@ -1,0 +1,39 @@
+<odoo>
+    <data noupdate="1">
+        <!-- Department -->
+        <record id="marketing_dept" model="hr.department">
+            <field name="name">Marketing</field>
+        </record>
+
+        <!-- Job Position -->
+        <record id="marketing_job" model="hr.job">
+            <field name="name">Marketing Manager</field>
+        </record>
+
+        <!-- Employee Tags - Category -->
+        <record id="manager_cat" model="hr.employee.category">
+            <field name="name">Manager</field>
+        </record>
+
+        <record id="employee_ronnie" model="hr.employee">
+            <field name="name">Ronnie Hart</field>
+            <field name="department_id" ref="hr_test-data_fenix.marketing_dept"/>
+            <field name="job_id" ref="hr_test-data_fenix.marketing_job"/>
+            <field name="category_ids" eval="[(6, 0, [ref('hr_test-data_fenix.manager_cat')])]"/>
+            <field name="work_location">Building 1, Second Floor</field>
+            <field name="work_phone">(376)-310-7863</field>
+            <field name="work_email">ronnie.hart87@example.com</field>
+        </record>
+
+        <record id="employee_anita" model="hr.employee">
+            <field name="name">Anita Oliver</field>
+            <field name="department_id" ref="hr_test-data_fenix.marketing_dept"/>
+            <field name="job_id" ref="hr_test-data_fenix.marketing_job"/>
+            <field name="category_ids" eval="[(6, 0, [ref('hr_test-data_fenix.manager_cat')])]"/>
+            <field name="work_location">Building 1, Second Floor</field>
+            <field name="work_phone">(538)-497-4804</field>
+            <field name="mobile_phone">(538)-672-3185</field>
+            <field name="work_email">anita.oliver32@example.com</field>
+        </record>
+    </data>
+</odoo>
