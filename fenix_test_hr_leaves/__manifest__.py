@@ -10,7 +10,7 @@
     "depends": [
         "base",
         "hr_holidays",
-        "fenix_test_hr",
+        "hr_test-data_fenix",
     ],
     "external_dependencies": [],
     "data": [
