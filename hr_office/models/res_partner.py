@@ -27,69 +27,86 @@ _logger = logging.getLogger(__name__)
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
-    
-    #office_id for jobseekers and employers, not for administrative officers
-    office_id = fields.Many2one(string="office", comodel_name="hr.department", index=True)
-    
+
+    # office_id for jobseekers and employers, not for administrative officers
+    office_id = fields.Many2one(
+        string="office", comodel_name="hr.department", index=True
+    )
+
+
 class ResUsers(models.Model):
     _inherit = "res.users"
 
-    office_ids = fields.Many2many(comodel_name="hr.department", compute="_compute_office_ids")
+    office_ids = fields.Many2many(
+        comodel_name="hr.department", compute="_compute_office_ids"
+    )
 
     @api.one
     def _compute_office_ids(self):
         for employee in self.employee_ids:
             self.office_ids |= employee.office_ids
 
-    operation_ids = fields.Many2many(comodel_name="hr.operation", compute="_compute_operation_ids")
+    operation_ids = fields.Many2many(
+        comodel_name="hr.operation", compute="_compute_operation_ids"
+    )
 
     @api.one
     def _compute_operation_ids(self):
         for employee in self.employee_ids:
             self.operation_ids |= employee.operation_ids
 
+    operation_names = fields.Char(
+        string="Operations",
+        compute="compute_operation_names",
+        store=True,
+        readonly=True,
+    )
 
-    operation_names = fields.Char(string="Operations", compute="compute_operation_names", store=True, readonly=True)
-
-    @api.depends('operation_ids')
+    @api.depends("operation_ids")
     @api.one
     def compute_operation_names(self):
         operation_names = []
         for operation in self.operation_ids:
             operation_names.append(operation.name)
         if operation_names:
-            self.operation_names = ','.join([str(code) for code in operation_names]) 
+            self.operation_names = ",".join([str(code) for code in operation_names])
         else:
             self.operation_names = ""
 
-    office_codes = fields.Char(string="Office codes", compute="compute_office_codes", store=True, readonly=True)
+    office_codes = fields.Char(
+        string="Office codes", compute="compute_office_codes", store=True, readonly=True
+    )
 
-    @api.depends('office_ids')
+    @api.depends("office_ids")
     @api.one
     def compute_office_codes(self):
         office_codes = []
         for office in self.office_ids:
             office_codes.append(office.office_code)
         if office_codes:
-            self.office_codes = ','.join([str(code) for code in office_codes]) 
+            self.office_codes = ",".join([str(code) for code in office_codes])
         else:
             self.office_codes = ""
 
 
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
-    
+
     # workplace
-    operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation", index=True)
-    office_ids = fields.Many2many(
-        'hr.department', string='Offices', index=True)
+    operation_id = fields.Many2one(
+        comodel_name="hr.operation", string="Operation", index=True
+    )
+    office_ids = fields.Many2many("hr.department", string="Offices", index=True)
 
-    operation_ids = fields.Many2many(comodel_name="hr.operation", compute="_compute_operation_ids")
+    operation_ids = fields.Many2many(
+        comodel_name="hr.operation", compute="_compute_operation_ids"
+    )
 
-    operation_names = fields.Char(string="Operations", related="user_id.operation_names")
+    operation_names = fields.Char(
+        string="Operations", related="user_id.operation_names"
+    )
     office_codes = fields.Char(string="Office codes", related="user_id.office_codes")
     signature = fields.Char(string="Signature", related="user_id.login")
-
 
     @api.one
     def _compute_operation_ids(self):
@@ -106,12 +123,12 @@ class HrEmployee(models.Model):
     @api.multi
     def write(self, vals):
         res = super(HrEmployee, self).write(vals)
-        if 'department_id' in vals:
+        if "department_id" in vals:
             self.update_office_ids()
         return vals
 
     @api.model_create_multi
-    @api.returns('self', lambda value: value.id)
+    @api.returns("self", lambda value: value.id)
     def create(self, vals_list):
         records = super(HrEmployee, self).create(vals_list)
         records.update_office_ids()

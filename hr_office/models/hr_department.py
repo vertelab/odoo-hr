@@ -45,7 +45,9 @@ class HrOperation(models.Model):
     personal_service_opening = fields.Char(string="Opening hours for personal service")
     operation_code = fields.Char(string="Operation Code", index=True)
 
-    department_id = fields.Many2one(comodel_name="hr.department", string="Office", index=True)
+    department_id = fields.Many2one(
+        comodel_name="hr.department", string="Office", index=True
+    )
     accessibilites_ids = fields.One2many(
         comodel_name="hr.location.accessibility", inverse_name="operation_id"
     )
@@ -64,17 +66,22 @@ class HrOperation(models.Model):
         string="Zip", related="visitation_address_id.zip"
     )
 
-    location_id = fields.Many2one(comodel_name="hr.location", string="Location", index=True)
+    location_id = fields.Many2one(
+        comodel_name="hr.location", string="Location", index=True
+    )
 
     workplace_number = fields.Char(
         string="Workplace number", related="location_id.workplace_number"
     )
     location_code = fields.Char(
-        string="Location code", related="location_id.location_code",
+        string="Location code",
+        related="location_id.location_code",
     )
 
     employee_ids = fields.Many2many(
-        string="Employees", comodel_name="hr.employee", related="department_id.employee_ids",
+        string="Employees",
+        comodel_name="hr.employee",
+        related="department_id.employee_ids",
     )
 
 
