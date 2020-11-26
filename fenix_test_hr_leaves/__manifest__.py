@@ -1,5 +1,4 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
 {
     "name": "Fenix Test HR Leave Test",
     "version": "12.0.1.0.1",
