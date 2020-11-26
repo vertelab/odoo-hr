@@ -29,7 +29,7 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
     
     #office_id for jobseekers and employers, not for administrative officers
-    office_id = fields.Many2one(string="office", comodel_name="hr.department")
+    office_id = fields.Many2one(string="office", comodel_name="hr.department", index=True)
     
 class ResUsers(models.Model):
     _inherit = "res.users"
@@ -76,13 +76,13 @@ class ResUsers(models.Model):
             self.office_codes = ""
 
 
-
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
-
-    operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation") #workplace
+    
+    # workplace
+    operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation", index=True)
     office_ids = fields.Many2many(
-        'hr.department', string='Offices')
+        'hr.department', string='Offices', index=True)
 
     operation_ids = fields.Many2many(comodel_name="hr.operation", compute="_compute_operation_ids")
 

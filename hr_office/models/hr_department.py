@@ -28,7 +28,7 @@ _logger = logging.getLogger(__name__)
 class HrDepartment(models.Model):
     _inherit = "hr.department"
 
-    office_code = fields.Char(string="Office code")  # fyrställig
+    office_code = fields.Char(string="Office code", index=True)  # fyrställig
     organisation_number = fields.Char(string="Organisaiton Number")  # verksamhetsnummer
     operation_ids = fields.One2many(
         comodel_name="hr.operation", string="Operations", inverse_name="department_id"
@@ -43,9 +43,9 @@ class HrOperation(models.Model):
     name = fields.Char(string="Name")
     opening_hours = fields.Char(string="Opening hours")
     personal_service_opening = fields.Char(string="Opening hours for personal service")
-    operation_code = fields.Char(string="Operation Code")
+    operation_code = fields.Char(string="Operation Code", index=True)
 
-    department_id = fields.Many2one(comodel_name="hr.department", string="Office")
+    department_id = fields.Many2one(comodel_name="hr.department", string="Office", index=True)
     accessibilites_ids = fields.One2many(
         comodel_name="hr.location.accessibility", inverse_name="operation_id"
     )
@@ -64,13 +64,13 @@ class HrOperation(models.Model):
         string="Zip", related="visitation_address_id.zip"
     )
 
-    location_id = fields.Many2one(comodel_name="hr.location", string="Location")
+    location_id = fields.Many2one(comodel_name="hr.location", string="Location", index=True)
 
     workplace_number = fields.Char(
         string="Workplace number", related="location_id.workplace_number"
     )
     location_code = fields.Char(
-        string="Location code", related="location_id.location_code"
+        string="Location code", related="location_id.location_code",
     )
 
     employee_ids = fields.Many2many(
@@ -81,7 +81,7 @@ class HrOperation(models.Model):
 class HrLocation(models.Model):
     _name = "hr.location"
     name = fields.Char(string="Name")
-    location_code = fields.Char(string="Location code")
+    location_code = fields.Char(string="Location code", index=True)
     workplace_number = fields.Char(string="Workplace number")
 
     visitation_address_id = fields.Many2one("res.partner", string="Visitation address")
@@ -112,6 +112,6 @@ class HrLocation(models.Model):
 class HrlocationAccessibility(models.Model):
     _name = "hr.location.accessibility"
 
-    operation_id = fields.Many2one(comodel_name="hr.operation")
+    operation_id = fields.Many2one(comodel_name="hr.operation", index=True)
     name = fields.Char(string="Type")
     description = fields.Char(string="Description")
