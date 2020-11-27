@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ciam_client_config,access_ciam_client_config,model_ciam_client_config,,1,1,1,1
+access_request_history,access_request_history,model_request_history,,1,1,1,1

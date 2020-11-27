@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="view_employee_add_fields_search" model="ir.ui.view">
+        <field name="name">hr.employee.add.fields.search</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_filter"/>
+         <field name="arch" type="xml">
+             <field name="job_id" position="after">
+                 <field name="work_phone"/>
+                 <field name="work_email"/>
+                 <field name="parent_id"/>
+             </field>
+         </field>
+     </record>
+
+
+    <record id="view_employee_hide_fields_form" model="ir.ui.view">
+        <field name="name">hr.employee.hide.fields.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                 <button class="oe_stat_button">
+                     <field name="present" widget="statinfo" string="Present" invisible="1"/>
+                     <span style="margin-left:10px;" attrs="{'invisible': [('present', '=', False)]}">  Present</span>
+                     <span style="margin-left:10px;" attrs="{'invisible': [('present', '=', True)]}">  Away</span>
+                </button>
+            </xpath>
+            <field name="work_location" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="country_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+             <field name="passport_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+             <field name="bank_account_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="coach_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="tz" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="km_home_work" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <xpath expr="//page[@name='personal_information']//group/group[3]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+             <xpath expr="//page[@name='personal_information']//group/group[4]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+             <xpath expr="//page[@name='personal_information']//group/group[5]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
