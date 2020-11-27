@@ -22,10 +22,10 @@
 
 {
     'name': 'CIAM Server',
-    'version': '12.0.0.0.1',
+    'version': '12.0.0.0.2',
     'category': 'hr',
     'description': """
-
+    CIAM Server for AF project, API module for testing of CIAM_client
 """,
 
     'author': "N-development",
