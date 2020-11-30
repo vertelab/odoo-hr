@@ -30,6 +30,10 @@ from odoo import api, http, models, tools, SUPERUSER_ID, fields
 _logger = logging.getLogger(__name__)
 
 
+class ApfApiError(Exception):
+    pass
+
+
 class ClientConfig(models.Model):
     _name = 'ipf.report.client.config'
     _rec_name = 'url'
@@ -100,7 +104,8 @@ class ClientConfig(models.Model):
             url = self.url + '/' + path
         return url
 
-    def post_report(self):
+    @api.model
+    def post_report(self, payload):
         querystring = {"client_secret": self.client_secret,
                        "client_id": self.client_id}
         payload = {

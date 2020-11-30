@@ -21,7 +21,7 @@
                 <div class="oe_button_box" name="button_box">
 
                     <button class="oe_stat_button" type="object"
-                            string="POST" name="post_report"/>
+                            string="Test POST" name="testing_post_report"/>
 
 
                 </div>
