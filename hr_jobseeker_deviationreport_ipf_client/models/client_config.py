@@ -30,6 +30,10 @@ from odoo import api, http, models, tools, SUPERUSER_ID, fields
 _logger = logging.getLogger(__name__)
 
 
+class ApfApiError(Exception):
+    pass
+
+
 class ClientConfig(models.Model):
     _name = 'ipf.report.client.config'
     _rec_name = 'url'
@@ -52,8 +56,8 @@ class ClientConfig(models.Model):
                                           'config_id',
                                           string='Requests')
 
-    def request_call(self, method, url, payload=False,
-                     headers=False, params=False):
+    def request_call(self, method, url, payload=None,
+                     headers=None, params=None):
 
         response = requests.request(method=method,
                                     url=url,
@@ -100,9 +104,23 @@ class ClientConfig(models.Model):
             url = self.url + '/' + path
         return url
 
-    def post_report(self):
+    @api.model
+    def post_report(self, payload):
         querystring = {"client_secret": self.client_secret,
                        "client_id": self.client_id}
+
+        url = self.get_url('v1/genomforande-avvikelserapport-created')
+        response = self.request_call(
+            method="POST",
+            url=url,
+            payload=json.dumps(payload),
+            headers=self.get_headers(),
+            params=querystring)
+        if response.status_code != 200:
+            raise ApfApiError(response.text)
+        return response
+
+    def testing_post_report(self):
         payload = {
             "genomforande_referens": "123456789",
             "id": "4aaaad4f-b2e0-4a99-b9a0-06bab83bf069",
@@ -131,11 +149,4 @@ class ClientConfig(models.Model):
                 "sluttid": "17:00"
             }
         }
-        url = self.get_url('v1/genomforande-avvikelserapport-created')
-        response = self.request_call(method="POST",
-                                     url=url,
-                                     payload=json.dumps(payload),
-                                     headers=self.get_headers(),
-                                     params=querystring)
-
-        print(response.text)
+        response = self.post_report(payload)
