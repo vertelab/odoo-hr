@@ -26,7 +26,7 @@ class CIAMUpdate(models.TransientModel):
                        'customerNr': '444', 'status': "1"}
 
             url = ciam_id.get_url('v1/user/add')
-            response = self.request_call(method="POST",
+            response = ciam_id.request_call(method="POST",
                                          url=url,
                                          payload=json.dumps(payload),
                                          headers=ciam_id.get_headers(),
