@@ -7,7 +7,7 @@
             <field eval="time.strftime('%Y-%m-01')" name="date_from"/>
             <field eval="time.strftime('%Y-%m-02')" name="date_to"/>
             <field name="number_of_days">1</field>
-            <field name="employee_id" ref="fenix_test_hr.employee_ronnie"/>
+            <field name="employee_id" ref="hr_test-data_fenix.employee_ronnie"/>
         </record>
 
         <record id="hr_holidays_wedding" model="hr.leave">
@@ -16,7 +16,7 @@
             <field eval="time.strftime('%Y-%m-20')" name="date_from"/>
             <field eval="time.strftime('%Y-%m-21')" name="date_to"/>
             <field name="number_of_days">1</field>
-            <field name="employee_id" ref="fenix_test_hr.employee_anita"/>
+            <field name="employee_id" ref="hr_test-data_fenix.employee_anita"/>
             <field name="state">confirm</field>
         </record>
     </data>
