@@ -1,9 +1,9 @@
 {
-    'name': 'HR Employee views - User Credential tab',
-    'version': '12.0.0.0',
+    'name': 'Depreciated - HR Employee views - User Credential tab',
+    'version': '12.0.0.1',
     'category': 'Human Resources',
-    'summary': 'Adds User-Credentials Tab in employee view.',
-    'description': 'Adds User-Credentials Tab in employee view.',
+    'summary': 'Replaced by auth_user_rights_wizard.',
+    'description': 'Adds User-Credentials Tab in employee view.' Module is r,
     'author': 'Vertel AB',
     'website': 'https://vertel.se',
     'depends': [
@@ -12,6 +12,6 @@
     'data': [
         'views/hr_views.xml',
     ],
-    'installable': True,
+    'installable': False,
     'auto_install': False,
 }
