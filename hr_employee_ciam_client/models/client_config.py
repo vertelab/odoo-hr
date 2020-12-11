@@ -40,11 +40,11 @@ class ClientConfig(models.Model):
                                 required=True)
     client_id = fields.Char(string='Client ID',
                             required=True)
-    environment = fields.Selection(selection=[('u1', 'U1'),
-                                              ('i1', 'I1'),
-                                              ('t1', 'IT'),
-                                              ('t2', 'T2'),
-                                              ('prod', 'PROD'), ],
+    environment = fields.Selection(selection=[('U1', 'U1'),
+                                              ('I1', 'I1'),
+                                              ('T1', 'IT'),
+                                              ('T2', 'T2'),
+                                              ('PROD', 'PROD'), ],
                                    string='Environment',
                                    default='u1',
                                    required=True)
