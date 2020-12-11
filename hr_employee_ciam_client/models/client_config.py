@@ -59,7 +59,8 @@ class ClientConfig(models.Model):
                                     url=url,
                                     data=json.dumps(payload),
                                     headers=headers,
-                                    params=params)
+                                    params=params,
+                                    verify=False)
 
         self.create_request_history(method="POST",
                                     url=url,
