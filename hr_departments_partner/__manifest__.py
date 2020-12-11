@@ -21,9 +21,9 @@
 
 {
     'name': 'HR Departments Partner',
-    'version': '12.0.1',
+    'version': '12.0.2',
     'category': 'hr',
-    'description': """""",
+    'description': """12.0.2 - Adds street address to Departments""",
     'images': [],
     'author': 'Vertel AB',
     'license': 'AGPL-3',
