@@ -46,7 +46,7 @@ class ClientConfig(models.Model):
                                               ('T2', 'T2'),
                                               ('PROD', 'PROD'), ],
                                    string='Environment',
-                                   default='u1',
+                                   default='T2',
                                    required=True)
     request_history_ids = fields.One2many('request.history',
                                           'config_id',
