@@ -1,8 +1,8 @@
 {
     'name': 'HR User CIAM Update',
-    'version': '12.0.0.1',
+    'version': '12.0.0.2',
     'category': 'Human resources',
-    'description': """This module updates user on CIAM server""",
+    'description': """This module adds a button that runs an action that adds the user to the CIAM server""",
     'author': 'Vertel AB',
     'license': 'AGPL-3',
     'website': 'http://www.vertel.se',
