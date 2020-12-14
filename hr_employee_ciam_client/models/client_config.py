@@ -54,10 +54,10 @@ class ClientConfig(models.Model):
 
     def request_call(self, method, url, payload=False,
                      headers=False, params=False):
-
+        
         response = requests.request(method=method,
                                     url=url,
-                                    data=json.dumps(payload),
+                                    data=payload,
                                     headers=headers,
                                     params=params,
                                     verify=False)
@@ -65,7 +65,7 @@ class ClientConfig(models.Model):
         self.create_request_history(method="POST",
                                     url=url,
                                     response=response,
-                                    payload=json.dumps(payload),
+                                    payload=payload,
                                     headers=headers,
                                     params=params)
 
@@ -87,10 +87,10 @@ class ClientConfig(models.Model):
     def get_headers(self):
         tracking_id = pycompat.text_type(uuid.uuid1())
         headers = {
-            'x-amf-mediaType': "application/json",
+            'Content-Type': "application/json",
             'AF-TrackingId': tracking_id,
-            'AF-SystemId': "AF-SystemId",
-            'AF-EndUserId': "AF-EndUserId",
+            'AF-SystemId': "CRM",
+            'AF-EndUserId': "*sys*",
             'AF-Environment': self.environment,
         }
         return headers
@@ -102,10 +102,26 @@ class ClientConfig(models.Model):
             url = self.url + '/' + path
         return url
 
-    def user_get(self):
-        querystring = {"client_secret": self.client_secret,
-                       "client_id": self.client_id}
-        payload = {'username': 'test'}
+    def test_user_get(self):
+        data = {'username': 'test'}
+        self.user_get(data)
+
+    def user_get(self, data):
+        querystring = {
+            "client_id": self.client_id,
+            "client_secret": self.client_secret,
+            }
+
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+            }
+
+        payload = {
+            "client": client,
+            "data": data
+            }
+
         url = self.get_url('v1/user/get')
         response = self.request_call(method="POST",
                                      url=url,
@@ -113,19 +129,44 @@ class ClientConfig(models.Model):
                                      headers=self.get_headers(),
                                      params=querystring)
 
-        print(response.text)
+        _logger.info(response.text)
 
-    def user_add(self):
+    def test_user_add(self):
+        data = { #note that some value need to be unique so change them everytime you want to run a test
+            "personNr": "1955010127777",
+            "firstName": "Test",
+            "lastName": "Testson",
+            "eMail": "test@test12.se", #unique
+            "username": "test.testson.123", #unique
+            "password": "abc12321", 
+            "customerNr": "87654321", #unique, length of 8, not required
+            "status": "1"
+            }
+        self.user_add(data)
+
+    def user_add(self, data):
         querystring = {"client_secret": self.client_secret,
                        "client_id": self.client_id}
-        payload = {'personNr': 1955010127777,
-                   'firstName': 'Pelle',
-                   'lastName': 'Svensson',
-                   'eMail': 'pelle.svensson@bolaget.se',
-                   'orgId': 'c4c0b8c2-dccc-4580-b2f9-88b4aeb9bc06',
-                   'username': 'pelle.svensson.14',
-                   'password': '123',
-                   'customerNr': '444', 'status': "1"}
+        
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+            }
+
+        payload = {
+            "client": client,
+            "data": data
+            }
+
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+            }
+
+        payload = {
+            "client": client,
+            "data": data
+            }
 
         url = self.get_url('v1/user/add')
         response = self.request_call(method="POST",
@@ -133,61 +174,114 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        print(response.text)
+        _logger.info(response.text)
 
-    def user_update(self):
-        querystring = {"client_secret": self.client_secret,
-                       "client_id": self.client_id}
-        payload = {'personNr': 1955010127777,
+    def test_user_update(self):
+        data = {'personNr': 1955010127777,
                    'userId': 'Pelle',
                    'personIdentifier': 'Svensson',
                    'customerNr': 'pelle.svensson@bolaget.se', }
+        self.user_update(data)
+
+    def user_update(self, data):
+        querystring = {"client_secret": self.client_secret,
+                       "client_id": self.client_id}
+        
+
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+            }
+
+        payload = {
+            "client": client,
+            "data": data
+            }
+
         url = self.get_url('v1/user/update')
         response = self.request_call(method="POST",
                                      url=url,
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        print(response.text)
+        _logger.info(response.text)
 
-    def user_delete(self):
-        querystring = {"client_secret": self.client_secret,
-                       "client_id": self.client_id}
-        payload = {'personNr': 1955010127777,
+    def test_user_delete(self):
+        data = {'personNr': 1955010127777,
                    'userId': 3243,
                    'personIdentifier': '1232ffrr',
                    'customerNr': 54545, }
+        self.user_delete(data)
+
+    def user_delete(self, data):
+        querystring = {"client_secret": self.client_secret,
+                       "client_id": self.client_id}
+        
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+            }
+
+        payload = {
+            "client": client,
+            "data": data
+            }
+
         url = self.get_url('v1/user/delete')
         response = self.request_call(method="POST",
                                      url=url,
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        print(response.text)
+        _logger.info(response.text)
 
-    def user_requestDelete(self):
+    def test_user_requestDelete(self):
+        data = {'userId': 3243}
+        self.user_requestDelete(data)
+
+    def user_requestDelete(self, data):
         querystring = {"client_secret": self.client_secret,
                        "client_id": self.client_id}
-        payload = {'userId': 3243}
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+            }
 
+        payload = {
+            "client": client,
+            "data": data
+            }
         url = self.get_url('v1/user/requestDelete')
         response = self.request_call(method="POST",
                                      url=url,
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        print(response.text)
+        _logger.info(response.text)
 
-    def role_assign(self):
-
-        querystring = {"client_secret": self.client_secret,
-                       "client_id": self.client_id}
-        payload = {
+    def test_role_assign(self):
+        data = {
             'roleName': 'role_name',
             'userId': '3243',
             'custId': '32442',
             'orgId': 'c4c0b8c2-dccc-4580-b2f9-88b4aeb9bc06'
         }
+        self.role_assign(data)
+
+    def role_assign(self, data):
+
+        querystring = {"client_secret": self.client_secret,
+                       "client_id": self.client_id}
+       
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+            }
+
+        payload = {
+            "client": client,
+            "data": data
+            }
 
         url = self.get_url('v1/role/assign')
         response = self.request_call(method="POST",
@@ -195,14 +289,26 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        print(response.text)
+        _logger.info(response.text)
 
-    def role_listAssigned(self):
-        querystring = {"client_secret": self.client_secret,
-                       "client_id": self.client_id}
-        payload = {
+    def test_role_listAssigned(self):
+        data = {
             'userId': '3243',
         }
+        self.role_listAssigned(data)
+
+    def role_listAssigned(self, data):
+        querystring = {"client_secret": self.client_secret,
+                       "client_id": self.client_id}
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+            }
+
+        payload = {
+            "client": client,
+            "data": data
+            }
 
         url = self.get_url('v1/role/listAssigned')
         response = self.request_call(method="POST",
@@ -210,13 +316,25 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        print(response.text)
+        _logger.info(response.text)
 
-    def role_listAvailable(self):
+    def test_role_listAvailable(self):
+        data = {'userId': '3243',
+                   'orgId': 'c4c0b8c2-dccc-4580-b2f9-88b4aeb9bc06'}
+        self.role_listAvailable(data)
+
+    def role_listAvailable(self, data):
         querystring = {"client_secret": self.client_secret,
                        "client_id": self.client_id}
-        payload = {'userId': '3243',
-                   'orgId': 'c4c0b8c2-dccc-4580-b2f9-88b4aeb9bc06'}
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+            }
+
+        payload = {
+            "client": client,
+            "data": data
+            }
 
         url = self.get_url('v1/role/listAvailable')
         response = self.request_call(method="POST",
@@ -224,39 +342,62 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        print(response.text)
+        _logger.info(response.text)
 
-    def role_revoke(self):
-        querystring = {"client_secret": self.client_secret,
-                       "client_id": self.client_id}
-        payload = {
+    def test_role_revoke(self):
+        data = {
             'roleName': 'role_name',
             'userId': '3243',
             'custId': '32442',
             'orgId': 'c4c0b8c2-dccc-4580-b2f9-88b4aeb9bc06'
         }
+        self.role_revoke(data)
+    def role_revoke(self, data):
+        querystring = {"client_secret": self.client_secret,
+                       "client_id": self.client_id}
+        
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+            }
 
+        payload = {
+            "client": client,
+            "data": data
+            }
         url = self.get_url('v1/role/revoke')
         response = self.request_call(method="POST",
                                      url=url,
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        print(response.text)
+        _logger.info(response.text)
 
-    def role_request(self):
-        querystring = {"client_secret": self.client_secret,
-                       "client_id": self.client_id}
-        payload = {
+    def test_role_request(self):
+        data = {
             'roleName': 'role_name',
             'userId': '3243',
             'custId': '32442',
             'orgId': 'c4c0b8c2-dccc-4580-b2f9-88b4aeb9bc06'
         }
+        self.role_request(data)
+
+    def role_request(self, data):
+        querystring = {"client_secret": self.client_secret,
+                       "client_id": self.client_id}
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+            }
+
+        payload = {
+            "client": client,
+            "data": data
+            }
         url = self.get_url('v1/role/request')
         response = self.request_call(method="POST",
                                      url=url,
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        print(response.text)
+        _logger.info(response.text)

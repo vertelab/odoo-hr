@@ -21,34 +21,34 @@
                 <div class="oe_button_box" name="button_box">
 
                     <button class="oe_stat_button" type="object"
-                            string="USER GET" name="user_get"/>
+                            string="USER GET" name="test_user_get"/>
 
                     <button class="oe_stat_button" type="object"
-                            string="USER ADD" name="user_add"/>
+                            string="USER ADD" name="test_user_add"/>
 
                     <button class="oe_stat_button" type="object"
-                            string="USER UPDATE" name="user_update"/>
+                            string="USER UPDATE" name="test_user_update"/>
 
                     <button class="oe_stat_button" type="object"
-                            string="user_delete" name="user_delete"/>
+                            string="user_delete" name="test_user_delete"/>
 
                     <button class="oe_stat_button" type="object"
-                            string="user_requestDelete" name="user_requestDelete"/>
+                            string="user_requestDelete" name="test_user_requestDelete"/>
 
                     <button class="oe_stat_button" type="object"
-                            string="role_assign" name="role_assign"/>
+                            string="role_assign" name="test_role_assign"/>
 
                     <button class="oe_stat_button" type="object"
-                            string="role_listAssigned" name="role_listAssigned"/>
+                            string="role_listAssigned" name="test_role_listAssigned"/>
 
                     <button class="oe_stat_button" type="object"
-                            string="role_listAvailable" name="role_listAvailable"/>
+                            string="role_listAvailable" name="test_role_listAvailable"/>
 
                     <button class="oe_stat_button" type="object"
-                            string="role_revoke" name="role_revoke"/>
+                            string="role_revoke" name="test_role_revoke"/>
 
                     <button class="oe_stat_button" type="object"
-                            string="role_request" name="role_request"/>
+                            string="role_request" name="test_role_request"/>
 
                 </div>
                 <group>

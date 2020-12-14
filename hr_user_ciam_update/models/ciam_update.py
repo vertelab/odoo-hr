@@ -1,5 +1,7 @@
 from odoo import models, fields, api, _
-import json
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class CIAMUpdate(models.TransientModel):
@@ -10,25 +12,15 @@ class CIAMUpdate(models.TransientModel):
     def action_update_ciam(self):
         ciam_id = self.env['ciam.client.config'].search([], limit=1)
         if ciam_id:
-            headers = ciam_id.get_headers()
-            print(headers)
-
-            # Add User
-            querystring = {"client_secret": ciam_id.client_secret,
-                           "client_id": ciam_id.client_id}
-            payload = {'personNr': 1955010127777,
-                       'firstName': 'Pelle',
-                       'lastName': 'Svensson',
-                       'eMail': 'pelle.svensson@bolaget.se',
-                       'orgId': 'c4c0b8c2-dccc-4580-b2f9-88b4aeb9bc06',
-                       'username': 'pelle.svensson.14',
-                       'password': '123',
-                       'customerNr': '444', 'status': "1"}
-
-            url = ciam_id.get_url('v1/user/add')
-            response = ciam_id.request_call(method="POST",
-                                         url=url,
-                                         payload=json.dumps(payload),
-                                         headers=ciam_id.get_headers(),
-                                         params=querystring)
-            print(response.text)
+            data = {
+                'personNr': self.employee_id.ssnid,
+                'firstName': self.employee_id.firstname,
+                'lastName': self.employee_id.lastname,
+                'eMail': self.employee_id.user_id.email,
+                'username': self.employee_id.user_id.login,
+                'password': self.employee_id.user_id.password,
+                #'customerNr': self.employee_id., #not implemented yet
+                'status': '1'
+                }
+            _logger.info("Sending data: %s" % data)
+            ciam_id.user_add(data)
