@@ -88,7 +88,7 @@ class ClientConfig(models.Model):
         headers = {
             'Content-Type': "application/json",
             'AF-TrackingId': tracking_id,
-            'AF-SystemId': "DAFA",
+            'AF-SystemId': "AFDAFA",
             'AF-EndUserId': "*sys*",
             'AF-Environment': self.environment,
         }
