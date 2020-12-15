@@ -1,3 +1,4 @@
+import json
 from odoo import models, fields, api, _
 import logging
 
@@ -23,4 +24,17 @@ class CIAMUpdate(models.TransientModel):
                 'status': '1'
                 }
             _logger.info("Sending data: %s" % data)
-            ciam_id.user_add(data)
+            response = ciam_id.user_add(data)
+            res_dict = json.loads(response)
+            user_id = res_dict.get('data').get('userId')
+            data = {
+                'customerNr': self.some_variable_idk #711
+            }
+            response = ciam_id.organization_get(data)
+            res_dict = json.loads(response)
+            org_id = res_dict.get('data').get('orgId')
+            data = {
+                'userId': user_id,
+                'orgId': org_id,
+                'roleName': 'DAFA Coach'
+            }
