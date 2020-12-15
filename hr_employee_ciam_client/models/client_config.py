@@ -54,7 +54,6 @@ class ClientConfig(models.Model):
 
     def request_call(self, method, url, payload=False,
                      headers=False, params=False):
-        
         response = requests.request(method=method,
                                     url=url,
                                     data=payload,
