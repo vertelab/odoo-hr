@@ -1,0 +1,2 @@
+id;login;password;email;name
+hr_user_ciam_update.test_user;abc123@mail.com;123abcdef;abc123@mail.com;test testson

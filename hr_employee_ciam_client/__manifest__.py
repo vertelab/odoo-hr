@@ -22,7 +22,7 @@
 
 {
     'name': 'CIAM Client of AF',
-    'version': '12.0.0.0.2',
+    'version': '12.0.0.0.3',
     'category': 'hr',
     'description': """
     CIAM Client for AF project, API module to handle communication between DAFA (formerly called Fenix) and CIAM
