@@ -54,7 +54,6 @@ class ClientConfig(models.Model):
 
     def request_call(self, method, url, payload=False,
                      headers=False, params=False):
-        
         response = requests.request(method=method,
                                     url=url,
                                     data=payload,
@@ -89,7 +88,7 @@ class ClientConfig(models.Model):
         headers = {
             'Content-Type': "application/json",
             'AF-TrackingId': tracking_id,
-            'AF-SystemId': "CRM",
+            'AF-SystemId': "AFDAFA",
             'AF-EndUserId': "*sys*",
             'AF-Environment': self.environment,
         }
