@@ -129,7 +129,7 @@ class ClientConfig(models.Model):
                                      params=querystring)
 
         _logger.info(response.text)
-        return response
+        return response.text
 
     def test_user_add(self):
         data = { #note that some value need to be unique so change them everytime you want to run a test
@@ -175,7 +175,7 @@ class ClientConfig(models.Model):
                                      headers=self.get_headers(),
                                      params=querystring)
         _logger.info(response.text)
-        return response
+        return response.text
 
     def test_user_update(self):
         data = {'personNr': 1955010127777,
@@ -206,7 +206,7 @@ class ClientConfig(models.Model):
                                      headers=self.get_headers(),
                                      params=querystring)
         _logger.info(response.text)
-        return response
+        return response.text
 
     def test_user_delete(self):
         data = {'personNr': 1955010127777,
@@ -236,7 +236,7 @@ class ClientConfig(models.Model):
                                      headers=self.get_headers(),
                                      params=querystring)
         _logger.info(response.text)
-        return response
+        return response.text
 
     def test_user_requestDelete(self):
         data = {'userId': 3243}
@@ -261,7 +261,7 @@ class ClientConfig(models.Model):
                                      headers=self.get_headers(),
                                      params=querystring)
         _logger.info(response.text)
-        return response
+        return response.text
 
     def test_role_assign(self):
         data = {
@@ -294,7 +294,7 @@ class ClientConfig(models.Model):
                                      headers=self.get_headers(),
                                      params=querystring)
         _logger.info(response.text)
-        return response
+        return response.text
 
     def test_role_listAssigned(self):
         data = {
@@ -322,7 +322,7 @@ class ClientConfig(models.Model):
                                      headers=self.get_headers(),
                                      params=querystring)
         _logger.info(response.text)
-        return response
+        return response.text
 
     def test_role_listAvailable(self):
         data = {'userId': '3243',
@@ -349,7 +349,7 @@ class ClientConfig(models.Model):
                                      headers=self.get_headers(),
                                      params=querystring)
         _logger.info(response.text)
-        return response
+        return response.text
 
     def test_role_revoke(self):
         data = {
@@ -380,7 +380,7 @@ class ClientConfig(models.Model):
                                      headers=self.get_headers(),
                                      params=querystring)
         _logger.info(response.text)
-        return response
+        return response.text
 
     def test_role_request(self):
         data = {
@@ -410,15 +410,15 @@ class ClientConfig(models.Model):
                                      headers=self.get_headers(),
                                      params=querystring)
         _logger.info(response.text)
-        return response
+        return response.text
 
-    def test_organization_get(self):
+    def test_customer_get(self):
         data = {
             "customerNr": "711"
         }
-        return self.organization_get(data)
+        return self.customer_get(data)
 
-    def organization_get(self, data):
+    def customer_get(self, data):
         querystring = {"client_secret": self.client_secret,
                        "client_id": self.client_id}
         client = {
@@ -430,11 +430,11 @@ class ClientConfig(models.Model):
             "client": client,
             "data": data
             }
-        url = self.get_url('organization/get')
+        url = self.get_url('customer/get')
         response = self.request_call(method="POST",
                                      url=url,
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
         _logger.info(response.text)
-        return response
+        return response.text
