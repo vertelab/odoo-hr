@@ -80,7 +80,7 @@ class ClientConfig(models.Model):
                   'response_headers': response.headers,
                   'params': params,
                   'response_code': response.status_code}
-        values.update(message=json.loads(response.content))
+        values.update(message=json.loads(response.text))
         self.env['request.history'].create(values)
 
     def get_headers(self):
