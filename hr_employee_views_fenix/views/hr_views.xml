@@ -85,6 +85,15 @@
                 <field name="address_id" context="{'show_address': 1}" 
                         options='{"always_reload": True, "highlight_first_line": True}'/>
             </field>
+
+            <xpath expr="//page[@name='public']//group/group[1]" position="attributes">
+                <attribute name="string">General Info</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='public']//group/group[2]" position="attributes">
+                <attribute name="string">Job/ Office Info</attribute>
+            </xpath>
+
         </field>
     </record>
 
