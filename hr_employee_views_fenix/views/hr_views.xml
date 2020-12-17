@@ -15,8 +15,8 @@
      </record>
 
 
-    <record id="view_employee_hide_fields_form" model="ir.ui.view">
-        <field name="name">hr.employee.hide.fields.form</field>
+    <record id="view_employee_restructure_fields_form" model="ir.ui.view">
+        <field name="name">hr.employee.restructure.fields.form</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
