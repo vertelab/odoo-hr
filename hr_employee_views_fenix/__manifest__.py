@@ -7,7 +7,7 @@
     'author': 'Vertel AB',
     'website': 'https://vertel.se',
     'depends': [
-        'hr', 'hr_holidays'
+        'hr', 'hr_holidays', 'hr_employee_legacy_id',
     ],
     'data': [
         'views/hr_views.xml',

@@ -48,23 +48,43 @@
             <field name="km_home_work" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
+
+
+            <!-- Dolda fält -->
+            <field name="resource_calendar_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <field name="address_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <!-- Dolda pages -->
+            <xpath expr="//page[@name='hr_settings']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//page[@name='personal_information']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+
+            <!-- Tillagda ändringar (fält) -->
             <field name="name" position="after">
                 <h1><field name="identification_id" /></h1>
             </field>
 
+            <field name="address_id" position="before">
+                <field name="legacy_no" />
+            </field>
 
-            <xpath expr="//page[@name='personal_information']" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-            <!-- <xpath expr="//page[@name='personal_information']//group/group[3]" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-             <xpath expr="//page[@name='personal_information']//group/group[4]" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath>
-             <xpath expr="//page[@name='personal_information']//group/group[5]" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </xpath> -->
+            <field name="user_groups" position="after">
+                <field name="user_id" string="Related User" />
+            </field>
+
+            <field name="department_id" position="after">
+                <field name="address_id" context="{'show_address': 1}" 
+                        options='{"always_reload": True, "highlight_first_line": True}'/>
+            </field>
         </field>
     </record>
 
