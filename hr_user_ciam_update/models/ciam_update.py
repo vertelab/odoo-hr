@@ -15,12 +15,12 @@ class CIAMUpdate(models.TransientModel):
         ciam_id = self.env['ciam.client.config'].search([], limit=1)
         if ciam_id:
             data = {
-                'personNr': self.employee_id.ssnid,
+                'personNr': self.employee_id.ssnid if self.employee_id.ssnid else "197001011234",
                 'firstName': self.employee_id.firstname,
                 'lastName': self.employee_id.lastname,
                 'eMail': self.employee_id.user_id.email,
                 'username': self.employee_id.user_id.login,
-                'password': self.employee_id.user_id.password,
+                'password': self.employee_id.user_id.password if self.employee_id.user_id.password else "Acctest09",
                 #'customerNr': self.employee_id., #not implemented yet
                 'status': '1'
                 }
@@ -32,7 +32,11 @@ class CIAMUpdate(models.TransientModel):
             if data:
                 user_id = data[0].get('userId')
             else:
-                user_error = "%s" % res_dict.get('status').get('message')
+                status = res_dict.get('status')
+                if status:
+                    user_error = "%s" % res_dict.get('status').get('message')
+                else: 
+                    user_error = "Error, no status message available"
             data = {
                 'customerNr': self.employee_id.address_id.legacy_no
             }
@@ -44,7 +48,11 @@ class CIAMUpdate(models.TransientModel):
             if data:
                 cust_id = data[0].get('custId')
             else:
-                cust_error = "%s" % res_dict.get('status').get('message')
+                status = res_dict.get('status')
+                if status:
+                    cust_error = "%s" % res_dict.get('status').get('message')
+                else: 
+                    cust_error = "Error, no status message available"
             if cust_id and user_id:
                 data = {
                     'userId': user_id,
