@@ -21,7 +21,7 @@
 ################################################################################
 
 {
-    'name': 'IPF Report Client',
+    'name': 'Depricated - IPF Report Client',
     'version': '12.0.0.0.1',
     'category': 'hr',
     'description': """
@@ -39,7 +39,7 @@
 
         'views/client_config_views.xml',
     ],
-    'installable': True,
+    'installable': False,
     'qweb': [
 
     ],
