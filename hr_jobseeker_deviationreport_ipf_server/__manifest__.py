@@ -21,7 +21,7 @@
 ################################################################################
 
 {
-    'name': 'IPF Report Server',
+    'name': 'Depricated - IPF Report Server',
     'version': '12.0.0.0.1',
     'category': 'sale',
     'description': """
@@ -37,7 +37,7 @@
     'data': [
 
     ],
-    'installable': True,
+    'installable': False,
     'qweb': [
 
     ],
