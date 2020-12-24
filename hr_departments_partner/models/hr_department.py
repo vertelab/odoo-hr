@@ -42,9 +42,3 @@ class HRDepartment(models.Model):
                     rec.one_address_detail = address
 
     one_address_detail = fields.Text(string="Address Details", compute=_single_address_details)
-    # street = fields.Char()
-    # zip = fields.Char(change_default=True)
-    # city = fields.Char()
-    # state_id = fields.Many2one("res.country.state", string='State', ondelete='restrict',
-    #                            domain="[('country_id', '=?', country_id)]")
-    # country_id = fields.Many2one('res.country', string='Country', ondelete='restrict')
