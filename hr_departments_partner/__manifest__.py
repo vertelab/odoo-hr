@@ -21,7 +21,7 @@
 
 {
     'name': 'HR Departments Partner',
-    'version': '12.0.2',
+    'version': '12.0.3',
     'category': 'hr',
     'description': """12.0.2 - Adds street address to Departments""",
     'images': [],
