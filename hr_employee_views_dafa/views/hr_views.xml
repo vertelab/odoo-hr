@@ -14,7 +14,16 @@
          </field>
      </record>
 
-
+    <record id="view_employee_show_fields_form" model="ir.ui.view">
+        <field name="name">hr.employee.show.fields.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <field name="address_id" position="before">
+                <field name="ssnid"/>
+            </field>
+        </field>
+    </record>
     <record id="view_employee_hide_fields_form" model="ir.ui.view">
         <field name="name">hr.employee.hide.fields.form</field>
         <field name="model">hr.employee</field>
