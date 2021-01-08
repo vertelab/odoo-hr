@@ -14,20 +14,18 @@
          </field>
      </record>
 
-    <record id="view_employee_add_tree" model="ir.ui.view">
-        <field name="name">hr.employee.add.tree</field>
+    <record id="view_employee_show_fields_form" model="ir.ui.view">
+        <field name="name">hr.employee.show.fields.form</field>
         <field name="model">hr.employee</field>
-        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-            <field name="department_id" position="before">
-                <field name="department_state"/>
+            <field name="address_id" position="before">
+                <field name="ssnid"/>
             </field>
         </field>
     </record>
-
-
-    <record id="view_employee_restructure_fields_form" model="ir.ui.view">
-        <field name="name">hr.employee.restructure.fields.form</field>
+    <record id="view_employee_hide_fields_form" model="ir.ui.view">
+        <field name="name">hr.employee.hide.fields.form</field>
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
@@ -59,52 +57,15 @@
             <field name="km_home_work" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
-
-
-            <!-- Dolda fält -->
-            <field name="resource_calendar_id" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </field>
-
-            <field name="address_id" position="attributes">
-                <attribute name="invisible">1</attribute>
-            </field>
-
-            <!-- Dolda pages -->
-            <xpath expr="//page[@name='hr_settings']" position="attributes">
+            <xpath expr="//page[@name='personal_information']//group/group[3]" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//page[@name='personal_information']" position="attributes">
+             <xpath expr="//page[@name='personal_information']//group/group[4]" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-
-
-            <!-- Tillagda ändringar (fält) -->
-            <field name="name" position="after">
-                <h1><field name="identification_id" /></h1>
-            </field>
-
-            <field name="address_id" position="before">
-                <field name="legacy_no" />
-            </field>
-
-            <field name="user_groups" position="after">
-                <field name="user_id" string="Related User" />
-            </field>
-
-            <field name="department_id" position="after">
-                <field name="address_id" context="{'show_address': 1}" 
-                        options='{"always_reload": True, "highlight_first_line": True}'/>
-            </field>
-
-            <xpath expr="//page[@name='public']//group/group[1]" position="attributes">
-                <attribute name="string">General Info</attribute>
+             <xpath expr="//page[@name='personal_information']//group/group[5]" position="attributes">
+                <attribute name="invisible">1</attribute>
             </xpath>
-
-            <xpath expr="//page[@name='public']//group/group[2]" position="attributes">
-                <attribute name="string">Job/ Office Info</attribute>
-            </xpath>
-
         </field>
     </record>
 

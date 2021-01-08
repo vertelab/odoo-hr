@@ -60,6 +60,7 @@ class ClientConfig(models.Model):
                                     headers=headers,
                                     params=params,
                                     verify=False)
+        _logger.debug(response)
 
         self.create_request_history(method="POST",
                                     url=url,
@@ -80,6 +81,7 @@ class ClientConfig(models.Model):
                   'response_headers': response.headers,
                   'params': params,
                   'response_code': response.status_code}
+        _logger.debug("response text: %s" % response.text)
         values.update(message=json.loads(response.text))
         self.env['request.history'].create(values)
 
@@ -128,7 +130,7 @@ class ClientConfig(models.Model):
                                      headers=self.get_headers(),
                                      params=querystring)
 
-        _logger.info(response.text)
+        _logger.debug(response.text)
         return response.text
 
     def test_user_add(self):
@@ -174,7 +176,7 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        _logger.info(response.text)
+        _logger.debug(response.text)
         return response.text
 
     def test_user_update(self):
@@ -205,7 +207,7 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        _logger.info(response.text)
+        _logger.debug(response.text)
         return response.text
 
     def test_user_delete(self):
@@ -235,7 +237,7 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        _logger.info(response.text)
+        _logger.debug(response.text)
         return response.text
 
     def test_user_requestDelete(self):
@@ -260,7 +262,7 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        _logger.info(response.text)
+        _logger.debug(response.text)
         return response.text
 
     def test_role_assign(self):
@@ -293,7 +295,7 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        _logger.info(response.text)
+        _logger.debug(response.text)
         return response.text
 
     def test_role_listAssigned(self):
@@ -321,7 +323,7 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        _logger.info(response.text)
+        _logger.debug(response.text)
         return response.text
 
     def test_role_listAvailable(self):
@@ -348,7 +350,7 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        _logger.info(response.text)
+        _logger.debug(response.text)
         return response.text
 
     def test_role_revoke(self):
@@ -379,7 +381,7 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        _logger.info(response.text)
+        _logger.debug(response.text)
         return response.text
 
     def test_role_request(self):
@@ -409,7 +411,7 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        _logger.info(response.text)
+        _logger.debug(response.text)
         return response.text
 
     def test_customer_get(self):
@@ -436,5 +438,5 @@ class ClientConfig(models.Model):
                                      payload=json.dumps(payload),
                                      headers=self.get_headers(),
                                      params=querystring)
-        _logger.info(response.text)
+        _logger.debug(response.text)
         return response.text

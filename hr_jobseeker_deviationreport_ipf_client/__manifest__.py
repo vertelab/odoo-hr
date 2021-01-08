@@ -1,8 +1,9 @@
-# -*- coding: utf-8 -*-
-##############################################################################
+# -*- coding: UTF-8 -*-
+
+################################################################################
 #
-#    OpenERP, Open Source Management Solution, third party addon
-#    Copyright (C) 2019- Vertel AB (<http://vertel.se>).
+#    OpenERP, Open Source Management Solution
+#    Copyright (C) 2019 N-Development (<https://n-development.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -17,22 +18,33 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-##############################################################################
+################################################################################
 
 {
-    'name': 'HR Departments Partner',
-    'version': '12.0.3',
+    'name': 'Depricated - IPF Report Client',
+    'version': '12.0.0.0.1',
     'category': 'hr',
-    'description': """12.0.2 - Adds street address to Departments""",
-    'images': [],
-    'author': 'Vertel AB',
+    'description': """
+
+""",
+
+    'author': "N-development",
     'license': 'AGPL-3',
-    'website': 'http://www.vertel.se',
-    'depends': ['hr', 'base', 'contacts'],
-    'data': [
-        'views/hr_department_view.xml',
-        'views/res_partner_view.xml',
+    'website': 'https://www.n-development.com',
+    'depends': [
+        'hr'
     ],
-    'installable': True,
+    'data': [
+        "security/ir.model.access.csv",
+
+        'views/client_config_views.xml',
+    ],
+    'installable': False,
+    'qweb': [
+
+    ],
+
+    'images': [
+        'static/description/img.png'
+    ],
 }
-# vim:expandtab:smartindent:tabstop=4s:softtabstop=4:shiftwidth=4:

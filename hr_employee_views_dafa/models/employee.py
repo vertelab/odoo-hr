@@ -6,7 +6,6 @@ class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
     present = fields.Boolean("Present", compute='compute_present')
-    department_state = fields.Char(string="Municipality", related="department_id.state_id.name")
 
     def compute_present(self):
         today = datetime.today().date()
