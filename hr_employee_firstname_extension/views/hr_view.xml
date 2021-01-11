@@ -8,8 +8,8 @@
                 <xpath expr="//group[1]" position="replace">
                     <div class="oe_edit_only">
                         <group>
-                            <field name="firstname" attrs="{'required': [('lastname', '=', False)]}"/>
-                            <field name="lastname" attrs="{'required': [('firstname', '=', False)]}"/>
+                            <field name="firstname" string="Firstname" attrs="{'required': [('lastname', '=', False)]}"/>
+                            <field name="lastname" string="Lastname" attrs="{'required': [('firstname', '=', False)]}"/>
                         </group>
                     </div>
                 </xpath>
