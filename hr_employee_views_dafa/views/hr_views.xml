@@ -81,8 +81,7 @@
 
            <!-- Tillagda ändringar (fält) -->
            <field name="user_groups" position="after">
-               <field name="user_id" string="Related User" groups="base.group_erp_manager
-               " />
+               <field name="user_id" string="Related User" groups="base.group_erp_manager" />
            </field>
 
            <field name="department_id" position="after">
