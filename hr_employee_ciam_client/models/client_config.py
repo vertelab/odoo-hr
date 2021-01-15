@@ -25,7 +25,8 @@ import json
 import uuid
 import logging
 import requests
-from odoo import api, http, models, tools, SUPERUSER_ID, fields
+from odoo import api, http, models, tools, SUPERUSER_ID, fields, _
+from odoo.exceptions import Warning
 
 _logger = logging.getLogger(__name__)
 
@@ -81,8 +82,13 @@ class ClientConfig(models.Model):
                   'response_headers': response.headers,
                   'params': params,
                   'response_code': response.status_code}
-        _logger.debug("response text: %s" % response.text)
-        values.update(message=json.loads(response.text))
+        try:
+            _logger.debug("response text: %s" % response.text)
+            values.update(message=json.loads(response.text))
+        except:
+            raise Warning(_("Failed to load server response")) 
+
+        
         self.env['request.history'].create(values)
 
     def get_headers(self):
