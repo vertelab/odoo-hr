@@ -20,7 +20,7 @@ class CIAMUpdate(models.TransientModel):
                 'lastName': self.employee_id.lastname,
                 'eMail': self.employee_id.user_id.email,
                 'username': self.employee_id.user_id.login,
-                'password': self.employee_id.user_id.password if self.employee_id.user_id.password else "Acctest09",
+                #'password': self.employee_id.user_id.password if self.employee_id.user_id.password else "Acctest09",
                 #'customerNr': self.employee_id., #not implemented yet
                 'status': '1'
                 }
