@@ -25,6 +25,23 @@ class CIAMUpdate(models.TransientModel):
                 'status': '1'
                 }
             response = ciam_id.user_add(data)
+
+            # Log this change
+            try:
+                user = self.env.user
+                groups = self.env['res.groups'].search([('users', '=', user.id)])
+
+                data['password'] = "<removed>" # hide password before loggings
+
+                data_additional = {
+                    "user": user.login,
+                    "groups": groups.mapped('display_name'),
+                }
+
+                _logger.info(json.dumps({**data, **data_additional}, default=str))
+            except:
+                pass
+
             res_dict = json.loads(response)
             data = res_dict.get('data')
             user_id = False
