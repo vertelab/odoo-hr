@@ -20,6 +20,8 @@ class CIAMUpdate(models.TransientModel):
                 'lastName': self.employee_id.lastname,
                 'eMail': self.employee_id.user_id.email,
                 'username': self.employee_id.user_id.login,
+                #commented password in case we need it back for testing later
+                #password is required for test environments
                 #'password': self.employee_id.user_id.password if self.employee_id.user_id.password else "Acctest09",
                 #'customerNr': self.employee_id., #not implemented yet
                 'status': '1'
