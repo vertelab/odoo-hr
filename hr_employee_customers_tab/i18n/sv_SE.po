@@ -30,6 +30,6 @@ msgstr "Anställd"
 #. module: hr_employee_customers_tab
 #: model:ir.model.fields,field_description:hr_employee_customers_tab.field_hr_employee__sale_partner_ids
 #: model_terms:ir.ui.view,arch_db:hr_employee_customers_tab.my_customer_inherit_hr_view
-msgid "My Customers"
-msgstr "Mina kunder"
+msgid "Assigned Customers"
+msgstr "Tilldelade kunder"
 
