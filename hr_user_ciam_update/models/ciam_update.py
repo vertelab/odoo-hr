@@ -2,6 +2,8 @@ import json
 from odoo import models, fields, api, _
 from odoo.exceptions import Warning, AccessError
 import logging
+import random
+import string
 
 _logger = logging.getLogger(__name__)
 
@@ -33,8 +35,13 @@ class CIAMUpdate(models.TransientModel):
                 'username': self.employee_id.user_id.login,
                 'status': '1'
             }
-            if ciam_id.environment != "PROD":
-                data['password'] = "AccTest09"
+
+            if not self.env['ir.config_parameter'].sudo().get_param('dafa.no_ciam_pw'):
+                # Generate a password
+                letters = string.ascii_lowercase
+                temp_pass = ''.join(random.choice(letters) for i in range(12))
+                data['password'] = temp_pass + "21"
+
             response = ciam_id.user_add(data)
 
             # Log this change
