@@ -21,9 +21,9 @@ class CIAMUpdate(models.TransientModel):
                 break
         if not granted:
             raise AccessError(_("You are not allowed to sync users to CIAM."))
-        if not employee_id.user_id:
+        if not self.employee_id.user_id:
             raise Warning(_("The employee has no user information. Please assign user groups."))
-        ciam_id = self.env['ciam.client.config'].search([], limit=1)
+        ciam_id = self.env['ciam.client.config'].sudo().search([], limit=1)
         if ciam_id:
             data = {
                 'personNr': self.employee_id.ssnid,
@@ -31,8 +31,6 @@ class CIAMUpdate(models.TransientModel):
                 'lastName': self.employee_id.lastname,
                 'eMail': self.employee_id.user_id.email,
                 'username': self.employee_id.user_id.login,
-                #'password': self.employee_id.user_id.password, # Password login not allowed
-                #'customerNr': self.employee_id., #not implemented yet
                 'status': '1'
             }
             response = ciam_id.user_add(data)
@@ -42,7 +40,7 @@ class CIAMUpdate(models.TransientModel):
                 user = self.env.user
                 groups = self.env['res.groups'].search([('users', '=', user.id)])
 
-                data['password'] = "<removed>" # hide password before loggings
+                data['password'] = "<removed>" # hide password before logging
 
                 data_additional = {
                     "user": user.login,
@@ -65,11 +63,13 @@ class CIAMUpdate(models.TransientModel):
                     user_error = "%s" % res_dict.get('status').get('message')
                 else: 
                     user_error = "Error, no status message available"
+
+            legacy_no = self.env['ir.config_parameter'].sudo().get_param('dafa.legacy_no')
+            if not legacy_no:
+                raise Warning("No dafa.legacy_no in system parameters.")
             data = {
-                # TODO: custId looks to be correct.
-                # Fetch it from system parameter, not res.partner
-                'customerNr': self.employee_id.address_id.legacy_no
-                #'custId': self.employee_id.address_id.legacy_no
+                'customerNr': legacy_no,
+                'exactMatch': 'true', #do not search for partial matches
             }
             response = ciam_id.customer_get(data)
             res_dict = json.loads(response)
