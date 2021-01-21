@@ -33,6 +33,8 @@ class CIAMUpdate(models.TransientModel):
                 'username': self.employee_id.user_id.login,
                 'status': '1'
             }
+            if ciam_id.environment != "PROD":
+                data['password'] = "AccTest09"
             response = ciam_id.user_add(data)
 
             # Log this change
