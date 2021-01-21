@@ -89,7 +89,7 @@ class ClientConfig(models.Model):
             raise Warning(_("Failed to load server response")) 
 
         
-        self.env['request.history'].create(values)
+        self.env['request.history'].sudo().create(values)
 
     def get_headers(self):
         tracking_id = pycompat.text_type(uuid.uuid1())
