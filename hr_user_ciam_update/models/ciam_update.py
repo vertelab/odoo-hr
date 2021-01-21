@@ -1,6 +1,6 @@
 import json
 from odoo import models, fields, api, _
-from odoo.exceptions import Warning
+from odoo.exceptions import Warning, AccessError
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -12,18 +12,29 @@ class CIAMUpdate(models.TransientModel):
     employee_id = fields.Many2one('hr.employee', default=lambda self: self.env.context.get('active_id'))
 
     def action_update_ciam(self):
+        granted = False
+        for group in ('base.group_system',
+                      'base_user_groups_dafa.group_dafa_org_admin_write',
+                      'base_user_groups_dafa.group_dafa_employees_write'):
+            if self.env.user.has_group(group):
+                granted = True
+                break
+        if not granted:
+            raise AccessError(_("You are not allowed to sync users to CIAM."))
+        if not employee_id.user_id:
+            raise Warning(_("The employee has no user information. Please assign user groups."))
         ciam_id = self.env['ciam.client.config'].search([], limit=1)
         if ciam_id:
             data = {
-                'personNr': self.employee_id.ssnid if self.employee_id.ssnid else "197001011234",
+                'personNr': self.employee_id.ssnid,
                 'firstName': self.employee_id.firstname,
                 'lastName': self.employee_id.lastname,
                 'eMail': self.employee_id.user_id.email,
                 'username': self.employee_id.user_id.login,
-                'password': self.employee_id.user_id.password if self.employee_id.user_id.password else "Acctest09",
+                #'password': self.employee_id.user_id.password, # Password login not allowed
                 #'customerNr': self.employee_id., #not implemented yet
                 'status': '1'
-                }
+            }
             response = ciam_id.user_add(data)
 
             # Log this change
@@ -55,7 +66,10 @@ class CIAMUpdate(models.TransientModel):
                 else: 
                     user_error = "Error, no status message available"
             data = {
+                # TODO: custId looks to be correct.
+                # Fetch it from system parameter, not res.partner
                 'customerNr': self.employee_id.address_id.legacy_no
+                #'custId': self.employee_id.address_id.legacy_no
             }
             response = ciam_id.customer_get(data)
             res_dict = json.loads(response)
