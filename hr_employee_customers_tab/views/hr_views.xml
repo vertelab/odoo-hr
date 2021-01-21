@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
-                <page name="my_customers" string="My Customers">
+                <page name="my_customers" string="Assigned Customers">
                     <group>
                         <field name="sale_partner_ids" nolabel="1">
                             <tree>
