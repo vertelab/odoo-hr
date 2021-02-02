@@ -46,7 +46,7 @@ class ClientConfig(models.Model):
                             required=True)
     environment = fields.Selection(selection=[('U1', 'U1'),
                                               ('I1', 'I1'),
-                                              ('T1', 'IT'),
+                                              ('T1', 'T1'),
                                               ('T2', 'T2'),
                                               ('PROD', 'PROD'), ],
                                    string='Environment',
