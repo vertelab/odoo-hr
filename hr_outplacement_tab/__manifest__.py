@@ -1,9 +1,9 @@
 {
-    "name": "HR Jobseekers Tab",
+    "name": "HR Outplacement Tab",
     "version": "12.0.0.0",
     "author": "Vertel AB",
     "description": """
-        This module adds a tab with "My customers" on the "HR-employee"-form.\n
+        This module adds a tab with "Assigned outplacements" on the "HR-employee"-form.\n
     """,
     "license": "AGPL-3",
     "website": "https://vertel.se/",
@@ -15,6 +15,5 @@
         'views/hr_views.xml',
     ],
     "application": False,
-    "installable": False,
+    "installable": True,
 }
-
