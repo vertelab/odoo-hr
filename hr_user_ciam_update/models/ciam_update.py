@@ -40,13 +40,13 @@ class CIAMUpdate(models.TransientModel):
         legacy_no = self.env["ir.config_parameter"].sudo().get_param("dafa.legacy_no")
         if not legacy_no:
             raise Warning(_("No dafa.legacy_no in system parameters."))
-        ciam_id = self.env["ciam.client.config"].sudo().search([], limit=1)
-        if ciam_id:
+        ciam_client = self.env["ciam.client.config"].sudo().search([], limit=1)
+        if ciam_client:
             # search for user in CIAM
             user_get_data = {
                 "username": self.employee_id.user_id.login,
             }
-            user_get_response = ciam_id.user_get(user_get_data)
+            user_get_response = ciam_client.user_get(user_get_data)
             user_get_res_dict = json.loads(user_get_response)
             user_get_response_code = user_get_res_dict.get("status", {}).get("code")
             if not user_get_response_code in (
@@ -80,7 +80,7 @@ class CIAMUpdate(models.TransientModel):
                 user_id = user_get_data.get("userId")
                 user_data["userId"] = user_id
                 # read response from update
-                response = ciam_id.user_update(user_data)
+                response = ciam_client.user_update(user_data)
                 res_dict = json.loads(response)
                 status_code = res_dict.get("status", {}).get("code")
                 if not status_code == 0:
@@ -90,7 +90,7 @@ class CIAMUpdate(models.TransientModel):
                         user_error = _("Error, no status message available")
             else:  # user_get_response_code == CIAM_STATUS_OBJECT_NOT_FOUND
                 # User does not exists in CIAM, create it.
-                response = ciam_id.user_add(user_data)
+                response = ciam_client.user_add(user_data)
                 # read response from create
                 res_dict = json.loads(response)
                 data = res_dict.get("data")
@@ -123,7 +123,7 @@ class CIAMUpdate(models.TransientModel):
                 "customerNr": legacy_no,
                 "exactMatch": "true",  # do not search for partial matches
             }
-            response = ciam_id.customer_get(data)
+            response = ciam_client.customer_get(data)
             res_dict = json.loads(response)
             data = res_dict.get("data")
             cust_id = False
@@ -140,13 +140,13 @@ class CIAMUpdate(models.TransientModel):
             # assign roles in CIAM
             if cust_id and user_id:
                 data = {"userId": user_id, "custId": cust_id, "roleName": "DAFA_COACH"}
-                ciam_id.role_assign(data)
+                ciam_client.role_assign(data)
                 # if user is Admin org (write), give them extra role in CIAM
                 if self.employee_id.user_id.has_group(
                     "base_user_groups_dafa.group_dafa_org_admin_write"
                 ):
                     data["roleName"] = "DAFA_SUPER_ADMIN"
-                    ciam_id.role_assign(data)
+                    ciam_client.role_assign(data)
             else:
                 error = "%s %s" % (user_error, cust_error)
                 raise Warning(error)
