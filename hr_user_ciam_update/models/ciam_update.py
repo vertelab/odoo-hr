@@ -39,24 +39,14 @@ class CIAMUpdate(models.TransientModel):
             raise Warning(_("The employee has no social security number."))
         legacy_no = self.env["ir.config_parameter"].sudo().get_param("dafa.legacy_no")
         if not legacy_no:
-<<<<<<< HEAD
             raise Warning(_("No dafa.legacy_no in system parameters."))
         ciam_client = self.env["ciam.client.config"].sudo().search([], limit=1)
         if ciam_client:
-=======
-            raise Warning("No dafa.legacy_no in system parameters.")
-        ciam_id = self.env["ciam.client.config"].sudo().search([], limit=1)
-        if ciam_id:
->>>>>>> bbb0f444c7dbbac720d093d8ef502cc537cece54
             # search for user in CIAM
             user_get_data = {
                 "username": self.employee_id.user_id.login,
             }
-<<<<<<< HEAD
             user_get_response = ciam_client.user_get(user_get_data)
-=======
-            user_get_response = ciam_id.user_get(user_get_data)
->>>>>>> bbb0f444c7dbbac720d093d8ef502cc537cece54
             user_get_res_dict = json.loads(user_get_response)
             user_get_response_code = user_get_res_dict.get("status", {}).get("code")
             if not user_get_response_code in (
@@ -64,11 +54,7 @@ class CIAMUpdate(models.TransientModel):
                 CIAM_STATUS_OBJECT_NOT_FOUND,
             ):
                 raise Warning(
-<<<<<<< HEAD
                     _("Error in communication with CIAM. Answer: %s") % user_get_res_dict
-=======
-                    "Error in communication with CIAM. Answer: %s" % user_get_res_dict
->>>>>>> bbb0f444c7dbbac720d093d8ef502cc537cece54
                 )
 
             user_data = {
@@ -94,28 +80,17 @@ class CIAMUpdate(models.TransientModel):
                 user_id = user_get_data.get("userId")
                 user_data["userId"] = user_id
                 # read response from update
-<<<<<<< HEAD
                 response = ciam_client.user_update(user_data)
-=======
-                response = ciam_id.user_update(user_data)
->>>>>>> bbb0f444c7dbbac720d093d8ef502cc537cece54
                 res_dict = json.loads(response)
                 status_code = res_dict.get("status", {}).get("code")
                 if not status_code == 0:
                     if status_code:
                         user_error = "%s" % res_dict.get("status").get("message")
                     else:
-<<<<<<< HEAD
                         user_error = _("Error, no status message available")
             else:  # user_get_response_code == CIAM_STATUS_OBJECT_NOT_FOUND
                 # User does not exists in CIAM, create it.
                 response = ciam_client.user_add(user_data)
-=======
-                        user_error = "Error, no status message available"
-            else:  # user_get_response_code == CIAM_STATUS_OBJECT_NOT_FOUND
-                # User does not exists in CIAM, create it.
-                response = ciam_id.user_add(user_data)
->>>>>>> bbb0f444c7dbbac720d093d8ef502cc537cece54
                 # read response from create
                 res_dict = json.loads(response)
                 data = res_dict.get("data")
@@ -128,11 +103,7 @@ class CIAMUpdate(models.TransientModel):
                     if status:
                         user_error = "%s" % res_dict.get("status").get("message")
                     else:
-<<<<<<< HEAD
                         user_error = _("Error, no status message available")
-=======
-                        user_error = "Error, no status message available"
->>>>>>> bbb0f444c7dbbac720d093d8ef502cc537cece54
 
             # Log this change
             try:
@@ -164,30 +135,18 @@ class CIAMUpdate(models.TransientModel):
                 if status:
                     cust_error = "%s" % res_dict.get("status").get("message")
                 else:
-<<<<<<< HEAD
                     cust_error = _("Error, no status message available")
-=======
-                    cust_error = "Error, no status message available"
->>>>>>> bbb0f444c7dbbac720d093d8ef502cc537cece54
 
             # assign roles in CIAM
             if cust_id and user_id:
                 data = {"userId": user_id, "custId": cust_id, "roleName": "DAFA_COACH"}
-<<<<<<< HEAD
                 ciam_client.role_assign(data)
-=======
-                ciam_id.role_assign(data)
->>>>>>> bbb0f444c7dbbac720d093d8ef502cc537cece54
                 # if user is Admin org (write), give them extra role in CIAM
                 if self.employee_id.user_id.has_group(
                     "base_user_groups_dafa.group_dafa_org_admin_write"
                 ):
                     data["roleName"] = "DAFA_SUPER_ADMIN"
-<<<<<<< HEAD
                     ciam_client.role_assign(data)
-=======
-                    ciam_id.role_assign(data)
->>>>>>> bbb0f444c7dbbac720d093d8ef502cc537cece54
             else:
                 error = "%s %s" % (user_error, cust_error)
                 raise Warning(error)
