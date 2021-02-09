@@ -12,7 +12,6 @@
         "hr_employee_firstname_extension",
         "partner_legacy_id",
         "hr_employee_ssn",
-        "auth_saml_ol",
     ],
     "data": ["views/hr_employee_view.xml"],
     "installable": True,
