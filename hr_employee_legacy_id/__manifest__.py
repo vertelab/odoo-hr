@@ -12,6 +12,7 @@
     'license': 'AGPL-3',
     'depends': [
         'hr',
+        'outplacement_dafa'
     ],
     'data': [
         'views/hr_view.xml',

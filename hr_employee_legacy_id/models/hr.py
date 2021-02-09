@@ -19,10 +19,17 @@
 #
 #
 
-from odoo import fields, models
+from odoo import fields, models, api
 
 
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    legacy_no = fields.Char('Legacy ID')
+    legacy_no = fields.Char('Legacy ID', compute="_compute_legacy_no")
+
+    @api.one
+    def _compute_legacy_no(self):
+        ka_nrs = []
+        for po in self.performing_operation_ids:
+            ka_nrs.append(po.ka_nr)
+        self.legacy_no = " ".join(ka_nrs)
