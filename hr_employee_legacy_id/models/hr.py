@@ -31,5 +31,5 @@ class HrEmployee(models.Model):
     def _compute_legacy_no(self):
         ka_nrs = []
         for po in self.performing_operation_ids:
-            ka_nrs.append(po.ka_nr)
+            ka_nrs.append(str(po.ka_nr))
         self.legacy_no = " ".join(ka_nrs)
