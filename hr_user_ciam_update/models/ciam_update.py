@@ -8,7 +8,7 @@ import string
 _logger = logging.getLogger(__name__)
 
 CIAM_STATUS_OK = 0
-CIAM_STATUS_OBJECT_NOT_FOUND = -3
+CIAM_STATUS_OBJECT_NOT_FOUND = '-3'
 
 
 class CIAMUpdate(models.TransientModel):
@@ -48,7 +48,7 @@ class CIAMUpdate(models.TransientModel):
             }
             user_get_response = ciam_client.user_get(user_get_data)
             user_get_res_dict = json.loads(user_get_response)
-            user_get_response_code = user_get_res_dict.get("status", {}).get("code")
+            user_get_response_code = user_get_res_dict.get("status", user_get_res_dict.get("cause", {})).get("code")
             if not user_get_response_code in (
                 CIAM_STATUS_OK,
                 CIAM_STATUS_OBJECT_NOT_FOUND,
