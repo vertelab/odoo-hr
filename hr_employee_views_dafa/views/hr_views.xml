@@ -78,7 +78,6 @@
                <attribute name="invisible">1</attribute>
            </xpath>
 
-
            <!-- Tillagda ändringar (fält) -->
            <field name="user_groups" position="after">
                <field name="user_id" string="Related User" groups="base.group_erp_manager" />
@@ -99,4 +98,13 @@
         </field>
     </record>
 
+    <record id="view_employee_skill_hide_fields_form" model="ir.ui.view">
+        <field name="name">hr.employee.skill.hide.fields.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_skill.view_employee_skill_form"/>
+        <field name="arch" type="xml">
+            <field name="level" position="attributes"/>
+                <attribute name="invisible">1</attribute>
+            </field>
+    </record>
 </odoo>
