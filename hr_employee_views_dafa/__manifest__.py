@@ -2,12 +2,12 @@
     'name': 'HR Employee views',
     'version': '12.0.0.1.1',
     'category': 'Human Resources',
-    'summary': 'Hide some fields from Employee view and added smart button to show emplyee is present or not.',
-    'description': 'Hide some fields from Employee view and added smart button to show emplyee is present or not.',
+    'summary': 'Hide some fields from Employee',
+    'description': 'Hide some fields from Employee view',
     'author': 'Vertel AB',
     'website': 'https://vertel.se',
     'depends': [
-        'hr', 'hr_holidays', 'auth_user_rights_wizard', 'hr_skill'
+        'hr', 'hr_skill', 'auth_user_rights_wizard'
     ],
     'data': [
         'views/hr_views.xml',
