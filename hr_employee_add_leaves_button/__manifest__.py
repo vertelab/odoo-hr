@@ -1,13 +1,13 @@
 {
-    'name': 'HR Employee views',
+    'name': 'HR Employee add leaves button',
     'version': '12.0.0.1.1',
     'category': 'Human Resources',
-    'summary': 'Hide some fields from Employee',
-    'description': 'Hide some fields from Employee view',
+    'summary': 'added smart button to show emplyee is present or not.',
+    'description': 'added smart button to show emplyee is present or not.',
     'author': 'Vertel AB',
     'website': 'https://vertel.se',
     'depends': [
-        'hr', 'hr_skill', 'auth_user_rights_wizard'
+        'hr_holidays',
     ],
     'data': [
         'views/hr_views.xml',
