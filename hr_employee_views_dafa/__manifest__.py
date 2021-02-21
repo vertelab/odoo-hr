@@ -7,7 +7,7 @@
     'author': 'Vertel AB',
     'website': 'https://vertel.se',
     'depends': [
-        'hr', 'hr_skill', 'auth_user_rights_wizard'
+        'hr', 'hr_skill'
     ],
     'data': [
         'views/hr_views.xml',
