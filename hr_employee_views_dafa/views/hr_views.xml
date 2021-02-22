@@ -71,9 +71,6 @@
            </xpath>
 
            <!-- Tillagda ändringar (fält) -->
-           <field name="user_groups" position="after">
-               <field name="user_id" string="Related User" groups="base.group_erp_manager" />
-           </field>
 
            <field name="department_id" position="after">
                <field name="address_id" context="{'show_address': 1}" 
@@ -95,8 +92,9 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr_skill.view_employee_skill_form"/>
         <field name="arch" type="xml">
-            <field name="level" position="attributes"/>
+            <field name="level" position="attributes">
                 <attribute name="invisible">1</attribute>
             </field>
+        </field>
     </record>
 </odoo>
