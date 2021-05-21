@@ -65,11 +65,11 @@
             <sheet>
                 <group>
                     <group>
-                        <field name="name"/>
-                        <field name="operation_code"/>
+                        <field name="name" readonly="1"/>
+                        <field name="operation_code"  readonly="1"/>
                         <field name="workplace_number"/>
                         <field name="location_code"/>
-                        <field name="department_id"/>
+                        <field name="department_id" readonly="1"/>
                     </group>
                     <group>
                         <field name="visitation_address_street"/>
