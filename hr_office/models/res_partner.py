@@ -89,6 +89,8 @@ class ResUsers(models.Model):
             self.office_codes = ""
 
 
+
+
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
@@ -125,6 +127,15 @@ class HrEmployee(models.Model):
         res = super(HrEmployee, self).write(vals)
         if "department_id" in vals:
             self.update_office_ids()
+
+        if "0248" in self.office_codes and not self.user_id.has_group(''):
+            self.user_id.write({
+                'group_ids': [(4, 'af_security.af_meeting_planner_PDM', 0)]
+            })
+        elif "0248" not in self.office_codes and self.user_id.has_group(''):
+            self.user_id.write({
+                'group_ids': [(3, 'af_security.af_meeting_planner_PDM', 0)]
+            })
         return vals
 
     @api.model_create_multi
