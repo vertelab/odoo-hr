@@ -128,11 +128,11 @@ class HrEmployee(models.Model):
         if "department_id" in vals:
             self.update_office_ids()
 
-        if "0248" in self.office_codes and not self.user_id.has_group(''):
+        if "0248" in self.office_codes and not self.user_id.has_group('af_security.af_meeting_planner_PDM'):
             self.user_id.write({
                 'group_ids': [(4, 'af_security.af_meeting_planner_PDM', 0)]
             })
-        elif "0248" not in self.office_codes and self.user_id.has_group(''):
+        elif "0248" not in self.office_codes and self.user_id.has_group('af_security.af_meeting_planner_PDM'):
             self.user_id.write({
                 'group_ids': [(3, 'af_security.af_meeting_planner_PDM', 0)]
             })
