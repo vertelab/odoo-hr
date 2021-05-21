@@ -131,6 +131,14 @@ class HrEmployee(models.Model):
         return vals
 
     @api.multi
+    def create(self, vals):
+        res = super(HrEmployee, self).create(vals)
+        res.compute_office_codes()
+        res.compute_operation_names()
+        res.compute_is_pdm_planner()
+        return res
+
+    @api.multi
     def compute_operation_names(self):
         for rec in self:
             operation_names = []
