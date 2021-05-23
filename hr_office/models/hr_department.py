@@ -20,6 +20,7 @@
 ##############################################################################
 
 from odoo import models, fields, api, _
+from odoo.exceptions import AccessError
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -81,9 +82,36 @@ class HrOperation(models.Model):
     employee_ids = fields.Many2many(
         string="Employees",
         comodel_name="hr.employee",
-        related="department_id.employee_ids",
+        compute='_compute_employee_ids',
+        inverse='_write_employee_ids',
+        search='_search_employee_ids'
     )
 
+    def _compute_employee_ids(self):
+        """ This should be a related field, but we want users to be
+        able to write to it without having the necessary CRUD."""
+        for record in self:
+            if record.department_id:
+                record.employee_ids = record.department_id.employee_ids
+
+    def _search_employee_ids(self, op, value):
+        return [('department_id.employee_ids', op, value)]
+
+    def _write_employee_ids(self):
+        """Write to employee_ids. We implement a custom security check and write with sudo."""
+        for record in self:
+            if not record.department_id:
+                continue
+            if not record._check_employee_ids_access():
+                raise AccessError(_("You are not allowed to handle employees for this office."))
+            record.sudo().department_id.employee_ids = record.employee_ids
+
+    def _check_employee_ids_access(self):
+        """Perform a security check before writing to employee_ids. The
+        default check mimics standard access rights and rules."""
+        if self.has_group('base.group_system'):
+            return True
+        return self.department_id.check_access_rights('write') and self.department_id.check_access_rule('write')
 
 class HrLocation(models.Model):
     _name = "hr.location"

@@ -166,13 +166,15 @@ class HrEmployee(models.Model):
 
     @api.multi
     def compute_is_pdm_planner(self):
+        # TODO: Solve these dependency issues (the groups are from af_security).
+        #  They shouldn't be relevant in our use case, but its ugly and risky.
         for rec in self:
-            _logger.info("office_codes %s" % rec.office_codes)
-            if "0248" in rec.office_codes and not rec.user_id.has_group('af_security.af_meeting_planner_PDM'):
-                rec.user_id.write({
-                    'groups_id': [(4, self.env.ref('af_security.af_meeting_planner_PDM').id, 0)]
-                })
-            elif "0248" not in rec.office_codes and rec.user_id.has_group('af_security.af_meeting_planner_PDM'):
+            if rec.user_id.has_group("af_security.af_meeting_planner") and ("0248" in rec.office_codes):
+                if rec.user_id.has_group('af_security.af_meeting_planner_PDM'):
+                    rec.user_id.write({
+                        'groups_id': [(4, self.env.ref('af_security.af_meeting_planner_PDM').id, 0)]
+                    })
+            elif rec.user_id.has_group('af_security.af_meeting_planner_PDM'):
                 rec.user_id.write({
                     'groups_id': [(3, self.env.ref('af_security.af_meeting_planner_PDM').id, 0)]
                 })

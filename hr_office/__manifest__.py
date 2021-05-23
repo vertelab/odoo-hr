@@ -1,12 +1,13 @@
 {
     'name': 'HR Department offices',
-    'version': '12.0.0.3.1',
+    'version': '12.0.0.4.0',
     'category': 'Human resources',
       "description": """
-    Offices
-    v12.0.0.2 views \n
-    v12.0.0.3 added group_no_one to menues to hide them from internal users \n
-    v12.0.0.3.1 AFC-2334: made a few fields readonly. \n
+Offices
+v12.0.0.2 views \n
+v12.0.0.3 added group_no_one to menues to hide them from internal users \n
+v12.0.0.3.1 AFC-2334: made a few fields readonly. \n
+v12.0.0.4.0 AFC-2298: Fixed access rights issues.
     """,
     'author': 'Vertel AB',
     'license': 'AGPL-3',
