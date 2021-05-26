@@ -121,14 +121,16 @@ class HrEmployee(models.Model):
 
     @api.multi
     def write(self, vals):
-        for rec in self:
-            res = super(HrEmployee, rec).write(vals)
-            if "department_id" in vals:
-                rec.update_office_ids()
-            rec.compute_office_codes()
-            rec.compute_operation_names()
-            rec.compute_is_pdm_planner()
-        return vals
+        res = super(HrEmployee, self).write(vals)
+        context = self.env.context
+        if not context.get('hr_office_write_two'):
+            for rec in self.with_context({'hr_office_write_two': True}):
+                if "department_id" in vals:
+                    rec.update_office_ids()
+                rec.compute_office_codes()
+                rec.compute_operation_names()
+                rec.compute_is_pdm_planner()
+        return res
 
     @api.multi
     def create(self, vals):
