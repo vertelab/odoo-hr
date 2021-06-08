@@ -116,7 +116,7 @@ msgstr "Senast uppdaterad"
 #. module: hr_office
 #: model:ir.model.fields,field_description:hr_office.field_hr_operation__location_id
 msgid "Location"
-msgstr "Plats"
+msgstr "Lokalkontor "
 
 #. module: hr_office
 #: model:ir.model.fields,field_description:hr_office.field_hr_location__location_code
