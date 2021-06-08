@@ -1,0 +1,17 @@
+<odoo>
+    <data>
+        <record id="res_partner_department_form_view" model="ir.ui.view">
+            <field name="name">res.partner.partner</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="category_id" position="after">
+                    <field name="department_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Department..."/>
+                </field>
+                <xpath expr="//form/sheet/notebook/page/field[@name='child_ids']/form/sheet/group/group[2]/field[@name='comment']" position="after">
+                    <field name="department_id" widget="many2many_tags" options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Department..."/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_employee_leave_button_fields_form" model="ir.ui.view">
+        <field name="name">hr.employee.leave.button.fields.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button">
+                    <field name="present" widget="statinfo" string="Present" invisible="1"/>
+                    <span style="margin-left:10px;" attrs="{'invisible': [('present', '=', False)]}">  Present</span>
+                    <span style="margin-left:10px;" attrs="{'invisible': [('present', '=', True)]}">  Away</span>
+               </button>
+           </xpath>
+
+           <field name="user_groups" position="after">
+               <field name="user_id" string="Related User" groups="base.group_erp_manager" />
+           </field>
+
+    </record>
+
+</odoo>

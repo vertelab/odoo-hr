@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+       <record id="view_employee_add_user_credential_fields_form" model="ir.ui.view">
+        <field name="name">hr.employee.add.user.credential.fields.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page name="user_credential_tab" string="User Credentials"
+                 attrs="{'invisible': [('user_id', '=', False)]}">
+                    <group>
+                        <field name="groups_id"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

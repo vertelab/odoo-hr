@@ -18,17 +18,139 @@
         </field>
     </record>
 
-    <menuitem id="department_af_office_menu" name="AF Office" action="af_office_department_action" sequence="74"
-              groups="base.group_no_one"/>
+    <record id="view_department_form_office" model="ir.ui.view">
+        <field name="name">hr.department.form.inherit.office</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_form" />
+        <field name="arch" type="xml">
+            <sheet position="inside">
+                <field name="employee_ids"/>
+                <field name="operation_ids"/>
+            </sheet>
+
+            <field name="manager_id" position="after">
+                <field name="office_code"/>
+            </field>
+            <div class="oe_chatter" position="replace"/>
+        </field>
+    </record>
+    <record id="view_department_tree_office" model="ir.ui.view">
+        <field name="name">hr.department.tree.inherit.office</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_tree" />
+        <field name="arch" type="xml">
+            <field name="manager_id" position="after">
+                <field name="office_code"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_department_filter_office" model="ir.ui.view">
+        <field name="name">hr.department.select.inherit.office</field>
+        <field name="model">hr.department</field>
+        <field name="inherit_id" ref="hr.view_department_filter" />
+        <field name="arch" type="xml">
+            <field name="manager_id" position="after">
+                <field name="office_code"/>
+            </field>
+        </field>
+    </record>
+
+        <record id="view_operation_form" model="ir.ui.view">
+        <field name="name">hr.operation.form</field>
+        <field name="model">hr.operation</field>
+        <field name="search_view_id" ref="hr.view_department_filter"/>
+        <field name="arch" type="xml">
+        <form string="operations">
+            <sheet>
+                <group>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="operation_code"  readonly="1"/>
+                        <field name="workplace_number"/>
+                        <field name="location_code"/>
+                        <field name="department_id" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="visitation_address_street"/>
+                        <field name="visitation_address_city"/>
+                        <field name="visitation_address_zip"/>
+                    </group>
+                </group>                 
+            </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="view_operation_tree" model="ir.ui.view">
+        <field name="name">hr.operation.tree</field>
+        <field name="model">hr.operation</field>
+        <field name="search_view_id" ref="hr.view_department_filter"/>
+        <field name="arch" type="xml">
+            <tree string="operations">
+                <field name="name"/>
+                <field name="operation_code"/>
+                <field name="location_code"/>
+                <field name="workplace_number"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_operation_filter" model="ir.ui.view">
+        <field name="name">hr.operation.select</field>
+        <field name="model">hr.operation</field>
+        <field name="arch" type="xml">
+            <search string="Operations">
+                <field name="name"/>
+                <field name="operation_code"/>
+                <field name="location_code"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_operation" model="ir.actions.act_window">
+        <field name="name">Operations</field>
+        <field name="res_model">hr.operation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_operation_tree" />
+    </record>
+
+    <record id="action_view_operation_tree" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_operation" />
+        <field name="sequence" eval="1" />
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_operation_tree" />
+    </record>
+
+    <record id="action_view_operation_form" model="ir.actions.act_window.view">
+        <field name="act_window_id" ref="action_operation" />
+        <field name="sequence" eval="2" />
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_operation_form" />
+    </record>
+
+    <menuitem id="operation_menu" name="Operations" sequence="8" action="action_operation" groups="base.group_no_one"/>
 
     <record id="view_location_form" model="ir.ui.view">
         <field name="name">hr.location.form</field>
         <field name="model">hr.location</field>
+        <field name="search_view_id" ref="hr.view_department_filter"/>
         <field name="arch" type="xml">
         <form string="Locations">
-            <field name="name"/>
-            <field name="location_code"/>
-            <field name="workplace_number"/>
+            <sheet>
+                <group>
+                    <group>
+                        <field name="name"/>
+                        <field name="location_code"/>
+                        <field name="workplace_number"/>
+                    </group>
+                    <group>
+                        <field name="visitation_address_street"/>
+                        <field name="visitation_address_city"/>
+                        <field name="visitation_address_zip"/>
+                    </group>
+                </group>
+            </sheet>
         </form>
         </field>
     </record>
@@ -36,12 +158,24 @@
     <record id="view_location_tree" model="ir.ui.view">
         <field name="name">hr.location.tree</field>
         <field name="model">hr.location</field>
+        <field name="search_view_id" ref="hr.view_department_filter"/>
         <field name="arch" type="xml">
             <tree string="Locations">
                 <field name="name"/>
                 <field name="location_code"/>
                 <field name="workplace_number"/>
             </tree>
+        </field>
+    </record>
+
+    <record id="view_location_filter" model="ir.ui.view">
+        <field name="name">hr.location.select</field>
+        <field name="model">hr.location</field>
+        <field name="arch" type="xml">
+            <search string="Locations">
+                <field name="name"/>
+                <field name="location_code"/>
+            </search>
         </field>
     </record>
 
@@ -66,7 +200,7 @@
         <field name="view_id" ref="view_location_form" />
     </record>
 
-    <menuitem id="location_menu" name="locations" sequence="8" action="action_location" groups="base.group_no_one"/>
+    <menuitem id="location_menu" name="Locations" action="action_location" parent="hr_office.operation_menu" groups="base.group_no_one"/>
 
 </odoo> 
 

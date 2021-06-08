@@ -1,0 +1,82 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* hr_user_ciam_update
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0-20201022\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-01-14 16:03+0000\n"
+"PO-Revision-Date: 2021-01-14 16:03+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_user_ciam_update
+#: model_terms:ir.ui.view,arch_db:hr_user_ciam_update.view_hr_user_ciam_wizard
+msgid "CIAM Update"
+msgstr ""
+
+#. module: hr_user_ciam_update
+#: model_terms:ir.ui.view,arch_db:hr_user_ciam_update.view_hr_user_ciam_wizard
+msgid "Cancel"
+msgstr "Avbryt"
+
+#. module: hr_user_ciam_update
+#: model:ir.model.fields,field_description:hr_user_ciam_update.field_hr_employee_user_ciam__create_uid
+msgid "Created by"
+msgstr "Skapad av"
+
+#. module: hr_user_ciam_update
+#: model:ir.model.fields,field_description:hr_user_ciam_update.field_hr_employee_user_ciam__create_date
+msgid "Created on"
+msgstr "Skapad den"
+
+#. module: hr_user_ciam_update
+#: model:ir.model.fields,field_description:hr_user_ciam_update.field_hr_employee_user_ciam__display_name
+msgid "Display Name"
+msgstr "Visningsnamn"
+
+#. module: hr_user_ciam_update
+#: model:ir.model.fields,field_description:hr_user_ciam_update.field_hr_employee_user_ciam__employee_id
+msgid "Employee"
+msgstr "Anställd"
+
+#. module: hr_user_ciam_update
+#: model:ir.model.fields,field_description:hr_user_ciam_update.field_hr_employee_user_ciam__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_user_ciam_update
+#: model:ir.model.fields,field_description:hr_user_ciam_update.field_hr_employee_user_ciam____last_update
+msgid "Last Modified on"
+msgstr "Senast redigerad"
+
+#. module: hr_user_ciam_update
+#: model:ir.model.fields,field_description:hr_user_ciam_update.field_hr_employee_user_ciam__write_uid
+msgid "Last Updated by"
+msgstr "Senast uppdaterad av"
+
+#. module: hr_user_ciam_update
+#: model:ir.model.fields,field_description:hr_user_ciam_update.field_hr_employee_user_ciam__write_date
+msgid "Last Updated on"
+msgstr "Senast uppdaterad"
+
+#. module: hr_user_ciam_update
+#: model_terms:ir.ui.view,arch_db:hr_user_ciam_update.view_hr_user_ciam_wizard
+msgid "Update"
+msgstr "Uppdatera"
+
+#. module: hr_user_ciam_update
+#: model:ir.actions.act_window,name:hr_user_ciam_update.hr_employee_action_user_ciam
+msgid "Update CIAM for User"
+msgstr "Uppdatera CIAM för användare"
+
+#. module: hr_user_ciam_update
+#: model:ir.model,name:hr_user_ciam_update.model_hr_employee_user_ciam
+msgid "hr.employee.user.ciam"
+msgstr ""
+
