@@ -8,7 +8,7 @@
     "license": "AGPL-3",
     "website": "https://vertel.se/",
     "depends": [
-        'sale', 'hr'
+        'sale', 'hr', 'outplacement'
     ],
     "category": "HR",
     "data": [
