@@ -28,6 +28,7 @@ _logger = logging.getLogger(__name__)
 
 class IpfReportRequestHistory(models.Model):
     _name = 'ipf.report.request.history'
+    _description = "IPF Report Request History"
     _rec_name = 'url'
 
     config_id = fields.Many2one('ipf.report.client.config',

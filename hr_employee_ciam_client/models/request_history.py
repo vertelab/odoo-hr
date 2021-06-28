@@ -21,6 +21,7 @@
 ################################################################################
 
 import logging
+
 from odoo import api, http, models, tools, SUPERUSER_ID, fields
 
 _logger = logging.getLogger(__name__)
@@ -28,6 +29,7 @@ _logger = logging.getLogger(__name__)
 
 class RequestHistory(models.Model):
     _name = 'request.history'
+    _description = "Request History"
     _rec_name = 'url'
 
     config_id = fields.Many2one('ciam.client.config',

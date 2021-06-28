@@ -28,7 +28,7 @@
     'author': 'Vertel AB',
     'license': 'AGPL-3',
     'website': 'http://www.vertel.se',
-    'depends': ['hr', 'base', 'contacts'],
+    'depends': ['hr', 'contacts'],
     'data': [
         'views/hr_department_view.xml',
         'views/res_partner_view.xml',

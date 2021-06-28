@@ -20,19 +20,21 @@
 #
 ################################################################################
 
-from odoo.tools import pycompat
 import json
-import uuid
 import logging
 import requests
-from odoo import api, http, models, tools, SUPERUSER_ID, fields, _
+import uuid
 from odoo.exceptions import Warning
+from odoo.tools import pycompat
+
+from odoo import api, http, models, tools, SUPERUSER_ID, fields, _
 
 _logger = logging.getLogger(__name__)
 
 
 class ClientConfig(models.Model):
     _name = 'ciam.client.config'
+    _description = "Claim Client Config"
     _rec_name = 'url'
 
     url = fields.Char(string='Url',
@@ -86,9 +88,8 @@ class ClientConfig(models.Model):
             _logger.debug("response text: %s" % response.text)
             values.update(message=json.loads(response.text))
         except:
-            raise Warning(_("Failed to load server response")) 
+            raise Warning(_("Failed to load server response"))
 
-        
         self.env['request.history'].sudo().create(values)
 
     def get_headers(self):
@@ -118,17 +119,17 @@ class ClientConfig(models.Model):
         querystring = {
             "client_id": self.client_id,
             "client_secret": self.client_secret,
-            }
+        }
 
         client = {
             "clientId": self.client_id,
             "clientSecret": self.client_secret
-            }
+        }
 
         payload = {
             "client": client,
             "data": data
-            }
+        }
 
         url = self.get_url('user/get')
         response = self.request_call(method="POST",
@@ -141,41 +142,41 @@ class ClientConfig(models.Model):
         return response.text
 
     def test_user_add(self):
-        data = { #note that some value need to be unique so change them everytime you want to run a test
+        data = {  # note that some value need to be unique so change them everytime you want to run a test
             "personNr": "1955010127777",
             "firstName": "Test",
             "lastName": "Testson",
-            "eMail": "test@test12.se", #unique
-            "username": "test.testson.123", #unique
-            "password": "abc12321", 
-            "customerNr": "87654321", #unique, length of 8, not required
+            "eMail": "test@test12.se",  # unique
+            "username": "test.testson.123",  # unique
+            "password": "abc12321",
+            "customerNr": "87654321",  # unique, length of 8, not required
             "status": "1"
-            }
+        }
         return self.user_add(data)
 
     def user_add(self, data):
         querystring = {"client_secret": self.client_secret,
                        "client_id": self.client_id}
-        
-        client = {
-            "clientId": self.client_id,
-            "clientSecret": self.client_secret
-            }
-
-        payload = {
-            "client": client,
-            "data": data
-            }
 
         client = {
             "clientId": self.client_id,
             "clientSecret": self.client_secret
-            }
+        }
 
         payload = {
             "client": client,
             "data": data
-            }
+        }
+
+        client = {
+            "clientId": self.client_id,
+            "clientSecret": self.client_secret
+        }
+
+        payload = {
+            "client": client,
+            "data": data
+        }
 
         url = self.get_url('user/add')
         response = self.request_call(method="POST",
@@ -188,25 +189,24 @@ class ClientConfig(models.Model):
 
     def test_user_update(self):
         data = {'personNr': 1955010127777,
-                   'userId': 'Pelle',
-                   'personIdentifier': 'Svensson',
-                   'customerNr': 'pelle.svensson@bolaget.se', }
+                'userId': 'Pelle',
+                'personIdentifier': 'Svensson',
+                'customerNr': 'pelle.svensson@bolaget.se', }
         return self.user_update(data)
 
     def user_update(self, data):
         querystring = {"client_secret": self.client_secret,
                        "client_id": self.client_id}
-        
 
         client = {
             "clientId": self.client_id,
             "clientSecret": self.client_secret
-            }
+        }
 
         payload = {
             "client": client,
             "data": data
-            }
+        }
 
         url = self.get_url('user/update')
         response = self.request_call(method="POST",
@@ -219,24 +219,24 @@ class ClientConfig(models.Model):
 
     def test_user_delete(self):
         data = {'personNr': 1955010127777,
-                   'userId': 3243,
-                   'personIdentifier': '1232ffrr',
-                   'customerNr': 54545, }
+                'userId': 3243,
+                'personIdentifier': '1232ffrr',
+                'customerNr': 54545, }
         return self.user_delete(data)
 
     def user_delete(self, data):
         querystring = {"client_secret": self.client_secret,
                        "client_id": self.client_id}
-        
+
         client = {
             "clientId": self.client_id,
             "clientSecret": self.client_secret
-            }
+        }
 
         payload = {
             "client": client,
             "data": data
-            }
+        }
 
         url = self.get_url('user/delete')
         response = self.request_call(method="POST",
@@ -257,12 +257,12 @@ class ClientConfig(models.Model):
         client = {
             "clientId": self.client_id,
             "clientSecret": self.client_secret
-            }
+        }
 
         payload = {
             "client": client,
             "data": data
-            }
+        }
         url = self.get_url('user/requestDelete')
         response = self.request_call(method="POST",
                                      url=url,
@@ -285,16 +285,16 @@ class ClientConfig(models.Model):
 
         querystring = {"client_secret": self.client_secret,
                        "client_id": self.client_id}
-       
+
         client = {
             "clientId": self.client_id,
             "clientSecret": self.client_secret
-            }
+        }
 
         payload = {
             "client": client,
             "data": data
-            }
+        }
 
         url = self.get_url('role/assign')
         response = self.request_call(method="POST",
@@ -317,12 +317,12 @@ class ClientConfig(models.Model):
         client = {
             "clientId": self.client_id,
             "clientSecret": self.client_secret
-            }
+        }
 
         payload = {
             "client": client,
             "data": data
-            }
+        }
 
         url = self.get_url('role/listAssigned')
         response = self.request_call(method="POST",
@@ -335,7 +335,7 @@ class ClientConfig(models.Model):
 
     def test_role_listAvailable(self):
         data = {'userId': '3243',
-                   'orgId': 'c4c0b8c2-dccc-4580-b2f9-88b4aeb9bc06'}
+                'orgId': 'c4c0b8c2-dccc-4580-b2f9-88b4aeb9bc06'}
         return self.role_listAvailable(data)
 
     def role_listAvailable(self, data):
@@ -344,12 +344,12 @@ class ClientConfig(models.Model):
         client = {
             "clientId": self.client_id,
             "clientSecret": self.client_secret
-            }
+        }
 
         payload = {
             "client": client,
             "data": data
-            }
+        }
 
         url = self.get_url('role/listAvailable')
         response = self.request_call(method="POST",
@@ -372,16 +372,16 @@ class ClientConfig(models.Model):
     def role_revoke(self, data):
         querystring = {"client_secret": self.client_secret,
                        "client_id": self.client_id}
-        
+
         client = {
             "clientId": self.client_id,
             "clientSecret": self.client_secret
-            }
+        }
 
         payload = {
             "client": client,
             "data": data
-            }
+        }
         url = self.get_url('role/revoke')
         response = self.request_call(method="POST",
                                      url=url,
@@ -406,12 +406,12 @@ class ClientConfig(models.Model):
         client = {
             "clientId": self.client_id,
             "clientSecret": self.client_secret
-            }
+        }
 
         payload = {
             "client": client,
             "data": data
-            }
+        }
         url = self.get_url('role/request')
         response = self.request_call(method="POST",
                                      url=url,
@@ -433,12 +433,12 @@ class ClientConfig(models.Model):
         client = {
             "clientId": self.client_id,
             "clientSecret": self.client_secret
-            }
+        }
 
         payload = {
             "client": client,
             "data": data
-            }
+        }
         url = self.get_url('customer/get')
         response = self.request_call(method="POST",
                                      url=url,

@@ -10,7 +10,7 @@
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
                 <field name="address_id" position="before">
-                        <field name="legacy_no"/>
+                    <field name="legacy_no"/>
                 </field>
             </field>
         </record>
@@ -36,6 +36,6 @@
                 </field>
             </field>
         </record>
-        
+
     </data>
 </odoo>
