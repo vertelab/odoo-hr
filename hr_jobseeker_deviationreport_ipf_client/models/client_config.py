@@ -36,6 +36,7 @@ class ApfApiError(Exception):
 
 class ClientConfig(models.Model):
     _name = 'ipf.report.client.config'
+    _description = "IPF Report Client Config"
     _rec_name = 'url'
 
     url = fields.Char(string='Url',

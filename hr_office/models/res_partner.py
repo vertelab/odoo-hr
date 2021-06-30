@@ -19,18 +19,20 @@
 #
 ##############################################################################
 
-from odoo import models, fields, api, _
 import logging
+
+from odoo import models, fields, api, _
 
 _logger = logging.getLogger(__name__)
 
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
-    
-    #office_id for jobseekers and employers, not for administrative officers
+
+    # office_id for jobseekers and employers, not for administrative officers
     office_id = fields.Many2one(string="office", comodel_name="hr.department")
-    
+
+
 class ResUsers(models.Model):
     _inherit = "res.users"
 
@@ -48,7 +50,6 @@ class ResUsers(models.Model):
         for employee in self.employee_ids:
             self.operation_ids |= employee.operation_ids
 
-
     operation_names = fields.Char(string="Operations", compute="compute_operation_names", readonly=True)
 
     @api.one
@@ -57,7 +58,7 @@ class ResUsers(models.Model):
         for operation in self.operation_ids:
             operation_names.append(operation.name)
         if operation_names:
-            self.operation_names = ','.join([str(code) for code in operation_names]) 
+            self.operation_names = ','.join([str(code) for code in operation_names])
         else:
             self.operation_names = ""
 
@@ -69,16 +70,15 @@ class ResUsers(models.Model):
         for office in self.office_ids:
             office_codes.append(office.office_code)
         if office_codes:
-            self.office_codes = ','.join([str(code) for code in office_codes]) 
+            self.office_codes = ','.join([str(code) for code in office_codes])
         else:
             self.office_codes = ""
-
 
 
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
-    operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation") #workplace
+    operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation")  # workplace
     office_ids = fields.Many2many(
         'hr.department', string='Offices')
 
@@ -87,7 +87,6 @@ class HrEmployee(models.Model):
     operation_names = fields.Char(string="Operations", related="user_id.operation_names")
     office_codes = fields.Char(string="Office codes", related="user_id.office_codes")
     signature = fields.Char(string="Signature", related="user_id.login")
-
 
     @api.one
     def _compute_operation_ids(self):

@@ -1,9 +1,10 @@
 import json
-from odoo import models, fields, api, _
-from odoo.exceptions import Warning, AccessError
 import logging
 import random
 import string
+from odoo.exceptions import Warning, AccessError
+
+from odoo import models, fields, api, _
 
 _logger = logging.getLogger(__name__)
 
@@ -13,6 +14,7 @@ CIAM_STATUS_OBJECT_NOT_FOUND = '-3'
 
 class CIAMUpdate(models.TransientModel):
     _name = "hr.employee.user.ciam"
+    _description = "HR Employee User Ciam"
 
     employee_id = fields.Many2one(
         "hr.employee", default=lambda self: self.env.context.get("active_id")
@@ -22,9 +24,9 @@ class CIAMUpdate(models.TransientModel):
         # validate that we have everything we need
         granted = False
         for group in (
-            "base.group_system",
-            "base_user_groups_dafa.group_dafa_org_admin_write",
-            "base_user_groups_dafa.group_dafa_employees_write",
+                "base.group_system",
+                "base_user_groups_dafa.group_dafa_org_admin_write",
+                "base_user_groups_dafa.group_dafa_employees_write",
         ):
             if self.env.user.has_group(group):
                 granted = True
@@ -50,8 +52,8 @@ class CIAMUpdate(models.TransientModel):
             user_get_res_dict = json.loads(user_get_response)
             user_get_response_code = user_get_res_dict.get("status", user_get_res_dict.get("cause", {})).get("code")
             if not user_get_response_code in (
-                CIAM_STATUS_OK,
-                CIAM_STATUS_OBJECT_NOT_FOUND,
+                    CIAM_STATUS_OK,
+                    CIAM_STATUS_OBJECT_NOT_FOUND,
             ):
                 raise Warning(
                     _("Error in communication with CIAM. Answer: %s") % user_get_res_dict
@@ -143,7 +145,7 @@ class CIAMUpdate(models.TransientModel):
                 ciam_client.role_assign(data)
                 # if user is Admin org (write), give them extra role in CIAM
                 if self.employee_id.user_id.has_group(
-                    "base_user_groups_dafa.group_dafa_org_admin_write"
+                        "base_user_groups_dafa.group_dafa_org_admin_write"
                 ):
                     data["roleName"] = "DAFA_SUPER_ADMIN"
                     ciam_client.role_assign(data)

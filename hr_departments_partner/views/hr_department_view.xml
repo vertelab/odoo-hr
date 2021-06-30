@@ -19,10 +19,17 @@
             <field name="model">hr.department</field>
             <field name="inherit_id" ref="hr.hr_department_view_kanban"/>
             <field name="arch" type="xml">
-                <xpath expr="//kanban/templates/t/div/div[1]/div[hasclass('o_kanban_card_header_title')]/div[last()]" position="after">
-                    <div class="o_secondary"><field name="show_address_details" invisible="1"/></div>
-                    <div class="o_secondary"><field name="address_id" attrs="{'invisible': [('show_address_details', '=', False)]}"/></div>
-                    <div class="o_secondary"><field name="one_address_detail" attrs="{'invisible': [('show_address_details', '=', True)]}"/></div>
+                <xpath expr="//kanban/templates/t/div/div[1]/div[hasclass('o_kanban_card_header_title')]/div[last()]"
+                       position="after">
+                    <div class="o_secondary">
+                        <field name="show_address_details" invisible="1"/>
+                    </div>
+                    <div class="o_secondary">
+                        <field name="address_id" attrs="{'invisible': [('show_address_details', '=', False)]}"/>
+                    </div>
+                    <div class="o_secondary">
+                        <field name="one_address_detail" attrs="{'invisible': [('show_address_details', '=', True)]}"/>
+                    </div>
                 </xpath>
             </field>
         </record>
@@ -34,8 +41,10 @@
             <field name="arch" type="xml">
                 <field name="parent_id" position="after">
                     <field name="show_address_details" invisible="1"/>
-                    <field name="address_id" attrs="{'invisible': [('show_address_details', '=', False)]}" string="Multiple Addresses"/>
-                    <field name="one_address_detail" attrs="{'invisible': [('show_address_details', '=', True)]}" string="Single Address"/>
+                    <field name="address_id" attrs="{'invisible': [('show_address_details', '=', False)]}"
+                           string="Multiple Addresses"/>
+                    <field name="one_address_detail" attrs="{'invisible': [('show_address_details', '=', True)]}"
+                           string="Single Address"/>
                 </field>
             </field>
         </record>

@@ -10,7 +10,7 @@
                         <field name="employee_id" readonly="1"/>
                     </group>
                     <footer>
-                        <button string="Update" type="object" name="action_update_ciam" class="btn-primary" />
+                        <button string="Update" type="object" name="action_update_ciam" class="btn-primary"/>
                         <button string="Cancel" special="cancel" class="btn-secondary"/>
                     </footer>
                 </form>

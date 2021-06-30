@@ -19,8 +19,9 @@
 #
 ##############################################################################
 
-from odoo import models, fields, api, _
 import logging
+
+from odoo import models, fields, api, _
 
 _logger = logging.getLogger(__name__)
 
@@ -39,6 +40,7 @@ class HrDepartment(models.Model):
 
 class HrOperation(models.Model):
     _name = "hr.operation"
+    _description = "HR Operation"
 
     name = fields.Char(string="Name")
     opening_hours = fields.Char(string="Opening hours")
@@ -80,6 +82,8 @@ class HrOperation(models.Model):
 
 class HrLocation(models.Model):
     _name = "hr.location"
+    _description = "HR Location"
+
     name = fields.Char(string="Name")
     location_code = fields.Char(string="Location code")
     workplace_number = fields.Char(string="Workplace number")
@@ -111,6 +115,7 @@ class HrLocation(models.Model):
 
 class HrlocationAccessibility(models.Model):
     _name = "hr.location.accessibility"
+    _description = "HR Location Accessibility"
 
     operation_id = fields.Many2one(comodel_name="hr.operation")
     name = fields.Char(string="Type")
