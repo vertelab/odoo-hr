@@ -78,7 +78,7 @@ class ResUsers(models.Model):
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
-    operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation")  # workplace
+    operation_id = fields.Many2one(comodel_name="hr.operation", string="Operation ID")  # workplace
     office_ids = fields.Many2many(
         'hr.department', string='Offices')
 
