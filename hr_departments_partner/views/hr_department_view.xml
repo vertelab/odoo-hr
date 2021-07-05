@@ -7,8 +7,10 @@
             <field name="arch" type="xml">
                 <field name="parent_id" position="after">
                     <field name="address_id" widget="many2many_tags"/>
-                    <field name="address_details" attrs="{'invisible': [('show_address_details', '=', False)]}"/>
-                    <field name="one_address_detail" attrs="{'invisible': [('show_address_details', '=', True)]}"/>
+                    <field name="address_details" attrs="{'invisible': [('show_address_details', '=', False)]}"
+                        string="Address Details"/>
+                    <field name="one_address_detail" attrs="{'invisible': [('show_address_details', '=', True)]}"
+                        string="Address Details"/>
                     <field name="show_address_details" invisible="1"/>
                 </field>
             </field>
@@ -28,7 +30,8 @@
                         <field name="address_id" attrs="{'invisible': [('show_address_details', '=', False)]}"/>
                     </div>
                     <div class="o_secondary">
-                        <field name="one_address_detail" attrs="{'invisible': [('show_address_details', '=', True)]}"/>
+                        <field name="one_address_detail" attrs="{'invisible': [('show_address_details', '=', True)]}"
+                            string="Address Details"/>
                     </div>
                 </xpath>
             </field>

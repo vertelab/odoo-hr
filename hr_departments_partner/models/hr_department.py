@@ -41,4 +41,4 @@ class HRDepartment(models.Model):
                     address += '\nCountry: ' + record.country_id.name if record.country_id else ''
                     rec.one_address_detail = address
 
-    one_address_detail = fields.Text(string="Address Details", compute=_single_address_details)
+    one_address_detail = fields.Text(string="Single Address Details", compute=_single_address_details)
