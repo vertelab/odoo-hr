@@ -22,17 +22,18 @@
 
 {
     'name': 'CIAM Client of AF',
-    'version': '12.0.0.0.3',
+    'version': '12.0.0.0.4',
     'category': 'hr',
     'description': """
     CIAM Client for AF project, API module to handle communication between DAFA (formerly called Fenix) and CIAM
 """,
 
-    'author': "N-development",
+    'author': "Vertel AB",
     'license': 'AGPL-3',
-    'website': 'https://www.n-development.com',
+    'website': 'http://www.vertel.se',
     'depends': [
-        'hr'
+        'hr',
+        'api_ipf'
     ],
     'data': [
         "security/ir.model.access.csv",
