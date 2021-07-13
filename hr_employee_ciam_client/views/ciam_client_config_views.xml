@@ -94,8 +94,35 @@
 
 
     <menuitem id="ciam_client_config"
-              name="CIAM Client Config"
+              name="CIAM"
               action="ciam_client_config_action_window"
-              parent="base.menu_custom"
-              sequence="120"/>
+              parent="api_ipf.api_client_config_parent_menu"
+              sequence="3"/>
+    <record model="ir.ui.view" id="ciam_client_config_request_history_view_list">
+        <field name="name">CIAM Client Config Request History View List</field>
+        <field name="model">request.history</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="config_id"/>
+                <field name="url"/>
+                <field name="method"/>
+                <field name="payload"/>
+                <field name="request_headers"/>
+                <field name="response_headers"/>
+                <field name="params"/>
+                <field name="response_code"/>
+                <field name="message"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="ciam_client_config_request_history_action_window">
+        <field name="name">CIAM Client Config Request History</field>
+        <field name="res_model">request.history</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem id="ciam_client_config_request_history"
+              name="CIAM"
+              action="ciam_client_config_request_history_action_window"
+              parent="api_ipf.client_config_request_history_parent_menu"
+              sequence="2"/>
 </data>
