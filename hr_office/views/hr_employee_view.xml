@@ -10,8 +10,8 @@
                 <field name="department_id" position="before">
                     <field name="office_ids" widget="many2many_tags"/>
                     <field name="operation_ids" widget="many2many_tags"/>
-                    <field name="signature"/>
-                    <field name="operation_names" invisible="1"/>
+                    <!-- <field name="signature"/> -->
+                    <!-- <field name="operation_names" invisible="1"/> -->
                 </field>
             </field>
         </record>

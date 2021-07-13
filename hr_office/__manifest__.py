@@ -5,6 +5,7 @@
     "description": """
     Offices
     12.0.0.2 views
+    12.0.0.3 commented away signature and operation_names due to missing fields
     """,
     'author': 'Vertel AB',
     'license': 'AGPL-3',
