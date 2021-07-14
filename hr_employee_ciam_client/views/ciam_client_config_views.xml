@@ -120,7 +120,7 @@
         <field name="res_model">request.history</field>
         <field name="view_mode">tree</field>
     </record>
-    <menuitem id="ciam_client_config_request_history"
+    <menuitem id="menu_ciam_client_config_request_history"
               name="CIAM"
               action="ciam_client_config_request_history_action_window"
               parent="api_ipf.client_config_request_history_parent_menu"
