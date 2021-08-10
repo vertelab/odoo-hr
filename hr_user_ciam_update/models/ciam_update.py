@@ -72,7 +72,7 @@ class CIAMUpdate(models.TransientModel):
                 # Generate a password that will never be used..
                 letters = string.ascii_lowercase
                 temp_pass = "".join(random.choice(letters) for i in range(12))
-                user_data["password"] = temp_pass + "21"
+                user_data["password"] = temp_pass + "21A"
 
             # create or update user in CIAM
             user_error = ""

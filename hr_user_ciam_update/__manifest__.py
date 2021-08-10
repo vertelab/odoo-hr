@@ -1,8 +1,9 @@
 {
     "name": "HR User CIAM Update",
-    "version": "12.0.0.3",
+    "version": "12.0.0.4",
     "category": "Human resources",
-    "description": """This module adds a button that runs an action that adds the user to the CIAM server""",
+    "description": """This module adds a button that runs an action that adds the user to the CIAM server. \n
+     1. v12.0.0.4 Added an upper case letter in the automatic password.""",
     "author": "Vertel AB",
     "license": "AGPL-3",
     "website": "http://www.vertel.se",
