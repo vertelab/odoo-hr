@@ -19,10 +19,9 @@
         <field name="model">hr.employee</field>
         <field name="inherit_id" ref="hr.view_employee_form"/>
         <field name="arch" type="xml">
-            <field name="address_id" position="before">
-                <field name="ssnid"
-                       groups="-hr.group_hr_user,base_user_groups_dafa.group_dafa_employees_read,
-                       base_user_groups_dafa.1_line_support"/>
+            <field name="ssnid" position="attributes">
+                <attribute name="groups">-hr.group_hr_user,base_user_groups_dafa.group_dafa_employees_read,
+                       base_user_groups_dafa.1_line_support</attribute>
             </field>
         </field>
     </record>
