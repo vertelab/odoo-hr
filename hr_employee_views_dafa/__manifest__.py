@@ -1,10 +1,11 @@
 {
     'name': 'HR Employee views',
-    'version': '12.0.0.1.2',
+    'version': '12.0.0.1.3',
     'category': 'Human Resources',
     'summary': 'Hide some fields from Employee',
     'description': """Hide some fields from Employee view \n
     v12.0.0.1.2 AFC-2468 Added DAFA Admin and ServiceDesk group on SSN and Legacy ID. 
+    v12.0.0.1.3 AFC-2468 added fix. 
                    """,
     'author': 'Vertel AB',
     'website': 'https://vertel.se',
