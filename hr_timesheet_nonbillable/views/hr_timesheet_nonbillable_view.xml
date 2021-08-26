@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="nonbillable_hr_timesheet_sheet_form_extend" model="ir.ui.view">
+            <field name="name">nonbillable.hr.timesheet.sheet.form.extend</field>
+            <field name="model">hr_timesheet.sheet</field>
+            <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+            <field name="arch" type="xml">
+                <field name="department_id" position="after">
+                    <field name="non_billable_time"/>
+                    <field name="billable_time"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="nonbillable_hr_timesheet_sheet_tree_extend" model="ir.ui.view">
+            <field name="name">nonbillable.hr.timesheet.sheet.tree.extend</field>
+            <field name="model">hr_timesheet.sheet</field>
+            <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="non_billable_time"/>
+                    <field name="billable_time"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

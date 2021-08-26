@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="non_billable_timesheet_form_view" model="ir.ui.view">
+            <field name="name">non.billable.timesheet.form</field>
+            <field name="model">hr_timesheet.sheet</field>
+            <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='timesheet_ids']/tree/field[@name='name']" position="after">
+                    <field name="non_billable"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="non_billable_timesheet_pivot_view" model="ir.ui.view">
+            <field name="name">non.billable.timesheet.pivot</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.view_hr_timesheet_line_pivot"/>
+            <field name="arch" type="xml">
+                <field name="unit_amount" position="after">
+                    <field name="non_billable_time" type="measure"/>
+                    <field name="billable_time" type="measure"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="non_billable_timesheet_tree_line_view" model="ir.ui.view">
+            <field name="name">non.billable.timesheet.tree</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="non_billable"/>
+                </field>
+                <field name="unit_amount" position="after">
+                    <field name="non_billable_time" optional="show" sum="Total"/>
+                    <field name="billable_time" optional="show" sum="Total"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>
