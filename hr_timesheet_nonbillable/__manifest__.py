@@ -34,7 +34,7 @@
     """,
     'author': 'Vertel AB',
     'website': 'https://www.vertel.se',
-    'depends': ['hr_timesheet_sheet'],
+    'depends': ['hr_timesheet_sheet', 'sale_timesheet'],
     'data': [
         'views/account_analytic_line_views.xml',
         'views/hr_timesheet_nonbillable_view.xml',
