@@ -75,8 +75,6 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    # analytic_line_ids = fields.One2many(domain=[('project_id', '=', False)])
-
     def _timesheet_compute_delivered_quantity_domain(self):
         """ Hook for validated timesheet in addionnal module """
         return [('project_id', '!=', False), ('non_allow_billable', '=', False), ('non_billable', '=', False)]
