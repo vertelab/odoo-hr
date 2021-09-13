@@ -10,5 +10,5 @@ class HRDepartment(models.Model):
 class HRAddress(models.Model):
     _name = 'hr.department.address'
 
-    name = fields.Char(string="Address")
+    name = fields.Many2one('res.partner', string="Address")
     department_id = fields.Many2one('hr.department', string="Department")
