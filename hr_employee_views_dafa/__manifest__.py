@@ -5,7 +5,8 @@
     'summary': 'Hide some fields from Employee',
     'description': """Hide some fields from Employee view \n
     v12.0.0.1.2 AFC-2468 Added DAFA Admin and ServiceDesk group on SSN and Legacy ID. 
-    v12.0.0.1.3 AFC-2468 added fix. 
+    v12.0.0.1.3 AFC-2468 added fix.
+    v12.0.0.2.0 AFC-2749 Changed ssnid visibility.
                    """,
     'author': 'Vertel AB',
     'website': 'https://vertel.se',
