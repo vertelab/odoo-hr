@@ -1,1 +1,29 @@
-
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="about-us">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty" />
+            <t t-set="is_publisher" t-value="request.env['res.users'].has_group('website.group_website_publisher')" />
+            <t t-set="multiwebsite_domain" t-value="request.website.website_domain()" />
+            <t t-set="employees_domain" t-value="[] if is_publisher else [('website_published', '=', True)]" />
+            <t t-set="employees" t-value="request.env['hr.employee'].search(employees_domain + multiwebsite_domain)" />
+            <div class="container" t-if="len(employees)">
+                <div class="row">
+                    <div t-foreach="employee_ids" t-as="employee" class="col-md-3 col-xl-2 mt16 text-center">
+                        <t t-call="website.publish_management">
+                            <t t-set="object" t-value="employee" />
+                            <t t-set="publish_edit" t-value="True" />
+                            <t t-set="style" t-value="'float: none !important; margin-bottom: 4px;'" />
+                        </t>
+                        <img t-att-src="website.image_url(employee, 'image_512')" class="img shadow rounded" alt="Employee" />
+                        <div class="mt8">
+                            <strong t-field="employee.name" />
+                        </div>
+                        <div t-field="employee.job_id" />
+                        <div t-field="employee.public_info" class="text-muted mt16 d-block mx-auto" />
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

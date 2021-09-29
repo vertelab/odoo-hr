@@ -21,16 +21,16 @@
 ##############################################################################
 
 {
-    'name': 'HR Website Aboout Us',
+    'name': 'HR Website About Us',
     'version': '14.0.0.0',
     'category': 'Employee',
     'summary': 'Show employee on webpage.',
-    'description': """To show / hide employee on public webpage, just as in previous versions of Odoo.""",
+    'description': """To show or hide employee on public webpage.""",
     'author': 'Vertel AB',
     'website': 'https://www.vertel.se',
-    'depends': [ ],
+    'depends': ['website', 'portal'],
     'data': [
-       # 'views/hr_timesheet_schema_view.xml',
+        'views/about-us_view.xml',
     ],
     'application': True,
     'installable': True,
