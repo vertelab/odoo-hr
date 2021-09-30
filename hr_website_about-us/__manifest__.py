@@ -25,7 +25,13 @@
     'version': '14.0.0.0',
     'category': 'Employee',
     'summary': 'Show employee on webpage.',
-    'description': """To show or hide employee on public webpage.""",
+    'description': """To show or hide employee on public webpage.
+Edit settings for non-public users.
+Users and groups >> Groups.
+Click "Accesses".
+Add new line and enter Model (Employed) and "Read" access.
+
+     """,
     'author': 'Vertel AB',
     'website': 'https://www.vertel.se',
     'depends': ['website', 'portal'],
