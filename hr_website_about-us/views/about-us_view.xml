@@ -15,7 +15,13 @@
                             <t t-set="publish_edit" t-value="True" />
                             <t t-set="style" t-value="'float: none !important; margin-bottom: 4px;'" />
                         </t>
-                        <img t-att-src="website.image_url(employee, 'image_512')" class="img shadow rounded" alt="Employee" />
+                        <!--
+                             <img t-att-src="website.image_url(employee, 'image_128')" class="img shadow rounded" alt="Employee" />
+                             <img class="rounded shadow o_alternative_product o_carousel_product_card_img_top card-img-top"
+                             t-if="product_variant" t-att-src="website.imagefield_hash('product.template','image_1920',alt_product.id,'theme_maria_akerberg.img_product')" />
+                        <img t-att-src="website.imagefield_hash(employee, 'image_128', employee.id)" alt="Employee" />
+                        -->
+                        <img t-att-src="website.imagefield_hash(employee,'image_128', employee.id, img_employees_view)" alt="Employee" />
                         <div class="mt8">
                             <strong t-field="employee.name" />
                         </div>
@@ -26,4 +32,16 @@
             </div>
         </t>
     </template>
+    <record id="view_employee_form" model="ir.ui.view">
+        <field name="name">employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div[1]" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <field name="is_published" class="oe_inline" widget="website_redirect_button" />
+                </div>
+            </xpath>
+        </field>
+    </record>
 </odoo>

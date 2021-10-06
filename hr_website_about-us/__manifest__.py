@@ -34,7 +34,7 @@ Add new line and enter Model (Employed) and "Read" access.
      """,
     'author': 'Vertel AB',
     'website': 'https://www.vertel.se',
-    'depends': ['website', 'portal'],
+    'depends': ['website', 'portal', ],
     'data': [
         'views/about-us_view.xml',
     ],

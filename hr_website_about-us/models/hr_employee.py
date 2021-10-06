@@ -37,4 +37,4 @@ class HrEmployee(models.Model):
     def _compute_website_url(self):
         super(HrEmployee, self)._compute_website_url()
         for employee in self:
-            employee.website_url = '/om-oss'
+            employee.website_url = '/about-us'
