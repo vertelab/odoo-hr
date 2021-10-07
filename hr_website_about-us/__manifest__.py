@@ -31,6 +31,13 @@ Users and groups >> Groups.
 Click "Accesses".
 Add new line and enter Model (Employed) and "Read" access.
 
+* * *
+
+When editing code, uninstall module for changes to take effect.
+
+
+Creator: jakob.krabbe@vertel.se
+
      """,
     'author': 'Vertel AB',
     'website': 'https://www.vertel.se',
