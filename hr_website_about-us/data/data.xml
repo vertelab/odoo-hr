@@ -9,14 +9,14 @@
                 PS: The canvas will always be the given size
             </field>
             <field name="recipe">
-                bg = Image()
-                bg.blank(width=int(canvas_size), height=int(canvas_size),background='white')
-                image.transform(resize='%sx%s' %(int(canvas_size), int(canvas_size)))
-                if image.width &gt;= image.height:
-                bg.composite(image, 0, int((int(canvas_size)-image.height)/2))
-                else:
-                bg.composite(image, int((int(canvas_size)-image.width)/2), 0)
-                res = bg
+bg = Image()
+bg.blank(width=int(canvas_size), height=int(canvas_size),background='white')
+image.transform(resize='%sx%s' %(int(canvas_size), int(canvas_size)))
+if image.width &gt;= image.height:
+    bg.composite(image, 0, int((int(canvas_size)-image.height)/2))
+else:
+    bg.composite(image, int((int(canvas_size)-image.width)/2), 0)
+res = bg
             </field>
         </record>
         <record id="img_product_param_canvas_xs" model="image.recipe.param">
@@ -51,12 +51,12 @@
                 PS: The canvas will always be the given size
             </field>
             <field name="recipe">
-                if image.height &gt;= int(canvas_size):
-                image.transform(resize='x%s' %(int(canvas_size)))
-                bg = Image()
-                bg.blank(width=image.width, height=image.height,background='white')
-                bg.composite(image)
-                res = bg
+if image.height &gt;= int(canvas_size):
+    image.transform(resize='x%s' %(int(canvas_size)))
+bg = Image()
+bg.blank(width=image.width, height=image.height,background='white')
+bg.composite(image)
+res = bg
             </field>
         </record>
         <record id="img_productview_param_canvas_xs" model="image.recipe.param">
@@ -82,6 +82,6 @@
             <field name="value">398</field>
             <field name="device_type">lg</field>
             <field name="recipe_id" ref="hr_website_about-us.img_employee_view" />
-        </record>
+	</record>
     </data>
 </odoo>
