@@ -82,6 +82,13 @@ res = bg
             <field name="value">398</field>
             <field name="device_type">lg</field>
             <field name="recipe_id" ref="hr_website_about-us.img_employee_view" />
-	</record>
+    </record>
+    <record id="menu_home" model="website.menu">
+        <field name="name">About usXX</field>
+        <field name="url">/aboutus</field>
+        <field name="page_id" ref="website.homepage_page"/>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">10</field>
+    </record>
     </data>
 </odoo>

@@ -31,6 +31,8 @@ Users and groups >> Groups.
 Click "Accesses".
 Add new line and enter Model (Employed) and "Read" access.
 
+See enclosed photos for description.
+
 * * *
 
 When editing code, uninstall module for changes to take effect.
