@@ -25,5 +25,5 @@ class AboutUsController(http.Controller):
             'employee_ids' : request.env['hr.employee'].sudo().search(employees_domain),
             # ~ 'employee_ids' : request.env['hr.employee'].search([]),
         }
-        return request.render("hr_website_about-us.about-us", values)
+        return request.render("hr_website_about-us.aboutus", values)
 

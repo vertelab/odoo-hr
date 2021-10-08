@@ -84,11 +84,13 @@ res = bg
             <field name="recipe_id" ref="hr_website_about-us.img_employee_view" />
     </record>
     <record id="menu_home" model="website.menu">
-        <field name="name">About usXX</field>
+        <field name="name">About us</field>
         <field name="url">/aboutus</field>
+<!--
         <field name="page_id" ref="website.homepage_page"/>
+-->
         <field name="parent_id" ref="website.main_menu"/>
-        <field name="sequence" type="int">10</field>
+        <field name="sequence" type="int">60</field>
     </record>
     </data>
 </odoo>

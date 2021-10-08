@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="about-us">
+    <template id="aboutus">
         <t t-call="website.layout">
             <div id="wrap" class="oe_structure oe_empty" />
             <t t-set="is_publisher" t-value="request.env['res.users'].has_group('website.group_website_publisher')" />
