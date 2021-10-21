@@ -22,14 +22,19 @@
 
 {
     'name': 'HR Partner Department',
-    'version': '14.0.0.0',
-    'category': 'Employee',
     'summary': 'To be able to have multiple addresses on department and select them on employee.',
+    'author': 'Vertel AB',
+    'contributor': 'Mitchell Admin',
+    'maintainer': 'Vertel AB',
+    'repository': 'https://github.com/vertelab/odoo-hr.git',
+    'category': 'Employee',
+    'version': '14.0.0.0',
+    # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
+    'website': 'https://www.vertel.se',
+    'license': 'AGPL-3',
     'description': """
         To be able to have multiple addresses on department and select them on employee.
     """,
-    'author': 'Vertel AB',
-    'website': 'https://www.vertel.se',
     'depends': ['hr'],
     'data': [
         'security/ir.model.access.csv',
