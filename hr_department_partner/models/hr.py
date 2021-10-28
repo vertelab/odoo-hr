@@ -5,6 +5,7 @@ class HRDepartment(models.Model):
     _inherit = 'hr.department'
 
     address_ids = fields.One2many('hr.department.address', 'department_id', string="Address")
+    department_number = fields.Char(string="Dept Number")
 
 
 class HRAddress(models.Model):
