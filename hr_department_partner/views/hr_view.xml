@@ -14,6 +14,47 @@
                         </field>
                     </group>
                 </xpath>
+                <field name="parent_id" position="after">
+                    <field name="department_number"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_department_search_view" model="ir.ui.view">
+            <field name="name">hr.department.search</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_filter"/>
+            <field name="arch" type="xml">
+                <field name="manager_id" position="after">
+                    <field name="department_number"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="hr_employee_form_view" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="department_id" position="after">
+                    <field name="department_number"/>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="hr_employee_search_view" model="ir.ui.view">
+            <field name="name">hr.employee.search</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_filter"/>
+            <field name="arch" type="xml">
+                <field name="job_id" position="after">
+                    <field name="department_number"/>
+                </field>
+                <filter name="group_department" position="after">
+                    <filter name="group_department_number" string="Department Number" domain="[]" context="{'group_by': 'department_number'}"/>
+                </filter>
             </field>
         </record>
     </data>
