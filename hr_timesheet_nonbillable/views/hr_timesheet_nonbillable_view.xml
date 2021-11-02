@@ -6,8 +6,8 @@
             <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
             <field name="arch" type="xml">
                 <field name="department_id" position="after">
-                    <field name="non_billable_time"/>
-                    <field name="billable_time"/>
+                    <field name="non_billable_time" widget="float_time"/>
+                    <field name="billable_time" widget="float_time"/>
                 </field>
             </field>
         </record>
@@ -18,8 +18,8 @@
             <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_tree"/>
             <field name="arch" type="xml">
                 <field name="state" position="after">
-                    <field name="non_billable_time"/>
-                    <field name="billable_time"/>
+                    <field name="non_billable_time" widget="float_time"/>
+                    <field name="billable_time" widget="float_time"/>
                 </field>
             </field>
         </record>
