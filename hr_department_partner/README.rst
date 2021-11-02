@@ -27,4 +27,4 @@ Usage
 | 
 | Hover over fields to se a brief description of them. For more information make sure you are in debug mode.
 | 
-| 14.0.1.0 - Ticket-123 Added the module to the repo.
+| 14.0.1.0.1 - changed the application to false.
