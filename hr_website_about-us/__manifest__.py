@@ -23,8 +23,8 @@
 {
     'name': 'HR Website About Us',
     'version': '14.0.0.0',
-    'category': 'Employee',
     'summary': 'Show employee on webpage.',
+    'category': 'Human Resources',
     'description': """To show or hide employee on public webpage.
 Edit settings for non-public users.
 Users and groups >> Groups.
@@ -42,7 +42,8 @@ Creator: jakob.krabbe@vertel.se
 
      """,
     'author': 'Vertel AB',
-    'website': 'https://www.vertel.se',
+    'website': 'https://vertel.se/apps/odoo-hr/about-us',
+    'repository': 'https://github.com/vertelab/odoo-hr',
     'depends': ['website_imagemagick', ],
     'data': [
         'views/about-us_view.xml',
