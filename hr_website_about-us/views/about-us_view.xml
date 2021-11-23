@@ -6,7 +6,7 @@
             <t t-set="is_publisher" t-value="request.env['res.users'].has_group('website.group_website_publisher')" />
             <t t-set="employees_domain" t-value="[] if is_publisher else [('website_published', '=', True)]" />
             <t t-set="multiwebsite_domain" t-value="request.website.website_domain()" />
-            <t t-set="employees" t-value="request.env['hr.employee'].search(employees_domain + multiwebsite_domain)" />
+            <t t-set="employees" t-value="request.env['hr.employee'].sudo().search(employees_domain + multiwebsite_domain)" />
             <div class="container" t-if="len(employees)">
                 <div class="row">
                     <div t-foreach="employee_ids" t-as="employee" class="col-md-3 col-xl-2 mt16 text-center">
@@ -31,6 +31,7 @@
                     </div>
                 </div>
             </div>
+            <div class="oe_structure oe_empty" />
         </t>
     </template>
     <record id="view_employee_form" model="ir.ui.view">
