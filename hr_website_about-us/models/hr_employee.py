@@ -39,6 +39,9 @@ class HrEmployee(models.Model):
         for employee in self:
             employee.website_url = '/aboutus'
 
+    def sort_familyname(self,rec):
+        return rec.sorted(lambda r: r.name.split(' ')[1])
+
 class HrEmployeePublic(models.Model):
     _name = 'hr.employee.public'
     _inherit = ['hr.employee.public', 'website.seo.metadata', 'website.published.multi.mixin']
