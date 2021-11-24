@@ -19,10 +19,10 @@
                              <img t-att-src="website.image_url(employee, 'image_128')" class="img shadow rounded" alt="Employee" />
                              <img class="rounded shadow o_alternative_product o_carousel_product_card_img_top card-img-top"
                              t-if="product_variant" t-att-src="website.imagefield_hash('product.template','image_1920',alt_product.id,'theme_maria_akerberg.img_product')" />
-                             <img t-att-src="website.imagefield_hash(employee, 'image_128', employee.id)" alt="Employee" />
+                             <img t-att-src="website.imagefield_hash(employee, 'image_1920', employee.id)" alt="Employee" />
                              <img t-att-src="website.imagefield_hash('hr.employee','image_1920', employee.id, 'hr_website_about-us.img_employees_view')" alt="Employee" />
                         -->
-                        <img t-att-src="website.imagefield_hash('hr.employee','image_128', employee.id, 'hr_website_about-us.img_employees_view')" alt="Employee" />
+                        <img t-att-src="website.imagefield_hash('hr.employee','image_1920', employee.id, 'hr_website_about-us.img_employees_view')" alt="Employee" />
                         <div class="mt8">
                             <strong t-field="employee.name" />
                         </div>
