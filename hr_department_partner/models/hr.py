@@ -19,3 +19,9 @@ class HREmployee(models.Model):
     _inherit = 'hr.employee'
 
     department_number = fields.Char(string="Dept Number", related='department_id.department_number', store=True)
+
+
+class HREmployeePublic(models.Model):
+    _inherit = 'hr.employee.public'
+
+    department_number = fields.Char(string="Dept Number")
