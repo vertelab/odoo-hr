@@ -16,7 +16,7 @@
             <field name="model">hr.plan.wizard</field>
             <field name="inherit_id" ref="hr.plan_wizard" />
             <field name="arch" type="xml">
-                <button name="action_launch" position="after">
+                <button name="action_launch" position="replace">
                     <button name="action_launch" string="Launch Plan" type="object" class="oe_highlight" groups="hr.group_hr_user"/>
                 </button>
             </field>
