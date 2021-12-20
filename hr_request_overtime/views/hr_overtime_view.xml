@@ -1,0 +1,69 @@
+<odoo>
+    <data>
+        <menuitem id="hr_timesheet_menu_overtime" name="Overtime" parent="hr_timesheet.timesheet_menu_root"
+        groups="hr_timesheet.group_timesheet_manager" sequence="90"/>
+
+        <record id="hr_overtime_tree_view" model="ir.ui.view">
+            <field name="name">hr.overtime.tree</field>
+            <field name="model">hr.overtime</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="project_id"/>
+                    <field name="time_report_id"/>
+                    <field name="hours" widget="float_time"/>
+                    <field name="type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="hr_overtime_form_view" model="ir.ui.view">
+            <field name="name">hr.overtime.form</field>
+            <field name="model">hr.overtime</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="action_submit_request" string="Submit Request" states="draft" class="btn btn-primary" type="object"/>
+                        <button name="action_approve_request" string="Approve Request" states="submit" class="btn btn-primary" type="object"/>
+                        <button name="action_decline_request" string="Decline Request" states="submit" class="btn btn-danger" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approved,declined"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title" name="title">
+                            <h2>
+                                <field name="name" nolabel="1" required="1"/>
+                            </h2>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="employee_id"/>
+                                <field name="project_id"/>
+                            </group>
+                            <group>
+                                <field name="time_report_id"/>
+                                <field name="hours" widget="float_time"/>
+                                <field name="type"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="timesheet_overtime_action_project" model="ir.actions.act_window">
+            <field name="name">Overtime</field>
+            <field name="res_model">hr.overtime</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hr_overtime_tree_view"/>
+        </record>
+
+        <menuitem id="timesheet_overtime_menu_all"
+            name="Overtime"
+            parent="hr_timesheet_menu_overtime"
+            action="timesheet_overtime_action_project"
+            groups="hr_timesheet.group_hr_timesheet_approver"/>
+
+
+    </data>
+</odoo>

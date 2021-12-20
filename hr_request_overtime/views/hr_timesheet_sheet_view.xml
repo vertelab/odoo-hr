@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="hr_timesheet_overtime_form_view" model="ir.ui.view">
+            <field name="name">hr_timesheet.sheet.form</field>
+            <field name="model">hr_timesheet.sheet</field>
+            <field name="inherit_id" ref="hr_timesheet_sheet.hr_timesheet_sheet_form"/>
+            <field name="arch" type="xml">
+                <field name="department_id" position="after">
+                    <field name="approved_overtime" widget="float_time"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_timesheet_overtime_tree_view" model="ir.ui.view">
+            <field name="name">hr_timesheet.sheet.tree</field>
+            <field name="model">hr_timesheet.sheet</field>
+            <field name="inherit_id" ref="hr_timesheet_schema.hr_timesheet_sheet_tree_extend"/>
+            <field name="arch" type="xml">
+                <field name="schema_time" position="after">
+                    <field name="approved_overtime" widget="float_time"/>
+                </field>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="decoration-danger">billable_time&gt;schema_time+approved_overtime</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
