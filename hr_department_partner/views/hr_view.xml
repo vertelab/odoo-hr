@@ -57,5 +57,16 @@
                 </filter>
             </field>
         </record>
+
+        <record id="res_partner_form_view" model="ir.ui.view">
+            <field name="name">res.partner.search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="vat" position="after">
+                    <field name="department_id" invisible="1"/>
+                </field>
+            </field>
+        </record>
     </data>
 </odoo>
