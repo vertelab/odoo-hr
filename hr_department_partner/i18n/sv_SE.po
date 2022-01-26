@@ -20,7 +20,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_department_partner.field_hr_department_address__name
 #: model_terms:ir.ui.view,arch_db:hr_department_partner.hr_department_form_view
 msgid "Address"
-msgstr "Address"
+msgstr "Adress"
 
 #. module: hr_department_partner
 #: model:ir.model.fields,field_description:hr_department_partner.field_hr_department_address__create_uid
@@ -36,18 +36,18 @@ msgstr "Skapad"
 #: model:ir.model,name:hr_department_partner.model_hr_department
 #: model:ir.model.fields,field_description:hr_department_partner.field_hr_department_address__department_id
 msgid "Department"
-msgstr "Avdelning"
+msgstr "Enhet"
 
 #. module: hr_department_partner
 #: model_terms:ir.ui.view,arch_db:hr_department_partner.hr_employee_search_view
 msgid "Department Number"
-msgstr "Avdelningsnummer"
+msgstr "Enhetsnummer"
 
 #. module: hr_department_partner
 #: model:ir.model.fields,field_description:hr_department_partner.field_hr_department__department_number
 #: model:ir.model.fields,field_description:hr_department_partner.field_hr_employee__department_number
 msgid "Dept Number"
-msgstr "Avdelningsnummer"
+msgstr "Enhetsnummer"
 
 #. module: hr_department_partner
 #: model:ir.model.fields,field_description:hr_department_partner.field_hr_department__display_name
@@ -78,14 +78,29 @@ msgstr "Senast Redigerad"
 #. module: hr_department_partner
 #: model:ir.model.fields,field_description:hr_department_partner.field_hr_department_address__write_uid
 msgid "Last Updated by"
-msgstr "Senast Uppdaterad"
+msgstr "Senast Redigerad av"
 
 #. module: hr_department_partner
 #: model:ir.model.fields,field_description:hr_department_partner.field_hr_department_address__write_date
 msgid "Last Updated on"
-msgstr "Senaste Redigering"
+msgstr "Senast Redigerad"
 
 #. module: hr_department_partner
 #: model:ir.model,name:hr_department_partner.model_hr_department_address
 msgid "hr.department.address"
+msgstr "Enhetsadress"
+
+#. module: hr_department_partner
+#: model:ir.model.fields.selection,name:hr_department_partner.selection__res_partner__type__hr_department
+msgid "Department address"
+msgstr "Enhetsadress"
+
+#. module: hr_department_partner
+#: model:ir.model.fields,help:hr_department_partner.field_res_partner__type
+#: model:ir.model.fields,help:hr_department_partner.field_res_users__type
+msgid ""
+"Invoice & Delivery addresses are used in sales orders. Private addresses are"
+" only visible by authorized users."
 msgstr ""
+""
+""
