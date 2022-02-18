@@ -21,6 +21,30 @@ class CIAMUpdate(models.TransientModel):
     )
 
     def action_update_ciam(self):
+        def generate_password():
+            """ Generate a password according to CIAMs rules."""
+            length = 14
+            char_groups = (
+                (1, 4, string.punctuation.replace('"', '')),
+                (2, 4, string.digits),
+                (3, 8, string.ascii_uppercase + 'åäö'),
+                (3, 8, string.ascii_lowercase + 'ÅÄÖ')
+            )
+            min_tot = sum(i[0] for i in char_groups)
+            max_tot = sum(i[1] for i in char_groups)
+            pwd = []
+            for minc, maxc, chars in char_groups:
+                min_tot -= minc
+                max_tot -= maxc
+                minc = max(minc, length - max_tot)
+                maxc = min(maxc, length - min_tot)
+                c = random.randint(minc, maxc)
+                length -= c
+                for i in range(c):
+                    pwd.append(random.choice(chars))
+            random.shuffle(pwd)
+            return "".join(pwd)
+
         # validate that we have everything we need
         granted = False
         for group in (
@@ -70,9 +94,7 @@ class CIAMUpdate(models.TransientModel):
 
             if not self.env["ir.config_parameter"].sudo().get_param("dafa.no_ciam_pw"):
                 # Generate a password that will never be used..
-                letters = string.ascii_lowercase
-                temp_pass = "".join(random.choice(letters) for i in range(12))
-                user_data["password"] = temp_pass + "21A"
+                user_data["password"] = generate_password()
 
             # create or update user in CIAM
             user_error = ""
