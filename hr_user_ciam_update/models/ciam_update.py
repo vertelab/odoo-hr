@@ -1,7 +1,6 @@
 import json
 import logging
-import random
-import string
+from uuid import uuid4
 from odoo.exceptions import Warning, AccessError
 
 from odoo import models, fields, api, _
@@ -70,9 +69,7 @@ class CIAMUpdate(models.TransientModel):
 
             if not self.env["ir.config_parameter"].sudo().get_param("dafa.no_ciam_pw"):
                 # Generate a password that will never be used..
-                letters = string.ascii_lowercase
-                temp_pass = "".join(random.choice(letters) for i in range(12))
-                user_data["password"] = temp_pass + "21A"
+                user_data["password"] = uuid4()
 
             # create or update user in CIAM
             user_error = ""
