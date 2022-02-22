@@ -69,7 +69,7 @@ class CIAMUpdate(models.TransientModel):
 
             if not self.env["ir.config_parameter"].sudo().get_param("dafa.no_ciam_pw"):
                 # Generate a password that will never be used..
-                user_data["password"] = uuid4()
+                user_data["password"] = str(uuid4())
 
             # create or update user in CIAM
             user_error = ""
