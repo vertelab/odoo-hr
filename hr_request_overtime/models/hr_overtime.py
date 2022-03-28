@@ -11,12 +11,12 @@ class HROvertime(models.Model):
     time_report_id = fields.Many2one('hr_timesheet.sheet', string="Time Report")
     hours = fields.Float(string="Hours")
     type = fields.Selection([('Wanted', 'Wanted'), ('Ordered', 'Ordered')], string="Type", default='Wanted')
-    state = fields.Selection([('draft', 'Draft'), ('submit', 'To Approve'),
+    state = fields.Selection([('draft', 'Draft'), ('submitted', 'To Approve'),
                               ('approved', 'Approved'), ('declined', 'Declined')],
                              string="State", default='draft')
 
     def action_submit_request(self):
-        self.state = 'submit'
+        self.state = 'submitted'
 
     def action_approve_request(self):
         self.state = 'approved'

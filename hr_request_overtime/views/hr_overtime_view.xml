@@ -26,9 +26,9 @@
                 <form>
                     <header>
                         <button name="action_submit_request" string="Submit Request" states="draft" class="btn btn-primary" type="object"/>
-                        <button name="action_approve_request" string="Approve Request" states="submit" class="btn btn-primary" type="object"/>
-                        <button name="action_decline_request" string="Decline Request" states="submit" class="btn btn-danger" type="object"/>
-                        <field name="state" widget="statusbar" statusbar_visible="draft,submit,approved,declined"/>
+                        <button name="action_approve_request" string="Approve Request" states="submitted" class="btn btn-primary" type="object"/>
+                        <button name="action_decline_request" string="Decline Request" states="submitted" class="btn btn-danger" type="object"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,submitted,approved,declined"/>
                     </header>
                     <sheet>
                         <div class="oe_title" name="title">
