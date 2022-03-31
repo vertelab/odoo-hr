@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0-20220322\n"
+"Project-Id-Version: Odoo Server 14.0-20220311\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-31 07:07+0000\n"
-"PO-Revision-Date: 2022-03-31 09:08+0200\n"
+"POT-Creation-Date: 2022-03-31 08:59+0000\n"
+"PO-Revision-Date: 2022-03-31 10:59+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,7 +20,7 @@ msgstr ""
 #. module: hr_recruitment_translation
 #: code:addons/hr_recruitment_translation/models/models.py:0
 #, python-format
-msgid "%s's Application"
+msgid "%s's Job Application"
 msgstr "%s's Ansökan"
 
 #. module: hr_recruitment_translation
