@@ -30,6 +30,6 @@ class Employee(models.Model):
 class HrEmployeePublic(models.Model):
     _inherit = "hr.employee.public"
 
-    schema_time = fields.Float(string="Schema Time", compute=_get_employee_work_hours,store=True)
+    schema_time = fields.Float(string="Schema Time")
     
     
