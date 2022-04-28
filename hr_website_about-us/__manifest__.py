@@ -44,7 +44,14 @@ Creator: jakob.krabbe@vertel.se
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/about-us',
     'repository': 'https://github.com/vertelab/odoo-hr',
-    'depends': ['website_imagemagick', ],
+    'depends': [
+        'website_imagemagick',
+        'hr',
+        'sale',
+        'website',
+        'product',
+        'website_sale',
+        ],
     'data': [
         'views/about-us_view.xml',
         'data/data.xml',
