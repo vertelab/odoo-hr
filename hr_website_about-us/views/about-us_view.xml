@@ -8,7 +8,9 @@
             <t t-set="multiwebsite_domain" t-value="request.website.website_domain()" />
             <t t-set="employees" t-value="request.env['hr.employee'].sudo().search(employees_domain + multiwebsite_domain)" />
             <t t-set="employee_exec" t-value="employees.filtered(lambda e: e.job_title == 'XXVD')"/>
+<!--
             <t t-set="employee_sale" t-value="request.env['hr.employee'].sort_familyname(request.env['hr.employee'].sudo().search(['|',('job_title','ilike','%lj%'),('job_title','=','VD')]))"/>
+-->
             <t t-set="employee_sort" t-value="employees.sorted(key=lambda r: r.department_id.name, reverse=True)" />
 
             <div class="container" t-if="len(employee_sort)" style="margin-bottom: 30px;">
