@@ -7,9 +7,13 @@
             <t t-set="employees_domain" t-value="[] if is_publisher else [('website_published', '=', True)]" />
             <t t-set="multiwebsite_domain" t-value="request.website.website_domain()" />
             <t t-set="employees" t-value="request.env['hr.employee'].sudo().search(employees_domain + multiwebsite_domain)" />
-            <div class="container" t-if="len(employees)">
+            <t t-set="employee_exec" t-value="employees.filtered(lambda e: e.job_title == 'XXVD')"/>
+            <t t-set="employee_sale" t-value="request.env['hr.employee'].sort_familyname(request.env['hr.employee'].sudo().search(['|',('job_title','ilike','%lj%'),('job_title','=','VD')]))"/>
+            <t t-set="employee_sort" t-value="employees.sorted(key=lambda r: r.department_id.name, reverse=True)" />
+
+            <div class="container" t-if="len(employee_sort)" style="margin-bottom: 30px;">
                 <div class="row">
-                    <div t-foreach="employee_ids" t-as="employee" class="col-md-3 col-xl-2 mt16 text-center">
+                    <div t-foreach="employee_sort" t-as="employee" class="col-md-6 col-xl-4 mt16 text-center">
                         <t t-call="website.publish_management">
                             <t t-set="object" t-value="employee" />
                             <t t-set="publish_edit" t-value="True" />
@@ -22,12 +26,27 @@
                              <img t-att-src="website.imagefield_hash(employee, 'image_1920', employee.id)" alt="Employee" />
                              <img t-att-src="website.imagefield_hash('hr.employee','image_1920', employee.id, 'hr_website_about-us.img_employees_view')" alt="Employee" />
                         -->
+                        <div class="card m5" style="width:100% position:relative;">
+                            <img class="card-img-top" t-att-src="website.imagefield_hash('hr.employee','image_1920', employee.id, 'hr_website_about-us.img_employees_view')" alt="Employee" />
+                            <div class="card-img-overlay d-flex flex-column justify-content-end p-1">
+                                <h2 class="card-title " t-field="employee.name" style="color: white; text-shadow: 2px 2px 5px rgba(0,0,0, 0.5);"/>
+                                <div class="card-text mb-1" t-field="employee.job_id" style="color: white; font-weight: 600; text-shadow: 2px 2px 2px rgba(0,0,0, 0.5);"/>
+                                <t t-if="'Sale' in employee.department_id.name or 'Management' in employee.department_id.name">
+                                    <div style="position:absolute; bottom:0rem; right:0.5rem; color: white; font-weight: 600; text-shadow: 2px 2px 2px rgba(0,0,0, 0.5);">
+                                        <a t-attf-href="tel:{{employee.work_phone}}"><span class="fa fa-phone-square h4 mx-1 text-white" ></span></a> 
+                                        <a t-attf-href="mailto:{{employee.work_email}}"><span class="fa fa-envelope h4  mx-1 text-white"></span></a> 
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+<!--
                         <img t-att-src="website.imagefield_hash('hr.employee','image_1920', employee.id, 'hr_website_about-us.img_employees_view')" alt="Employee" />
                         <div class="mt8">
                             <strong t-field="employee.name" />
                         </div>
                         <div t-field="employee.job_id" />
                         <div t-field="employee.public_info" class="text-muted mt16 d-block mx-auto" />
+-->                     
                     </div>
                 </div>
             </div>
