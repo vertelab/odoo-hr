@@ -31,7 +31,8 @@
                             <div class="card-img-overlay d-flex flex-column justify-content-end p-1">
                                 <h2 class="card-title " t-field="employee.name" style="color: white; text-shadow: 2px 2px 5px rgba(0,0,0, 0.5);"/>
                                 <div class="card-text mb-1" t-field="employee.job_id" style="color: white; font-weight: 600; text-shadow: 2px 2px 2px rgba(0,0,0, 0.5);"/>
-                                <t t-if="'Sale' in employee.department_id.name or 'Management' in employee.department_id.name">
+                                <!--t t-if="'Sale' in employee.department_id.name or 'Management' in employee.department_id.name"-->
+                                    <t t-if="'lj' in employee.job_title or 'VD' in employee.job_title">
                                     <div style="position:absolute; bottom:0rem; right:0.5rem; color: white; font-weight: 600; text-shadow: 2px 2px 2px rgba(0,0,0, 0.5);">
                                         <a t-attf-href="tel:{{employee.work_phone}}"><span class="fa fa-phone-square h4 mx-1 text-white" ></span></a> 
                                         <a t-attf-href="mailto:{{employee.work_email}}"><span class="fa fa-envelope h4  mx-1 text-white"></span></a> 
