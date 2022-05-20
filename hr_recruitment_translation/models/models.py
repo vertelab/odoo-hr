@@ -12,6 +12,6 @@ class Applicant(models.Model):
         values = super(Applicant, self).website_form_input_filter(request, values)
         _logger.warning(values)
         if 'partner_name' in values:
-            values['name'] = _("%ss ansökande") % values['partner_name']
+            values['name'] = _("%ss ansökan") % values['partner_name']
         _logger.warning(values)
         return values
