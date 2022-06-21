@@ -31,6 +31,8 @@ import logging
 class HrEmployee(models.Model):
     _name = 'hr.employee'
     _inherit = ['hr.employee', 'website.seo.metadata', 'website.published.multi.mixin']
+    
+    meeting_url = fields.Char(string='Meeting URL')
 
     public_info = fields.Char(string='Public Info')
 

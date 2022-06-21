@@ -53,7 +53,9 @@ Creator: jakob.krabbe@vertel.se
         'website_sale',
         ],
     'data': [
+        'views/assets.xml',
         'views/about-us_view.xml',
+        'views/hr_view.xml',
         'data/data.xml',
     ],
     'application': True,
