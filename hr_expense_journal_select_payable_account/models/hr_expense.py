@@ -24,6 +24,8 @@ import re
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools import email_split, float_is_zero
+import logging
+_logger = logging.getLogger(__name__)
 
 class HrExpense(models.Model):
     _inherit = 'hr.expense'
@@ -35,9 +37,9 @@ class HrExpense(models.Model):
             if not self.sheet_id.bank_journal_id.payment_credit_account_id:
                 raise UserError(_("No Outstanding Payments Account found for the %s journal, please configure one.") % (self.sheet_id.bank_journal_id.name))
             account_dest = self.sheet_id.bank_journal_id.payment_credit_account_id.id
-        elif self.journal_id and self.journal_id.payable_account:
-            _logger.warning(f"THE JOURNAL HAD A PAYABLE ACCOUNT {self.journal_id.payable_account.code}")
-            return self.journal_id.payable_account
+        elif self.sheet_id and self.sheet_id.journal_id and self.sheet_id.journal_id.payable_account:
+            _logger.warning(f"THE JOURNAL HAD A PAYABLE ACCOUNT {self.sheet_id.journal_id.payable_account.code}")
+            return self.sheet_id.journal_id.payable_account.id
         else:
             if not self.employee_id.sudo().address_home_id:
                 raise UserError(_("No Home Address found for the employee %s, please configure one.") % (self.employee_id.name))
