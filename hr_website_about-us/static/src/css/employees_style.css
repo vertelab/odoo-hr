@@ -8,7 +8,7 @@
 .grid-item--width2 { width: 160px; }
 .grid-item--height2 { height: 140px; }
 
-.contenedor {
+.staff_container {
   height: 100%;
   padding: 5% 0;
 
@@ -20,10 +20,12 @@
 */
   background-color: #4B1F50;
   border-radius: 25px;
+  border: #333 solid 1px;
   padding: 0;
   overflow: hidden;
   max-width: 350px;
   margin: 5px;
+  box-shadow: 1px 1px 1px rgba(0,0,0, 0.3);
 }
 
 .container_foto article {
@@ -72,7 +74,6 @@
 
 .ver_mas {
   background-color: #FEB66C;
-
   position: absolute;
   width: 100%;
   height: 70px;
@@ -113,6 +114,7 @@
 
 .container_foto:hover {
   cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(0,0,0, 0.3);
 }
 
 .container_foto:hover img {
@@ -121,12 +123,15 @@
    mix-blend-mode: luminosity;
 }
 
-.container_foto:hover article {
+.container_foto:hover #seller{
   transform: translate(2px, -69px);
   -webkit-transform: translate(2px, -69px);
   -moz-transform: translate(2px, -69px);
   -o-transform: translate(2px, -69px);
   -ms-transform: translate(2px, -69px);
+}
+.container_foto:hover article {
+
 }
 
 .container_foto:hover .ver_mas {
