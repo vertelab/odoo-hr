@@ -47,10 +47,8 @@ Creator: jakob.krabbe@vertel.se
     'depends': [
         'website_imagemagick',
         'hr',
-        'sale',
         'website',
-        'product',
-        'website_sale',
+        'web_domain_field',
         ],
     'data': [
         'views/assets.xml',

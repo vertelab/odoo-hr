@@ -8,7 +8,9 @@
             <field name="inherit_id" ref="hr.view_employee_form"/>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='work_email']" position="after">
-                    <field name="meeting_url" placeholder="Meeting url"/>
+                    <field name="booking_type_domain" invisible="1"/>
+                    <field name="booking_type_id" placeholder="Meeting urls" domain="booking_type_domain"/>
+                    
                 </xpath>
             </field>
         </record>
