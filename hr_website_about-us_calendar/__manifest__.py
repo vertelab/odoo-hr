@@ -21,24 +21,24 @@
 ##############################################################################
 
 {
-    'name': 'HR Website About Us Meet',
+    'name': 'HR Website About Us Calendar',
     'version': '14.0.0.0',
     'summary': 'Book meeting with employee.',
     'category': 'Human Resources',
-    'description': """Book meeting with employee.""",
+    'description': """Glue module for HR Website About us. Implementing calendar button to book meeting with employees with sales role.""",
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/about-us',
     'repository': 'https://github.com/vertelab/odoo-hr',
     'depends': [        
-        'hr',
-        'website',
-        'web_domain_field',
+        'website_calendar_ce',
+        'hr_website_about-us',
         ],
     'data': [        
-        'views/book_meeting_view.xml',
+        'views/about-us_view.xml',
         'views/hr_view.xml'
     ],
     'application': True,
     'installable': True,
+    'auto_install': True,
 }
 # vim:expandtab:smartindent:tabstop=4s:softtabstop=4:shiftwidth=4:

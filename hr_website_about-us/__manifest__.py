@@ -53,7 +53,7 @@ Creator: jakob.krabbe@vertel.se
     'data': [
         'views/assets.xml',
         'views/about-us_view.xml',
-        'views/hr_view.xml',
+        # 'views/hr_view.xml',
         'data/data.xml',
     ],
     'application': True,

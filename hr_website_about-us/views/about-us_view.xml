@@ -22,10 +22,10 @@
                                 <t t-if="'lj' in employee.job_title or 'VD' in employee.job_title">
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
                                    
-                                        <div class="ver_mas">
+                                        <div class="ver_mas" id="contact_employee">
                                             <a t-attf-href="tel:{{employee.work_phone}}" t-attf-title="Ring {{employee.name}}"><span class="fa fa-phone-square h4 mx-1 text-white" ></span></a> 
                                             <a t-attf-href="mailto:{{employee.work_email}}" t-attf-title="Skicka epost till {{employee.name}}"><span class="fa fa-envelope h4  mx-1 text-white"></span></a> 
-                                            <a t-attf-href="{{employee.get_website_url_employee()}}" t-attf-title="Boka ett möte med {{employee.name}}"><span class="fa fa-calendar h4  mx-1 text-white"></span></a>
+                                            <!-- <a t-attf-href="{{employee.get_website_url_employee()}}" t-attf-title="Boka ett möte med {{employee.name}}"><span class="fa fa-calendar h4  mx-1 text-white"></span></a> -->
                                         </div>
                                     
                                     <article id="seller" class="text-center col-12">
