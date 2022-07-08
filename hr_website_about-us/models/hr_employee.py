@@ -27,12 +27,10 @@ import logging
 import json
 # ~ _logger = logging.getLogger(__name__)
 
-
-
 class HrEmployee(models.Model):
     _name = 'hr.employee'
     _inherit = ['hr.employee', 'website.seo.metadata', 'website.published.multi.mixin']
-    
+
     public_info = fields.Char(string='Public Info')
 
     def _compute_website_url(self):
@@ -43,31 +41,23 @@ class HrEmployee(models.Model):
     def sort_familyname(self,rec):
         return rec.sorted(lambda r: r.name.split(' ')[1])
 
+class HrEmployeePublic(models.Model):
+    _name = 'hr.employee.public'
+    _inherit = ['hr.employee.public', 'website.seo.metadata', 'website.published.multi.mixin']
 
+    public_info = fields.Char(string='Public Info')
 
-# class HrEmployeeBase(models.AbstractModel):
-#     _inherit = 'hr.employee.base'
-
-
+# class HrEmployee(models.Model):
+#     _name = 'hr.employee'
+#     _inherit = ['hr.employee', 'website.seo.metadata', 'website.published.multi.mixin']
+    
 #     public_info = fields.Char(string='Public Info')
-#     booking_type_id = fields.Many2one('calendar.booking.type', string='Booking type' , xdomain="[('employee_ids.user_id.id','=',self.employee_id)]")
 
-#     def get_website_url_employee(self):        
+#     def _compute_website_url(self):
+#         super(HrEmployee, self)._compute_website_url()
 #         for employee in self:
-#             web_url = ''
-#             if employee.booking_type_id.website_url:
-#                 web_url = employee.booking_type_id.website_url
-#                 # return employee.booking_type_id.website_url + '?employee_id=%s' % employee.id
-#                 return web_url + '?employee_id=%s' % employee.id
+#             employee.website_url = '/aboutus'
 
-#     booking_type_domain = fields.Char(
-#        compute="_compute_booking_type_domain",
-#        readonly=True,
-#        store=False,
-#    )
+#     def sort_familyname(self,rec):
+#         return rec.sorted(lambda r: r.name.split(' ')[1])
 
-#     def _compute_booking_type_domain(self):
-#         for employee in self:
-#             employee.booking_type_domain = json.dumps(
-#                [('employee_ids', 'in', employee.id)]
-            # )
