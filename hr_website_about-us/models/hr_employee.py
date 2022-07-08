@@ -31,7 +31,7 @@ class HrEmployee(models.Model):
     _name = 'hr.employee'
     _inherit = ['hr.employee', 'website.seo.metadata', 'website.published.multi.mixin']
 
-    public_info = fields.Char(string='Public Info')
+    # public_info = fields.Char(string='Public Info')
 
     def _compute_website_url(self):
         super(HrEmployee, self)._compute_website_url()
@@ -45,7 +45,7 @@ class HrEmployeePublic(models.Model):
     _name = 'hr.employee.public'
     _inherit = ['hr.employee.public', 'website.seo.metadata', 'website.published.multi.mixin']
 
-    public_info = fields.Char(string='Public Info')
+    # public_info = fields.Char(string='Public Info')
 
 # class HrEmployee(models.Model):
 #     _name = 'hr.employee'
