@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>    
+
+<template id="assets_frontend" name="book meeting" inherit_id="website.assets_frontend" >
+    <xpath expr="//div[hasclass="ver_mas"]" position="after">        
+        <a t-attf-href="{{employee.get_website_url_employee()}}" t-attf-title="Boka ett möte med {{employee.name}}"><span class="fa fa-calendar h4  mx-1 text-white"></span></a>
+    </xpath>    
+</template>
+
+</odoo>
