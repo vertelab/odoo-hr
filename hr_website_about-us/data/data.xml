@@ -21,25 +21,25 @@ res = bg
         </record>
         <record id="img_product_param_canvas_xs" model="image.recipe.param">
             <field name="name">canvas_size</field>
-            <field name="value">177</field>
+            <field name="value">500</field>
             <field name="device_type">xs</field>
             <field name="recipe_id" ref="hr_website_about-us.img_employees_view" />
         </record>
         <record id="img_product_param_canvas_sm" model="image.recipe.param">
             <field name="name">canvas_size</field>
-            <field name="value">150</field>
+            <field name="value">500</field>
             <field name="device_type">sm</field>
             <field name="recipe_id" ref="hr_website_about-us.img_employees_view" />
         </record>
         <record id="img_product_param_canvas_md" model="image.recipe.param">
             <field name="name">canvas_size</field>
-            <field name="value">177</field>
+            <field name="value">500</field>
             <field name="device_type">md</field>
             <field name="recipe_id" ref="hr_website_about-us.img_employees_view" />
         </record>
         <record id="img_product_param_canvas_lg" model="image.recipe.param">
             <field name="name">canvas_size</field>
-            <field name="value">177</field>
+            <field name="value">500</field>
             <field name="device_type">lg</field>
             <field name="recipe_id" ref="hr_website_about-us.img_employees_view" />
         </record>
@@ -61,25 +61,25 @@ res = bg
         </record>
         <record id="img_productview_param_canvas_xs" model="image.recipe.param">
             <field name="name">canvas_size</field>
-            <field name="value">218</field>
+            <field name="value">500</field>
             <field name="device_type">xs</field>
             <field name="recipe_id" ref="hr_website_about-us.img_employee_view" />
         </record>
         <record id="img_productview_param_canvas_sm" model="image.recipe.param">
             <field name="name">canvas_size</field>
-            <field name="value">398</field>
+            <field name="value">500</field>
             <field name="device_type">sm</field>
             <field name="recipe_id" ref="hr_website_about-us.img_employee_view" />
         </record>
         <record id="img_productview_param_canvas_md" model="image.recipe.param">
             <field name="name">canvas_size</field>
-            <field name="value">398</field>
+            <field name="value">500</field>
             <field name="device_type">md</field>
             <field name="recipe_id" ref="hr_website_about-us.img_employee_view" />
         </record>
         <record id="img_productview_param_canvas_lg" model="image.recipe.param">
             <field name="name">canvas_size</field>
-            <field name="value">398</field>
+            <field name="value">500</field>
             <field name="device_type">lg</field>
             <field name="recipe_id" ref="hr_website_about-us.img_employee_view" />
     </record>

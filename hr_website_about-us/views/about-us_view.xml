@@ -9,47 +9,41 @@
             <t t-set="employees" t-value="request.env['hr.employee'].sudo().search(employees_domain + multiwebsite_domain)" />
             <t t-set="employee_exec" t-value="employees.filtered(lambda e: e.job_title == 'XXVD')"/>
             <t t-set="employee_sort" t-value="employees.sorted(key=lambda r: r.department_id.name, reverse=True)" />
-            <div class="container contenedor text-center" t-if="len(employee_sort)" style="margin-bottom: 30px;">
+            <div class="container staff_container text-center" t-if="len(employee_sort)" style="margin-bottom: 30px;">
                 <div class="row">
                     <div t-foreach="employee_sort" t-as="employee" class="col-md-6 col-xl-4 mt16 text-center">
                         <t t-call="website.publish_management">
                             <t t-set="object" t-value="employee" />
                             <t t-set="publish_edit" t-value="True" />
                             <t t-set="style" t-value="'float: none !important; margin-bottom: 4px;'" />
-                        </t>
-<!--
-                        <div class="card m-2 rounded-3 container" style="width:100% position:relative;">
-                            <img class="card-img-top" t-att-src="website.imagefield_hash('hr.employee','image_1920', employee.id, 'hr_website_about-us.img_employees_view')" t-attf-alt="{{employee.name}}" t-attf-title="{{employee.name}}" />
-                            <div class="card-img-overlay d-flex flex-column justify-content-end p-1">
-                                <h2 class="card-title " t-field="employee.name" style="color: white; text-shadow: 2px 2px 5px rgba(0,0,0, 0.5);"/>
-                                <div class="card-text mb-1" t-field="employee.job_title" style="color: white; font-weight: 600; text-shadow: 2px 2px 2px rgba(0,0,0, 0.5);"/>
-                                    <t t-if="'lj' in employee.job_title or 'VD' in employee.job_title">
-                                    <div style="position:absolute; bottom:0rem; right:0.5rem; color: white; font-weight: 600; text-shadow: 2px 2px 2px rgba(0,0,0, 0.5);">
-                                        <a t-attf-href="tel:{{employee.work_phone}}" t-attf-title="Ring {{employee.name}}"><span class="fa fa-phone-square h4 mx-1 text-white" ></span></a> 
-                                        <a t-attf-href="mailto:{{employee.work_email}}" t-attf-title="Skicka epost till {{employee.name}}"><span class="fa fa-envelope h4  mx-1 text-white"></span></a> 
-                                        <a t-attf-href="{{employee.meeting_url}}" t-attf-title="Boka ett möte med {{employee.name}}"><span class="fa fa-calendar h4  mx-1 text-white"></span></a>
-                                    </div>
-                                    </t>
-                                </div> 
-                            </div>
-                        </div>
--->
+                        </t>                      
                         <div class="container text-center" style="">
                             <div class=" container text-center">
+                                <t t-if="'lj' in employee.job_title or 'VD' in employee.job_title">
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
-                                    <t t-if="'lj' in employee.job_title or 'VD' in employee.job_title">
-                                        <div class="ver_mas ">
+                                   
+                                        <div class="ver_mas" id="contact_employee">
                                             <a t-attf-href="tel:{{employee.work_phone}}" t-attf-title="Ring {{employee.name}}"><span class="fa fa-phone-square h4 mx-1 text-white" ></span></a> 
                                             <a t-attf-href="mailto:{{employee.work_email}}" t-attf-title="Skicka epost till {{employee.name}}"><span class="fa fa-envelope h4  mx-1 text-white"></span></a> 
-                                            <a t-attf-href="{{employee.meeting_url}}" t-attf-title="Boka ett möte med {{employee.name}}"><span class="fa fa-calendar h4  mx-1 text-white"></span></a>
+                                            <!-- <a t-attf-href="{{employee.get_website_url_employee()}}" t-attf-title="Boka ett möte med {{employee.name}}"><span class="fa fa-calendar h4  mx-1 text-white"></span></a> -->
                                         </div>
-                                    </t>
+                                    
+                                    <article id="seller" class="text-center col-12">
+                                        <h2 t-field="employee.name"/>
+                                        <h4 t-field="employee.job_title"/>
+                                    </article>
+                                    <img t-att-src="website.imagefield_hash('hr.employee','image_1920', employee.id, 'hr_website_about-us.img_employees_view')" t-attf-alt="{{employee.name}}" t-attf-title="{{employee.name}}" />
+                                </div>
+                                </t>
+                                <t t-else="">
+                                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
                                     <article class="text-center col-12">
                                         <h2 t-field="employee.name"/>
                                         <h4 t-field="employee.job_title"/>
                                     </article>
                                     <img t-att-src="website.imagefield_hash('hr.employee','image_1920', employee.id, 'hr_website_about-us.img_employees_view')" t-attf-alt="{{employee.name}}" t-attf-title="{{employee.name}}" />
                                 </div>
+                                </t>
                             </div>
                         </div>
                     </div>

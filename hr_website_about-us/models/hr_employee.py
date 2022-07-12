@@ -24,17 +24,14 @@ from odoo.addons.http_routing.models.ir_http import slug
 from odoo.tools.translate import html_translate
 
 import logging
+import json
 # ~ _logger = logging.getLogger(__name__)
-
-
 
 class HrEmployee(models.Model):
     _name = 'hr.employee'
     _inherit = ['hr.employee', 'website.seo.metadata', 'website.published.multi.mixin']
-    
-    meeting_url = fields.Char(string='Meeting URL')
 
-    public_info = fields.Char(string='Public Info')
+    # public_info = fields.Char(string='Public Info')
 
     def _compute_website_url(self):
         super(HrEmployee, self)._compute_website_url()
@@ -48,4 +45,19 @@ class HrEmployeePublic(models.Model):
     _name = 'hr.employee.public'
     _inherit = ['hr.employee.public', 'website.seo.metadata', 'website.published.multi.mixin']
 
-    public_info = fields.Char(string='Public Info')
+    # public_info = fields.Char(string='Public Info')
+
+# class HrEmployee(models.Model):
+#     _name = 'hr.employee'
+#     _inherit = ['hr.employee', 'website.seo.metadata', 'website.published.multi.mixin']
+    
+#     public_info = fields.Char(string='Public Info')
+
+#     def _compute_website_url(self):
+#         super(HrEmployee, self)._compute_website_url()
+#         for employee in self:
+#             employee.website_url = '/aboutus'
+
+#     def sort_familyname(self,rec):
+#         return rec.sorted(lambda r: r.name.split(' ')[1])
+
