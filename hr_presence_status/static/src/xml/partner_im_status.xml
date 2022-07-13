@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-extend="UserMenu">
+        <t t-jquery="li.o_user_menu" t-operation="replace">
+            <li class="o_user_menu">
+                <a role="button" class="dropdown-toggle o-no-caret" data-toggle="dropdown" data-display="static" aria-expanded="false" href="#">
+                    <img class="rounded-circle oe_topbar_avatar" t-att-src="_s + '/web/static/src/img/user_menu_avatar.png'" alt="User">
+                        <i class="oe_topbar_status" style="font-size: 11px; position: absolute; left: 27px; top: 9px;"/>
+                    </img>
+                    <span></span>
+                    <span class="oe_topbar_name"/>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" role="menu">
+                    <t t-call="UserMenu.Actions"/>
+                </div>
+            </li>
+        </t>
+    </t>
+
+    <t t-extend="UserMenu.Actions">
+        <t t-jquery="a[data-menu='documentation']" t-operation='before'>
+            <a role="menuitem" href="#" data-menu="imstatus" class="dropdown-item d-none d-md-inline-block">Set yourself as away</a>
+        </t>
+    </t>
+</templates>
