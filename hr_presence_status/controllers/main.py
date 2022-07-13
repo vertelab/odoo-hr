@@ -18,5 +18,4 @@ class UserStatus(http.Controller):
     def set_partner_status(self, model='res.partner', partner_id=None):
         partner_id = request.env[model].with_user(request.env.uid).search([('id', '=', partner_id)])
         partner_id.im_status = 'offline'
-        print(partner_id.im_status)
         return self.get_partner_status(model, partner_id.id)
