@@ -55,7 +55,6 @@ odoo.define('hr_presence_status.UserMenu', function(require) {
                     route: '/get/status',
                     params: {
                         model: 'res.partner',
-                        field: 'im_status',
                         partner_id: session.partner_id,
                     }
                 }).then(function(result) {
@@ -83,7 +82,6 @@ odoo.define('hr_presence_status.UserMenu', function(require) {
                 route: '/set/status',
                 params: {
                     model: 'res.partner',
-                    field: 'im_status',
                     partner_id: session.partner_id,
                 }
             })
