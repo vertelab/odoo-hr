@@ -3,6 +3,7 @@ from odoo.osv import expression
 
 
 class TimesheetSchema(models.Model):
+    #_name = 'hr.timesheet.schema'
     _inherit = 'hr_timesheet.sheet'
 
     @api.depends('timesheet_ids.non_billable', 'timesheet_ids.unit_amount')
