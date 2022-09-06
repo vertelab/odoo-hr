@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Odoo, Open Source Management Solution, third party addon
-#    Copyright (C) 2021- Vertel AB (<http://vertel.se>).
+#    Copyright (C) 2022- Vertel AB (<http://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,42 +21,24 @@
 ##############################################################################
 
 {
-    'name': 'HR Website About Us',
+    'name': 'HR Website About Us Calendar',
     'version': '14.0.0.0',
-    'summary': 'Show employee on webpage.',
+    'summary': 'Book meeting with employee.',
     'category': 'Human Resources',
-    'description': """To show or hide employee on public webpage.
-Edit settings for non-public users.
-Users and groups >> Groups.
-Click "Accesses".
-Add new line and enter Model (Employed) and "Read" access.
-
-See enclosed photos for description.
-
-* * *
-
-When editing code, uninstall module for changes to take effect.
-
-
-Creator: jakob.krabbe@vertel.se
-
-     """,
+    'description': """Glue module for HR Website About us. Implementing calendar button to book meeting with employees with sales role.""",
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/about-us',
     'repository': 'https://github.com/vertelab/odoo-hr',
-    'depends': [
-        'website_imagemagick',
-        'hr',
-        'website',
-        'web_domain_field',
+    'depends': [        
+        'website_calendar_ce',
+        'hr_website_about-us',
         ],
-    'data': [
-        'views/assets.xml',
+    'data': [        
         'views/about-us_view.xml',
-        # 'views/hr_view.xml',
-        'data/data.xml',
+        'views/hr_view.xml'
     ],
     'application': True,
     'installable': True,
+    'auto_install': True,
 }
 # vim:expandtab:smartindent:tabstop=4s:softtabstop=4:shiftwidth=4:

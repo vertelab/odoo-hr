@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_employee_form" model="ir.ui.view">
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form" />
+            <field name="arch" type="xml">
+                <header position="replace">
+                    <header>
+                        <button name="%(hr.plan_wizard_action)d" string="Launch Plan" type="action" groups="hr.group_hr_user"/>
+                    </header>
+                </header>
+            </field>
+        </record>
+        <record id="plan_wizard" model="ir.ui.view">
+            <field name="model">hr.plan.wizard</field>
+            <field name="inherit_id" ref="hr.plan_wizard" />
+            <field name="arch" type="xml">
+                <button name="action_launch" position="replace">
+                    <button name="action_launch" string="Launch Plan" type="object" class="oe_highlight" groups="hr.group_hr_user"/>
+                </button>
+            </field>
+        </record>
+    </data>
+</odoo>

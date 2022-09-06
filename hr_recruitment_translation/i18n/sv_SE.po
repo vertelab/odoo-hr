@@ -1,0 +1,50 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_recruitment_translation
+#   * mail
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0-20220311\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-31 08:59+0000\n"
+"PO-Revision-Date: 2022-03-31 10:59+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: sv\n"
+"X-Generator: Poedit 2.3\n"
+
+#. module: hr_recruitment_translation
+#: code:addons/hr_recruitment_translation/models/models.py:0
+#, python-format
+msgid "%s's Job Application"
+msgstr "%ss ansökan"
+
+#. module: hr_recruitment_translation
+#: model:ir.model,name:hr_recruitment_translation.model_hr_applicant
+msgid "Applicant"
+msgstr "Jobbansökan"
+
+#. module: hr_recruitment_translation
+#: model:ir.model.fields,field_description:hr_recruitment_translation.field_hr_applicant__display_name
+msgid "Display Name"
+msgstr "Visningsnamn"
+
+#. module: hr_recruitment_translation
+#: model:ir.model.fields,field_description:hr_recruitment_translation.field_hr_applicant__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_recruitment_translation
+#: model:ir.model.fields,field_description:hr_recruitment_translation.field_hr_applicant____last_update
+msgid "Last Modified on"
+msgstr "Senast redigerad"
+
+#. module: mail
+#: model_terms:ir.ui.view,arch_db:mail.mail_notification_light
+#: model_terms:ir.ui.view,arch_db:mail.mail_notification_paynow
+msgid "Your"
+msgstr " "
