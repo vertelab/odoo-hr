@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record model="ir.cron" id="helpdesk_rotation_job">
+            <field name="name">Helpdesk Rotation Weekly Job</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">weeks</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="helpdesk_responsibility.model_helpdesk_ticket_team"/>
+            <field name="code">model.rotate_ticket()</field>
+            <field name="state">code</field>
+            <field name="active" eval="False"/>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=7)).strftime('%Y-%m-%d %H:%M:%S')" />
+        </record>
+    </data>
+</odoo>

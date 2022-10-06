@@ -1,0 +1,30 @@
+<odoo>
+    <data>
+        <record id="helpdesk_ticket_team_view" model="ir.ui.view">
+            <field name="name">helpdesk_ticket_team_view</field>
+            <field name="model">helpdesk.ticket.team</field>
+            <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_team_form"/>
+            <field name="arch" type="xml">
+                <field name="alias_user_id" position="after">
+                    <field name="ticket_rotation"/>
+                </field>
+
+                <page name="members" position="after">
+                    <page name="helpdesk_ticket_members" string="Helpdesk Ticket Members" attrs="{'invisible': [('ticket_rotation', '=', False)]}">
+                        <field name="helpdesk_user_ids">
+                            <tree>
+                                <field name="sequence" widget="handle"/>
+                                <field name="name"/>
+                            </tree>
+                        </field>
+                    </page>
+                </page>
+
+                <page name="members" position="attributes">
+                    <attribute name="attrs">{'invisible': [('ticket_rotation', '=', True)]}</attribute>
+                </page>
+                
+            </field>
+        </record>
+    </data>
+</odoo>
