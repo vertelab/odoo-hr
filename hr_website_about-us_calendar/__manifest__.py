@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    Odoo, Open Source Management Solution, third party addon
-#    Copyright (C) 2022- Vertel AB (<http://vertel.se>).
+#    Odoo SA, Open Source Management Solution, third party addon
+#    Copyright (C) 2022- Vertel AB (<https://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -14,20 +14,27 @@
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU Affero General Public License for more details.
 #
-
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
 
 {
-    'name': 'HR Website About Us Calendar',
+    'name': 'HR: Website About Us Calendar',
     'version': '14.0.0.0',
+    # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'Book meeting with employee.',
-    'category': 'Human Resources',
-    'description': """Glue module for HR Website About us. Implementing calendar button to book meeting with employees with sales role.""",
+    'category': 'HR',
+    'description': """
+    Glue module for HR Website About us. Implementing calendar button to book meeting with employees with sales role.
+    """,
+    #'sequence': '1',
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-hr/about-us',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_website_about-us_calendar',
+    'images': ['static/description/banner.png'], # 560x280 px.
+    'license': 'AGPL-3',
+    'contributor': '',
+    'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-hr',
     'depends': [        
         'website_calendar_ce',
@@ -41,4 +48,4 @@
     'installable': True,
     'auto_install': True,
 }
-# vim:expandtab:smartindent:tabstop=4s:softtabstop=4:shiftwidth=4:
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
