@@ -2,7 +2,12 @@
 <!-- Copyright 2016 Tecnativa S.L. - Vicent Cubells
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <odoo>
-    <menuitem id="lunch_menu"
-            name="Lunch Menu"
-            groups="base.group_no_one"/>
+     <record id="lunch_menu_action" model="ir.actions.act_window">
+          <field name="res_model">lunch.choice</field>
+          <field name="view_mode">tree,form</field>
+     </record>
+
+     <menuitem id="lunch_menu"
+          name="Lunch Menu"
+          />
 </odoo>

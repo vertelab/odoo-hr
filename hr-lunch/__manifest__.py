@@ -5,6 +5,7 @@
         'base',
     ],
     'data': [
-        'views/restaurant_choice.xml' 
+        'views/restaurant_choice.xml',
+        "security/ir.model.access.csv"
     ],
 }
