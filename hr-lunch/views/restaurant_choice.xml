@@ -2,12 +2,43 @@
 <!-- Copyright 2016 Tecnativa S.L. - Vicent Cubells
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <odoo>
-     <record id="lunch_menu_action" model="ir.actions.act_window">
+    <record id="lunch_menu_action" model="ir.actions.act_window">
           <field name="res_model">lunch.choice</field>
           <field name="view_mode">tree,form</field>
-     </record>
+    </record>
+    <record id="lunch_menu_tree" model="ir.ui.view">
+	    <field name="name">lunch.menu.tree </field>
+	    <field name="model">lunch.choice</field>
+	    <field name="arch" type="xml">
+		    <tree string="restaurant">
+			    <field name="name"/>
+			    <button name="voted" type="object"  string="vote" class="oe_highlight"/>
+			    <field name="link_to_menu"/>
+		    </tree>
+	    </field>
+    </record>
+    <record id="lunch_menu_form" model="ir.ui.view">
+	    <field name="name">lunch.menu.form</field>
+	    <field name="model">lunch.choice</field>
+	    <field name="arch" type="xml">
+		    <form string="restaurant">
+			    <sheet>
+				    <group>
+				    	<group>
+					    <field name="name"/>
+				    	</group>
+				    	<group>
+					    <field name="link_to_menu"/>
+				    	</group>
+				    </group>
+				    <field name="voted_on"/>
+                            </sheet>
+                    </form>
+            </field>
+    </record>
 
-     <menuitem id="lunch_menu"
-          name="Lunch Menu"
-          />
+    <menuitem id="lunch_menu"
+	     name="Lunch Menu"
+	     action="lunch_menu_action"
+    />
 </odoo>
