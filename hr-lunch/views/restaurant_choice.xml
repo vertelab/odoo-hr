@@ -12,7 +12,8 @@
 	    <field name="arch" type="xml">
 		    <tree string="restaurant">
 			    <field name="name"/>
-			    <button name="voted" type="object"  string="vote" class="oe_highlight"/>
+			    <field name="show_button" invisible="1"/>
+                            <button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_button', '=', False)]}"/>
 			    <field name="link_to_menu"/>
 		    </tree>
 	    </field>
@@ -30,8 +31,13 @@
 				    	<group>
 					    <field name="link_to_menu"/>
 				    	</group>
-				    </group>
-				    <field name="voted_on"/>
+				</group>
+				<field name="voted_on" widget="many2manylist">
+				</field>
+                                <field name="show_button" invisible="1"/>
+				<group>
+					<button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_button', '=', False)]}"/>
+				</group>
                             </sheet>
                     </form>
             </field>
