@@ -24,6 +24,20 @@ class LunchFields(models.Model):
            else:
               record.show_button = True
            _logger.warning(f"{record.show_button=}")
+    
+    def open_url(self):
+        return {
+            "type": "ir.actions.act_url", 
+            "url": "https://www.google.com",
+            "target": "new"
+        }
+   
+    #fix url part
+    #fix form-view many2many with vote button read-only 
+    @api.depends('voted_on')
+    def list_all_voters(self):
+        for rec in self:
+            rec.voter_id=len(rec.voted_on)
 
     #context = fields.Char(string="Context", compute="_get_context")
     name = fields.Char(string="Name of restaurant")
@@ -31,6 +45,8 @@ class LunchFields(models.Model):
     user_id = fields.Integer(compute="get_current_user")
     voted_on  = fields.Many2many("res.users", string="Employees")
     show_button = fields.Boolean(compute="_show_button")
+    voter_id = fields.Integer(compute="list_all_voters")
+
     def voted(self):
         for rec in self:
             #_logger.warning("you have voted, did you really")

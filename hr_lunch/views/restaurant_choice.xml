@@ -13,8 +13,9 @@
 		    <tree string="restaurant">
 			    <field name="name"/>
 			    <field name="show_button" invisible="1"/>
-                            <button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_button', '=', False)]}"/>
-			    <field name="link_to_menu"/>
+			    <button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_button', '=', False)]}"/>
+			    <field name="voter_id"/>
+                            <button name="open_url" type="object" string="url" class="oe_highlight"/>
 		    </tree>
 	    </field>
     </record>
