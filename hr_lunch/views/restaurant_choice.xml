@@ -13,9 +13,10 @@
 		    <tree string="restaurant">
 			    <field name="name"/>
 			    <field name="show_button" invisible="1"/>
+			    <field name="menu_button" invisible="1"/>
 			    <button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_button', '=', False)]}"/>
 			    <field name="voter_id"/>
-                            <button name="open_url" type="object" string="url" class="oe_highlight"/>
+			    <button name="open_url" type="object" string="url" class="oe_highlight" attrs="{'invisible':[('menu_button', '=', False)]}"/>
 		    </tree>
 	    </field>
     </record>
@@ -30,12 +31,13 @@
 					    <field name="name"/>
 				    	</group>
 				    	<group>
-					    <field name="link_to_menu"/>
+						<field name="link_to_menu"/>
 				    	</group>
 				</group>
 				<field name="voted_on" widget="many2manylist">
 				</field>
-                                <field name="show_button" invisible="1"/>
+				<field name="show_button" invisible="1"/>
+				<field name="menu_button" invisible="1"/>
 				<group>
 					<button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_button', '=', False)]}"/>
 				</group>
