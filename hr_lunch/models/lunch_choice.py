@@ -24,8 +24,8 @@ class ResUsers(models.Model):
         local = pytz.timezone(user_tz)
         current_time = datetime.now()
         trimmed = current_time.isoformat(' ', 'seconds')
-        _logger.warning(f"{local}")
-        _logger.warning(f"trimmed version: {trimmed}")
+        #_logger.warning(f"{local}")
+        #_logger.warning(f"trimmed version: {trimmed}")
         display_date_result = datetime.strftime(pytz.utc.localize(datetime.strptime(str(trimmed),
             DEFAULT_SERVER_DATETIME_FORMAT)).astimezone(local),"%Y-%m-%d %H:%M:%S")
         #_logger.warning(f"datetime-format: {display_date_result}")
@@ -34,12 +34,12 @@ class ResUsers(models.Model):
             if record.id == user.id:
                 record.update({"user_datetime": display_date_result})
             else:
-                _logger.warning(f"user hasn't voted")
+                #_logger.warning(f"user hasn't voted")
                 continue
 
-    def _get_context(self):
-        self.context = dict(self.env.context)
-        _logger.warning(f"{self.context}")
+    #def _get_context(self):
+    #    self.context = dict(self.env.context)
+    #    _logger.warning(f"{self.context}")
 
 class LunchFields(models.Model):
     _name = "lunch.choice"
@@ -123,14 +123,13 @@ class LunchFields(models.Model):
     def voted(self):
         for rec in self:
             self.update({"voted_on": [(4, self.env.user.id, 0)]})
-            _logger.error(f"{self.id}")
-            _logger.error(f"{self._context.get('uid')}")
-            _logger.warning(f"{self.voted_on.mapped('id')}")
+            #_logger.error(f"{self.id}")
+            #_logger.error(f"{self._context.get('uid')}")
+            #_logger.warning(f"{self.voted_on.mapped('id')}")
             choice = self.id
             restaurants = self.env["lunch.choice"].search([])
             for restaurant in restaurants:
                 if restaurant.id == choice:
-                    #add timestamp for when specific user voted on the option
                     continue
                 restaurante = self.env["lunch.choice"].browse(restaurant.id)
                 restaurante.update({"voted_on": [(3, self.env.user.id, 0)]})
