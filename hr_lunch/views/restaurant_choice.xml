@@ -11,6 +11,9 @@
 	    <field name="model">lunch.choice</field>
 	    <field name="arch" type="xml">
 		    <tree string="restaurant">
+			    <header>
+				    <button name="clear_all" type="object" string="Clear" class="oe_highlight"/>
+			    </header>
 			    <field name="name"/>
 			    <field name="show_button" invisible="1"/>
 			    <field name="menu_button" invisible="1"/>
@@ -32,10 +35,20 @@
 				    	</group>
 				    	<group>
 						<field name="link_to_menu"/>
-				    	</group>
+					</group>
+					<group>
+						<field name="address"/>
+					</group>
 				</group>
-				<field name="voted_on" widget="many2manylist">
-				</field>
+				<group>
+					<field name="voted_on" widget="many2manylist">
+						<tree string="String">
+							<field name="name"/>
+							<field name="login"/>
+							<field name="user_datetime"/>
+						</tree>
+					</field>
+			</group>
 				<field name="show_button" invisible="1"/>
 				<field name="menu_button" invisible="1"/>
 				<group>
