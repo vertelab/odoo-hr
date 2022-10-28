@@ -12,13 +12,15 @@ class ResUsers(models.Model):
     _inherit = "res.users"
     
     context = fields.Char(string="Context", compute="_get_context")
-    user_datetime = fields.Datetime(compute="user_date")
+    user_datetime = fields.Datetime(compute="user_date", store=True)
     lunch_id = fields.Many2many("lunch.choice")
 
-    @api.onchange('lunch_id')
+    @api.depends('lunch_id')
     def user_date(self):
         updates = self.env["res.users"].search([])
-        user = self.env["res.users"].browse(self.env.uid)
+        #user = self.env["res.users"].browse(self.env.uid)
+        lunch = self.env["lunch.choice"].search([])
+        user = self.env["res.users"].browse(self.env.user.id)
         #_logger.warning(f"{user.id}")
         user_tz = self.env.user.tz or pytz.utc
         local = pytz.timezone(user_tz)
@@ -28,10 +30,11 @@ class ResUsers(models.Model):
         #_logger.warning(f"trimmed version: {trimmed}")
         display_date_result = datetime.strftime(pytz.utc.localize(datetime.strptime(str(trimmed),
             DEFAULT_SERVER_DATETIME_FORMAT)).astimezone(local),"%Y-%m-%d %H:%M:%S")
-        #_logger.warning(f"datetime-format: {display_date_result}")
+        #_logger.warning(f"datetime-format: {display_date_result}") 
         for record in updates:
-            _logger.info(record.id)
+            #_logger.info(record.id)
             if record.id == user.id:
+                #_logger.warning(f"user_date: {record.name}")
                 record.update({"user_datetime": display_date_result})
             else:
                 #_logger.warning(f"user hasn't voted")
@@ -46,14 +49,14 @@ class LunchFields(models.Model):
     
     def clear_all(self):
         if self.env.is_admin() == True:
-            _logger.warning(f"clear all was pressed")
+            #_logger.warning(f"clear all was pressed")
             restaurants = self.env["lunch.choice"].search([])
             for rec in restaurants:
                 restaurante = self.env["lunch.choice"].browse(rec.id)
-                restaurante.update({"voted_on": [(5, )]})
+                restaurante.update({"voted_on": [(5)]})
             return True
         else:
-            _logger.warning(f"user is not admin")
+            #_logger.warning(f"user is not admin")
             return False
 
     def valid_url(self) -> bool:
@@ -109,14 +112,14 @@ class LunchFields(models.Model):
             rec.voter_id=len(rec.voted_on)
 
     #context = fields.Char(string="Context", compute="_get_context")
-    name = fields.Char(string="Name of restaurant")
+    rest_name = fields.Char(string="Name of restaurant")
     link_to_menu = fields.Char(string="link_to_menu")
     user_id = fields.Integer(compute="get_current_user")
-    voted_on  = fields.Many2many("res.users", string="Employees")
+    voted_on  = fields.Many2many("res.users", string="Employees", store=True)
     show_button = fields.Boolean(compute="_show_button")
     voter_id = fields.Integer(compute="list_all_voters", store=True)
     menu_button = fields.Boolean(compute="_menu_button")
-    address = fields.Char(string="address")
+    rest_address = fields.Char(string="address")
     clear_button = fields.Boolean(compute="clear_all")
    
     @api.onchange('voted_on')
@@ -125,7 +128,7 @@ class LunchFields(models.Model):
             self.update({"voted_on": [(4, self.env.user.id, 0)]})
             #_logger.error(f"{self.id}")
             #_logger.error(f"{self._context.get('uid')}")
-            #_logger.warning(f"{self.voted_on.mapped('id')}")
+            #_logger.warning(f"voted on {self.voted_on.mapped('id')}")
             choice = self.id
             restaurants = self.env["lunch.choice"].search([])
             for restaurant in restaurants:
