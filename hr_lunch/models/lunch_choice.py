@@ -22,15 +22,16 @@ class ResUsers(models.Model):
         lunch = self.env["lunch.choice"].search([])
         user = self.env["res.users"].browse(self.env.user.id)
         #_logger.warning(f"{user.id}")
-        user_tz = self.env.user.tz or pytz.utc
-        local = pytz.timezone(user_tz)
+        #user_tz = self.env.user.tz or pytz.utc
+        #_logger.warning(f"{user_tz}")
+        local = pytz.timezone(str(self.env.user.tz)) if self.env.user.tz is not False else pytz.timezone(str(pytz.utc))
         current_time = datetime.now()
         trimmed = current_time.isoformat(' ', 'seconds')
-        #_logger.warning(f"{local}")
+        _logger.warning(f"{local}")
         #_logger.warning(f"trimmed version: {trimmed}")
         display_date_result = datetime.strftime(pytz.utc.localize(datetime.strptime(str(trimmed),
             DEFAULT_SERVER_DATETIME_FORMAT)).astimezone(local),"%Y-%m-%d %H:%M:%S")
-        #_logger.warning(f"datetime-format: {display_date_result}") 
+        _logger.warning(f"datetime-format: {display_date_result}") 
         for record in updates:
             #_logger.info(record.id)
             if record.id == user.id:
