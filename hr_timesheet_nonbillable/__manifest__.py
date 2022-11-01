@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Odoo SA, Open Source Management Solution, third party addon
-#    Copyright (C) 2021- Vertel AB (<https://vertel.se>).
+#    Copyright (C) 2022- Vertel AB (<https://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,16 +20,11 @@
 ##############################################################################
 
 {
-    'name': 'HR Timesheet NonBillable',
-    'summary': 'To be able to report non-billable time when reporting time.',
-    'author': 'Vertel AB',
-    'contributor': '',
-    'maintainer': 'Vertel AB',
-    'repository': 'https://github.com/vertelab/odoo-hr',
-    'version': '14.0.0.1',
+    'name': 'HR: Timesheet NonBillable',
+    'version': '14.0.0.1.',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
-    'license': 'AGPL-3',
-    'website': 'https://vertel.se/apps/hr',
+    'summary': 'To be able to report non-billable time when reporting time.',
+    'category': 'HR',
     'description': """
         To be able to report non-billable time when reporting time.
     
@@ -37,6 +32,14 @@
         - compile billable and non billable time on the time report
         - In report do follow-up Compare schedule time, invoiced time and non-invoiced time
     """,
+    #'sequence': '1',
+    'author': 'Vertel AB',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_timesheet_nonbillable',
+    'images': ['static/description/banner.png'], # 560x280 px.
+    'license': 'AGPL-3',
+    'contributor': '',
+    'maintainer': 'Vertel AB',
+    'repository': 'https://github.com/vertelab/odoo-hr',
     'depends': ['hr_timesheet_sheet', 'sale_timesheet'],
     'data': [
         'views/account_analytic_line_views.xml',
@@ -45,4 +48,4 @@
     'application': True,
     'installable': True,
 }
-# vim:expandtab:smartindent:tabstop=4s:softtabstop=4:shiftwidth=4:
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

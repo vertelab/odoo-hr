@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Odoo SA, Open Source Management Solution, third party addon
-#    Copyright (C) 2021- Vertel AB (<https://vertel.se>).
+#    Copyright (C) 2022- Vertel AB (<https://vertel.se>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -20,22 +20,22 @@
 ##############################################################################
 
 {
-    'name': 'Expense: Journal Select Payable Account',
+    'name': 'HR: Journal Select Payable Account',
     'version': '14.0.0.0.1',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'Changed so that the expense uses the payable account set on the journal, and if that is not set then it will use the one set on the employee.',
-    'category': 'Accounting',
-    #'sequence': '1'
-    'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-account/account_journal-select-payable-receivable-account',
-    #'images': ['/static/description/banner.png'], # 560x280 px.
-    'license': 'AGPL-3',
-    'contributor': '',
-    'maintainer': 'Vertel AB',
-    'repository': 'https://github.com/vertelab/odoo-account',
+    'category': 'HR',
     'description': """
 	Changed so that the expense uses the payable account set on the journal, and if that is not set then it will use the one set on the employee.
     """,
+    #'sequence': '1',
+    'author': 'Vertel AB',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_expense_journal_select_payable_account',
+    'images': ['static/description/banner.png'], # 560x280 px.
+    'license': 'AGPL-3',
+    'contributor': '',
+    'maintainer': 'Vertel AB',
+    'repository': 'https://github.com/vertelab/odoo-hr',
     'depends': ['hr_expense','account_journal_select_payable_receivable_account'],
     'data': [
     ],
@@ -45,3 +45,4 @@
     'application': False,
     'auto_install': False,
 }
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
