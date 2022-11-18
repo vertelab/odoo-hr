@@ -10,6 +10,7 @@ class HRDepartment(models.Model):
 
 class HRAddress(models.Model):
     _name = 'hr.department.address'
+    _description = 'HR Department Address'
 
     name = fields.Many2one('res.partner', string="Address", domain="[('type', '=', 'hr_department')]")
     department_id = fields.Many2one('hr.department', string="Department")

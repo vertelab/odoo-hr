@@ -5,8 +5,18 @@
             <field name="model">helpdesk.ticket.team</field>
             <field name="inherit_id" ref="helpdesk_mgmt.view_helpdesk_team_form"/>
             <field name="arch" type="xml">
+
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+                    <button type="object" class="oe_stat_button" icon="fa-list-alt" name="list_events">
+                        <span class="o_stat_value">
+                            <field name="number_of_events" string="events" widget="statinfo"/>
+                        </span>
+                    </button>
+                </xpath>
+
                 <field name="alias_user_id" position="after">
                     <field name="ticket_rotation"/>
+                    <field name="periodicity"/>
                 </field>
 
                 <page name="members" position="after">
