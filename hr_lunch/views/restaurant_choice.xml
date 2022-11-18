@@ -12,7 +12,7 @@
 	    <field name="arch" type="xml">
 		    <tree string="restaurant">
 			    <header>
-				    <button name="clear_all" type="object" string="Clear_all" class="oe_highlight"/>
+				    <button name="clear_all" type="object" string="Clear all" class="oe_highlight"/>
 			    </header>
 			    <field name="rest_name"/>
 			    <field name="show_button" invisible="1"/>
