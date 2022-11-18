@@ -61,6 +61,16 @@ class LunchFields(models.Model):
             #_logger.warning(f"user is not admin")
             return False
 
+    @api.depends('clear_button')
+    def _show_clear(self):
+        if self.env.is_admin() == True:
+            self.clear_button = True
+        else:
+            self.clear_button = False
+
+    #def clear_all_button(self):
+
+
     def valid_url(self) -> bool:
         url_string = str(self.link_to_menu).strip()
         #_logger.error(self.link_to_menu)
@@ -122,8 +132,9 @@ class LunchFields(models.Model):
     voter_id = fields.Integer(compute="list_all_voters", store=True)
     menu_button = fields.Boolean(compute="_menu_button")
     rest_address = fields.Char(string="address")
-    clear_button = fields.Boolean(compute="clear_all")
-   
+    #clear_all_button = fields.Boolean(compute="clear_all")
+    clear_button = fields.Boolean(compute="_show_clear")
+
     @api.onchange('voted_on')
     def voted(self):
         for rec in self:
