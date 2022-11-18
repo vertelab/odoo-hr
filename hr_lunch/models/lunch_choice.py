@@ -47,6 +47,7 @@ class ResUsers(models.Model):
 
 class LunchFields(models.Model):
     _name = "lunch.choice"
+    _description = "Lunch Choices"
     
     def clear_all(self):
         if self.env.is_admin() == True:
