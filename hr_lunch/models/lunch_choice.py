@@ -2,7 +2,6 @@ from odoo import api, models, fields, _
 import logging
 import validators
 import datetime
-import pytz
 
 _logger = logging.getLogger(__name__)
 
