@@ -32,20 +32,15 @@
 			<form string="restaurant">
 				<sheet>
 					<group>
-						<group>
-							<field name="rest_name"/>
-						</group>
-						<group>
-							<field name="link_to_menu"/>
-						</group>
-						<group>
-							<field name="rest_address"/>
-						</group>
+						<field name="rest_name"/>
+						<field name="link_to_menu"/>
+						<field name="rest_address"/>
 					</group>
 					<group>
-						<field name="line_ids">
+						<field name="line_ids" string="">
 							<tree string="String">
 								<field name="vote_user"/>
+								<field name="vote_date"/>
 							</tree>
 						</field>
 					</group>

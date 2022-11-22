@@ -10,13 +10,17 @@ class LunchChoiceLine(models.Model):
     _name = "lunch.choice.line"
     _description = "Votes on a lunch choice"
 
+    @api.depends("parent_id", "vote_user")
+    def _compute_vote_date(self):
+        self.vote_date = datetime.datetime.now()
+
     parent_id = fields.Many2one("lunch.choice", string="Lunch field", required=True, ondelete="cascade")
-    vote_user = fields.Many2one("res.users", string="ResUsers", required=True, ondelete="cascade")
-    #vote_date = fields.Datetime(compute="_vote_date", store=True)
+    vote_user = fields.Many2one("res.users", string="Votes", required=True, ondelete="cascade")
+    vote_date = fields.Datetime(compute="_compute_vote_date", store=True)
 
 class LunchChoice(models.Model):
     _name = "lunch.choice"
-    _description = "Let's you vote for restaurants"
+    _description = "Lets you vote for restaurants"
     
     def clear_all(self):
         for lunch in self:
@@ -64,11 +68,11 @@ class LunchChoice(models.Model):
         self.voter_amount=len(self.line_ids)
 
     rest_name = fields.Char(string="Name of restaurant")
-    link_to_menu = fields.Char(string="link_to_menu")
+    link_to_menu = fields.Char(string="Url to menu")
     show_vote_button = fields.Boolean(compute="_show_vote_button")
     voter_amount = fields.Integer(compute="list_all_voters", store=True)
     show_menu_button = fields.Boolean(compute="_show_menu_button")
-    rest_address = fields.Char(string="address")
+    rest_address = fields.Char(string="Address")
     clear_button = fields.Boolean(compute="_show_clear")
     line_ids = fields.One2many(comodel_name="lunch.choice.line", inverse_name="parent_id")
 
