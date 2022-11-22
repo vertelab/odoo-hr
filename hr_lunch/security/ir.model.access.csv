@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_lunch_choice,lunch.choice,hr_lunch.model_lunch_choice,base.group_user,1,1,1,1,
 access_lunch_choice_clear_button,lunch.choice,hr_lunch.model_lunch_choice,base.group_system,1,1,1,1
+access_lunch_choice_line,access_lunch_choice_line,model_lunch_choice_line,base.group_user,1,1,1,1

@@ -2,65 +2,64 @@
 <!-- Copyright 2016 Tecnativa S.L. - Vicent Cubells
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <odoo>
-    <record id="lunch_menu_action" model="ir.actions.act_window">
-          <field name="res_model">lunch.choice</field>
-          <field name="view_mode">tree,form</field>
-    </record>
-    <record id="lunch_menu_tree" model="ir.ui.view">
-	    <field name="name">lunch.menu.tree </field>
-	    <field name="model">lunch.choice</field>
-	    <field name="arch" type="xml">
-		    <tree string="restaurant">
-			    <header>
-				    <button name="clear_all" type="object" string="Clear all" class="oe_highlight" groups="base.group_system"/>
+	<record id="lunch_menu_action" model="ir.actions.act_window">
+		<field name="res_model">lunch.choice</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<record id="lunch_menu_tree" model="ir.ui.view">
+		<field name="name">lunch.menu.tree </field>
+		<field name="model">lunch.choice</field>
+		<field name="arch" type="xml">
+			<tree string="restaurant">
+				<header>
+					<button name="clear_all" type="object" string="Clear all" class="oe_highlight" groups="base.group_system"/>
 				</header>
-			    <field name="rest_name"/>
-			    <field name="show_button" invisible="1"/>
-			    <field name="menu_button" invisible="1"/>
-			    <button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_button', '=', False)]}"/>
-			    <field name="voter_id"/>
-			    <button name="open_url" type="object" string="menu" class="oe_highlight" attrs="{'invisible':[('menu_button', '=', False)]}"/>
-		    </tree>
-	    </field>
-    </record>
-    <record id="lunch_menu_form" model="ir.ui.view">
-	    <field name="name">lunch.menu.form</field>
-	    <field name="model">lunch.choice</field>
-	    <field name="arch" type="xml">
-		    <form string="restaurant">
-			    <sheet>
-				    <group>
-				    	<group>
-					    <field name="rest_name"/>
-				    	</group>
-				    	<group>
-						<field name="link_to_menu"/>
+				<field name="rest_name"/>
+				<field name="show_vote_button" invisible="1"/>
+				<field name="show_menu_button" invisible="1"/>
+				<button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_vote_button', '=', False)]}"/>
+				<field name="voter_amount"/>
+				<button name="open_url" type="object" string="menu" class="oe_highlight" attrs="{'invisible':[('show_menu_button', '=', False)]}"/>
+			</tree>
+		</field>
+	</record>
+
+	<record id="lunch_menu_form" model="ir.ui.view">
+		<field name="name">lunch.menu.form</field>
+		<field name="model">lunch.choice</field>
+		<field name="arch" type="xml">
+			<form string="restaurant">
+				<sheet>
+					<group>
+						<group>
+							<field name="rest_name"/>
+						</group>
+						<group>
+							<field name="link_to_menu"/>
+						</group>
+						<group>
+							<field name="rest_address"/>
+						</group>
 					</group>
 					<group>
-						<field name="rest_address"/>
+						<field name="line_ids">
+							<tree string="String">
+								<field name="vote_user"/>
+							</tree>
+						</field>
 					</group>
-				</group>
-				<group>
-					<field name="voted_on" widget="many2manylist">
-						<tree string="String">
-							<field name="name"/>
-							<field name="login"/>
-							<field name="user_datetime"/>
-						</tree>
-					</field>
-			</group>
-				<field name="show_button" invisible="1"/>
-				<field name="menu_button" invisible="1"/>
-				<group>
-					<button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_button', '=', False)]}"/>
-				</group>
-                            </sheet>
-                    </form>
-            </field>
-    </record>
+					<field name="show_vote_button" invisible="1"/>
+					<group>
+						<button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_vote_button', '=', False)]}"/>
+					</group>
+				</sheet>
+			</form>
+		</field>
+	</record>
 
-    <menuitem id="lunch_menu"
-	     name="Lunch Menu"
-	     action="lunch_menu_action"
-    />
+	<menuitem id="lunch_menu"
+		name="Lunch Menu"
+		action="lunch_menu_action"
+		/>
 </odoo>
