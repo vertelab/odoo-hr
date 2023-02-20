@@ -1,0 +1,162 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_lunch
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0-20220126\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-22 10:29+0000\n"
+"PO-Revision-Date: 2022-11-22 11:34+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.2.1\n"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__rest_address
+msgid "Address"
+msgstr "Adress"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__clear_button
+msgid "Clear Button"
+msgstr "Rensa Knapp"
+
+#. module: hr_lunch
+#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_tree
+msgid "Clear all"
+msgstr "Rensa alla"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__create_uid
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__create_uid
+msgid "Created by"
+msgstr "Skapat av"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__create_date
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__create_date
+msgid "Created on"
+msgstr "Skapad den"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__display_name
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__display_name
+msgid "Display Name"
+msgstr "Visningsnamn"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__id
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__id
+msgid "ID"
+msgstr ""
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice____last_update
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line____last_update
+msgid "Last Modified on"
+msgstr "Senaste ändrad den"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__write_uid
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__write_uid
+msgid "Last Updated by"
+msgstr "Senast uppdatera av"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__write_date
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__write_date
+msgid "Last Updated on"
+msgstr "Senast uppdaterad den"
+
+#. module: hr_lunch
+#: model:ir.model,name:hr_lunch.model_lunch_choice
+msgid "Let's you vote for restaurants"
+msgstr "Låter dig rösta på restauranger"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__line_ids
+msgid "Line"
+msgstr "Rad"
+
+#. module: hr_lunch
+#: model:ir.ui.menu,name:hr_lunch.lunch_menu
+msgid "Lunch Menu"
+msgstr "Lunch Meny"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__parent_id
+msgid "Lunch field"
+msgstr ""
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__rest_name
+msgid "Name of restaurant"
+msgstr "Restaurang Namn"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__show_menu_button
+msgid "Show Menu Button"
+msgstr "Visa Meny Knapp"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__show_vote_button
+msgid "Show Vote Button"
+msgstr "Visa Röst Knapp"
+
+#. module: hr_lunch
+#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_form
+msgid "String"
+msgstr "Sträng"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__link_to_menu
+msgid "Url to menu"
+msgstr "Url till Meny"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__vote_date
+msgid "Vote Date"
+msgstr "Röst Datum"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__voter_amount
+msgid "Voter Amount"
+msgstr "Antal Röster"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__vote_user
+msgid "Votes"
+msgstr "Röster"
+
+#. module: hr_lunch
+#: model:ir.model,name:hr_lunch.model_lunch_choice_line
+msgid "Votes on a lunch choice"
+msgstr "Röster på restaurang"
+
+#. module: hr_lunch
+#: model:ir.actions.act_window,name:hr_lunch.lunch_menu_action
+msgid "lunch.choice"
+msgstr ""
+
+#. module: hr_lunch
+#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_tree
+msgid "menu"
+msgstr "meny"
+
+#. module: hr_lunch
+#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_form
+#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_tree
+msgid "restaurant"
+msgstr "restaurang"
+
+#. module: hr_lunch
+#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_form
+#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_tree
+msgid "vote"
+msgstr "rösta"
