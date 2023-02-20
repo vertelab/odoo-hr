@@ -15,6 +15,9 @@ class HelpdeskTicketTeam(models.Model):
     ticket_rotation = fields.Boolean(string='Ticket Rotation')
     number_of_events = fields.Integer(compute='_ticketteam_event_count')
     periodicity = fields.Selection([('daily','Daily'),('weekly','Weekly'),('monthly','Monthly')])
+    last_user_daily = fields.Many2one('res.users', string='Last Daily User')
+    last_user_weekly = fields.Many2one('res.users', string='Last Weekly User')
+    last_user_monthly = fields.Many2one('res.users', string='Last Monthly User')
 
 
     def rotate_ticket(self,cronjob=None):
@@ -23,16 +26,54 @@ class HelpdeskTicketTeam(models.Model):
         """
         team_ids = self.env['helpdesk.ticket.team'].search([('ticket_rotation', '=', True)])
         for team_id in team_ids:
+            user_id = team_id.helpdesk_user_ids[0]
             if team_id and team_id.helpdesk_user_ids:
-                user_id = team_id.helpdesk_user_ids[0]
+
+                if team_id.periodicity == 'daily':
+                    if team_id.last_user_daily:
+                        if team_id.last_user_daily.id in team_id.helpdesk_user_ids.ids:
+                            team_user_ids = team_id.helpdesk_user_ids.ids
+                            next_user_id = team_user_ids.index(team_id.last_user_daily.id) + 1
+                            if next_user_id <= (len(team_user_ids) - 1):
+                                user_id = self.env['res.users'].browse(team_user_ids[next_user_id])
+                            else:
+                                user_id = team_id.helpdesk_user_ids[0]
+                        team_id.last_user_daily = user_id
+                    else:
+                        user_id = team_id.helpdesk_user_ids[0]
+                        team_id.last_user_daily = user_id
+                
+                if team_id.periodicity == 'weekly':
+                    if team_id.last_user_weekly:
+                        if team_id.last_user_weekly.id in team_id.helpdesk_user_ids.ids:
+                            team_user_ids = team_id.helpdesk_user_ids.ids
+                            next_user_id = team_user_ids.index(team_id.last_user_weekly.id) + 1
+                            if next_user_id <= (len(team_user_ids) - 1):
+                                user_id = self.env['res.users'].browse(team_user_ids[next_user_id])
+                            else:
+                                user_id = team_id.helpdesk_user_ids[0]
+                        team_id.last_user_weekly = user_id
+                    else:
+                        user_id = team_id.helpdesk_user_ids[0]
+                        team_id.last_user_weekly = user_id
+                
+                if team_id.periodicity == 'monthly':
+                    if team_id.last_user_monthly:
+                        if team_id.last_user_monthly.id in team_id.helpdesk_user_ids.ids:
+                            team_user_ids = team_id.helpdesk_user_ids.ids
+                            next_user_id = team_user_ids.index(team_id.last_user_monthly.id) + 1
+                            if next_user_id <= (len(team_user_ids) - 1):
+                                user_id = self.env['res.users'].browse(team_user_ids[next_user_id])
+                            else:
+                                user_id = team_id.helpdesk_user_ids[0]
+                        team_id.last_user_monthly = user_id
+                    else:
+                        user_id = team_id.helpdesk_user_ids[0]
+                        team_id.last_user_monthly = user_id
 
                 if team_id.periodicity:
-                    if cronjob:
-                        if team_id.periodicity == cronjob:
-                            self._create_ticket_event(team_id, user_id)
-                    else:
-                        self._create_ticket_event(team_id, user_id)
-    
+                    self._create_ticket_event(team_id, user_id)
+
 
     def _create_ticket_event(self, team_id, user_id):
         """
@@ -69,11 +110,15 @@ class HelpdeskTicketTeam(models.Model):
 
         user_id = team_id.helpdesk_user_ids.filtered(lambda x: x.id == user_id.id)
         if eventname:
+            partner_id = user_id.partner_id.id
+            partner_ids = [(6,0,[partner_id])]
             self.env['calendar.event'].create({
                 'name': eventname,
                 'start_date': start_date,
                 'stop_date': stop_date,
                 'user_id': user_id.id,
+                'partner_id': partner_id,
+                'partner_ids': partner_ids,
                 'helpdesk_event': True,
                 'allday': True,
                 'helpdesk_ticket_team': team_id.id
