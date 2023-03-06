@@ -24,13 +24,13 @@
     'version': '14.0.1.0.0',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'HR Request Overtime',
-    'category': 'Technical',
+    'category': 'HR',
     'description': """
     HR Request Overtime
     """,
     #'sequence': '1',
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-hr/hr_recruitment_translation',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_request_overtime',
     'images': ['static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',
     'contributor': '',
