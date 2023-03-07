@@ -3,7 +3,6 @@ from odoo.osv import expression
 
 
 class TimesheetSchema(models.Model):
-    #_name = 'hr.timesheet.schema'
     _inherit = 'hr_timesheet.sheet'
 
     @api.depends('timesheet_ids.non_billable', 'timesheet_ids.unit_amount')
@@ -26,7 +25,19 @@ class TimesheetSchema(models.Model):
 class AccountAnalyticLine(models.Model):
     _inherit = 'account.analytic.line'
 
-    non_billable = fields.Boolean(string="Non-Billable", default=False)
+    @api.depends('project_id.allow_billable')
+    def _compute_non_billable(self):
+        for rec in self:
+            if rec.project_id.allow_billable:
+                rec.non_billable = rec.project_id.allow_billable
+            else:
+                rec.non_billable = False
+
+    def _inverse_non_billable(self):
+        pass
+
+    non_billable = fields.Boolean(string="Non-Billable", default=False, compute=_compute_non_billable, store=True,
+                                  inverse=_inverse_non_billable, compute_sudo=True)
 
     @api.depends('non_billable', 'unit_amount')
     def _compute_timesheet_details(self):
