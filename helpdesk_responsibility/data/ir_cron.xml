@@ -1,15 +1,39 @@
 <odoo>
     <data>
-        <record model="ir.cron" id="helpdesk_rotation_job">
-            <field name="name">Helpdesk Rotation Weekly Job</field>
+        <record model="ir.cron" id="helpdesk_rotation_job_daily">
+            <field name="name">Helpdesk Rotation Job Daily</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="helpdesk_responsibility.model_helpdesk_ticket_team"/>
+            <field name="code">model.rotate_ticket('daily')</field>
+            <field name="state">code</field>
+            <field name="active" eval="True"/>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 00:00:00')" />
+        </record>
+
+        <record model="ir.cron" id="helpdesk_rotation_job_weekly">
+            <field name="name">Helpdesk Rotation Job Weekly</field>
             <field name="interval_number">1</field>
             <field name="interval_type">weeks</field>
             <field name="numbercall">-1</field>
             <field name="model_id" ref="helpdesk_responsibility.model_helpdesk_ticket_team"/>
-            <field name="code">model.rotate_ticket()</field>
+            <field name="code">model.rotate_ticket('weekly')</field>
             <field name="state">code</field>
-            <field name="active" eval="False"/>
-            <field name="nextcall" eval="(DateTime.now() + timedelta(days=7)).strftime('%Y-%m-%d %H:%M:%S')" />
+            <field name="active" eval="True"/>
+            <field name="nextcall" eval="(DateTime.now() + timedelta(days=8-DateTime.now().isoweekday())).strftime('%Y-%m-%d 00:00:00')" />
+        </record>
+
+        <record model="ir.cron" id="helpdesk_rotation_job_monthly">
+            <field name="name">Helpdesk Rotation Daily Job Monthly</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="helpdesk_responsibility.model_helpdesk_ticket_team"/>
+            <field name="code">model.rotate_ticket('monthly')</field>
+            <field name="state">code</field>
+            <field name="active" eval="True"/>
+            <field name="nextcall" eval="(DateTime.now() + relativedelta(months=1)).strftime('%Y-%m-01 00:00:00')" />
         </record>
     </data>
 </odoo>

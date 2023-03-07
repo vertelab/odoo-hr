@@ -45,12 +45,7 @@ See enclosed photos for description.
     'contributor': '',
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-hr',
-    'depends': [
-        'website_imagemagick',
-        'hr',
-        'website',
-        'web_domain_field',
-        ],
+    'depends': ['website_imagemagick','hr','website','web_domain_field',],
     'data': [
         'views/assets.xml',
         'views/about-us_view.xml',

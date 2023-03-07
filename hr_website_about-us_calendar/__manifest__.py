@@ -36,10 +36,7 @@
     'contributor': '',
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-hr',
-    'depends': [        
-        'website_calendar_ce',
-        'hr_website_about-us',
-        ],
+    'depends': ['website_calendar_ce','hr_website_about-us',],
     'data': [        
         'views/about-us_view.xml',
         'views/hr_view.xml'

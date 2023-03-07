@@ -7,6 +7,7 @@
             <field name="arch" type="xml">               
                 <field name="allday" position="after">
                     <field name="helpdesk_event" invisible="1"/>
+                    <field name="helpdesk_ticket_team" attrs="{'invisible': [('helpdesk_event', '=', False)]}"/>
                 </field>
             </field>
         </record>
