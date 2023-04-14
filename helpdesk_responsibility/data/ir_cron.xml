@@ -25,7 +25,7 @@
         </record>
 
         <record model="ir.cron" id="helpdesk_rotation_job_monthly">
-            <field name="name">Helpdesk Rotation Daily Job Monthly</field>
+            <field name="name">Helpdesk Rotation Job Monthly</field>
             <field name="interval_number">1</field>
             <field name="interval_type">months</field>
             <field name="numbercall">-1</field>

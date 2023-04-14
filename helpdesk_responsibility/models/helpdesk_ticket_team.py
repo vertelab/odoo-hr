@@ -9,15 +9,11 @@ _logger = logging.getLogger(__name__)
 
 class HelpdeskTicketTeam(models.Model):
     _inherit = "helpdesk.ticket.team"
-
     
     helpdesk_user_ids = fields.Many2many('res.users', 'helpdesk_ticket_user_rel', string='Helpdesk Users')
     ticket_rotation = fields.Boolean(string='Ticket Rotation')
     number_of_events = fields.Integer(compute='_ticketteam_event_count')
     periodicity = fields.Selection([('daily','Daily'),('weekly','Weekly'),('monthly','Monthly')])
-    last_user_daily = fields.Many2one('res.users', string='Last Daily User')
-    last_user_weekly = fields.Many2one('res.users', string='Last Weekly User')
-    last_user_monthly = fields.Many2one('res.users', string='Last Monthly User')
 
 
     def rotate_ticket(self,cronjob=None):
@@ -26,53 +22,42 @@ class HelpdeskTicketTeam(models.Model):
         """
         team_ids = self.env['helpdesk.ticket.team'].search([('ticket_rotation', '=', True)])
         for team_id in team_ids:
-            user_id = team_id.helpdesk_user_ids[0]
             if team_id and team_id.helpdesk_user_ids:
 
-                if team_id.periodicity == 'daily':
-                    if team_id.last_user_daily:
-                        if team_id.last_user_daily.id in team_id.helpdesk_user_ids.ids:
-                            team_user_ids = team_id.helpdesk_user_ids.ids
-                            next_user_id = team_user_ids.index(team_id.last_user_daily.id) + 1
-                            if next_user_id <= (len(team_user_ids) - 1):
-                                user_id = self.env['res.users'].browse(team_user_ids[next_user_id])
-                            else:
-                                user_id = team_id.helpdesk_user_ids[0]
-                        team_id.last_user_daily = user_id
-                    else:
-                        user_id = team_id.helpdesk_user_ids[0]
-                        team_id.last_user_daily = user_id
-                
-                if team_id.periodicity == 'weekly':
-                    if team_id.last_user_weekly:
-                        if team_id.last_user_weekly.id in team_id.helpdesk_user_ids.ids:
-                            team_user_ids = team_id.helpdesk_user_ids.ids
-                            next_user_id = team_user_ids.index(team_id.last_user_weekly.id) + 1
-                            if next_user_id <= (len(team_user_ids) - 1):
-                                user_id = self.env['res.users'].browse(team_user_ids[next_user_id])
-                            else:
-                                user_id = team_id.helpdesk_user_ids[0]
-                        team_id.last_user_weekly = user_id
-                    else:
-                        user_id = team_id.helpdesk_user_ids[0]
-                        team_id.last_user_weekly = user_id
-                
-                if team_id.periodicity == 'monthly':
-                    if team_id.last_user_monthly:
-                        if team_id.last_user_monthly.id in team_id.helpdesk_user_ids.ids:
-                            team_user_ids = team_id.helpdesk_user_ids.ids
-                            next_user_id = team_user_ids.index(team_id.last_user_monthly.id) + 1
-                            if next_user_id <= (len(team_user_ids) - 1):
-                                user_id = self.env['res.users'].browse(team_user_ids[next_user_id])
-                            else:
-                                user_id = team_id.helpdesk_user_ids[0]
-                        team_id.last_user_monthly = user_id
-                    else:
-                        user_id = team_id.helpdesk_user_ids[0]
-                        team_id.last_user_monthly = user_id
+                userlist = team_id.helpdesk_user_ids
+                users = len(userlist)
+                low_seq = team_id.helpdesk_user_ids[0].sequence
+                hi_seq = team_id.helpdesk_user_ids[0].sequence
+                user_id = None
 
-                if team_id.periodicity:
-                    self._create_ticket_event(team_id, user_id)
+                if users > 1:
+                    for user in userlist:   # Loop through and rotate users
+                        userseq = user.sequence
+                        if userseq <= low_seq:
+                            low_seq = userseq
+                            low_seq_user = user
+                        elif userseq >= hi_seq:
+                            hi_seq = userseq
+                        user.sequence = userseq - 1
+                    low_seq_user.sequence = hi_seq
+
+                    for user in userlist:   # Loop through again after rotation and get the user with the lowest sequence nr
+                        userseq = user.sequence
+                        if userseq <= low_seq:
+                            low_seq = userseq
+                            low_seq_user = user
+                        elif userseq >= hi_seq:
+                            hi_seq = userseq
+
+                    user_id = low_seq_user
+
+                elif users == 1:
+                    user_id = userlist[0]
+
+                if user_id:                    
+                    if cronjob:
+                        if team_id.periodicity == cronjob:
+                            self._create_ticket_event(team_id, user_id)
 
 
     def _create_ticket_event(self, team_id, user_id):
@@ -81,23 +66,26 @@ class HelpdeskTicketTeam(models.Model):
         """
         eventname = None
         if team_id.periodicity == 'daily':
-            eventname = f'Team {team_id.name} Helpdesk Support'
+            responsible = _('Responsible:')
+            eventname = f'{team_id.name} {responsible} {user_id.name}'
             start_date = date.today()
             stop_date = date.today()
 
         elif team_id.periodicity == 'weekly':
             week = date.today().isocalendar()[1]
-            eventname = f'Team {team_id.name} Helpdesk Support for Week {week}'
+            responsible = _('Responsible for week')
+            eventname = f'{team_id.name} {responsible} {week}: {user_id.name}'
             today = date.today()
             diff = today.isoweekday() - 1
             start_date = today - timedelta(days=diff)
-            stop_date = start_date + timedelta(days=6)
+            stop_date = start_date + timedelta(days=4)  # stops at friday(work week). Set this to 6 to get whole week.
 
         elif team_id.periodicity == 'monthly':
             month = (_('January'),_('February'),'Mars','April',_('May'),_('June'),
             _('July'),_('August'),'September',_('October'),'November','December')
             m_index = int(datetime.now().strftime('%m')) -1
-            eventname = f'Team {team_id.name} Helpdesk Support for {month[m_index]}'
+            responsible = _('Responsible for')
+            eventname = f'{team_id.name} {responsible} {month[m_index]}: {user_id.name}'
             this_year = datetime.now().year
             this_month = datetime.now().month
             start_date = datetime(this_year,this_month,1)

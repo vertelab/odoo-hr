@@ -1,0 +1,191 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* helpdesk_responsibility
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0-20220428\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-04-14 13:19+0000\n"
+"PO-Revision-Date: 2023-04-14 13:19+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: helpdesk_responsibility
+#: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
+#, python-format
+msgid "August"
+msgstr "augusti"
+
+#. module: helpdesk_responsibility
+#: model:ir.model,name:helpdesk_responsibility.model_calendar_event
+msgid "Calendar Event"
+msgstr "Kalenderhändelse"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields.selection,name:helpdesk_responsibility.selection__helpdesk_ticket_team__periodicity__daily
+msgid "Daily"
+msgstr "Dagligen"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event__display_name
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__display_name
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_res_users__display_name
+msgid "Display Name"
+msgstr "Visningsnamn"
+
+#. module: helpdesk_responsibility
+#: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
+#, python-format
+msgid "February"
+msgstr "februari"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event__helpdesk_event
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_contract_contract__helpdesk_event
+msgid "Helpdesk Event"
+msgstr "Helpdeskhändelse"
+
+#. module: helpdesk_responsibility
+#: model:ir.actions.server,name:helpdesk_responsibility.helpdesk_rotation_job_daily_ir_actions_server
+#: model:ir.cron,cron_name:helpdesk_responsibility.helpdesk_rotation_job_daily
+#: model:ir.cron,name:helpdesk_responsibility.helpdesk_rotation_job_daily
+msgid "Helpdesk Rotation Job Daily"
+msgstr "Dagligt helpdeskroteringsjobb"
+
+#. module: helpdesk_responsibility
+#: model:ir.actions.server,name:helpdesk_responsibility.helpdesk_rotation_job_monthly_ir_actions_server
+#: model:ir.cron,cron_name:helpdesk_responsibility.helpdesk_rotation_job_monthly
+#: model:ir.cron,name:helpdesk_responsibility.helpdesk_rotation_job_monthly
+msgid "Helpdesk Rotation Job Monthly"
+msgstr "Månadsvis helpdeskroteringsjobb"
+
+#. module: helpdesk_responsibility
+#: model:ir.actions.server,name:helpdesk_responsibility.helpdesk_rotation_job_weekly_ir_actions_server
+#: model:ir.cron,cron_name:helpdesk_responsibility.helpdesk_rotation_job_weekly
+#: model:ir.cron,name:helpdesk_responsibility.helpdesk_rotation_job_weekly
+msgid "Helpdesk Rotation Job Weekly"
+msgstr "Veckovis helpdeskroteringsjobb"
+
+#. module: helpdesk_responsibility
+#: model_terms:ir.ui.view,arch_db:helpdesk_responsibility.helpdesk_ticket_team_view
+msgid "Helpdesk Ticket Members"
+msgstr "Helpdeskbiljett medlemmar"
+
+#. module: helpdesk_responsibility
+#: model:ir.model,name:helpdesk_responsibility.model_helpdesk_ticket_team
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event__helpdesk_ticket_team
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_contract_contract__helpdesk_ticket_team
+msgid "Helpdesk Ticket Team"
+msgstr "Helpdeskbiljett team"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__helpdesk_user_ids
+msgid "Helpdesk Users"
+msgstr "Helpdeskanvändare"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event__id
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__id
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_res_users__id
+msgid "ID"
+msgstr ""
+
+#. module: helpdesk_responsibility
+#: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
+#, python-format
+msgid "January"
+msgstr "januari"
+
+#. module: helpdesk_responsibility
+#: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
+#, python-format
+msgid "July"
+msgstr "juli"
+
+#. module: helpdesk_responsibility
+#: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
+#, python-format
+msgid "June"
+msgstr "juni"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event____last_update
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team____last_update
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_res_users____last_update
+msgid "Last Modified on"
+msgstr "Senast redigerad"
+
+#. module: helpdesk_responsibility
+#: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
+#, python-format
+msgid "May"
+msgstr "maj"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields.selection,name:helpdesk_responsibility.selection__helpdesk_ticket_team__periodicity__monthly
+msgid "Monthly"
+msgstr "månadsvis"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__number_of_events
+msgid "Number Of Events"
+msgstr "Antal händelser"
+
+#. module: helpdesk_responsibility
+#: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
+#, python-format
+msgid "October"
+msgstr "oktober"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__periodicity
+msgid "Periodicity"
+msgstr "periodicitet"
+
+#. module: helpdesk_responsibility
+#: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
+#, python-format
+msgid "Responsible for"
+msgstr "Ansvarig för"
+
+#. module: helpdesk_responsibility
+#: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
+#, python-format
+msgid "Responsible for week"
+msgstr "Ansvarig för vecka"
+
+#. module: helpdesk_responsibility
+#: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
+#, python-format
+msgid "Responsible:"
+msgstr "Ansvarig:"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_res_users__sequence
+msgid "Sequence"
+msgstr "Sekvens"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__ticket_rotation
+msgid "Ticket Rotation"
+msgstr "Biljettrotering"
+
+#. module: helpdesk_responsibility
+#: model:ir.model,name:helpdesk_responsibility.model_res_users
+msgid "Users"
+msgstr "Användare"
+
+#. module: helpdesk_responsibility
+#: model:ir.model.fields.selection,name:helpdesk_responsibility.selection__helpdesk_ticket_team__periodicity__weekly
+msgid "Weekly"
+msgstr "veckovis"
+
+#. module: helpdesk_responsibility
+#: model_terms:ir.ui.view,arch_db:helpdesk_responsibility.helpdesk_ticket_team_view
+msgid "events"
+msgstr "händelser"
