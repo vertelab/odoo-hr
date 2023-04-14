@@ -309,3 +309,23 @@ class ProjectCreateSalesOrder(models.TransientModel):
             })
 
         return map_entries
+
+
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    @api.depends('analytic_line_ids.project_id', 'analytic_line_ids.non_allow_billable', 'project_id.pricing_type',
+                 'project_id.bill_type', 'analytic_line_ids.non_billable')
+    def _compute_qty_delivered(self):
+        super(SaleOrderLine, self)._compute_qty_delivered()
+
+        lines_by_timesheet = self.filtered(
+            lambda sol: sol.qty_delivered_method == 'timesheet')
+        domain = lines_by_timesheet._timesheet_compute_delivered_quantity_domain()
+        mapping = lines_by_timesheet.sudo()._get_delivered_quantity_by_analytic(domain)
+        for line in lines_by_timesheet:
+            line.qty_delivered = mapping.get(line.id or line._origin.id, 0.0)
+
+    def _timesheet_compute_delivered_quantity_domain(self):
+        """ Hook for validated timesheet in additional module """
+        return [('project_id', '!=', False), ('non_allow_billable', '=', False), ('non_billable', '=', False)]
