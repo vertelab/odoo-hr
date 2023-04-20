@@ -20,7 +20,7 @@
                 </field>
 
                 <page name="members" position="after">
-                    <page name="helpdesk_ticket_members" string="Helpdesk Ticket Members" attrs="{'invisible': [('ticket_rotation', '=', False)]}">
+                    <page name="helpdesk_ticket_members" string="Helpdesk Responsible Rotation" attrs="{'invisible': [('ticket_rotation', '=', False)]}">
                         <field name="helpdesk_user_ids">
                             <tree>
                                 <field name="sequence" widget="handle"/>
@@ -30,9 +30,9 @@
                     </page>
                 </page>
 
-                <page name="members" position="attributes">
+                <!-- <page name="members" position="attributes">
                     <attribute name="attrs">{'invisible': [('ticket_rotation', '=', True)]}</attribute>
-                </page>
+                </page> -->
                 
             </field>
         </record>

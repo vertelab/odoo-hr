@@ -73,8 +73,8 @@ msgstr "Veckovis helpdeskroteringsjobb"
 
 #. module: helpdesk_responsibility
 #: model_terms:ir.ui.view,arch_db:helpdesk_responsibility.helpdesk_ticket_team_view
-msgid "Helpdesk Ticket Members"
-msgstr "Helpdeskbiljett medlemmar"
+msgid "Helpdesk Responsible Rotation"
+msgstr "Helpdesk ansvarsrotation"
 
 #. module: helpdesk_responsibility
 #: model:ir.model,name:helpdesk_responsibility.model_helpdesk_ticket_team
