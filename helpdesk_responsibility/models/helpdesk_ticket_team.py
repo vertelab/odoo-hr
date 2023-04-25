@@ -18,46 +18,49 @@ class HelpdeskTicketTeam(models.Model):
 
     def rotate_ticket(self,cronjob=None):
         """
-        Check calender event for who has been assigned to a week in the previous week 
+        Rotate team members
         """
-        team_ids = self.env['helpdesk.ticket.team'].search([('ticket_rotation', '=', True)])
-        for team_id in team_ids:
-            if team_id and team_id.helpdesk_user_ids:
 
-                userlist = team_id.helpdesk_user_ids
-                users = len(userlist)
-                low_seq = team_id.helpdesk_user_ids[0].sequence
-                hi_seq = team_id.helpdesk_user_ids[0].sequence
-                user_id = None
-
-                if users > 1:
-                    for user in userlist:   # Loop through and rotate users
-                        userseq = user.sequence
-                        if userseq <= low_seq:
-                            low_seq = userseq
-                            low_seq_user = user
-                        elif userseq >= hi_seq:
-                            hi_seq = userseq
-                        user.sequence = userseq - 1
-                    low_seq_user.sequence = hi_seq
-
-                    for user in userlist:   # Loop through again after rotation and get the user with the lowest sequence nr
-                        userseq = user.sequence
-                        if userseq <= low_seq:
-                            low_seq = userseq
-                            low_seq_user = user
-                        elif userseq >= hi_seq:
-                            hi_seq = userseq
-
-                    user_id = low_seq_user
-
-                elif users == 1:
-                    user_id = userlist[0]
-
-                if user_id:                    
-                    if cronjob:
+        if cronjob:
+                team_ids = self.env['helpdesk.ticket.team'].search([('ticket_rotation', '=', True)])
+                for team_id in team_ids:
+                    if team_id and team_id.helpdesk_user_ids:
+                        _logger.error(f"{team_id.periodicity=}")
+                        _logger.error(f"{cronjob=}")
                         if team_id.periodicity == cronjob:
-                            self._create_ticket_event(team_id, user_id)
+
+                            userlist = team_id.helpdesk_user_ids
+                            users = len(userlist)
+                            low_seq = team_id.helpdesk_user_ids[0].sequence
+                            hi_seq = team_id.helpdesk_user_ids[0].sequence
+                            user_id = None
+
+                            if users > 1:
+                                for user in userlist:   # Loop through and rotate users
+                                    userseq = user.sequence
+                                    if userseq <= low_seq:
+                                        low_seq = userseq
+                                        low_seq_user = user
+                                    elif userseq >= hi_seq:
+                                        hi_seq = userseq
+                                    user.sequence = userseq - 1
+                                low_seq_user.sequence = hi_seq
+
+                                for user in userlist:   # Loop through again after rotation and get the user with the lowest sequence nr
+                                    userseq = user.sequence
+                                    if userseq <= low_seq:
+                                        low_seq = userseq
+                                        low_seq_user = user
+                                    elif userseq >= hi_seq:
+                                        hi_seq = userseq
+
+                                user_id = low_seq_user
+
+                            elif users == 1:
+                                user_id = userlist[0]
+
+                            if user_id:                    
+                                self._create_ticket_event(team_id, user_id)
 
 
     def _create_ticket_event(self, team_id, user_id):

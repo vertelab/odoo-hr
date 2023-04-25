@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0-20220428\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-14 13:19+0000\n"
-"PO-Revision-Date: 2023-04-14 13:19+0000\n"
+"POT-Creation-Date: 2023-04-25 07:02+0000\n"
+"PO-Revision-Date: 2023-04-25 07:02+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,7 +19,7 @@ msgstr ""
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
 #, python-format
 msgid "August"
-msgstr "augusti"
+msgstr "Augusti"
 
 #. module: helpdesk_responsibility
 #: model:ir.model,name:helpdesk_responsibility.model_calendar_event
@@ -42,13 +42,17 @@ msgstr "Visningsnamn"
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
 #, python-format
 msgid "February"
-msgstr "februari"
+msgstr "Februari"
 
 #. module: helpdesk_responsibility
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event__helpdesk_event
-#: model:ir.model.fields,field_description:helpdesk_responsibility.field_contract_contract__helpdesk_event
 msgid "Helpdesk Event"
 msgstr "Helpdeskhändelse"
+
+#. module: helpdesk_responsibility
+#: model_terms:ir.ui.view,arch_db:helpdesk_responsibility.helpdesk_ticket_team_view
+msgid "Helpdesk Responsible Rotation"
+msgstr "Helpdesk ansvarsrotation"
 
 #. module: helpdesk_responsibility
 #: model:ir.actions.server,name:helpdesk_responsibility.helpdesk_rotation_job_daily_ir_actions_server
@@ -72,14 +76,8 @@ msgid "Helpdesk Rotation Job Weekly"
 msgstr "Veckovis helpdeskroteringsjobb"
 
 #. module: helpdesk_responsibility
-#: model_terms:ir.ui.view,arch_db:helpdesk_responsibility.helpdesk_ticket_team_view
-msgid "Helpdesk Responsible Rotation"
-msgstr "Helpdesk ansvarsrotation"
-
-#. module: helpdesk_responsibility
 #: model:ir.model,name:helpdesk_responsibility.model_helpdesk_ticket_team
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event__helpdesk_ticket_team
-#: model:ir.model.fields,field_description:helpdesk_responsibility.field_contract_contract__helpdesk_ticket_team
 msgid "Helpdesk Ticket Team"
 msgstr "Helpdeskbiljett team"
 
@@ -99,19 +97,19 @@ msgstr ""
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
 #, python-format
 msgid "January"
-msgstr "januari"
+msgstr "Januari"
 
 #. module: helpdesk_responsibility
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
 #, python-format
 msgid "July"
-msgstr "juli"
+msgstr "Juli"
 
 #. module: helpdesk_responsibility
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
 #, python-format
 msgid "June"
-msgstr "juni"
+msgstr "Juni"
 
 #. module: helpdesk_responsibility
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event____last_update
@@ -124,12 +122,12 @@ msgstr "Senast redigerad"
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
 #, python-format
 msgid "May"
-msgstr "maj"
+msgstr "Maj"
 
 #. module: helpdesk_responsibility
 #: model:ir.model.fields.selection,name:helpdesk_responsibility.selection__helpdesk_ticket_team__periodicity__monthly
 msgid "Monthly"
-msgstr "månadsvis"
+msgstr "Månadsvis"
 
 #. module: helpdesk_responsibility
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__number_of_events
@@ -140,12 +138,12 @@ msgstr "Antal händelser"
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
 #, python-format
 msgid "October"
-msgstr "oktober"
+msgstr "Oktober"
 
 #. module: helpdesk_responsibility
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__periodicity
 msgid "Periodicity"
-msgstr "periodicitet"
+msgstr "Periodicitet"
 
 #. module: helpdesk_responsibility
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
@@ -183,7 +181,7 @@ msgstr "Användare"
 #. module: helpdesk_responsibility
 #: model:ir.model.fields.selection,name:helpdesk_responsibility.selection__helpdesk_ticket_team__periodicity__weekly
 msgid "Weekly"
-msgstr "veckovis"
+msgstr "Veckovis"
 
 #. module: helpdesk_responsibility
 #: model_terms:ir.ui.view,arch_db:helpdesk_responsibility.helpdesk_ticket_team_view
