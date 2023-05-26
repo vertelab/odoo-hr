@@ -1,0 +1,53 @@
+<odoo>
+    <record id="view_take_away_form" model="ir.ui.view">
+        <field name="name">take.away.wizard.form</field>
+        <field name="model">take.away.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Take Away">
+                <group>
+                    <field name="rest_name" readonly="1"></field>
+                    <field name="link_to_menu" readonly="1" widget="url"></field>
+                </group>
+                <group>
+                    <field name="input_food" attrs="{'readonly': [('is_readonly', '=', True)]}"></field>
+                    <field name="input_drink" attrs="{'readonly': [('is_readonly', '=', True)]}"></field>
+                    <field name="input_other" attrs="{'readonly': [('is_readonly', '=', True)]}"></field>
+                    <field name="is_readonly" invisible="1"></field>
+                    <field name="edit_order_active" invisible="1"></field>
+                </group>
+                <notebook>
+                    <page string="Top3 food orders" name="top_3_orders">
+                        <field name="top_3_food_wiz" readonly="1"></field>
+                    </page>
+                </notebook>
+                <footer>
+
+                    <button string="Create Order" class="btn-primary" name="create_order"
+                        type="object"
+                        attrs="{'invisible': ['|' ,('is_readonly', '=', True),('edit_order_active', '=', True)]}" />
+
+                    <button string="Update Order" class="btn-secondary" name="create_order"
+                        type="object"
+                        attrs="{'invisible': [('edit_order_active', '=', False)]}"
+                    />
+
+                    <button string="Edit Order" class="btn-secondary" name="edit_order"
+                        type="object"
+                        attrs="{'invisible': [('is_readonly', '=', False)]}" />
+
+
+                    <button string="Cancel" class="btn-secondary" special="cancel"></button>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_take_away" model="ir.actions.act_window">
+        <field name="name">Take Away</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">take.away.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_take_away_form"></field>
+        <field name="target">new</field>
+    </record>
+</odoo>

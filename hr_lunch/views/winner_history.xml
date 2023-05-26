@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="winner_history_tree_view" model="ir.ui.view">
+            <field name="name">winner.history.menu.tree</field>
+            <field name="model">lunch.choice.winner.history</field>
+            <field name="arch" type="xml">
+                <tree class="custom_tree_view">
+                    <field name="winner_restaurant"/>
+                    <field name="date" />
+                </tree>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -31,7 +31,7 @@
     'description': """
     Choose where to eat! Manage your dining with your friends! Let the most popular lunch win!
     """,
-    #'sequence': '1',
+    'sequence': 1,
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_lunch',
     'images': ['static/description/banner.png'], # 560x280 px.
@@ -42,7 +42,13 @@
     # Any module necessary for this one to work correctly
     'depends': ['base',],
     'data': [
+        'wizard/take_away_view.xml',
+        'wizard/message_wizard_view.xml',
         'views/restaurant_choice.xml',
+        'views/restaurant_choice_tag.xml',
+        'views/assets.xml',
+        'views/winner_history.xml',
+        'views/restaurant_choice_order.xml',
         "security/ir.model.access.csv"
     ],
 }

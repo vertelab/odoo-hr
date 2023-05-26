@@ -4,18 +4,16 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0-20220126\n"
+"Project-Id-Version: Odoo Server 14.0-20230502\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-22 10:29+0000\n"
-"PO-Revision-Date: 2022-11-22 11:34+0100\n"
+"POT-Creation-Date: 2023-05-19 08:30+0000\n"
+"PO-Revision-Date: 2023-05-19 08:30+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.2.1\n"
 
 #. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__rest_address
@@ -23,61 +21,130 @@ msgid "Address"
 msgstr "Adress"
 
 #. module: hr_lunch
-#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__clear_button
-msgid "Clear Button"
-msgstr "Rensa Knapp"
+#: model:ir.ui.menu,name:hr_lunch.options_menu
+msgid "Options"
+msgstr "Alternativ"
 
 #. module: hr_lunch
-#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_tree
-msgid "Clear all"
-msgstr "Rensa alla"
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__highscore
+msgid "Amounts of wins"
+msgstr "Antal Vinster"
+
+#. module: hr_lunch
+#: model_terms:ir.ui.view,arch_db:hr_lunch.view_take_away_form
+msgid "Cancel"
+msgstr ""
+
+#. module: hr_lunch
+#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_kanban
+msgid "Clear vote"
+msgstr "Rensa Röst"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__color
+msgid "Color"
+msgstr "Färg"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_tag__tag_color
+msgid "Color Index"
+msgstr "Färg Index"
+
+#. module: hr_lunch
+#: model_terms:ir.ui.view,arch_db:hr_lunch.view_take_away_form
+msgid "Create Order"
+msgstr "Skapa Order"
 
 #. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__create_uid
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__create_uid
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_tag__create_uid
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_order__create_uid
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard__create_uid
 msgid "Created by"
 msgstr "Skapat av"
 
 #. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__create_date
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__create_date
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_tag__create_date
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_order__create_date
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard__create_date
 msgid "Created on"
 msgstr "Skapad den"
 
 #. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__daily_winner_rest
+msgid "Daily Winner"
+msgstr "Dagens Vinnare"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__daily_rest
+msgid "Daily restaurant"
+msgstr "Dagens Restaurang"
+
+#. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__display_name
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__display_name
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_tag__display_name
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_order__display_name
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard__display_name
 msgid "Display Name"
 msgstr "Visningsnamn"
 
 #. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_order__drink
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard__input_drink
+msgid "Drink"
+msgstr "Dricka"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_order__food
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard__input_food
+msgid "Food"
+msgstr "Mat"
+
+#. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__id
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__id
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_tag__id
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_order__id
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard__id
 msgid "ID"
 msgstr ""
 
 #. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice____last_update
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line____last_update
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_tag____last_update
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_order____last_update
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard____last_update
 msgid "Last Modified on"
 msgstr "Senaste ändrad den"
 
 #. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__write_uid
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__write_uid
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_tag__write_uid
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_order__write_uid
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard__write_uid
 msgid "Last Updated by"
 msgstr "Senast uppdatera av"
 
 #. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__write_date
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__write_date
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_tag__write_date
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_order__write_date
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard__write_date
 msgid "Last Updated on"
 msgstr "Senast uppdaterad den"
 
 #. module: hr_lunch
+#: model:ir.actions.act_window,name:hr_lunch.lunch_menu_action
 #: model:ir.model,name:hr_lunch.model_lunch_choice
-msgid "Let's you vote for restaurants"
-msgstr "Låter dig rösta på restauranger"
+msgid "Lets you vote for restaurants"
+msgstr ""
 
 #. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__line_ids
@@ -85,14 +152,42 @@ msgid "Line"
 msgstr "Rad"
 
 #. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard__link_to_menu
+#: model_terms:ir.ui.view,arch_db:hr_lunch.view_take_away_form
+msgid "Link to Restaurant"
+msgstr "Länk till Restaurang"
+
+#. module: hr_lunch
 #: model:ir.ui.menu,name:hr_lunch.lunch_menu
 msgid "Lunch Menu"
 msgstr "Lunch Meny"
 
 #. module: hr_lunch
+#: model:ir.model,name:hr_lunch.model_lunch_tag
+msgid "Lunch Tag"
+msgstr ""
+
+#. module: hr_lunch
+#: model:ir.actions.act_window,name:hr_lunch.lunch_tag_action
+#: model:ir.ui.menu,name:hr_lunch.lunch_menu_tags
+msgid "Lunch Tags"
+msgstr "Lunch Taggar"
+
+#. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__parent_id
 msgid "Lunch field"
-msgstr ""
+msgstr "Lunch Fält"
+
+#. module: hr_lunch
+#: model:ir.actions.server,name:hr_lunch.random_vote
+#: model:ir.ui.menu,name:hr_lunch.random_vote_menu
+msgid "Place random vote"
+msgstr "Lägg en randomiserad röst"
+
+#. module: hr_lunch
+#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_kanban
+msgid "Menu"
+msgstr "Meny"
 
 #. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__rest_name
@@ -100,9 +195,30 @@ msgid "Name of restaurant"
 msgstr "Restaurang Namn"
 
 #. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_order__other
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard__input_other
+msgid "Other"
+msgstr "Övrigt"
+
+#. module: hr_lunch
+#: model:ir.ui.menu,name:hr_lunch.take_away_orders_menu
+msgid "Placed Take Away Orders"
+msgstr "Take Away Ordrar"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__show_clear_button
+msgid "Show Clear Button"
+msgstr ""
+
+#. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__show_menu_button
 msgid "Show Menu Button"
 msgstr "Visa Meny Knapp"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__show_take_away_button
+msgid "Show Take Away Button"
+msgstr "Visa Take Away Knapp"
 
 #. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__show_vote_button
@@ -115,9 +231,70 @@ msgid "String"
 msgstr "Sträng"
 
 #. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_tag__name
+msgid "Tag Name"
+msgstr "Tag Namn"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__tag_ids
+msgid "Tags"
+msgstr "Taggar"
+
+#. module: hr_lunch
+#: model:ir.actions.act_window,name:hr_lunch.action_take_away
+#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_tree
+#: model_terms:ir.ui.view,arch_db:hr_lunch.view_take_away_form
+msgid "Take Away"
+msgstr ""
+
+#. module: hr_lunch
+#: model:ir.model,name:hr_lunch.model_take_away_order
+#: model_terms:ir.ui.view,arch_db:hr_lunch.view_take_away_order_form
+msgid "Take Away Order"
+msgstr ""
+
+#. module: hr_lunch
+#: model:ir.actions.act_window,name:hr_lunch.action_take_away_order
+#: model_terms:ir.ui.view,arch_db:hr_lunch.view_take_away_order_tree
+msgid "Take Away Orders"
+msgstr "Take Away Ordrar"
+
+#. module: hr_lunch
+#: model:ir.model,name:hr_lunch.model_take_away_wizard
+msgid "Take Away Wizard"
+msgstr ""
+
+#. module: hr_lunch
+#: model_terms:ir.ui.view,arch_db:hr_lunch.view_take_away_form
+msgid "Todays Winner"
+msgstr "Dagens Vinnare"
+
+#. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice__link_to_menu
 msgid "Url to menu"
 msgstr "Url till Meny"
+
+#. module: hr_lunch
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_order__user_id
+msgid "User"
+msgstr "Användare"
+
+#. module: hr_lunch
+#: model:ir.actions.server,name:hr_lunch.random_rest
+#: model:ir.ui.menu,name:hr_lunch.random_rest_menu
+msgid "Todays three random restaurants"
+msgstr "Visa dagens 3 framslumpade restauranger"
+
+#. module: hr_lunch
+#: model:ir.actions.server,name:hr_lunch.top_three
+#: model:ir.ui.menu,name:hr_lunch.top3_menu
+msgid "Top three restaurants"
+msgstr "Visa de 3 restauranger med flest röster"
+
+#. module: hr_lunch
+#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_kanban
+msgid "Vote"
+msgstr "Rösta"
 
 #. module: hr_lunch
 #: model:ir.model.fields,field_description:hr_lunch.field_lunch_choice_line__vote_date
@@ -140,23 +317,12 @@ msgid "Votes on a lunch choice"
 msgstr "Röster på restaurang"
 
 #. module: hr_lunch
-#: model:ir.actions.act_window,name:hr_lunch.lunch_menu_action
-msgid "lunch.choice"
-msgstr ""
-
-#. module: hr_lunch
-#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_tree
-msgid "menu"
-msgstr "meny"
+#: model:ir.model.fields,field_description:hr_lunch.field_take_away_wizard__rest_name
+msgid "Winner Restaurant"
+msgstr "Vinnande Restaurang"
 
 #. module: hr_lunch
 #: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_form
 #: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_tree
 msgid "restaurant"
 msgstr "restaurang"
-
-#. module: hr_lunch
-#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_form
-#: model_terms:ir.ui.view,arch_db:hr_lunch.lunch_menu_tree
-msgid "vote"
-msgstr "rösta"

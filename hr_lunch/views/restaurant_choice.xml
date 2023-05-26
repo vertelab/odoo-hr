@@ -1,60 +1,270 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2016 Tecnativa S.L. - Vicent Cubells
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <odoo>
-	<record id="lunch_menu_action" model="ir.actions.act_window">
-		<field name="res_model">lunch.choice</field>
-		<field name="view_mode">tree,form</field>
-	</record>
 
-	<record id="lunch_menu_tree" model="ir.ui.view">
-		<field name="name">lunch.menu.tree </field>
-		<field name="model">lunch.choice</field>
-		<field name="arch" type="xml">
-			<tree string="restaurant">
-				<header>
-					<button name="clear_all" type="object" string="Clear all" class="oe_highlight" groups="base.group_system"/>
-				</header>
-				<field name="rest_name"/>
-				<field name="show_vote_button" invisible="1"/>
-				<field name="show_menu_button" invisible="1"/>
-				<button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_vote_button', '=', False)]}"/>
-				<field name="voter_amount"/>
-				<button name="open_url" type="object" string="menu" class="oe_highlight" attrs="{'invisible':[('show_menu_button', '=', False)]}"/>
-			</tree>
-		</field>
-	</record>
+    <!--Create
+    a new user group called test_group-->
+    <record id="group_test_group" model="res.groups">
+        <field name="name">test_group</field>
+    </record>
 
-	<record id="lunch_menu_form" model="ir.ui.view">
-		<field name="name">lunch.menu.form</field>
-		<field name="model">lunch.choice</field>
-		<field name="arch" type="xml">
-			<form string="restaurant">
-				<sheet>
-					<group>
-						<field name="rest_name"/>
-						<field name="link_to_menu"/>
-						<field name="rest_address"/>
-					</group>
-					<group>
-						<field name="line_ids" string="">
-							<tree string="String">
-								<field name="vote_user"/>
-								<field name="vote_date"/>
-							</tree>
-						</field>
-					</group>
-					<field name="show_vote_button" invisible="1"/>
-					<group>
-						<button name="voted" type="object" string="vote" class="oe_highlight" attrs="{'invisible':[('show_vote_button', '=', False)]}"/>
-					</group>
-				</sheet>
-			</form>
-		</field>
-	</record>
+    <record id="lunch_tag_action" model="ir.actions.act_window">
+        <field name="name">Lunch Tags</field>
+        <field name="res_model">lunch.tag</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-	<menuitem id="lunch_menu"
-		name="Lunch Menu"
-		action="lunch_menu_action"
-		/>
+    <record id="winner_history_action" model="ir.actions.act_window">
+        <field name="name">winner history</field>
+        <field name="res_model">lunch.choice.winner.history</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="lunch_menu_action" model="ir.actions.act_window">
+        <field name="res_model">lunch.choice</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+    <record id="take_away_action" model="ir.actions.server">
+        <field name="name">Take Away Action</field>
+        <field name="model_id" ref="model_lunch_choice_order" />
+        <field name="binding_model_id" ref="model_lunch_choice_order" />
+        <field name="state">code</field>
+        <field name="code">action = model.open_take_away_orders()</field>
+    </record>
+
+    <record id="random_vote" model="ir.actions.server">
+        <field name="name">Lägg en randomiserad röst</field>
+        <field name="model_id" ref="model_lunch_choice" />
+        <field name="binding_model_id" ref="model_lunch_choice" />
+        <field name="state">code</field>
+        <field name="code">action = model.vote_random_restaurant()</field>
+    </record>
+
+    <record id="random_rest" model="ir.actions.server">
+        <field name="name">Visa dagens 3 framslumpade restauranger</field>
+        <field name="model_id" ref="model_lunch_choice" />
+        <field name="binding_model_id" ref="model_lunch_choice" />
+        <field name="state">code</field>
+        <field name="code">action = model.random_rest()</field>
+    </record>
+
+    <record id="top_three" model="ir.actions.server">
+        <field name="name">Visa de 3 restauranger med flest röster</field>
+        <field name="model_id" ref="model_lunch_choice" />
+        <field name="binding_model_id" ref="model_lunch_choice" />
+        <field name="state">code</field>
+        <field name="code">action = model.show_top_three()</field>
+    </record>
+
+    <record id="lunch_menu_kanban" model="ir.ui.view">
+        <field name="name">lunch.menu.kanban</field>
+        <field name="model">lunch.choice</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="rest_name" />
+                <field name="rest_address" />
+                <field name="show_vote_button" invisible="1" />
+                <field name="show_clear_button" invisible="1" />
+                <field name="show_menu_button" invisible="1" />
+                <field name="color" invisible="1" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                            t-attf-class="oe_kanban_global_click oe_kanban_card oe_kanban_color_#{kanban_getcolor(record.color.raw_value)}">
+                            <div class="o_kanban_card_header">
+                                <div class="o_kanban_card_title" style="font-size:16pt;">
+                                    <field name="rest_name" />
+                                    <button name="open_url" type="object" string="Menu"
+                                        class="o_kanban_quick_add o_kanban_edit o_kanban_primary btn btn-primary btn-sm"
+                                        attrs="{'invisible':[('show_menu_button', '=', False)]}"
+                                        style="float: right">
+                                        <i class="fa fa-cutlery" />
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="o_kanban_card_body">
+                                <p class="o_kanban_card_address">
+                                    <field name="rest_address" />
+                                    <field name="tag_ids" widget="many2many_tags"
+                                        options="{'color_field': 'tag_color', 'no_create_edit': True}"
+                                        style="float-right" />
+                                </p>
+                                <div class="o_kanban_vote">
+                                    <button name="voted" title="Vote" type="object" string="Vote"
+                                        class="btn btn-primary btn-sm o_kanban_vote_btn"
+                                        attrs="{'invisible':[('show_vote_button', '=', False)]}">
+                                        <i class="fa fa-thumbs-up" />
+                                    </button>
+                                    <button name="clear_self_vote" title="Clear Vote" type="object"
+                                        string="Clear vote"
+                                        class="btn btn-danger btn-sm o_kanban_clear_btn"
+                                        attrs="{'invisible':[('show_clear_button', '=', False)]}">
+                                        <i class="fa fa-times" />
+                                    </button>
+                                    <span class="o_kanban_vote_count" style="float: right">
+                                        <i class="fa fa-users" />
+                                        <field name="voter_amount" />
+                                        <i class="fa fa-trophy" />
+                                        <field name="highscore" />
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+    <record id="lunch_menu_tree" model="ir.ui.view">
+        <field name="name">lunch.menu.tree</field>
+        <field name="model">lunch.choice</field>
+        <field name="arch" type="xml">
+            <tree class="custom_tree_view" string="restaurant">
+                <field name="rest_name" class="custom_field_width" />
+                <field name="tag_ids" widget="many2many_tags"
+                    options="{'color_field': 'tag_color', 'no_create_edit': True}" />
+                <field name="show_vote_button" invisible="1" />
+                <field name="show_clear_button" invisible="1" />
+                <field name="show_menu_button" invisible="1" />
+                <field name="show_take_away_button" invisible="1" />
+                <field name="voter_amount" />
+                <button name="clear_self_vote" title="Clear Vote" type="object"
+                    class="btn btn-danger btn-sm"
+                    attrs="{'invisible':[('show_clear_button', '=', False)]}" icon="fa-times">
+                </button>
+                <button name="voted" title="Vote" type="object" class="btn btn-primary btn-sm"
+                    attrs="{'invisible':[('show_vote_button', '=', False)]}" icon="fa-thumbs-up" />
+                <button name="open_url" title="Menu" type="object" class="btn btn-primary btn-sm"
+                    attrs="{'invisible':[('show_menu_button', '=', False)]}" icon="fa-cutlery" />
+                <button name="%(action_take_away)d" title="Place Order" type="action"
+                    class="btn btn-primary btn-sn"
+                    attrs="{'invisible':[('show_take_away_button', '=', False)]}" string="Take Away" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="lunch_menu_form" model="ir.ui.view">
+        <field name="name">lunch.menu.form</field>
+        <field name="model">lunch.choice</field>
+        <field name="arch" type="xml">
+            <form string="restaurant">
+                <sheet>
+                    <group>
+                        <field name="rest_name" />
+                        <field name="link_to_menu" />
+                        <field name="rest_address" />
+                        <field name="highscore" />
+                        <field name="tag_ids" widget="many2many_tags"
+                            options="{'color_field': 'tag_color', 'no_create_edit': True}" />
+                    </group>
+                    <group>
+                        <field name="line_ids" string="">
+                            <tree string="String">
+                                <field name="vote_user" />
+                                <field name="vote_date" />
+                            </tree>
+                        </field>
+                    </group>
+                    <field name="show_vote_button" invisible="1" style="float: left" />
+                    <field name="show_clear_button" invisible="1" style="float: right" />
+                    <button name="voted" title="Vote" type="object" class="btn btn-primary btn-sm"
+                        attrs="{'invisible':[('show_vote_button', '=', False)]}" icon="fa-thumbs-up"
+                        style="float: left">
+                    </button>
+                    <button name="clear_self_vote" title="Clear Vote" type="object"
+                        class="btn btn-danger btn-sm"
+                        attrs="{'invisible':[('show_clear_button', '=', False)]}" icon="fa-times"
+                        style="float: left">
+                    </button>
+                    <span style="float:right">
+                        <i class="fa fa-users" />
+                        <field name="voter_amount" />
+                    </span>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_lunch_choice_search" model="ir.ui.view">
+        <field name="name">lunch.choice.search</field>
+        <field name="model">lunch.choice</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="tag_ids" widget="many2many_tags"
+                    filter_domain="[('tag_ids.name', 'ilike', self)]" />
+                <filter name="filter_highscore" string="Most Popular"
+                    domain="[('highscore', '>', 0)]"></filter>
+            </search>
+        </field>
+    </record>
+
+    <menuitem
+        id="lunch_menu"
+        name="Lunch Menu"
+        action="lunch_menu_action"
+    />
+
+
+    <menuitem
+        id="options_menu"
+        name="Options"
+        parent="lunch_menu"
+    />
+
+    <menuitem
+        id="top3_menu"
+        name="Top three restaurants"
+        parent="options_menu"
+        action="top_three"
+        sequence="1"
+    />
+
+    <menuitem
+        id="random_vote_menu"
+        name="Place random vote"
+        parent="options_menu"
+        action="random_vote"
+        sequence="2"
+    />
+
+    <menuitem
+        id="random_rest_menu"
+        name="Todays three random restaurants"
+        parent="options_menu"
+        action="random_rest"
+        sequence="3"
+    />
+
+    <menuitem
+        id="winner_history_menu"
+        name="Winner history"
+        parent="options_menu"
+        action="winner_history_action"
+        sequence="4"
+    />
+
+    <menuitem id="menu_about"
+        name="About"
+        parent="options_menu"
+        action="message_wizard_action"
+        sequence="5"
+    />
+
+    <menuitem
+        id="lunch_menu_tags"
+        name="Lunch Tags"
+        parent="options_menu"
+        action="lunch_tag_action"
+        sequence="7"
+    />
+
+    <menuitem id="lunch_menu_order"
+        name="Take Away Orders"
+        parent="options_menu"
+        action="take_away_action" 
+        sequence = "6"/>
 </odoo>

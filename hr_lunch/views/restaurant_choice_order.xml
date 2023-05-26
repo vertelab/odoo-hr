@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record id="view_lunch_choice_order_tree" model="ir.ui.view">
+            <field name="name">lunch.choice.order.tree</field>
+            <field name="model">lunch.choice.order</field>
+            <field name="arch" type="xml">
+                <tree string="Lunch Choice Order" class="custom_tree_view">
+                    <field name="user_id"></field>
+                    <field name="food" />
+                    <field name="drink" />
+                    <field name="other" />
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_lunch_choice_order_form" model="ir.ui.view">
+            <field name="name">lunch.choice.order.form</field>
+            <field name="model">lunch.choice.order</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="food"></field>
+                            <field name="drink"></field>
+                            <field name="other"></field>
+                            <field name="restaurant_id" invisible="1" />
+                        </group>
+                        <notebook>
+                            <page string="Top3 food orders">
+                                <field name="top_3_food" />
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

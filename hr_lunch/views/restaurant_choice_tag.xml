@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <record id="lunch_tag_form_view" model="ir.ui.view">
+            <field name="name">lunch.tag.form</field>
+            <field name="model">lunch.tag</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="tag_color" widget="color_picker"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="lunch_tag_tree_view" model="ir.ui.view">
+            <field name="name">lunch.tag.tree</field>
+            <field name="model">lunch.tag</field>
+            <field name="arch" type="xml">
+                <tree class="custom_tree_view">
+                    <field name="name" />
+                    <field name="tag_color" widget="color_picker">
+                        <xpath expr="//field[@name='tag_color']" position="attributes">
+                            <attribute name="style">text-align: left;</attribute>
+                        </xpath>
+                    </field>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

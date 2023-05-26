@@ -2,3 +2,9 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_lunch_choice,lunch.choice,hr_lunch.model_lunch_choice,base.group_user,1,1,1,1,
 access_lunch_choice_clear_button,lunch.choice,hr_lunch.model_lunch_choice,base.group_system,1,1,1,1
 access_lunch_choice_line,access_lunch_choice_line,model_lunch_choice_line,base.group_user,1,1,1,1
+access_lunch_choice_tag, access.lunch.tag,model_lunch_tag,base.group_user,1,1,1,1
+access_lunch_choice_tag_sys, access.lunch.tag,model_lunch_tag,base.group_system,1,1,1,1
+access_lunch_choice_winner_history,access.lunch.choice.winner.history,model_lunch_choice_winner_history,base.group_user,1,1,1,1
+access_message_wizard,access.message.wizard,model_message_wizard,base.group_user,1,1,1,1
+access_lunch_choice_order,access.lunch.choice.order,model_lunch_choice_order,base.group_user,1,1,1,1
+access_take_away_wizard,acces.take.away.wizard,model_take_away_wizard,base.group_user,1,1,1,1
