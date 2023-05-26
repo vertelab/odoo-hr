@@ -34,6 +34,14 @@
         <field name="code">action = model.open_take_away_orders()</field>
     </record>
 
+    <record id="end_vote_action" model="ir.actions.server">
+        <field name="name">Take Away Action</field>
+        <field name="model_id" ref="model_lunch_choice" />
+        <field name="binding_model_id" ref="model_lunch_choice" />
+        <field name="state">code</field>
+        <field name="code">action = model.daily_rest_winner()</field>
+    </record>
+
     <record id="random_vote" model="ir.actions.server">
         <field name="name">Lägg en randomiserad röst</field>
         <field name="model_id" ref="model_lunch_choice" />
@@ -267,4 +275,10 @@
         parent="options_menu"
         action="take_away_action" 
         sequence = "6"/>
+    
+    <menuitem id="lunch_menu_end_vote"
+        name="End Vote"
+        parent="options_menu"
+        action="end_vote_action" 
+        sequence = "7"/>
 </odoo>
