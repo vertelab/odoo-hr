@@ -42,14 +42,20 @@
     # Any module necessary for this one to work correctly
     'depends': ['base',],
     'data': [
-        'wizard/take_away_view.xml',
         'wizard/message_wizard_view.xml',
-        'views/restaurant_choice.xml',
-        'views/restaurant_choice_tag.xml',
+        'wizard/take_away_view.xml',
         'views/assets.xml',
-        'views/winner_history.xml',
+        'views/restaurant_choice_tag.xml',
+        'views/restaurant_choice.xml',
+        # 'views/set_custom_wizard.xml',
         'views/restaurant_choice_order.xml',
+        'views/winner_history.xml',
         "security/ir.model.access.csv"
+
+
+
+
+
     ],
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

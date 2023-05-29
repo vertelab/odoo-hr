@@ -3,8 +3,7 @@
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
 <odoo>
 
-    <!--Create
-    a new user group called test_group-->
+    <!--Create a new user group called test_group-->
     <record id="group_test_group" model="res.groups">
         <field name="name">test_group</field>
     </record>
@@ -79,8 +78,7 @@
                 <field name="color" invisible="1" />
                 <templates>
                     <t t-name="kanban-box">
-                        <div
-                            t-attf-class="oe_kanban_global_click oe_kanban_card oe_kanban_color_#{kanban_getcolor(record.color.raw_value)}">
+                        <div t-attf-class="oe_kanban_global_click oe_kanban_card oe_kanban_color_#{kanban_getcolor(record.color.raw_value)}">
                             <div class="o_kanban_card_header">
                                 <div class="o_kanban_card_title" style="font-size:16pt;">
                                     <field name="rest_name" />
@@ -132,24 +130,22 @@
         <field name="model">lunch.choice</field>
         <field name="arch" type="xml">
             <tree class="custom_tree_view" string="restaurant">
-                <field name="rest_name" class="custom_field_width" />
-                <field name="tag_ids" widget="many2many_tags"
-                    options="{'color_field': 'tag_color', 'no_create_edit': True}" />
+                <field name="rest_name" class="custom_field_width"/>
+                <field name="tag_ids" widget="many2many_tags" 
+                    options="{'color_field': 'tag_color', 'no_create_edit': True}"/>
                 <field name="show_vote_button" invisible="1" />
                 <field name="show_clear_button" invisible="1" />
                 <field name="show_menu_button" invisible="1" />
                 <field name="show_take_away_button" invisible="1" />
                 <field name="voter_amount" />
-                <button name="clear_self_vote" title="Clear Vote" type="object"
-                    class="btn btn-danger btn-sm"
+                <button name="clear_self_vote" title="Clear Vote" type="object" class="btn btn-danger btn-sm" 
                     attrs="{'invisible':[('show_clear_button', '=', False)]}" icon="fa-times">
                 </button>
-                <button name="voted" title="Vote" type="object" class="btn btn-primary btn-sm"
+                <button name="voted" title="Vote" type="object" class="btn btn-primary btn-sm" 
                     attrs="{'invisible':[('show_vote_button', '=', False)]}" icon="fa-thumbs-up" />
-                <button name="open_url" title="Menu" type="object" class="btn btn-primary btn-sm"
+                <button name="open_url" title="Menu" type="object" class="btn btn-primary btn-sm" 
                     attrs="{'invisible':[('show_menu_button', '=', False)]}" icon="fa-cutlery" />
-                <button name="%(action_take_away)d" title="Place Order" type="action"
-                    class="btn btn-primary btn-sn"
+                <button name="%(action_take_away)d" title="Place Order" type ="action" class = "btn btn-primary btn-sn"
                     attrs="{'invisible':[('show_take_away_button', '=', False)]}" string="Take Away" />
             </tree>
         </field>
@@ -167,7 +163,7 @@
                         <field name="rest_address" />
                         <field name="highscore" />
                         <field name="tag_ids" widget="many2many_tags"
-                            options="{'color_field': 'tag_color', 'no_create_edit': True}" />
+                            options="{'color_field': 'tag_color', 'no_create_edit': True}"/>
                     </group>
                     <group>
                         <field name="line_ids" string="">
@@ -179,14 +175,11 @@
                     </group>
                     <field name="show_vote_button" invisible="1" style="float: left" />
                     <field name="show_clear_button" invisible="1" style="float: right" />
-                    <button name="voted" title="Vote" type="object" class="btn btn-primary btn-sm"
-                        attrs="{'invisible':[('show_vote_button', '=', False)]}" icon="fa-thumbs-up"
-                        style="float: left">
+                    <button name="voted" title="Vote" type="object" class="btn btn-primary btn-sm" 
+                        attrs="{'invisible':[('show_vote_button', '=', False)]}" icon="fa-thumbs-up" style="float: left">
                     </button>
-                    <button name="clear_self_vote" title="Clear Vote" type="object"
-                        class="btn btn-danger btn-sm"
-                        attrs="{'invisible':[('show_clear_button', '=', False)]}" icon="fa-times"
-                        style="float: left">
+                    <button name="clear_self_vote" title="Clear Vote" type="object" class="btn btn-danger btn-sm" 
+                        attrs="{'invisible':[('show_clear_button', '=', False)]}" icon="fa-times" style="float: left">
                     </button>
                     <span style="float:right">
                         <i class="fa fa-users" />
@@ -204,18 +197,23 @@
             <search>
                 <field name="tag_ids" widget="many2many_tags"
                     filter_domain="[('tag_ids.name', 'ilike', self)]" />
-                <filter name="filter_highscore" string="Most Popular"
-                    domain="[('highscore', '>', 0)]"></filter>
+                    <filter name="filter_highscore" string="Most Popular" domain="[('highscore', '>', 0)]"></filter>
             </search>
         </field>
     </record>
 
-    <menuitem
+    <menuitem 
         id="lunch_menu"
         name="Lunch Menu"
         action="lunch_menu_action"
     />
 
+    <menuitem
+        id="lunch_menu_tags"
+        name="Lunch Tags"
+        parent="lunch_menu"
+        action="lunch_tag_action"
+    />
 
     <menuitem
         id="options_menu"
@@ -231,7 +229,7 @@
         sequence="1"
     />
 
-    <menuitem
+    <menuitem 
         id="random_vote_menu"
         name="Place random vote"
         parent="options_menu"

@@ -22,11 +22,11 @@ class MessageWizard(models.TransientModel):
         relative_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
 
         # Read the image file and encode it to base64
-        with open(relative_path + "/static/description/icon.png", 'rb') as image_file:
+        with open(relative_path + "/static/src/img/icon.png", 'rb') as image_file:
             encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
 
         defaults.update({
-            'authors': "Emma Jarlvi Skog, Dmitri Iseson, Jimmie Hinke, Ruben Riddarhaage & Andreas Kuylenstierna",
+            'authors': "Emma Jarlvi Skog, Dmitri Iselund, Jimmie Hinke, Ruben Riddarhaage & Andreas Kuylenstierna",
             'name': "Vilken restaurang vinner denna vecka?",
             'text1': "Vertels röstningsmodul - RÖSTA VARJE FREDAG!\n",
             'text2': "Vinnarrestaurangen går alla till, eller väljer take away.\n", 
