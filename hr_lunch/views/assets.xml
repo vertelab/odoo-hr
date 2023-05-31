@@ -5,6 +5,7 @@
             <xpath expr="." position="inside">
                 <link rel="stylesheet" href="hr_lunch/static/src/css/message-wizard.css"/>
                 <link rel="stylesheet" href="hr_lunch/static/src/css/hr_lunch.css"/>
+                <script type="text/javascript" src="hr_lunch/static/src/js/message_wizard_handler.js"/>
             </xpath>
         </template>
 

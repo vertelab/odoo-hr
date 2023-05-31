@@ -7,12 +7,14 @@ class MessageWizard(models.TransientModel):
     _description = 'message wizard'
 
     authors = fields.Text(string="authors")
-    image = fields.Binary(string='image') #Image
+    image = fields.Binary(string='image')
     text1 = fields.Text(string="text1")
     text2 = fields.Text(string="text2")
     text3 = fields.Text(string="text3")
     text4 = fields.Text(string="text4")
     text5 = fields.Text(string="text5")
+    show_wizard = fields.Boolean(string="Show Wizard", default=True)
+    user_id = fields.Many2one('res.users', string="User")
 
 
     @api.model
@@ -39,6 +41,18 @@ class MessageWizard(models.TransientModel):
 
     name = fields.Char(string="Title", readonly=True , default="Choose your restaurant")
 
+    # def action_ok(self):
+    #     # Here we may need some more functions...
+    #     return {'type': 'ir.actions.act_window_close'}
+
+    # def action_ok(self):
+    #     self.ensure_one()
+    #     self.write({'show_wizard': False})
+ 
+    #     return {'type': 'ir.actions.act_window_close'}
+
     def action_ok(self):
-        # Here we may need some more functions...
+        self.ensure_one()
+        self.write({'show_wizard': False})
+        # Here you can add any additional functionality you want to perform
         return {'type': 'ir.actions.act_window_close'}

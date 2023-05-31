@@ -40,7 +40,7 @@
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-hr',
     # Any module necessary for this one to work correctly
-    'depends': ['base',],
+    'depends': ['base', 'web'],
     'data': [
         'wizard/message_wizard_view.xml',
         'wizard/take_away_view.xml',
