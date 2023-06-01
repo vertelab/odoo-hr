@@ -19,7 +19,7 @@
                         </t>                      
                         <div class="container text-center" style="">
                             <div class=" container text-center">
-                                <t t-if="'lj' in employee.job_title or 'VD' in employee.job_title">
+                                <t t-if="employee.job_title and ('lj' in employee.job_title or 'VD' in employee.job_title)">
                                 <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 container_foto ">
                                    
                                         <div class="ver_mas" id="contact_employee">
@@ -48,8 +48,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-    <div class="oe_structure oe_empty" />
+                <div class="oe_structure" />
+            </div>            
+   
         </t>
     </template>
     <record id="view_employee_form" model="ir.ui.view">
