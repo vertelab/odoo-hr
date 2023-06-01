@@ -5,9 +5,29 @@
             <field name="model">lunch.choice.winner.history</field>
             <field name="arch" type="xml">
                 <tree class="custom_tree_view">
-                    <field name="winner_restaurant"/>
+                    <field name="winner_restaurant" />
                     <field name="date" />
                 </tree>
+            </field>
+        </record>
+
+        <record id="winner_history_form_view" model="ir.ui.view">
+            <field name="name">winner.history.menu.form</field>
+            <field name="model">lunch.choice.winner.history</field>
+            <field name="arch" type="xml">
+                <form string="restaurant" edit="false">
+                    <sheet>
+                        <group>
+                            <field name="winner_restaurant" />
+                            <field name="winner_url" readonly="1" widget="url"/>
+                            <field name="winner_address" />
+                            <field name="winner_highscore" />
+                            <field name="winner_tags" widget="many2many_tags"
+                                options="{'color_field': 'tag_color', 'no_create_edit': True}" />
+                        </group>
+                    </sheet>
+
+                </form>
             </field>
         </record>
 

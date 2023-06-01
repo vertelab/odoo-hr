@@ -17,7 +17,7 @@
     <record id="winner_history_action" model="ir.actions.act_window">
         <field name="name">winner history</field>
         <field name="res_model">lunch.choice.winner.history</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
     <record id="lunch_menu_action" model="ir.actions.act_window">
@@ -64,6 +64,8 @@
         <field name="state">code</field>
         <field name="code">action = model.show_top_three()</field>
     </record>
+
+    
 
     <record id="lunch_menu_kanban" model="ir.ui.view">
         <field name="name">lunch.menu.kanban</field>
@@ -186,6 +188,7 @@
                         <field name="voter_amount" />
                     </span>
                 </sheet>
+                
             </form>
         </field>
     </record>
