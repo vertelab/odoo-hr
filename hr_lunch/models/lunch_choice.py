@@ -15,10 +15,17 @@ class lunchChoiceWinnerHistory(models.Model):
     date = fields.Date(compute="_compute_date", store=True)
     winner_id = fields.Many2one(comodel_name="lunch.choice", string="Winner", required=True, ondelete="cascade")
     winner_restaurant = fields.Char(string="Name of restaurant", related="winner_id.rest_name")
+    winner_url = fields.Char(string="Url to menu", related="winner_id.link_to_menu")
+    winner_address = fields.Char(string="Address", related="winner_id.rest_address")
+    winner_highscore = fields.Integer(string="Amounts of wins", related="winner_id.highscore")
+    winner_tags = fields.Many2many(comodel_name='lunch.tag', string='Tags', related="winner_id.tag_ids")
+
 
     @api.depends("winner_id")
     def _compute_date(self):
         self.date = datetime.datetime.now()
+
+    
 
 class LunchChoiceLine(models.Model):
     _name = "lunch.choice.line"
