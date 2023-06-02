@@ -1,5 +1,58 @@
-.custom_tree_view{
+.custom_tree_view 
+{
     width: 75%;
     margin-left: auto;
     margin-right: auto;
 }
+
+.wizard-form 
+{
+    margin-left: -15px;
+}
+
+.wizard-form .image-container 
+{
+    padding: 0;
+    margin: 0;
+}
+
+.wizard-image img {
+    display: block;
+    border: 1px solid #1b0c36;
+    border-radius: 5px;
+    animation: shadow-pulse 2s ease-in-out infinite;
+}
+
+.logo-image img 
+{
+    width: 120px;
+    float: right;
+    margin-right: 335px;
+    margin-bottom: -40px;
+    border: none;
+}
+
+@keyframes shadow-pulse 
+{
+    0% {box-shadow: 3px 3px 7px #0000004d;}
+    50% {box-shadow: 0 0 0 10px #0000004d;}
+    100% {box-shadow: 3px 3px 7px #0000004d;}
+}
+
+.logo-image img {
+    width: 70px;
+    float: right;
+    margin-right: 335px;
+    margin-bottom: -40px;
+    border: none;
+    animation: fade 4s infinite;
+}
+
+@keyframes fade 
+{
+    0%    {opacity: 0;}
+    25%   {opacity: 1;}
+    75%   {opacity: 1;}
+    100%  {opacity: 0;}
+}
+
