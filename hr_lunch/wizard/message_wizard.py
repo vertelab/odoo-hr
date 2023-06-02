@@ -13,6 +13,9 @@ class MessageWizard(models.TransientModel):
     text3 = fields.Text(string="Text 3")
     text4 = fields.Text(string="Text 4")
     text5 = fields.Text(string="Text 5")
+    show_wizard = fields.Boolean(string="Show Wizard", default=True)
+    user_id = fields.Many2one('res.users', string="User")
+
 
     @api.model
     def default_get(self, fields_list):
@@ -39,24 +42,24 @@ class MessageWizard(models.TransientModel):
 
         return encoded_image
 
-    @api.model
-    def force_show_wizard(self):
-        # Create a record in lunch.choice.user.check to simulate an existing record
-        self.env['lunch.choice.user.check'].create({
-            'intro_user_ids': self.env.uid
-        })
-        return self._open_wizard()
+    # @api.model
+    # def force_show_wizard(self):
+    #     # Create a record in lunch.choice.user.check to simulate an existing record
+    #     self.env['lunch.choice.user.check'].create({
+    #         'intro_user_ids': self.env.uid
+    #     })
+    #     return self._open_wizard()
 
-    def _should_show_wizard(self):
-        check_exist = self.env['lunch.choice.user.check'].search([])
-        return len(check_exist) == 0
+    # def _should_show_wizard(self):
+    #     check_exist = self.env['lunch.choice.user.check'].search([])
+    #     return len(check_exist) == 0
 
     def action_ok(self):
-        if self._should_show_wizard():
-            # Create a record in lunch.choice.user.check to track user interaction
-            self.env['lunch.choice.user.check'].create({
-                'intro_user_ids': self.env.uid
-            })
+        # if self._should_show_wizard():
+        #     # Create a record in lunch.choice.user.check to track user interaction
+        #     self.env['lunch.choice.user.check'].create({
+        #         'intro_user_ids': self.env.uid
+        #     })
         return {'type': 'ir.actions.act_window_close'}
 
     def _open_wizard(self):
