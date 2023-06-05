@@ -191,8 +191,8 @@ class LunchChoice(models.Model):
     def voted(self):
        user_votes = self.env['lunch.choice.line'].search([('vote_user', '=', self.env.user.id)])
     #   UNCOMMENT TO PREVENT ADMIN USERS FROM VOTING
-    #    if self.env.user.has_group('base.group_erp_manager'):
-    #     raise UserError("Admin users are not allowed to vote.")
+       if self.env.user.has_group('base.group_erp_manager'):
+        raise UserError("Admin users are not allowed to vote.")
        if len(user_votes) >= 3:
            raise UserError("You've already voted for 3 restaurants")
        else:

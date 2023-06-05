@@ -168,8 +168,8 @@
                             options="{'color_field': 'tag_color', 'no_create_edit': True}"/>
                     </group>
                     <group>
-                        <field name="line_ids" string="">
-                            <tree string="String">
+                        <field name="line_ids" string="" >
+                            <tree string="String" delete="false">
                                 <field name="vote_user" />
                                 <field name="vote_date" />
                             </tree>
