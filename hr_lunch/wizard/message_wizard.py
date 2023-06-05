@@ -4,15 +4,15 @@ import os
 
 class MessageWizard(models.TransientModel):
     _name = 'message.wizard'
-    _description = 'message wizard'
+    _description = 'Message Wizard'
 
-    authors = fields.Text(string="authors")
-    image = fields.Binary(string='image')
-    text1 = fields.Text(string="text1")
-    text2 = fields.Text(string="text2")
-    text3 = fields.Text(string="text3")
-    text4 = fields.Text(string="text4")
-    text5 = fields.Text(string="text5")
+    image = fields.Binary(string='Image')
+    logo = fields.Binary(string='Logo') 
+    text1 = fields.Text(string="Text 1")
+    text2 = fields.Text(string="Text 2")
+    text3 = fields.Text(string="Text 3")
+    text4 = fields.Text(string="Text 4")
+    text5 = fields.Text(string="Text 5")
     show_wizard = fields.Boolean(string="Show Wizard", default=True)
     user_id = fields.Many2one('res.users', string="User")
 
@@ -21,38 +21,54 @@ class MessageWizard(models.TransientModel):
     def default_get(self, fields_list):
         defaults = super(MessageWizard, self).default_get(fields_list)
 
-        relative_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), '..'))
-
-        # Read the image file and encode it to base64
-        with open(relative_path + "/static/src/img/icon.png", 'rb') as image_file:
-            encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
-
+        # Populate the default values
         defaults.update({
-            'authors': "Emma Jarlvi Skog, Dmitri Iselund, Jimmie Hinke, Ruben Riddarhaage & Andreas Kuylenstierna",
-            'name': "Vilken restaurang vinner denna vecka?",
             'text1': "Vertels röstningsmodul - RÖSTA VARJE FREDAG!\n",
-            'text2': "Vinnarrestaurangen går alla till, eller väljer take away.\n", 
+            'text2': "Vinnarrestaurangen går alla till, eller väljer take away.\n",
             'text3': "Grön färg i kanban view = Vinnare!\n",
             'text5': "Blå färg i kanban view = Vunnit flest gånger!\n",
-            'text4': "Modulen utvecklad av: ",
-            'image': encoded_image,
+            'text4': "Vertel ",
+            'image': self.get_encoded_image('icon.png'),
+            'logo': self.get_encoded_image('logo.png'),
         })
         return defaults
 
-    name = fields.Char(string="Title", readonly=True , default="Choose your restaurant")
+    def get_encoded_image(self, image_filename):
+        module_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+        image_path = os.path.join(module_path, 'static', 'src', 'img', image_filename)
 
-    # def action_ok(self):
-    #     # Here we may need some more functions...
-    #     return {'type': 'ir.actions.act_window_close'}
+        with open(image_path, 'rb') as image_file:
+            encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
 
-    # def action_ok(self):
-    #     self.ensure_one()
-    #     self.write({'show_wizard': False})
- 
-    #     return {'type': 'ir.actions.act_window_close'}
+        return encoded_image
+
+    # @api.model
+    # def force_show_wizard(self):
+    #     # Create a record in lunch.choice.user.check to simulate an existing record
+    #     self.env['lunch.choice.user.check'].create({
+    #         'intro_user_ids': self.env.uid
+    #     })
+    #     return self._open_wizard()
+
+    # def _should_show_wizard(self):
+    #     check_exist = self.env['lunch.choice.user.check'].search([])
+    #     return len(check_exist) == 0
 
     def action_ok(self):
-        self.ensure_one()
-        self.write({'show_wizard': False})
-        # Here you can add any additional functionality you want to perform
+        # if self._should_show_wizard():
+        #     # Create a record in lunch.choice.user.check to track user interaction
+        #     self.env['lunch.choice.user.check'].create({
+        #         'intro_user_ids': self.env.uid
+        #     })
         return {'type': 'ir.actions.act_window_close'}
+
+    def _open_wizard(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Välkommen till Hr_lunch!',
+            'res_model': 'message.wizard',
+            'view_mode': 'form',
+            'view_type': 'form',
+            'target': 'new',
+            'context': self.env.context,
+        }
