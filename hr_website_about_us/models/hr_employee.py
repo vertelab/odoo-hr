@@ -32,6 +32,8 @@ class HrEmployee(models.Model):
     _inherit = ['hr.employee', 'website.seo.metadata', 'website.published.multi.mixin']
 
     # public_info = fields.Char(string='Public Info')
+    show_contact = fields.Boolean(string="Show Contact Info", default=False)
+    social_linkedin = fields.Char(string="LinkedIn adress")
 
     def _compute_website_url(self):
         super(HrEmployee, self)._compute_website_url()
@@ -44,6 +46,9 @@ class HrEmployee(models.Model):
 class HrEmployeePublic(models.Model):
     _name = 'hr.employee.public'
     _inherit = ['hr.employee.public', 'website.seo.metadata', 'website.published.multi.mixin']
+   
+    #show_contact_status = fields.Char(string="App Project")
+
 
     # public_info = fields.Char(string='Public Info')
 

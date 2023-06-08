@@ -20,39 +20,29 @@
 ##############################################################################
 
 {
-    'name': 'HR: Website About Us',
+    'name': 'HR: Website About Us Calendar',
     'version': '14.0.0.0',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
-    'summary': 'Show employee on webpage.',
+    'summary': 'Book meeting with employee.',
     'category': 'HR',
     'description': """
-    To show or hide employee on public webpage.
-Edit settings for non-public users.
-Users and groups >> Groups.
-Click "Accesses".
-Add new line and enter Model (Employed) and "Read" access.
-
-See enclosed photos for description.
-
-* * *
-    When editing code, uninstall module for changes to take effect.
-     """,
+    Glue module for HR Website About us. Implementing calendar button to book meeting with employees with sales role.
+    """,
     #'sequence': '1',
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-hr/hr_website_about-us',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_website_about-us_calendar',
     'images': ['static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',
     'contributor': '',
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-hr',
-    'depends': ['website_imagemagick','hr','website','web_domain_field',],
-    'data': [
-        'views/assets.xml',
-        'views/about-us_view.xml',
-        # 'views/hr_view.xml',
-        'data/data.xml',
+    'depends': ['website_calendar_ce','hr_website_about_us',],
+    'data': [        
+        'views/about_us_view.xml',
+        'views/hr_view.xml'
     ],
     'application': True,
     'installable': True,
+    'auto_install': True,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

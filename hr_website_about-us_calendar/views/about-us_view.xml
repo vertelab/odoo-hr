@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <template id="website_about-us_calender_ce" inherit_id="hr_website_about-us.aboutus">
-        <xpath expr="//div[@id='contact_employee']" position="inside">
-            <a t-attf-href="{{employee.get_website_url_employee()}}" t-attf-title="Boka ett möte med {{employee.name}}"><span class="fa fa-calendar h4  mx-1 text-white"></span></a>
-        </xpath>                                                
-    </template>
- 
-</odoo>
