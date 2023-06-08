@@ -12,7 +12,9 @@
                         <div style="margin-top: 20px; margin-left: -250px !important">
                             <h3><field name="text1" readonly="1" nolabel="1"/></h3><br/>
                             <field name="text2" readonly="1" nolabel="1"/><br/>
+                            <div style="background-color: green; width: 10px; height: 10px; display: inline-block; margin-right: 5px;"></div>
                             <field name="text3" readonly="1" nolabel="1"/><br/>
+                             <div style="background-color: yellow; width: 10px; height: 10px; display: inline-block; margin-right: 5px;"></div>
                             <field name="text5" readonly="1" nolabel="1"/><br/>
                             <div class="logo-image">
                             <field name="logo" widget="image" options="{'upload_button': False}" readonly="1" nolabel="1" />
@@ -29,7 +31,7 @@
     </record>
 
     <record id="message_wizard_action" model="ir.actions.act_window">
-        <field name="name">Välkommen till HR_Lunch!</field>
+        <field name="name">Welcome to HR_Lunch!</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">message.wizard</field>
         <field name="view_mode">form</field>

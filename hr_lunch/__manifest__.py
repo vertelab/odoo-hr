@@ -29,14 +29,20 @@
     # for the full list
     'category': 'HR',
     'description': """
-    Choose where to eat! Manage your dining with your friends! Let the most popular lunch win!
+    Choose where to eat!<br>
+    Manage your dining with your friends! Let the most popular lunch win!
+    Programmed by:
+        - Emma Jarlvi Skog,
+        - Dmitri Iselund,
+        - Jimmie Hinke,
+        - Ruben Riddarhaage,
+        - Andreas Kuylenstierna
     """,
     'sequence': 1,
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_lunch',
     'images': ['static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',
-    'contributor': '',
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-hr',
     # Any module necessary for this one to work correctly
@@ -47,15 +53,9 @@
         'views/assets.xml',
         'views/restaurant_choice_tag.xml',
         'views/restaurant_choice.xml',
-        # 'views/set_custom_wizard.xml',
         'views/restaurant_choice_order.xml',
         'views/winner_history.xml',
         "security/ir.model.access.csv"
-
-
-
-
-
     ],
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
