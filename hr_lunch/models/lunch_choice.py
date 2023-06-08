@@ -142,7 +142,7 @@ class LunchChoice(models.Model):
         else:
             raise UserError("No restaurants found")
 
-
+    #This method is run as a scheduled action in odoo. This method resets the daily_winner_rest and daily_rest.
     def daily_procedure(self):
         restaurants = self.env["lunch.choice"].search([])
         restaurants.write({'daily_rest': False})
@@ -190,7 +190,6 @@ class LunchChoice(models.Model):
     @api.depends('line_ids')
     def voted(self):
        user_votes = self.env['lunch.choice.line'].search([('vote_user', '=', self.env.user.id)])
-    #   UNCOMMENT TO PREVENT ADMIN USERS FROM VOTING
        if self.env.user.has_group('base.group_erp_manager'):
         raise UserError("Admin users are not allowed to vote.")
        if len(user_votes) >= 3:
@@ -217,6 +216,7 @@ class LunchChoice(models.Model):
             else:
                 restaurant.color = 0
 
+    #This method can either be run as an menu button or scheduled action. 
     def daily_rest_winner(self):
         restaurants = self.env["lunch.choice"].search([])
         if not restaurants:
