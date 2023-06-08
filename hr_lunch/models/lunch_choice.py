@@ -224,6 +224,7 @@ class LunchChoice(models.Model):
         winner_restaurant = None
         winner_vote_count = 0
         for restaurant in restaurants:
+            restaurant.daily_winner_rest = False
             vote_count = len(restaurant.line_ids)
             if vote_count > winner_vote_count:
                 winner_restaurant = restaurant
@@ -231,6 +232,10 @@ class LunchChoice(models.Model):
         if winner_restaurant:
             winner_restaurant.highscore +=1
             winner_restaurant.daily_winner_rest = True
+            return {
+            'type': 'ir.actions.client',
+            'tag': 'reload'
+            }
 
         self.add_to_winner_history()
 
