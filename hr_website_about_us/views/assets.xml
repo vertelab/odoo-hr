@@ -7,7 +7,7 @@
 
 <template id="assets_frontend" name="masonry style" inherit_id="website.assets_frontend" >
     <xpath expr="//link[last()]" position="after">
-        <link rel="stylesheet" type="text/css" href="/hr_website_about-us/static/src/css/employees_style.css"/>
+        <link rel="stylesheet" type="text/css" href="/hr_website_about_us/static/src/css/employees_style.css"/>
     </xpath>
 </template>
 

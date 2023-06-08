@@ -21,13 +21,12 @@ class MessageWizard(models.TransientModel):
     def default_get(self, fields_list):
         defaults = super(MessageWizard, self).default_get(fields_list)
 
-        # Populate the default values
         defaults.update({
-            'text1': "Vertels röstningsmodul - RÖSTA VARJE FREDAG!\n",
-            'text2': "Vinnarrestaurangen går alla till, eller väljer take away.\n",
-            'text3': "Grön färg i kanban view = Vinnare!\n",
-            'text5': "Blå färg i kanban view = Vunnit flest gånger!\n",
-            'text4': "Vertel ",
+            'text1': "Vertels vote module - VOTE EVERY FRIDAY!\n",
+            'text2': "Everyone goes to the winning restaurant or choose to order by take away.\n",
+            'text3': "The restaurant with green color in kanban view has the no.1 ranking!\n",
+            'text5': "The restaurant with yellow color in kanban view has second best ranking!\n",
+            'text4': "Company: Vertel",
             'image': self.get_encoded_image('icon.png'),
             'logo': self.get_encoded_image('logo.png'),
         })
@@ -42,30 +41,13 @@ class MessageWizard(models.TransientModel):
 
         return encoded_image
 
-    # @api.model
-    # def force_show_wizard(self):
-    #     # Create a record in lunch.choice.user.check to simulate an existing record
-    #     self.env['lunch.choice.user.check'].create({
-    #         'intro_user_ids': self.env.uid
-    #     })
-    #     return self._open_wizard()
-
-    # def _should_show_wizard(self):
-    #     check_exist = self.env['lunch.choice.user.check'].search([])
-    #     return len(check_exist) == 0
-
     def action_ok(self):
-        # if self._should_show_wizard():
-        #     # Create a record in lunch.choice.user.check to track user interaction
-        #     self.env['lunch.choice.user.check'].create({
-        #         'intro_user_ids': self.env.uid
-        #     })
         return {'type': 'ir.actions.act_window_close'}
 
     def _open_wizard(self):
         return {
             'type': 'ir.actions.act_window',
-            'name': 'Välkommen till Hr_lunch!',
+            'name': 'Welcome to Hr_lunch!',
             'res_model': 'message.wizard',
             'view_mode': 'form',
             'view_type': 'form',
