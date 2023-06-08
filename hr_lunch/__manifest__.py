@@ -29,7 +29,7 @@
     # for the full list
     'category': 'HR',
     'description': """
-    Choose where to eat!<br>
+    Choose where to eat!
     Manage your dining with your friends! Let the most popular lunch win!
     Programmed by:
         - Emma Jarlvi Skog,
