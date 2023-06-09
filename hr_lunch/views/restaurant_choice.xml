@@ -34,11 +34,19 @@
     </record>
 
     <record id="end_vote_action" model="ir.actions.server">
-        <field name="name">Take Away Action</field>
+        <field name="name">End Vote Action</field>
         <field name="model_id" ref="model_lunch_choice" />
         <field name="binding_model_id" ref="model_lunch_choice" />
         <field name="state">code</field>
         <field name="code">action = model.daily_rest_winner()</field>
+    </record>
+
+    <record id="clear_all_votes_action" model="ir.actions.server">
+        <field name="name">Clear All Votes Action</field>
+        <field name="model_id" ref="model_lunch_choice" />
+        <field name="binding_model_id" ref="model_lunch_choice" />
+        <field name="state">code</field>
+        <field name="code">action = model.clear_all_votes()</field>
     </record>
 
     <record id="random_vote" model="ir.actions.server">
@@ -282,4 +290,10 @@
         parent="options_menu"
         action="end_vote_action" 
         sequence = "7"/>
+
+    <menuitem id="lunch_menu_end_vote"
+        name="Clear All Votes"
+        parent="options_menu"
+        action="clear_all_votes_action" 
+        sequence = "8"/>
 </odoo>

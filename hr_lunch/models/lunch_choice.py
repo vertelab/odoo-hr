@@ -66,6 +66,18 @@ class LunchChoice(models.Model):
             "Restaurant name already exists!"),
     ]
 
+    #clear votes from all restaurants
+    @api.model
+    def clear_all_votes(self):
+        restaurants = self.search([])
+        restaurants.write({'daily_winner_rest': False})
+        restaurants.clear_all()
+        return {
+        'type': 'ir.actions.client',
+        'tag': 'reload'
+        }
+    
+
     def clear_all(self):
         self.line_ids.unlink()
 
