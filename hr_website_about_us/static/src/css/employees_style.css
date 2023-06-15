@@ -117,7 +117,7 @@
   box-shadow: 1px 1px 1px rgba(0,0,0, 0.3);
 }
 
-.container_foto:hover img {
+.container_foto:hover img{
   opacity: 1;
   transform: scale(1.2);
    mix-blend-mode: luminosity;

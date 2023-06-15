@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>   
+    <template id="assets_frontend" name="masonry style" inherit_id="website.assets_frontend" >
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/css" href="/hr_website_about_us_vcard/static/src/css/vcard_style.css"/>           
+        </xpath>
+    </template>
+    <template id="assets_backend" name="employee vcard style" inherit_id="web.assets_backend" >
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/hr_website_about_us_vcard/static/src/css/vcard_be_style.css"/>           
+        </xpath>
+    </template>
+   
+
+    <template id="website_about_us_vcard" inherit_id="hr_website_about_us.aboutus">
+
+        <xpath expr="//div[@id='contact_employee']" position="inside">
+                <a t-attf-href="#popup{{employee.id}}" t-attf-title="Get Vcard as QRcode" class="button">
+                    <span class="fa fa-qrcode  h4  mx-1 text-white"></span>
+                </a>
+        </xpath>  
+
+        <xpath expr="//div[hasclass('container_foto')]" position="inside">
+            <div t-attf-id="popup{{employee.id}}" class="overlay">
+                <div class="popup"> 
+                    <div class="flex-container">
+                        <h2 style="display: ">Vcard for <span t-field="employee.name" t-attf-title="name" class="ml-1" /></h2>                   
+                        <a class="close" href="#" alt="close"><span class="fa fa-times mx-1"></span></a>
+                    </div>
+                    <div class="content">                    
+                        <img t-att-src="website.imagefield_hash('hr.employee','qr_code', employee.id, 'hr_website_about_us.img_employees_view')" 
+                             class="employee_qr" 
+                             id="qrPopup"
+                             width="300" height="300" />
+                    </div>
+                </div>
+            </div>                
+        </xpath>  
+
+    </template>
+</odoo>
