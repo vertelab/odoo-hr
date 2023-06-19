@@ -34,7 +34,7 @@ class HrEmployee(models.Model):
             postal_code     = employee.company_id.zip
             country     	= employee.company_id.country_id
             
-            vcard_data = f"BEGIN:VCARD\r\nVERSION:3.0\r\nN:{employee.name}\r\nORG:{employee.company_id.name}\r\nTITLE:{employee.job_title}\r\nEMAIL;PREF;INTERNET:{employee.work_email}\r\nTEL;WORK;VOICE:{employee.work_phone}\r\nADR;WORK;PREF:;;{street};{city};;{postal_code}\r\nEND:VCARD"
+            vcard_data = f"BEGIN:VCARD\r\nVERSION:3.0\r\nN:{employee.name}\r\nORG:{employee.company_id.name}\r\nTITLE:{employee.job_title}\r\nEMAIL;PREF;INTERNET:{employee.work_email}\r\nTEL;TYPE=cell:{employee.mobile_phone}\r\nADR;WORK;PREF:;;{street};{city};;{postal_code}\r\nEND:VCARD"
             
             if qrcode and base64:
                 qr = qrcode.QRCode(

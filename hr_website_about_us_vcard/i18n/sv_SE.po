@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* hr_website_about_us_calendar
+# 	* hr_website_about_us_vcard
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0-20220506\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-07 08:31+0000\n"
-"PO-Revision-Date: 2023-06-07 08:31+0000\n"
+"POT-Creation-Date: 2023-06-16 11:55+0000\n"
+"PO-Revision-Date: 2023-06-16 11:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,46 +15,112 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: hr_website_about_us_calendar
-#: model:ir.model,name:hr_website_about_us_calendar.model_hr_employee_base
-msgid "Basic Employee"
-msgstr "Vanlig anställd"
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__can_publish
+msgid "Can Publish"
+msgstr "Kan publiceras"
 
-#. module: hr_website_about_us_calendar
-#: model_terms:ir.ui.view,arch_db:hr_website_about_us_calendar.website_about_us_calender_ce
-msgid "Book a meeting with {{employee.name}}"
-msgstr "Boka ett möte med {{employee.name}}"
-
-#. module: hr_website_about_us_calendar
-#: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee__booking_type_domain
-#: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee_base__booking_type_domain
-#: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee_public__booking_type_domain
-msgid "Booking Type Domain"
-msgstr ""
-
-#. module: hr_website_about_us_calendar
-#: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee__booking_type_id
-#: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee_base__booking_type_id
-#: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee_public__booking_type_id
-msgid "Booking type"
-msgstr "Bokningstyp"
-
-#. module: hr_website_about_us_calendar
-#: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee_base__display_name
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__display_name
 msgid "Display Name"
 msgstr "Visningsnamn"
 
-#. module: hr_website_about_us_calendar
-#: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee_base__id
+#. module: hr_website_about_us_vcard
+#: model:ir.model,name:hr_website_about_us_vcard.model_hr_employee
+msgid "Employee"
+msgstr "Anställd"
+
+#. module: hr_website_about_us_vcard
+#: model_terms:ir.ui.view,arch_db:hr_website_about_us_vcard.website_about_us_vcard
+msgid "Get Vcard as QRcode"
+msgstr "Läs in kontaktkort som QR-kod"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__id
 msgid "ID"
 msgstr ""
 
-#. module: hr_website_about_us_calendar
-#: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee_base____last_update
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__is_published
+msgid "Is Published"
+msgstr "Är Publicerad"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee____last_update
 msgid "Last Modified on"
 msgstr "Senast redigerad"
 
-#. module: hr_website_about_us_calendar
-#: model_terms:ir.ui.view,arch_db:hr_website_about_us_calendar.hr_employee_form_view
-msgid "Meeting urls"
-msgstr ""
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__qr_code
+msgid "QRcode"
+msgstr "QR-kod"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,help:hr_website_about_us_vcard.field_hr_employee__website_id
+msgid "Restrict publishing to this website."
+msgstr "Publicera endast på denna webbplats"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__is_seo_optimized
+msgid "SEO optimized"
+msgstr "SEO optimerad"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__seo_name
+msgid "Seo name"
+msgstr "SEO namn"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,help:hr_website_about_us_vcard.field_hr_employee__website_url
+msgid "The full URL to access the document through the website."
+msgstr "Fullständig URL till dokumentet för att komma åt via webbplatsen"
+
+#. module: hr_website_about_us_vcard
+#: model_terms:ir.ui.view,arch_db:hr_website_about_us_vcard.website_about_us_vcard
+msgid "Vcard for"
+msgstr "Kontaktkort för"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__website_published
+msgid "Visible on current website"
+msgstr "Synlig på denna webbplats"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__website_id
+msgid "Website"
+msgstr "Webbplats"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__website_url
+msgid "Website URL"
+msgstr "Webbplats URL"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__website_meta_description
+msgid "Website meta description"
+msgstr "Webbplatsens meta-beskrivning"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__website_meta_keywords
+msgid "Website meta keywords"
+msgstr "Webbplatsens meta-nyckelord"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__website_meta_title
+msgid "Website meta title"
+msgstr "Webbplatsens meta-titel"
+
+#. module: hr_website_about_us_vcard
+#: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__website_meta_og_img
+msgid "Website opengraph image"
+msgstr "Webbplatsens opengraph-bild"
+
+#. module: hr_website_about_us_vcard
+#: model_terms:ir.ui.view,arch_db:hr_website_about_us_vcard.website_about_us_vcard
+msgid "close"
+msgstr "Stäng"
+
+#. module: hr_website_about_us_vcard
+#: model_terms:ir.ui.view,arch_db:hr_website_about_us_vcard.website_about_us_vcard
+msgid "name"
+msgstr "namn"
