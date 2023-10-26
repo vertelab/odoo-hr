@@ -37,7 +37,7 @@ class AccountAnalyticLine(models.Model):
         pass
 
     non_billable = fields.Boolean(string="Non-Billable", default=False, compute=_compute_non_billable, store=True,
-                                  inverse=_inverse_non_billable, compute_sudo=True)
+                                  inverse=_inverse_non_billable, compute_sudo=False)
 
     @api.depends('non_billable', 'unit_amount')
     def _compute_timesheet_details(self):
