@@ -99,7 +99,7 @@ class HrPersonalEquipmentRequestWeb(models.TransientModel):
         for rec in self:
             rec.name = _("Personal Equipment Request by %s") % rec.employee_id.name
 
-    def Xwrite(self):
+    def write(self):
         for r in self:
             req = self.env['hr.personal.equipment.request'].create(
                 {'employee_id': self.env.user.employee_ids[:1],
