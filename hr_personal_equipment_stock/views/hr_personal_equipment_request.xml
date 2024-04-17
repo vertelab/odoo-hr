@@ -16,6 +16,7 @@
                 <field
                     name="location_id"
                     attrs="{'readonly': [('state', '!=', 'draft')]}"
+                    required="1"
                 />
                 <field
                     name="procurement_group_id"
