@@ -11,7 +11,7 @@ class HrPersonalEquipmentRequest(models.Model):
     location_id = fields.Many2one(
         "stock.location",
         ondelete="cascade",
-        required=True,
+        required=False,
         domain=[("is_personal_equipment_location", "=", True)],
     )
     procurement_group_id = fields.Many2one(
