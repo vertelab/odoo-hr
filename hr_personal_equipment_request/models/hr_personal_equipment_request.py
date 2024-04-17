@@ -99,13 +99,19 @@ class HrPersonalEquipmentRequestWeb(models.TransientModel):
         for rec in self:
             rec.name = _("Personal Equipment Request by %s") % rec.employee_id.name
 
-    def write(self):
-        for r in self:
-            req = self.env['hr.personal.equipment.request'].create(
-                {'employee_id': self.env.user.employee_ids[:1],
-                 'observations': r.observations})
+    @api.model
+    def create(self, vals):
+        req = self.env['hr.personal.equipment.request'].create({
+            'employee_id': vals.get('employee_id'),
+            'observations': vals.get('observations'),
+        })
+
+        if req:
             self.env['hr.personal.equipment'].create({
-                      'equipment_request_id': req.id,
-                      'product_id': r.product_id.id,
-                      'quantity': r.quantity,})
+                'equipment_request_id': req.id,
+                'product_id': vals.get('product_id'),
+                'quantity': vals.get('quantity'),
+            })
+
+        return super().create(vals)
 
