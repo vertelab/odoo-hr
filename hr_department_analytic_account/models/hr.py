@@ -2,9 +2,7 @@ from  odoo import models, fields, api, _
 
 
 class HRDepartment(models.Model):
-    _name = 'hr.department'
-    _inherit = ['hr.department', 'mail.activity.mixin', ]
-
+    _inherit = 'hr.department'
 
     currency_id = fields.Many2one('res.currency', related="company_id.currency_id", string="Currency", readonly=True)
     analytic_account_id = fields.Many2one('account.analytic.account', string="Analytic Account", copy=False, ondelete='set null',
