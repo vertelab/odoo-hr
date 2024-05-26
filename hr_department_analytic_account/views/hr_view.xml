@@ -1,0 +1,31 @@
+<odoo>
+    <data>
+        <record id="hr_department_form_view" model="ir.ui.view">
+            <field name="name">hr.department.form</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_form"/>
+            <field name="arch" type="xml">
+                <field name="parent_id" position="after">
+                    <field name="analytic_account_id"/>
+                    <field name="analytic_account_balance"/>
+                </field>
+                <field name="message_follower_ids" position="after">
+                    <field name="activity_ids"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="hr_department_search_view" model="ir.ui.view">
+            <field name="name">hr.department.search</field>
+            <field name="model">hr.department</field>
+            <field name="inherit_id" ref="hr.view_department_filter"/>
+            <field name="arch" type="xml">
+                <field name="manager_id" position="after">
+                    <field name="analytic_account_id"/>
+                </field>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>
