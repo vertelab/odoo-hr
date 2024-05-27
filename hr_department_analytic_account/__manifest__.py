@@ -36,9 +36,10 @@
     'contributor': '',
     'maintainer': 'Vertel AB',
     'repository': 'https://github.com/vertelab/odoo-hr',
-    'depends': ['hr','analytic'],
+    'depends': ['hr', 'analytic', 'payroll'],
     'data': [
         'views/hr_view.xml',
+        'views/hr_payslip_view.xml',
     ],
     'application': False,
     'auto_install': True,
