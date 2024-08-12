@@ -1,4 +1,4 @@
-odoo-hr / helpdesk_responsibility
+odoo-hr / hr_department_activity
 2024-08-12
 
 Be aware of these!

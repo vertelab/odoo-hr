@@ -1,5 +1,5 @@
-odoo-hr / hr_department_partner
-2022-10-07
+odoo-hr / hr_department_analytic_account
+2024-08-12
 
 Be aware of these!
 [project]/[module]/static/description/banner.png
@@ -13,7 +13,6 @@ Odoo icon: 140 x 140
 
 HEX
 #930a57
-
 #8105a7
 
 
