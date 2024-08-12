@@ -21,7 +21,7 @@
 
 {
     'name': 'HR: Journal Select Payable Account',
-    'version': '14.0.0.0.1',
+    'version': '0.1',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'Changed so that the expense uses the payable account set on the journal, and if that is not set then it will use the one set on the employee.',
     'category': 'HR',
