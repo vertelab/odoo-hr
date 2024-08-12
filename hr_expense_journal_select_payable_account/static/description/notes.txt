@@ -15,8 +15,11 @@ HEX
 #930a57
 #8105a7
 
-
 Source: https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Colors/Color_picker_tool
+
+Edit image:
+Ubuntu = Pinta, https://www.pinta-project.com/howto/installing-pinta
+Windows = Paint.net , https://www.getpaint.net/
 
 Guide:
 1. Use Inkscape to create a colored background. (Import)
