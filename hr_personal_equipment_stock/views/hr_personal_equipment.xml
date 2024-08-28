@@ -13,9 +13,7 @@
         />
         <field name="arch" type="xml">
             <button name="validate_allocation" position="attributes">
-                <attribute
-                    name="attrs"
-                >{'invisible': ['|', ('skip_procurement', '=', False), ('state', '!=', 'accepted')]}</attribute>
+                <attribute name="invisible"> skip_procurement == 'False' or state not in ['accepted'] </attribute>
             </button>
             <field name="equipment_request_id" position='after'>
                 <field name="location_id" />
