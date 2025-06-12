@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2025 Vertel AB
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+  <record id="resource_calendar_leave_tree" model="ir.ui.view">
+    <field name="name">resource.calendar.leaves.public.holiday</field>
+    <field name="model">resource.calendar.leaves</field>
+    <field name="inherit_id" ref="resource.resource_calendar_leave_tree" />
+    <field name="arch" type="xml">
+      <field name="name" position="before">
+        <header>
+          <button name="fetch_public_holidays" type="object" string="Fetch Public Holidays" class="btn-primary" display="always" groups="base.group_user" />
+        </header>
+      </field>
+    </field>
+  </record>
+</odoo>
