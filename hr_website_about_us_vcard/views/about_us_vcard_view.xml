@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>   
+<!--    <template id="assets_frontend" name="masonry style" inherit_id="website.assets_frontend" >-->
+<!--        <xpath expr="//link[last()]" position="after">-->
+<!--            <link rel="stylesheet" type="text/css" href="/hr_website_about_us_vcard/static/src/css/vcard_style.css"/>           -->
+<!--        </xpath>-->
+<!--    </template>-->
+<!--    <template id="assets_backend" name="employee vcard style" inherit_id="web.assets_backend" >-->
+<!--        <xpath expr="." position="inside">-->
+<!--            <link rel="stylesheet" type="text/css" href="/hr_website_about_us_vcard/static/src/css/vcard_be_style.css"/>           -->
+<!--        </xpath>-->
+<!--    </template>-->
+   
+
+    <template id="website_about_us_vcard" inherit_id="hr_website_about_us.aboutus">
+
+<!--        <xpath expr="//div[@id='contact_employee']" position="inside">-->
+        <xpath expr="//t[@t-call='website.layout']/section[hasclass('team-section-new')]//div[@t-if='len(employee_contact)']/div[@t-foreach='employee_contact']/div[1]/div[1]" position="inside">
+            <a t-attf-href="#popup{{employee.id}}" t-attf-title="Get Vcard as QRcode" class="social-icon">
+                <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21 11.36 11.36 0 003.48.6 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.6 3.48 1 1 0 01-.21 1.11l-2.27 2.2z"/>
+                </svg>
+            </a>
+
+<!--            <a t-attf-href="#popup{{employee.id}}" t-attf-title="Get Vcard as QRcode" class="button">-->
+<!--                <span class="fa fa-qrcode h4 mx-1 text-white">/</span>-->
+<!--            </a>-->
+        </xpath>  
+
+        <xpath expr="//div[hasclass('team-grid')]/div[@t-foreach='employee_contact']//div[1]" position="inside">
+            <div t-attf-id="popup{{employee.id}}" class="overlay">
+                <div class="popup"> 
+                    <div class="flex-container">
+                        <h2 style="display: ">Vcard for <span t-field="employee.name" t-attf-title="name" class="ml-1" /></h2>                   
+                        <a class="close" href="#" alt="close"><span class="fa fa-times mx-1"/></a>
+                    </div>
+                    <div class="content">                    
+                        <img t-att-src="website.imagefield_hash('hr.employee','qr_code', employee.id, 'hr_website_about_us.img_employees_view')" 
+                             class="employee_qr" 
+                             id="qrPopup"
+                             width="300" height="300" />
+                    </div>
+                </div>
+            </div>                
+        </xpath>  
+
+    </template>
+</odoo>

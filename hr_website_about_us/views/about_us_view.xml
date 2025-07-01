@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="aboutus">
+        <t t-call="website.layout">
+            <t t-set="title">About Us</t>
+            <div id="wrap" class="oe_structure oe_empty" />
+            <t t-set="is_publisher" t-value="request.env.user.has_group('website.group_website_restricted_editor')" />
+            <t t-set="employees_domain" t-value="[] if is_publisher else [('website_published', '=', True)]" />
+            <t t-set="multiwebsite_domain" t-value="request.website.website_domain()" />
+            <t t-set="employees" t-value="request.env['hr.employee'].sudo().search(employees_domain + multiwebsite_domain)" />
+            <t t-set="employee_exec" t-value="employees.filtered(lambda e: e.job_title == 'XXVD')"/>
+            <t t-set="employee_contact" t-value="employees.filtered(lambda e: e.show_contact )"/>
+            <t t-set="employee_standard" t-value="employees.filtered(lambda e: e.show_contact != True )"/>
+            <t t-set="employee_sort" t-value="employee_standard.sorted(key=lambda r: r.name)" />
+
+            <section class="team-section-new">
+                <div class="container">
+                    <!-- Management and Sales Section -->
+                    <div class="text-center">
+                        <h2 class="main-team-title">Management and Sales</h2>
+                    </div>
+
+                    <div t-if="len(employee_contact)" class="team-grid">
+                        <div t-foreach="employee_contact" t-as="employee" class="team-card-wrapper">
+                            <div class="modern-team-card">
+                                <t t-call="website.publish_management">
+                                    <t t-set="object" t-value="employee" />
+                                    <t t-set="publish_edit" t-value="True" />
+                                    <t t-set="style" t-value="'position: absolute; top: 10px; right: 10px; z-index: 10;'" />
+                                </t>
+
+                                <div class="card-content container_foto">
+                                    <img t-att-src="website.imagefield_hash('hr.employee','image_1920', employee.id, 'hr_website_about_us.img_employees_view')"
+                                         t-attf-alt="{{employee.name}}"
+                                         t-attf-title="{{employee.name}}"
+                                         class="circular-photo"/>
+
+                                    <p t-field="employee.name" class="employee-name-new"/>
+                                    <p t-field="employee.job_title" class="employee-role-new"/>
+
+                                    <hr class="card-divider"/>
+
+                                    <div class="social-icons ver_mas" id="contact_employee">
+                                        <a t-attf-href="tel:{{employee.mobile_phone}}" t-attf-title="Call {{employee.name}}" class="social-icon">
+                                            <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.11-.21 11.36 11.36 0 003.48.6 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.36 11.36 0 00.6 3.48 1 1 0 01-.21 1.11l-2.27 2.2z"/>
+                                            </svg>
+                                        </a>
+                                        <a t-attf-href="mailto:{{employee.work_email}}" t-attf-title="Send e-mail to {{employee.name}}" class="social-icon">
+                                            <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                                <polyline points="22,6 12,13 2,6"/>
+                                            </svg>
+                                        </a>
+                                        <a t-if="employee.social_linkedin" t-attf-href="https://{{employee.social_linkedin}}" target="_blank" t-attf-title="Look up {{employee.name}} on LinkedIn" class="social-icon">
+                                            <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                            </svg>
+                                        </a>
+                                        <a href="#" title="GitHub" class="social-icon">
+                                            <svg class="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Production Team Section -->
+                    <div class="text-center mt-5">
+                        <h2 class="main-team-title">Those who produce</h2>
+                    </div>
+
+                    <div t-if="len(employee_sort)" class="team-grid">
+                        <div t-foreach="employee_sort" t-as="employee" class="team-card-wrapper">
+                            <div class="modern-team-card">
+                                <t t-call="website.publish_management">
+                                    <t t-set="object" t-value="employee" />
+                                    <t t-set="publish_edit" t-value="True" />
+                                    <t t-set="style" t-value="'position: absolute; top: 10px; right: 10px; z-index: 10;'" />
+                                </t>
+
+                                <div class="card-content container_foto">
+                                    <img t-att-src="website.imagefield_hash('hr.employee','image_1920', employee.id, 'hr_website_about_us.img_employees_view')"
+                                         t-attf-alt="{{employee.name}}"
+                                         t-attf-title="{{employee.name}}"
+                                         class="circular-photo"/>
+
+                                    <p t-field="employee.name" class="employee-name-new"/>
+                                    <p t-field="employee.job_title" class="employee-role-new"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="oe_structure" />
+                </div>
+            </section>
+        </t>
+    </template>
+
+
+
+    <record id="view_employee_form_contact" model="ir.ui.view">
+        <field name="name">employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <field name="is_published" class="oe_inline" widget="website_redirect_button" />
+            </xpath>
+            <xpath expr="//group[@name='active_group']" position="inside">
+                 <field name="show_contact" />                   
+            </xpath>
+            <xpath expr="//field[@name='coach_id']" position="after">
+                 <field name="social_linkedin" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

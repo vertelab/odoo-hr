@@ -1,0 +1,9 @@
+.employee_form_qr{
+    clear: right;
+    margin-bottom: -75px !important;
+    transition: all .2s ease-in-out;
+    transform-origin:top right;
+  }
+  .employee_form_qr:hover{
+    transform: scale(2.0);    
+  }

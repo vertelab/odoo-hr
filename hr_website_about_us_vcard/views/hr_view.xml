@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="hr_employee_form_view" model="ir.ui.view">
+            <field name="name">hr.employee.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='work_email']" position="after">
+                    <field name="qr_code" widget='image' class="oe_avatar" invisible="1"/>
+                                 
+                </xpath>
+                <xpath expr="//field[@name='image_1920']" position="after">
+                    <field name="qr_code" widget='image' class="oe_avatar employee_form_qr" options='{"zoom": true, "preview_image":"image_128"}'/> 
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
+

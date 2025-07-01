@@ -1,0 +1,223 @@
+
+.team-section-new {
+    padding: 3rem 0 4rem;
+    background-color: #ffffff;
+}
+
+.main-team-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 3rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 0 2rem 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.team-card-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+/* Modern team card - completely new styling */
+.modern-team-card {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    transition: all 0.2s ease-in-out;
+}
+
+.modern-team-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card-content {
+    padding: 1.25rem 1rem;
+    text-align: center;
+}
+
+/* Circular photo - override any existing styles */
+.circular-photo {
+    width: 12rem !important;
+    height: 12rem !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+    margin: 0 auto !important;
+    display: block !important;
+    border: none !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    background: none !important;
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+}
+
+/* Employee name styling */
+.employee-name-new {
+    margin-top: 2rem !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #111827 !important;
+    text-transform: uppercase !important;
+    margin-bottom: 0.25rem !important;
+    letter-spacing: 0.025em !important;
+    text-shadow: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+/* Employee role styling */
+.employee-role-new {
+    margin-top: 0.25rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    color: #6b7280 !important;
+    margin-bottom: 0 !important;
+    text-transform: none !important;
+    text-shadow: none !important;
+    border: none !important;
+    background: none !important;
+    padding: 0 !important;
+}
+
+/* Card divider */
+.card-divider {
+    margin-top: 1.5rem;
+    border: 0;
+    border-top: 1px solid #e5e7eb;
+    margin-bottom: 0;
+}
+
+/* Social icons container */
+.social-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.25rem;
+    gap: 1rem;
+}
+
+/* Social icon styling */
+.social-icon {
+    padding: 0.375rem;
+    background-color: #f3f4f6;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #111827;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.social-icon:hover {
+    background-color: transparent;
+    color: #e11d48;
+    text-decoration: none;
+}
+
+.social-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* Override any existing staff container styles */
+.team-section-new .staff_container,
+.team-section-new .container_foto,
+.team-section-new .ver_mas,
+.team-section-new #seller {
+    all: unset;
+}
+
+/* Hide production team social icons */
+.modern-team-card:last-child .card-divider,
+.modern-team-card:last-child .social-icons {
+    display: none;
+}
+
+/* Responsive design */
+@media (min-width: 576px) {
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+@media (min-width: 768px) {
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        margin: 0 auto 3rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .team-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .circular-photo {
+        width: 10rem !important;
+        height: 10rem !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .team-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .circular-photo {
+        width: 12rem !important;
+        height: 12rem !important;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .team-grid {
+        margin: 0 0 3rem;
+        grid-template-columns: 1fr;
+    }
+
+    .circular-photo {
+        width: 10rem !important;
+        height: 10rem !important;
+    }
+
+    .main-team-title {
+        font-size: 1.5rem;
+    }
+
+    .social-icons {
+        gap: 0.75rem;
+    }
+
+    .social-icon {
+        width: 2.25rem;
+        height: 2.25rem;
+    }
+
+    .social-icon svg {
+        width: 1.25rem;
+        height: 1.25rem;
+    }
+}
