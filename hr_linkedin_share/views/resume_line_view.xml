@@ -1,0 +1,21 @@
+<odoo>
+  <data>
+
+    <record id="from" model="ir.ui.view">
+      <field name="name">hr.resume.line.linkedin.cert.form</field>
+      <field name="model">hr.resume.line</field>
+      <field name="inherit_id" ref="hr_skills_survey.resume_survey_line_view_form"/>
+      <field name="arch" type="xml">
+        <sheet position="before">
+          <header>
+            <button name="action_add_cert_to_linkedin" type="object" string="Add To Linkedin" invisible="display_type != 'certification'"/>
+          </header>
+        </sheet>
+        <field name="survey_id" position="after">
+          <field name="url_to_cert" invisible="display_type != 'certification'"/>
+        </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>
