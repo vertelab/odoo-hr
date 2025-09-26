@@ -1,0 +1,29 @@
+<odoo>
+  <record id="hr_employee_skill_type_view_form" model="ir.ui.view">
+    <field name="name">hr.skill.type.form.inherit.esco</field>
+    <field name="model">hr.skill.type</field>
+    <field name="inherit_id" ref="hr_skills.hr_employee_skill_type_view_form" />
+    <!-- Ärver originalvyn -->
+    <field name="arch" type="xml">
+      <xpath expr="//div[@class='oe_title']" position="after">
+        <label for="esco" string="ESCO Code" />
+        <field name="esco" />
+      </xpath>
+      <xpath expr="//field[@name='skill_ids']/list/field[@name='name']" position="after">
+        <field name="esco" />
+      </xpath>
+    </field>
+  </record>
+  <record id="hr_skill_view_form" model="ir.ui.view">
+    <field name="name">hr.skill.form.inherit.esco</field>
+    <field name="model">hr.skill</field>
+    <field name="inherit_id" ref="hr_skills.hr_skill_view_form" />
+    <!-- Ärver originalvyn -->
+    <field name="arch" type="xml">
+      <field name="name" position="replace">
+        <field name="display_name_2" />
+        <field name="esco" />
+      </field>
+    </field>
+  </record>
+</odoo>
