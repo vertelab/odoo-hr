@@ -1,0 +1,28 @@
+<odoo>
+    <template id="portal_create_ticket" inherit_id="helpdesk_mgmt.portal_create_ticket">
+        <xpath expr="//label[@for='description']/ancestor::div[hasclass('form-group')]" position="after">
+            <div class="form-group mb-2 mt-2" t-if="personal_equipment_ids" name="form_group_personal_equipment">
+                <label class="col-md-3 col-sm-4 control-label" for="personal_equipment">Equipment</label>
+                <div class="col-md-7 col-sm-8">
+                    <select class="form-control" id="personal_equipment" name="personal_equipment" required="True">
+                        <option value="" />
+                        <t t-foreach="personal_equipment_ids" t-as="personal_equipment">
+                            <option t-attf-value="#{personal_equipment.id}">
+                                <t t-esc="personal_equipment.sudo().product_id.name" />
+                            </option>
+                        </t>
+                    </select>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="portal_helpdesk_ticket_page" inherit_id="helpdesk_mgmt.portal_helpdesk_ticket_page">
+        <xpath expr="//span[@t-field='ticket.category_id']/.." position="after">
+            <div t-if="ticket.hr_personal_equipment_id" name="ticket_hr_personal_equipment_id">
+                <strong>Equipment:</strong>
+                <span t-esc="ticket.hr_personal_equipment_id.sudo().product_id.name" />
+            </div>
+        </xpath>
+    </template>
+</odoo>
