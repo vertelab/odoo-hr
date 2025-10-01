@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0-20220428\n"
+"Project-Id-Version: Odoo Server 18.0-20250925\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-04-25 07:02+0000\n"
-"PO-Revision-Date: 2023-04-25 07:02+0000\n"
+"POT-Creation-Date: 2025-10-01 14:09+0000\n"
+"PO-Revision-Date: 2025-10-01 14:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,8 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: helpdesk_responsibility
+#. odoo-python
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
-#, python-format
 msgid "August"
 msgstr "Augusti"
 
@@ -32,15 +32,8 @@ msgid "Daily"
 msgstr "Dagligen"
 
 #. module: helpdesk_responsibility
-#: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event__display_name
-#: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__display_name
-#: model:ir.model.fields,field_description:helpdesk_responsibility.field_res_users__display_name
-msgid "Display Name"
-msgstr "Visningsnamn"
-
-#. module: helpdesk_responsibility
+#. odoo-python
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
-#, python-format
 msgid "February"
 msgstr "Februari"
 
@@ -56,22 +49,16 @@ msgstr "Helpdesk ansvarsrotation"
 
 #. module: helpdesk_responsibility
 #: model:ir.actions.server,name:helpdesk_responsibility.helpdesk_rotation_job_daily_ir_actions_server
-#: model:ir.cron,cron_name:helpdesk_responsibility.helpdesk_rotation_job_daily
-#: model:ir.cron,name:helpdesk_responsibility.helpdesk_rotation_job_daily
 msgid "Helpdesk Rotation Job Daily"
 msgstr "Dagligt helpdeskroteringsjobb"
 
 #. module: helpdesk_responsibility
 #: model:ir.actions.server,name:helpdesk_responsibility.helpdesk_rotation_job_monthly_ir_actions_server
-#: model:ir.cron,cron_name:helpdesk_responsibility.helpdesk_rotation_job_monthly
-#: model:ir.cron,name:helpdesk_responsibility.helpdesk_rotation_job_monthly
 msgid "Helpdesk Rotation Job Monthly"
 msgstr "Månadsvis helpdeskroteringsjobb"
 
 #. module: helpdesk_responsibility
 #: model:ir.actions.server,name:helpdesk_responsibility.helpdesk_rotation_job_weekly_ir_actions_server
-#: model:ir.cron,cron_name:helpdesk_responsibility.helpdesk_rotation_job_weekly
-#: model:ir.cron,name:helpdesk_responsibility.helpdesk_rotation_job_weekly
 msgid "Helpdesk Rotation Job Weekly"
 msgstr "Veckovis helpdeskroteringsjobb"
 
@@ -79,7 +66,7 @@ msgstr "Veckovis helpdeskroteringsjobb"
 #: model:ir.model,name:helpdesk_responsibility.model_helpdesk_ticket_team
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event__helpdesk_ticket_team
 msgid "Helpdesk Ticket Team"
-msgstr "Helpdeskärendelag"
+msgstr "Helpdesk ärendelag"
 
 #. module: helpdesk_responsibility
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__helpdesk_user_ids
@@ -87,40 +74,26 @@ msgid "Helpdesk Users"
 msgstr "Helpdeskanvändare"
 
 #. module: helpdesk_responsibility
-#: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event__id
-#: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__id
-#: model:ir.model.fields,field_description:helpdesk_responsibility.field_res_users__id
-msgid "ID"
-msgstr "ID"
-
-#. module: helpdesk_responsibility
+#. odoo-python
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
-#, python-format
 msgid "January"
 msgstr "Januari"
 
 #. module: helpdesk_responsibility
+#. odoo-python
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
-#, python-format
 msgid "July"
-msgstr "Juli"
+msgstr "juli"
 
 #. module: helpdesk_responsibility
+#. odoo-python
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
-#, python-format
 msgid "June"
 msgstr "Juni"
 
 #. module: helpdesk_responsibility
-#: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event____last_update
-#: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team____last_update
-#: model:ir.model.fields,field_description:helpdesk_responsibility.field_res_users____last_update
-msgid "Last Modified on"
-msgstr "Senast redigerad den"
-
-#. module: helpdesk_responsibility
+#. odoo-python
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
-#, python-format
 msgid "May"
 msgstr "Maj"
 
@@ -135,8 +108,8 @@ msgid "Number Of Events"
 msgstr "Antal händelser"
 
 #. module: helpdesk_responsibility
+#. odoo-python
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
-#, python-format
 msgid "October"
 msgstr "Oktober"
 
@@ -146,20 +119,20 @@ msgid "Periodicity"
 msgstr "Periodicitet"
 
 #. module: helpdesk_responsibility
+#. odoo-python
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
-#, python-format
 msgid "Responsible for"
 msgstr "Ansvarig för"
 
 #. module: helpdesk_responsibility
+#. odoo-python
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
-#, python-format
 msgid "Responsible for week"
 msgstr "Ansvarig för vecka"
 
 #. module: helpdesk_responsibility
+#. odoo-python
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
-#, python-format
 msgid "Responsible:"
 msgstr "Ansvarig:"
 
@@ -175,7 +148,7 @@ msgstr "Ärenderotering"
 
 #. module: helpdesk_responsibility
 #: model:ir.model,name:helpdesk_responsibility.model_res_users
-msgid "Users"
+msgid "User"
 msgstr "Användare"
 
 #. module: helpdesk_responsibility
