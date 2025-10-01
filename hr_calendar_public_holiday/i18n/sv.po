@@ -21,12 +21,12 @@ msgstr ""
 #: code:addons/hr_recruitment_translation/models/models.py:0
 #, python-format
 msgid "%s's Job Application"
-msgstr "%ss ansökan"
+msgstr "%ss jobbansökan"
 
 #. module: hr_recruitment_translation
 #: model:ir.model,name:hr_recruitment_translation.model_hr_applicant
 msgid "Applicant"
-msgstr "Jobbansökan"
+msgstr "Sökande"
 
 #. module: hr_recruitment_translation
 #: model:ir.model.fields,field_description:hr_recruitment_translation.field_hr_applicant__display_name
@@ -36,15 +36,15 @@ msgstr "Visningsnamn"
 #. module: hr_recruitment_translation
 #: model:ir.model.fields,field_description:hr_recruitment_translation.field_hr_applicant__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: hr_recruitment_translation
 #: model:ir.model.fields,field_description:hr_recruitment_translation.field_hr_applicant____last_update
 msgid "Last Modified on"
-msgstr "Senast redigerad"
+msgstr "Senast redigerad den"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_notification_light
 #: model_terms:ir.ui.view,arch_db:mail.mail_notification_paynow
 msgid "Your"
-msgstr " "
+msgstr "Din"
