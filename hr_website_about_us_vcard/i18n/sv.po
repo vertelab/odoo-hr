@@ -33,12 +33,12 @@ msgstr "Anställd"
 #. module: hr_website_about_us_vcard
 #: model_terms:ir.ui.view,arch_db:hr_website_about_us_vcard.website_about_us_vcard
 msgid "Get Vcard as QRcode"
-msgstr "Läs in kontaktkort som QR-kod"
+msgstr "Läs in VCard som QR-kod"
 
 #. module: hr_website_about_us_vcard
 #: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: hr_website_about_us_vcard
 #: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__is_published
@@ -48,7 +48,7 @@ msgstr "Är Publicerad"
 #. module: hr_website_about_us_vcard
 #: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee____last_update
 msgid "Last Modified on"
-msgstr "Senast redigerad"
+msgstr "Senast redigerad den"
 
 #. module: hr_website_about_us_vcard
 #: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__qr_code
@@ -78,7 +78,7 @@ msgstr "Fullständig URL till dokumentet för att komma åt via webbplatsen"
 #. module: hr_website_about_us_vcard
 #: model_terms:ir.ui.view,arch_db:hr_website_about_us_vcard.website_about_us_vcard
 msgid "Vcard for"
-msgstr "Kontaktkort för"
+msgstr "VCard för"
 
 #. module: hr_website_about_us_vcard
 #: model:ir.model.fields,field_description:hr_website_about_us_vcard.field_hr_employee__website_published
