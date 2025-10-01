@@ -79,7 +79,7 @@ msgstr "Veckovis helpdeskroteringsjobb"
 #: model:ir.model,name:helpdesk_responsibility.model_helpdesk_ticket_team
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_calendar_event__helpdesk_ticket_team
 msgid "Helpdesk Ticket Team"
-msgstr "Helpdeskbiljett team"
+msgstr "Helpdeskärendelag"
 
 #. module: helpdesk_responsibility
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__helpdesk_user_ids
@@ -91,7 +91,7 @@ msgstr "Helpdeskanvändare"
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__id
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_res_users__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: helpdesk_responsibility
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
@@ -116,7 +116,7 @@ msgstr "Juni"
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team____last_update
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_res_users____last_update
 msgid "Last Modified on"
-msgstr "Senast redigerad"
+msgstr "Senast redigerad den"
 
 #. module: helpdesk_responsibility
 #: code:addons/helpdesk_responsibility/models/helpdesk_ticket_team.py:0
@@ -171,7 +171,7 @@ msgstr "Sekvens"
 #. module: helpdesk_responsibility
 #: model:ir.model.fields,field_description:helpdesk_responsibility.field_helpdesk_ticket_team__ticket_rotation
 msgid "Ticket Rotation"
-msgstr "Biljettrotering"
+msgstr "Ärenderotering"
 
 #. module: helpdesk_responsibility
 #: model:ir.model,name:helpdesk_responsibility.model_res_users
