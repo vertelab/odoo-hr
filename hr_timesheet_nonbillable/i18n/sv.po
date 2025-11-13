@@ -1,0 +1,157 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_timesheet_nonbillable
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0-20250925\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-01 14:25+0000\n"
+"PO-Revision-Date: 2025-10-01 16:41+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: hr_timesheet_nonbillable
+#. odoo-python
+#: code:addons/hr_timesheet_nonbillable/models/hr_timesheet_nonbillable.py:0
+msgid ""
+"\n"
+"                <p class=\"o_view_nocontent_smiling_face\">\n"
+"                    Record timesheets\n"
+"                </p><p>\n"
+"                    You can register and track your workings hours by "
+"project every\n"
+"                    day. Every time spent on a project will become a cost "
+"and can be re-invoiced to\n"
+"                    customers if required.\n"
+"                </p>\n"
+"            "
+msgstr ""
+"\n"
+"                <p class=\"o_view_nocontent_smiling_face\">\n"
+"                    Registrera tidrapporter\n"
+"                </p> <p>\n"
+"                    Du kan registrera och spåra dina arbetstimmar per "
+"projekt varje\n"
+"                    dag. Varje tid som spenderas på ett projekt blir till "
+"en kostnad och kan vidarefaktureras till\n"
+"                    kunder om så krävs.\n"
+"                </p>\n"
+"            "
+
+#. module: hr_timesheet_nonbillable
+#. odoo-python
+#: code:addons/hr_timesheet_nonbillable/models/project_create_sale_order.py:0
+#: code:addons/hr_timesheet_nonbillable/models/project_task_create_sale_order.py:0
+msgid "%(amount)s %(label)s will be added to the new Sales Order."
+msgstr ""
+"%(amount)s %(label)s kommer att läggas till på den nya försäljningsordern."
+
+#. module: hr_timesheet_nonbillable
+#. odoo-python
+#: code:addons/hr_timesheet_nonbillable/models/project_create_sale_order.py:0
+#: code:addons/hr_timesheet_nonbillable/models/project_task_create_sale_order.py:0
+msgid "%(amount)s %(label)s will be added to the selected Sales Order."
+msgstr ""
+"%(amount)s %(label)s kommer att läggas till på den valda försäljningsordern."
+
+#. module: hr_timesheet_nonbillable
+#: model:ir.model,name:hr_timesheet_nonbillable.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Objektrad"
+
+#. module: hr_timesheet_nonbillable
+#. odoo-python
+#: code:addons/hr_timesheet_nonbillable/models/project_create_sale_order.py:0
+msgid "At least one line should be filled."
+msgstr "Minst en rad ska vara fylld."
+
+#. module: hr_timesheet_nonbillable
+#: model:ir.model.fields,field_description:hr_timesheet_nonbillable.field_account_analytic_line__billable_time
+#: model:ir.model.fields,field_description:hr_timesheet_nonbillable.field_hr_timesheet_sheet__billable_time
+msgid "Billable"
+msgstr "Fakturerbar"
+
+#. module: hr_timesheet_nonbillable
+#: model:ir.model,name:hr_timesheet_nonbillable.model_account_move
+msgid "Journal Entry"
+msgstr "Verifikat"
+
+#. module: hr_timesheet_nonbillable
+#: model:ir.model.fields,field_description:hr_timesheet_nonbillable.field_account_analytic_line__non_billable
+#: model:ir.model.fields,field_description:hr_timesheet_nonbillable.field_account_analytic_line__non_billable_time
+#: model:ir.model.fields,field_description:hr_timesheet_nonbillable.field_hr_timesheet_sheet__non_billable_time
+msgid "Non-Billable"
+msgstr "Ej fakturerbar"
+
+#. module: hr_timesheet_nonbillable
+#. odoo-python
+#: code:addons/hr_timesheet_nonbillable/models/project_create_sale_order.py:0
+msgid ""
+"The Sales Order cannot be created because you did not enter some employees "
+"that entered timesheets on this project. Please list all the relevant "
+"employees before creating the Sales Order.\n"
+"Missing employee(s): %s"
+msgstr ""
+"Försäljningsordern kan inte skapas eftersom du inte har angett några "
+"anställda som har registrerat tidrapporter på det här projektet. Vänligen "
+"lista alla relevanta anställda innan du skapar försäljningsordern.\n"
+"Anställd(a) saknas: %s"
+
+#. module: hr_timesheet_nonbillable
+#. odoo-python
+#: code:addons/hr_timesheet_nonbillable/models/project_create_sale_order.py:0
+msgid "The project is already linked to a sales order item."
+msgstr "Projektet är redan kopplat till en försäljningsorderartikel."
+
+#. module: hr_timesheet_nonbillable
+#. odoo-python
+#: code:addons/hr_timesheet_nonbillable/models/project_create_sale_order.py:0
+msgid ""
+"The sales order cannot be created because some timesheets of this project "
+"are already linked to another sales order."
+msgstr ""
+"Försäljningsordern kan inte skapas eftersom vissa tidrapporter för det här "
+"projektet redan är länkade till en annan försäljningsorder."
+
+#. module: hr_timesheet_nonbillable
+#. odoo-python
+#: code:addons/hr_timesheet_nonbillable/models/project_task_create_sale_order.py:0
+msgid "The task is already linked to a sales order item."
+msgstr "Uppgiften är redan kopplad till en artikel på en försäljningsorder."
+
+#. module: hr_timesheet_nonbillable
+#: model:ir.model,name:hr_timesheet_nonbillable.model_hr_timesheet_sheet
+msgid "Timesheet Sheet"
+msgstr "Tidrapport"
+
+#. module: hr_timesheet_nonbillable
+#. odoo-python
+#: code:addons/hr_timesheet_nonbillable/models/hr_timesheet_nonbillable.py:0
+msgid "Timesheets"
+msgstr "Tidrapporter"
+
+#. module: hr_timesheet_nonbillable
+#: model_terms:ir.ui.view,arch_db:hr_timesheet_nonbillable.non_billable_timesheet_tree_line_view
+msgid "Total"
+msgstr "Totalt"
+
+#. module: hr_timesheet_nonbillable
+#. odoo-python
+#: code:addons/hr_timesheet_nonbillable/models/project_create_sale_order.py:0
+#: code:addons/hr_timesheet_nonbillable/models/project_task_create_sale_order.py:0
+msgid "days"
+msgstr "dagar"
+
+#. module: hr_timesheet_nonbillable
+#. odoo-python
+#: code:addons/hr_timesheet_nonbillable/models/project_create_sale_order.py:0
+#: code:addons/hr_timesheet_nonbillable/models/project_task_create_sale_order.py:0
+msgid "hours"
+msgstr "timmar"

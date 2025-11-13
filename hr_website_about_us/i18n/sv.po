@@ -47,7 +47,7 @@ msgstr "Anställd"
 #: model:ir.model.fields,field_description:hr_website_about_us.field_hr_employee__id
 #: model:ir.model.fields,field_description:hr_website_about_us.field_hr_employee_public__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: hr_website_about_us
 #: model:ir.model.fields,field_description:hr_website_about_us.field_hr_employee__is_published
@@ -59,7 +59,7 @@ msgstr "Är Publicerad"
 #: model:ir.model.fields,field_description:hr_website_about_us.field_hr_employee____last_update
 #: model:ir.model.fields,field_description:hr_website_about_us.field_hr_employee_public____last_update
 msgid "Last Modified on"
-msgstr "Senast redigerad"
+msgstr "Senast redigerad den"
 
 #. module: hr_website_about_us
 #: model:ir.model.fields,field_description:hr_website_about_us.field_hr_employee__social_linkedin
@@ -69,12 +69,12 @@ msgstr "LinkedIn address"
 #. module: hr_website_about_us
 #: model_terms:ir.ui.view,arch_db:hr_website_about_us.aboutus
 msgid "Look up {{employee.name}} on LinkedIn"
-msgstr "Kolla upp {{employee.name}} på LinkedIn"
+msgstr "Sök upp {{employee.name}} på LinkedIn"
 
 #. module: hr_website_about_us
 #: model_terms:ir.ui.view,arch_db:hr_website_about_us.aboutus
 msgid "Management and Sales"
-msgstr "Ledning och sälj"
+msgstr "Ledning och försäljning"
 
 #. module: hr_website_about_us
 #: model:ir.model,name:hr_website_about_us.model_hr_employee_public
@@ -96,7 +96,7 @@ msgstr "SEO optimerad"
 #. module: hr_website_about_us
 #: model_terms:ir.ui.view,arch_db:hr_website_about_us.aboutus
 msgid "Send e-mail to {{employee.name}}"
-msgstr "Skicka mejl till {{employee.name}}"
+msgstr "Skicka epost till {{employee.name}}"
 
 #. module: hr_website_about_us
 #: model:ir.model.fields,field_description:hr_website_about_us.field_hr_employee__seo_name
@@ -124,7 +124,7 @@ msgstr "De som producerar"
 #: model:ir.model.fields,field_description:hr_website_about_us.field_hr_employee__website_published
 #: model:ir.model.fields,field_description:hr_website_about_us.field_hr_employee_public__website_published
 msgid "Visible on current website"
-msgstr "Synlig på denna webbplats"
+msgstr "Synlig på nuvarande webbplats"
 
 #. module: hr_website_about_us
 #: model:ir.model.fields,field_description:hr_website_about_us.field_hr_employee__website_id
@@ -169,5 +169,5 @@ msgstr "tel"
 
 #. module: hr_website_about_us
 #: model_terms:ir.ui.view,arch_db:hr_website_about_us.aboutus
-msgid "{{employee.name}}"
-msgstr ""
+msgid "{{employee.name}}
+msgstr "{{employee.name}}"

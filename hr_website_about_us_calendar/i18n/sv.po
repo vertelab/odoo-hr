@@ -30,7 +30,7 @@ msgstr "Boka ett möte med {{employee.name}}"
 #: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee_base__booking_type_domain
 #: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee_public__booking_type_domain
 msgid "Booking Type Domain"
-msgstr ""
+msgstr "Bokningstyp domän"
 
 #. module: hr_website_about_us_calendar
 #: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee__booking_type_id
@@ -47,7 +47,7 @@ msgstr "Visningsnamn"
 #. module: hr_website_about_us_calendar
 #: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee_base__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: hr_website_about_us_calendar
 #: model:ir.model.fields,field_description:hr_website_about_us_calendar.field_hr_employee_base____last_update
@@ -57,4 +57,4 @@ msgstr "Senast redigerad"
 #. module: hr_website_about_us_calendar
 #: model_terms:ir.ui.view,arch_db:hr_website_about_us_calendar.hr_employee_form_view
 msgid "Meeting urls"
-msgstr ""
+msgstr "Mötes-URL-er"
