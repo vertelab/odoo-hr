@@ -22,9 +22,6 @@ class HRDepartment(models.Model):
             'context': {
                 'default_hr_department_id': self.id,
                 'default_review_type': 'field',
-                'default_definition_domain': '[("amount_total", ">=", 5000)]'
-                # 'default_reviewer_field_id': [('name', '=', 'hr_manager_user_id')]
-                # purchase_hr_validation.field_purchase_order__hr_manager_user_id
-
+                'default_definition_domain': f'[("amount_total", ">=", 0), ("hr_department_id", "=", {self.id})]'
             }
         }

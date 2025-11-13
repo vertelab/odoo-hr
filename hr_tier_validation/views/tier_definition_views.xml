@@ -8,6 +8,8 @@
             <field name="arch" type="xml">
                 <field name="reviewer_field_id" position="after">
                     <field name="hr_department_id"/>
+                    <field name="project_id"/>
+                    <field name="amount"/>
                 </field>
             </field>
         </record>
