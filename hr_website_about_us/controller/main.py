@@ -12,8 +12,6 @@ class AboutUsController(http.Controller):
 
     @http.route('/aboutus/', auth='public', type='http', website=True)
     def about_us(self, **kw):
-        
-        # ~ _logger.debug('n\n\n\n\is_publisher = request.env.user.has_group %s' , request.env.user.has_group('website.group_website_publisher') )
         is_publisher = request.env.user.has_group('website.group_website_publisher')
         employees_domain = [] if is_publisher else [('website_published', '=', True)]
 
