@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="hr_attendance.BarcodeScanner" t-inherit="barcodes.BarcodeScanner" t-inherit-mode="primary">
+        <xpath expr="//div[hasclass('o_barcode_mobile_container')]" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+    </t>
+
+</templates>
