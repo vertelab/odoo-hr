@@ -33,14 +33,14 @@
     """,
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-',
-    'images': ['static/description/banner.png'], # 560x280
+    'images': ['static/description/banner.png'],
     'license': 'AGPL-3',
     'depends': ["hr_attendance"],
     'data': [],
     'demo': [],
     'assets': {
-        'web.assets_backend': [
-            'hr_remove_attendance_barcode/static/src/**/*.js',
+        # This bundle is used by the public Kiosk mode
+        'hr_attendance.assets_public_attendance': [
             'hr_remove_attendance_barcode/static/src/**/*.xml',
         ],
     },

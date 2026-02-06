@@ -21,7 +21,7 @@
     <!-- Ärver originalvyn -->
     <field name="arch" type="xml">
       <field name="name" position="replace">
-        <field name="display_name_2" />
+        <field name="display_name" />
         <field name="esco" />
       </field>
     </field>
