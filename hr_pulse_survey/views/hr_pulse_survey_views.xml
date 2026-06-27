@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_pulse_survey_list" model="ir.ui.view">
+        <field name="name">hr.pulse.survey.list</field>
+        <field name="model">hr.pulse.survey</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="frequency"/>
+                <field name="state"/>
+                <field name="next_run_date"/>
+                <field name="response_count"/>
+                <field name="alarm_enabled"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_pulse_survey_form" model="ir.ui.view">
+        <field name="name">hr.pulse.survey.form</field>
+        <field name="model">hr.pulse.survey</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,paused"/>
+                    <button name="action_activate" type="object" string="Activate"
+                            invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_pause" type="object" string="Pause"
+                            invisible="state != 'active'"/>
+                    <button name="action_view_responses" type="object" string="View Responses"
+                            invisible="response_count == 0" class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="survey_id"/>
+                            <field name="frequency"/>
+                            <field name="next_run_date"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="department_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <group string="Alarm Settings">
+                        <field name="alarm_enabled"/>
+                        <group invisible="not alarm_enabled">
+                            <field name="alarm_threshold"/>
+                            <field name="alarm_recipient_ids" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_pulse_survey" model="ir.actions.act_window">
+        <field name="name">Pulse Surveys</field>
+        <field name="res_model">hr.pulse.survey</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_hr_pulse_survey"
+              name="Pulse Surveys"
+              parent="hr.menu_hr_root"
+              sequence="28"
+              action="action_hr_pulse_survey"/>
+</odoo>
