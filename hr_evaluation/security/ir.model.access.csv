@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_evaluation_plan_user,hr.evaluation.plan.user,model_hr_evaluation_plan,base.group_user,1,0,0,0
+access_hr_evaluation_plan_manager,hr.evaluation.plan.manager,model_hr_evaluation_plan,hr.group_hr_manager,1,1,1,1
+access_hr_evaluation_plan_step_user,hr.evaluation.plan.step.user,model_hr_evaluation_plan_step,base.group_user,1,0,0,0
+access_hr_evaluation_plan_step_manager,hr.evaluation.plan.step.manager,model_hr_evaluation_plan_step,hr.group_hr_manager,1,1,1,1
+access_hr_evaluation_user,hr.evaluation.user,model_hr_evaluation,base.group_user,1,1,1,1
+access_hr_evaluation_goal_user,hr.evaluation.goal.user,model_hr_evaluation_goal,base.group_user,1,1,1,1
+access_hr_evaluation_skill_user,hr.evaluation.skill.user,model_hr_evaluation_skill,base.group_user,1,1,1,1

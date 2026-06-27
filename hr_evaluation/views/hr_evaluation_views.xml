@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Evaluation Tree -->
+    <record id="view_hr_evaluation_tree" model="ir.ui.view">
+        <field name="name">hr.evaluation.tree</field>
+        <field name="model">hr.evaluation</field>
+        <field name="arch" type="xml">
+            <tree decoration-warning="state == 'self_evaluation'"
+                  decoration-danger="state in ('meeting',)"
+                  decoration-muted="state == 'cancelled'">
+                <field name="employee_id"/>
+                <field name="department_id" optional="show"/>
+                <field name="plan_id" optional="show"/>
+                <field name="manager_id" optional="show"/>
+                <field name="state"/>
+                <field name="date_planned"/>
+                <field name="date_done" optional="show"/>
+                <field name="final_rating" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Evaluation Form -->
+    <record id="view_hr_evaluation_form" model="ir.ui.view">
+        <field name="name">hr.evaluation.form</field>
+        <field name="model">hr.evaluation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,planned,self_evaluation,manager_evaluation,meeting,done"/>
+
+                    <button name="action_plan" string="Plan"
+                            type="object" states="draft" class="btn-primary"/>
+
+                    <button name="action_start_self" string="Start Self-evaluation"
+                            type="object" states="planned" class="btn-primary"/>
+
+                    <button name="action_submit_self" string="Submit Self-evaluation"
+                            type="object" states="self_evaluation" class="btn-primary"
+                            confirm="Are you sure? This will send your self-evaluation to your manager."/>
+
+                    <button name="action_submit_manager" string="Submit Manager Evaluation"
+                            type="object" states="manager_evaluation" class="btn-primary"/>
+
+                    <button name="action_schedule_meeting" string="Schedule Meeting"
+                            type="object" states="manager_evaluation" class="btn-primary"/>
+
+                    <button name="action_complete" string="Complete"
+                            type="object" states="meeting" class="btn-primary"
+                            confirm="Complete this evaluation?"/>
+
+                    <button name="action_cancel" string="Cancel"
+                            type="object" states="draft,planned,self_evaluation,manager_evaluation"/>
+
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_goals" type="object"
+                                class="oe_stat_button" icon="fa-bullseye"
+                                string="Goals" attrs="{'invisible': [('goal_count', '=', 0)]}">
+                            <field name="goal_count" widget="statinfo"/>
+                        </button>
+                        <button name="action_view_skills" type="object"
+                                class="oe_stat_button" icon="fa-trophy"
+                                string="Skills" attrs="{'invisible': [('skill_count', '=', 0)]}">
+                            <field name="skill_count" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="employee_id"
+                                   options="{'no_create': True, 'no_quick_create': True}"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="plan_id"/>
+                            <field name="manager_id"/>
+                            <field name="department_id"/>
+                            <field name="job_id"/>
+                        </group>
+                        <group>
+                            <field name="date_planned"/>
+                            <field name="date_self" attrs="{'invisible': [('date_self', '=', False)]}"/>
+                            <field name="date_manager" attrs="{'invisible': [('date_manager', '=', False)]}"/>
+                            <field name="date_meeting" attrs="{'invisible': [('date_meeting', '=', False)]}"/>
+                            <field name="date_done" attrs="{'invisible': [('date_done', '=', False)]}"/>
+                            <field name="final_rating"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <!-- Self-evaluation tab -->
+                        <page string="Self-evaluation"
+                              attrs="{'invisible': [('state', '=', 'draft')]}">
+                            <group string="Reflection" colspan="2">
+                                <field name="self_achievements" nolabel="1" placeholder="What went well this period?"/>
+                                <field name="self_challenges" nolabel="1" placeholder="What was challenging?"/>
+                                <field name="self_improvements" nolabel="1" placeholder="What can be improved?"/>
+                                <field name="self_development" nolabel="1" placeholder="Development wishes"/>
+                                <field name="self_support" nolabel="1" placeholder="What support do you need?"/>
+                                <field name="self_career" nolabel="1" placeholder="Career goals (1-3 years)"/>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="self_wellbeing"/>
+                                    <field name="self_engagement"/>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- Manager evaluation tab -->
+                        <page string="Manager Evaluation"
+                              attrs="{'invisible': [('state', 'not in', ('manager_evaluation','meeting','done'))]}">
+                            <group>
+                                <field name="manager_feedback" widget="html" nolabel="1"/>
+                            </group>
+                            <group string="Assessment">
+                                <field name="manager_strengths" placeholder="Key strengths"/>
+                                <field name="manager_areas_for_growth" placeholder="Areas for growth"/>
+                            </group>
+                        </page>
+
+                        <!-- Meeting tab -->
+                        <page string="Meeting"
+                              attrs="{'invisible': [('state', 'not in', ('meeting','done'))]}">
+                            <group string="Meeting Notes">
+                                <field name="meeting_notes" widget="html" nolabel="1"/>
+                            </group>
+                            <group string="Action Items">
+                                <field name="action_items" widget="html" nolabel="1"/>
+                            </group>
+                        </page>
+
+                        <!-- Goals tab -->
+                        <page string="Goals">
+                            <field name="goal_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="goal_type"/>
+                                    <field name="weight"/>
+                                    <field name="progress" widget="progressbar"/>
+                                    <field name="target_date"/>
+                                    <field name="status"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="goal_type"/>
+                                        <field name="weight"/>
+                                        <field name="target_date"/>
+                                        <field name="status"/>
+                                        <field name="progress" widget="progressbar"/>
+                                    </group>
+                                    <group string="Comments">
+                                        <field name="self_comment"/>
+                                        <field name="manager_comment"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+
+                        <!-- Skills tab -->
+                        <page string="Skills">
+                            <field name="skill_assessment_ids">
+                                <tree editable="bottom">
+                                    <field name="skill_id"/>
+                                    <field name="skill_type_id" optional="show"/>
+                                    <field name="required_level"/>
+                                    <field name="current_level_self"/>
+                                    <field name="current_level_manager"/>
+                                    <field name="development_priority"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="skill_id"/>
+                                        <field name="skill_type_id"/>
+                                    </group>
+                                    <group string="Levels">
+                                        <field name="required_level"/>
+                                        <field name="current_level_self"/>
+                                        <field name="current_level_manager"/>
+                                        <field name="development_priority"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+
+                        <!-- Sign-off tab -->
+                        <page string="Sign-off"
+                              attrs="{'invisible': [('state', '!=', 'done')]}">
+                            <group>
+                                <group string="Employee">
+                                    <field name="employee_signed"/>
+                                    <field name="employee_signed_date"/>
+                                </group>
+                                <group string="Manager">
+                                    <field name="manager_signed"/>
+                                    <field name="manager_signed_date"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Evaluation Search -->
+    <record id="view_hr_evaluation_search" model="ir.ui.view">
+        <field name="name">hr.evaluation.search</field>
+        <field name="model">hr.evaluation</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="employee_id"/>
+                <field name="manager_id"/>
+                <filter name="my_evaluations" string="My Evaluations"
+                        domain="[('employee_id.user_id', '=', uid)]"/>
+                <filter name="my_team" string="My Team"
+                        domain="[('manager_id.user_id', '=', uid)]"/>
+                <separator/>
+                <filter name="draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <filter name="active_state" string="Active"
+                        domain="[('state', 'not in', ('done', 'cancelled'))]"/>
+                <filter name="done" string="Completed" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <filter name="this_quarter" string="This Quarter"
+                        domain="[('date_planned', '>=', (context_today() - dateutil.relativedelta.relativedelta(months=3)).strftime('%Y-%m-%d'))]"/>
+                <group expand="1" string="Group By">
+                    <filter name="group_state" string="State" domain="[]" context="{'group_by': 'state'}"/>
+                    <filter name="group_department" string="Department" domain="[]" context="{'group_by': 'department_id'}"/>
+                    <filter name="group_manager" string="Manager" domain="[]" context="{'group_by': 'manager_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Employee form: add evaluation tab -->
+    <record id="view_hr_employee_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.form.evaluation</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="%(action_hr_evaluation)d" type="action"
+                        class="oe_stat_button" icon="fa-star"
+                        string="Evaluations" context="{'default_employee_id': active_id}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_hr_evaluation" model="ir.actions.act_window">
+        <field name="name">Evaluations</field>
+        <field name="res_model">hr.evaluation</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="action_hr_evaluation_my" model="ir.actions.act_window">
+        <field name="name">My Evaluations</field>
+        <field name="res_model">hr.evaluation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('employee_user_id', '=', uid)]</field>
+    </record>
+</odoo>

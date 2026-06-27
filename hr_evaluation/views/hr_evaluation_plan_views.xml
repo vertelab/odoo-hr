@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Evaluation Plan Tree -->
+    <record id="view_hr_evaluation_plan_tree" model="ir.ui.view">
+        <field name="name">hr.evaluation.plan.tree</field>
+        <field name="model">hr.evaluation.plan</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="template_type"/>
+                <field name="interval_type"/>
+                <field name="interval_months"/>
+                <field name="require_self"/>
+                <field name="require_manager"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Evaluation Plan Form -->
+    <record id="view_hr_evaluation_plan_form" model="ir.ui.view">
+        <field name="name">hr.evaluation.plan.form</field>
+        <field name="model">hr.evaluation.plan</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_create_evaluations" type="object"
+                            string="Create Evaluations" class="btn-primary"
+                            confirm="Create evaluations for all matching employees?"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="name" placeholder="Plan name"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="template_type"/>
+                            <field name="interval_type"/>
+                            <field name="interval_months"
+                                   attrs="{'invisible': [('interval_type', '=', 'adhoc')]}"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="require_self"/>
+                            <field name="require_manager"/>
+                            <field name="require_collaborators"/>
+                            <field name="require_direct_reports"/>
+                            <field name="require_skip_level"/>
+                        </group>
+                    </group>
+                    <group string="Target">
+                        <field name="department_ids" widget="many2many_tags"/>
+                        <field name="job_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Instructions">
+                        <field name="description" widget="html"/>
+                    </group>
+                    <notebook>
+                        <page string="Steps">
+                            <field name="step_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="step_type"/>
+                                    <field name="deadline_days"/>
+                                    <field name="required"/>
+                                    <field name="survey_id" optional="show"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="name"/>
+                                        <field name="step_type"/>
+                                        <field name="deadline_days"/>
+                                        <field name="required"/>
+                                        <field name="survey_id"/>
+                                    </group>
+                                    <group string="Instructions">
+                                        <field name="description" widget="html"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Surveys">
+                            <group>
+                                <field name="survey_id" string="Evaluation Survey"/>
+                                <field name="self_evaluation_survey_id" string="Self-evaluation Survey"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Evaluation Plan Search -->
+    <record id="view_hr_evaluation_plan_search" model="ir.ui.view">
+        <field name="name">hr.evaluation.plan.search</field>
+        <field name="model">hr.evaluation.plan</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="template_type"/>
+                <filter name="active" string="Active"
+                        domain="[('active', '=', True)]"/>
+                <separator/>
+                <filter name="annual" string="Annual"
+                        domain="[('interval_type', '=', 'annual')]"/>
+                <filter name="probation" string="Probation"
+                        domain="[('interval_type', '=', 'probation')]"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Actions -->
+    <record id="action_hr_evaluation_plan" model="ir.actions.act_window">
+        <field name="name">Evaluation Plans</field>
+        <field name="res_model">hr.evaluation.plan</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>

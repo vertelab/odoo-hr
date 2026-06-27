@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Menus -->
+    <menuitem id="menu_hr_evaluation_root"
+              name="Evaluations"
+              parent="hr.menu_hr_root"
+              sequence="19"
+              groups="base.group_user"/>
+
+    <menuitem id="menu_hr_evaluation_plan"
+              name="Evaluation Plans"
+              parent="menu_hr_evaluation_root"
+              sequence="10"
+              action="action_hr_evaluation_plan"/>
+
+    <menuitem id="menu_hr_evaluation"
+              name="Evaluations"
+              parent="menu_hr_evaluation_root"
+              sequence="20"
+              action="action_hr_evaluation"/>
+
+    <menuitem id="menu_hr_evaluation_my"
+              name="My Evaluations"
+              parent="menu_hr_evaluation_root"
+              sequence="30"
+              action="action_hr_evaluation_my"/>
+</odoo>
