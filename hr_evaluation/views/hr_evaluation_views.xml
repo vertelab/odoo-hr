@@ -5,7 +5,7 @@
         <field name="name">hr.evaluation.tree</field>
         <field name="model">hr.evaluation</field>
         <field name="arch" type="xml">
-            <tree decoration-warning="state == 'self_evaluation'"
+            <list decoration-warning="state == 'self_evaluation'"
                   decoration-danger="state in ('meeting',)"
                   decoration-muted="state == 'cancelled'">
                 <field name="employee_id"/>
@@ -16,7 +16,7 @@
                 <field name="date_planned"/>
                 <field name="date_done" optional="show"/>
                 <field name="final_rating" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -31,39 +31,39 @@
                            statusbar_visible="draft,planned,self_evaluation,manager_evaluation,meeting,done"/>
 
                     <button name="action_plan" string="Plan"
-                            type="object" states="draft" class="btn-primary"/>
+                            type="object" invisible="state not in ('draft')" class="btn-primary"/>
 
                     <button name="action_start_self" string="Start Self-evaluation"
-                            type="object" states="planned" class="btn-primary"/>
+                            type="object" invisible="state not in ('planned')" class="btn-primary"/>
 
                     <button name="action_submit_self" string="Submit Self-evaluation"
-                            type="object" states="self_evaluation" class="btn-primary"
+                            type="object" invisible="state not in ('self_evaluation')" class="btn-primary"
                             confirm="Are you sure? This will send your self-evaluation to your manager."/>
 
                     <button name="action_submit_manager" string="Submit Manager Evaluation"
-                            type="object" states="manager_evaluation" class="btn-primary"/>
+                            type="object" invisible="state not in ('manager_evaluation')" class="btn-primary"/>
 
                     <button name="action_schedule_meeting" string="Schedule Meeting"
-                            type="object" states="manager_evaluation" class="btn-primary"/>
+                            type="object" invisible="state not in ('manager_evaluation')" class="btn-primary"/>
 
                     <button name="action_complete" string="Complete"
-                            type="object" states="meeting" class="btn-primary"
+                            type="object" invisible="state not in ('meeting')" class="btn-primary"
                             confirm="Complete this evaluation?"/>
 
                     <button name="action_cancel" string="Cancel"
-                            type="object" states="draft,planned,self_evaluation,manager_evaluation"/>
+                            type="object" invisible="state not in ('draft','planned','self_evaluation','manager_evaluation')"/>
 
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_view_goals" type="object"
                                 class="oe_stat_button" icon="fa-bullseye"
-                                string="Goals" attrs="{'invisible': [('goal_count', '=', 0)]}">
+                                string="Goals" invisible="goal_count == 0">
                             <field name="goal_count" widget="statinfo"/>
                         </button>
                         <button name="action_view_skills" type="object"
                                 class="oe_stat_button" icon="fa-trophy"
-                                string="Skills" attrs="{'invisible': [('skill_count', '=', 0)]}">
+                                string="Skills" invisible="skill_count == 0">
                             <field name="skill_count" widget="statinfo"/>
                         </button>
                     </div>
@@ -82,17 +82,17 @@
                         </group>
                         <group>
                             <field name="date_planned"/>
-                            <field name="date_self" attrs="{'invisible': [('date_self', '=', False)]}"/>
-                            <field name="date_manager" attrs="{'invisible': [('date_manager', '=', False)]}"/>
-                            <field name="date_meeting" attrs="{'invisible': [('date_meeting', '=', False)]}"/>
-                            <field name="date_done" attrs="{'invisible': [('date_done', '=', False)]}"/>
+                            <field name="date_self" invisible="not date_self"/>
+                            <field name="date_manager" invisible="not date_manager"/>
+                            <field name="date_meeting" invisible="not date_meeting"/>
+                            <field name="date_done" invisible="not date_done"/>
                             <field name="final_rating"/>
                         </group>
                     </group>
                     <notebook>
                         <!-- Self-evaluation tab -->
                         <page string="Self-evaluation"
-                              attrs="{'invisible': [('state', '=', 'draft')]}">
+                              invisible="state == 'draft'">
                             <group string="Reflection" colspan="2">
                                 <field name="self_achievements" nolabel="1" placeholder="What went well this period?"/>
                                 <field name="self_challenges" nolabel="1" placeholder="What was challenging?"/>
@@ -111,7 +111,7 @@
 
                         <!-- Manager evaluation tab -->
                         <page string="Manager Evaluation"
-                              attrs="{'invisible': [('state', 'not in', ('manager_evaluation','meeting','done'))]}">
+                              invisible="state not in ('manager_evaluation','meeting','done')">
                             <group>
                                 <field name="manager_feedback" widget="html" nolabel="1"/>
                             </group>
@@ -123,7 +123,7 @@
 
                         <!-- Meeting tab -->
                         <page string="Meeting"
-                              attrs="{'invisible': [('state', 'not in', ('meeting','done'))]}">
+                              invisible="state not in ('meeting','done')">
                             <group string="Meeting Notes">
                                 <field name="meeting_notes" widget="html" nolabel="1"/>
                             </group>
@@ -135,7 +135,7 @@
                         <!-- Goals tab -->
                         <page string="Goals">
                             <field name="goal_ids">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="sequence" widget="handle"/>
                                     <field name="name"/>
                                     <field name="goal_type"/>
@@ -143,7 +143,7 @@
                                     <field name="progress" widget="progressbar"/>
                                     <field name="target_date"/>
                                     <field name="status"/>
-                                </tree>
+                                </list>
                                 <form>
                                     <group>
                                         <field name="name"/>
@@ -164,14 +164,14 @@
                         <!-- Skills tab -->
                         <page string="Skills">
                             <field name="skill_assessment_ids">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="skill_id"/>
                                     <field name="skill_type_id" optional="show"/>
                                     <field name="required_level"/>
                                     <field name="current_level_self"/>
                                     <field name="current_level_manager"/>
                                     <field name="development_priority"/>
-                                </tree>
+                                </list>
                                 <form>
                                     <group>
                                         <field name="skill_id"/>
@@ -189,7 +189,7 @@
 
                         <!-- Sign-off tab -->
                         <page string="Sign-off"
-                              attrs="{'invisible': [('state', '!=', 'done')]}">
+                              invisible="state != 'done'">
                             <group>
                                 <group string="Employee">
                                     <field name="employee_signed"/>
@@ -231,7 +231,7 @@
                 <filter name="done" string="Completed" domain="[('state', '=', 'done')]"/>
                 <separator/>
                 <filter name="this_quarter" string="This Quarter"
-                        domain="[('date_planned', '>=', (context_today() - dateutil.relativedelta.relativedelta(months=3)).strftime('%Y-%m-%d'))]"/>
+                        domain="[('date_planned', '>=', context_today().strftime('%Y-%m-%d'))]"/>
                 <group expand="1" string="Group By">
                     <filter name="group_state" string="State" domain="[]" context="{'group_by': 'state'}"/>
                     <filter name="group_department" string="Department" domain="[]" context="{'group_by': 'department_id'}"/>
@@ -241,31 +241,20 @@
         </field>
     </record>
 
-    <!-- Employee form: add evaluation tab -->
-    <record id="view_hr_employee_form_inherit" model="ir.ui.view">
-        <field name="name">hr.employee.form.evaluation</field>
-        <field name="model">hr.employee</field>
-        <field name="inherit_id" ref="hr.view_employee_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//div[@name='button_box']" position="inside">
-                <button name="%(action_hr_evaluation)d" type="action"
-                        class="oe_stat_button" icon="fa-star"
-                        string="Evaluations" context="{'default_employee_id': active_id}"/>
-            </xpath>
-        </field>
-    </record>
+    <!-- Employee form: add evaluation button (loaded via data file to ensure action exists first) -->
+    <!-- See data/hr_evaluation_data.xml -->
 
     <!-- Actions -->
     <record id="action_hr_evaluation" model="ir.actions.act_window">
         <field name="name">Evaluations</field>
         <field name="res_model">hr.evaluation</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="action_hr_evaluation_my" model="ir.actions.act_window">
         <field name="name">My Evaluations</field>
         <field name="res_model">hr.evaluation</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('employee_user_id', '=', uid)]</field>
     </record>
 </odoo>

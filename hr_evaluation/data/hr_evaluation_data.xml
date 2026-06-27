@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Employee form: add evaluation button -->
+    <record id="view_hr_employee_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.form.evaluation</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="%(action_hr_evaluation)d" type="action"
+                        class="oe_stat_button" icon="fa-star"
+                        string="Evaluations" context="{'default_employee_id': active_id}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
