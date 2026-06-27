@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Self-evaluation Form -->
+    <record id="view_hr_self_evaluation_form" model="ir.ui.view">
+        <field name="name">hr.self.evaluation.form</field>
+        <field name="model">hr.self.evaluation</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="draft,submitted,reviewed"/>
+                    <button name="action_submit" string="Submit"
+                            type="object" invisible="state != 'draft'" class="btn-primary"
+                            confirm="Submit your self-evaluation? Your manager will be able to see it."/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="employee_id"
+                                   options="{'no_create': True, 'no_quick_create': True}"/>
+                            — Self Evaluation
+                        </h1>
+                        <h3><field name="date"/></h3>
+                    </div>
+                    <group string="Reflection">
+                        <field name="achievements" nolabel="1"
+                               placeholder="What went well this period? What are you most proud of?"/>
+                        <field name="challenges" nolabel="1"
+                               placeholder="What has been challenging? Are there any obstacles?"/>
+                        <field name="improvements" nolabel="1"
+                               placeholder="What could be improved — for you, your team, or the organisation?"/>
+                        <field name="development_wishes" nolabel="1"
+                               placeholder="What skills or knowledge would you like to develop?"/>
+                        <field name="support_needed" nolabel="1"
+                               placeholder="What support do you need from your manager?"/>
+                        <field name="career_goals" nolabel="1"
+                               placeholder="Where do you see yourself in 1-3 years?"/>
+                    </group>
+                    <group string="Self-Rating">
+                        <group>
+                            <field name="performance_self_rating" widget="priority"/>
+                            <field name="wellbeing_rating" widget="priority"/>
+                            <field name="engagement_rating" widget="priority"/>
+                        </group>
+                    </group>
+                    <group string="Comparison with Manager" invisible="not manager_performance_rating">
+                        <field name="rating_comparison" widget="html" nolabel="1"/>
+                        <field name="manager_performance_rating" widget="priority"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Self-evaluation list view -->
+    <record id="view_hr_self_evaluation_list" model="ir.ui.view">
+        <field name="name">hr.self.evaluation.list</field>
+        <field name="model">hr.self.evaluation</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="employee_id"/>
+                <field name="date"/>
+                <field name="state"/>
+                <field name="performance_self_rating"/>
+                <field name="wellbeing_rating"/>
+                <field name="engagement_rating"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Add to evaluation form -->
+    <record id="view_hr_evaluation_form_inherit" model="ir.ui.view">
+        <field name="name">hr.evaluation.form.self</field>
+        <field name="model">hr.evaluation</field>
+        <field name="inherit_id" ref="hr_evaluation.view_hr_evaluation_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <!-- No button needed; self-evaluation is embedded directly -->
+            </xpath>
+        </field>
+    </record>
+</odoo>
