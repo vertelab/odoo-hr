@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Predefined onboarding templates -->
+    <record id="onboarding_template_default" model="hr.onboarding.template">
+        <field name="name">Standard Onboarding</field>
+    </record>
+    <record id="onboarding_step_welcome" model="hr.onboarding.template.step">
+        <field name="template_id" ref="onboarding_template_default"/>
+        <field name="sequence">10</field>
+        <field name="name">Welcome meeting with manager</field>
+        <field name="deadline_days">2</field>
+        <field name="responsible_role">manager</field>
+    </record>
+    <record id="onboarding_step_account" model="hr.onboarding.template.step">
+        <field name="template_id" ref="onboarding_template_default"/>
+        <field name="sequence">20</field>
+        <field name="name">Create user accounts (email, systems)</field>
+        <field name="deadline_days">0</field>
+        <field name="responsible_role">it</field>
+    </record>
+    <record id="onboarding_step_equipment" model="hr.onboarding.template.step">
+        <field name="template_id" ref="onboarding_template_default"/>
+        <field name="sequence">30</field>
+        <field name="name">Order equipment (laptop, phone, keys)</field>
+        <field name="deadline_days">0</field>
+        <field name="responsible_role">it</field>
+    </record>
+    <record id="onboarding_step_hr" model="hr.onboarding.template.step">
+        <field name="template_id" ref="onboarding_template_default"/>
+        <field name="sequence">40</field>
+        <field name="name">Register employee in HR systems (insurance, benefits)</field>
+        <field name="deadline_days">3</field>
+        <field name="responsible_role">hr</field>
+    </record>
+    <record id="onboarding_step_intro" model="hr.onboarding.template.step">
+        <field name="template_id" ref="onboarding_template_default"/>
+        <field name="sequence">50</field>
+        <field name="name">Team introduction and office tour</field>
+        <field name="deadline_days">3</field>
+        <field name="responsible_role">manager</field>
+    </record>
+    <record id="onboarding_step_training" model="hr.onboarding.template.step">
+        <field name="template_id" ref="onboarding_template_default"/>
+        <field name="sequence">60</field>
+        <field name="name">First week training / buddy assignment</field>
+        <field name="deadline_days">7</field>
+        <field name="responsible_role">manager</field>
+    </record>
+    <record id="onboarding_step_checkin" model="hr.onboarding.template.step">
+        <field name="template_id" ref="onboarding_template_default"/>
+        <field name="sequence">70</field>
+        <field name="name">30-day check-in with manager</field>
+        <field name="deadline_days">30</field>
+        <field name="responsible_role">manager</field>
+    </record>
+</odoo>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_hr_onboarding_template" model="ir.actions.act_window">
+        <field name="name">Onboarding Templates</field>
+        <field name="res_model">hr.onboarding.template</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_hr_onboarding" model="ir.actions.act_window">
+        <field name="name">Onboardings</field>
+        <field name="res_model">hr.onboarding</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_hr_offboarding" model="ir.actions.act_window">
+        <field name="name">Offboardings</field>
+        <field name="res_model">hr.offboarding</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_hr_onboarding"
+              name="Onboarding"
+              parent="hr.menu_hr_root"
+              sequence="25"
+              action="action_hr_onboarding"/>
+
+    <menuitem id="menu_hr_offboarding"
+              name="Offboarding"
+              parent="hr.menu_hr_root"
+              sequence="26"
+              action="action_hr_offboarding"/>
+
+    <menuitem id="menu_hr_onboarding_config"
+              name="Configuration"
+              parent="hr.menu_human_resources_configuration"
+              sequence="50"/>
+    <menuitem id="menu_hr_onboarding_template"
+              name="Onboarding Templates"
+              parent="menu_hr_onboarding_config"
+              action="action_hr_onboarding_template"/>
+</odoo>

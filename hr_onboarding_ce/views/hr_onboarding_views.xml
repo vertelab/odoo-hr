@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Onboarding Template List -->
+    <record id="view_hr_onboarding_template_list" model="ir.ui.view">
+        <field name="name">hr.onboarding.template.list</field>
+        <field name="model">hr.onboarding.template</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Onboarding Template Form -->
+    <record id="view_hr_onboarding_template_form" model="ir.ui.view">
+        <field name="name">hr.onboarding.template.form</field>
+        <field name="model">hr.onboarding.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <field name="active"/>
+                        <field name="department_ids" widget="many2many_tags"/>
+                        <field name="job_ids" widget="many2many_tags"/>
+                    </group>
+                    <group string="Steps">
+                        <field name="step_ids">
+                            <list editable="bottom">
+                                <field name="sequence" widget="handle"/>
+                                <field name="name"/>
+                                <field name="responsible_role"/>
+                                <field name="deadline_days"/>
+                                <field name="default_user_id" optional="show"/>
+                                <field name="required"/>
+                            </list>
+                            <form>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="responsible_role"/>
+                                    <field name="deadline_days"/>
+                                    <field name="default_user_id"/>
+                                    <field name="required"/>
+                                </group>
+                                <field name="description" widget="html"/>
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Onboarding List -->
+    <record id="view_hr_onboarding_list" model="ir.ui.view">
+        <field name="name">hr.onboarding.list</field>
+        <field name="model">hr.onboarding</field>
+        <field name="arch" type="xml">
+            <list decoration-danger="overdue" decoration-success="state == 'completed'">
+                <field name="name"/>
+                <field name="employee_id"/>
+                <field name="department_id" optional="show"/>
+                <field name="state"/>
+                <field name="progress" widget="progressbar"/>
+                <field name="date_start"/>
+                <field name="date_deadline"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Onboarding Form -->
+    <record id="view_hr_onboarding_form" model="ir.ui.view">
+        <field name="name">hr.onboarding.form</field>
+        <field name="model">hr.onboarding</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,completed"/>
+                    <button name="action_start" string="Start Onboarding"
+                            type="object" invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_complete" string="Complete"
+                            type="object" invisible="state != 'active'" class="btn-primary"/>
+                    <button name="action_cancel" string="Cancel"
+                            type="object" invisible="state == 'completed'"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="employee_id" options="{'no_create': True}"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="template_id"/>
+                            <field name="date_start"/>
+                            <field name="date_deadline"/>
+                        </group>
+                        <group>
+                            <field name="department_id"/>
+                            <field name="contract_id"/>
+                        </group>
+                    </group>
+                    <group string="Progress" invisible="state == 'draft'">
+                        <field name="progress" widget="progressbar"/>
+                        <field name="overdue" invisible="1"/>
+                    </group>
+                    <group string="Tasks" invisible="state == 'draft'">
+                        <field name="task_ids" context="{'default_onboarding_id': active_id}">
+                            <list>
+                                <field name="name"/>
+                                <field name="user_id"/>
+                                <field name="date_deadline"/>
+                                <field name="stage_id"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Offboarding List -->
+    <record id="view_hr_offboarding_list" model="ir.ui.view">
+        <field name="name">hr.offboarding.list</field>
+        <field name="model">hr.offboarding</field>
+        <field name="arch" type="xml">
+            <list decoration-success="state == 'completed'">
+                <field name="employee_id"/>
+                <field name="reason"/>
+                <field name="state"/>
+                <field name="progress" widget="progressbar"/>
+                <field name="last_working_day"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Offboarding Form -->
+    <record id="view_hr_offboarding_form" model="ir.ui.view">
+        <field name="name">hr.offboarding.form</field>
+        <field name="model">hr.offboarding</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,completed"/>
+                    <button name="action_start" string="Start Offboarding"
+                            type="object" invisible="state != 'draft'" class="btn-primary"/>
+                    <button name="action_complete" string="Complete"
+                            type="object" invisible="state != 'active'" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1><field name="employee_id" options="{'no_create': True}"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="reason"/>
+                            <field name="last_working_day"/>
+                            <field name="exit_interview_date"/>
+                        </group>
+                        <group>
+                            <field name="department_id"/>
+                            <field name="contract_id"/>
+                        </group>
+                    </group>
+                    <group string="Exit Interview Notes" invisible="state == 'draft'">
+                        <field name="exit_interview_notes" nolabel="1"/>
+                    </group>
+                    <group string="Progress" invisible="state == 'draft'">
+                        <field name="progress" widget="progressbar"/>
+                    </group>
+                    <group string="Tasks" invisible="state == 'draft'">
+                        <field name="task_ids">
+                            <list>
+                                <field name="name"/>
+                                <field name="user_id"/>
+                                <field name="date_deadline"/>
+                                <field name="stage_id"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</odoo>
