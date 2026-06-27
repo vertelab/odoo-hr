@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Benefit list view -->
+    <record id="view_hr_benefit_list" model="ir.ui.view">
+        <field name="name">hr.benefit.list</field>
+        <field name="model">hr.benefit</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="contract_id"/>
+                <field name="name"/>
+                <field name="benefit_type"/>
+                <field name="monthly_value" widget="monetary"/>
+                <field name="taxable"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Salary Sacrifice list view -->
+    <record id="view_hr_salary_sacrifice_list" model="ir.ui.view">
+        <field name="name">hr.salary.sacrifice.list</field>
+        <field name="model">hr.salary.sacrifice</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="contract_id"/>
+                <field name="name"/>
+                <field name="sacrifice_type"/>
+                <field name="monthly_amount" widget="monetary"/>
+                <field name="gross_impact" widget="monetary"/>
+            </list>
+        </field>
+    </record>
+</odoo>

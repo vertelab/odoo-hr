@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Extend hr.contract form with Compensation & Benefits -->
+    <record id="view_hr_contract_form_compben" model="ir.ui.view">
+        <field name="name">hr.contract.form.compben</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Add salary cards at top -->
+            <xpath expr="//sheet" position="before">
+                <div class="o_compben_cards">
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body text-center">
+                                    <h5>Gross Salary</h5>
+                                    <field name="gross_salary" widget="monetary" nolabel="1"
+                                           class="text-white"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card bg-info text-white">
+                                <div class="card-body text-center">
+                                    <h5>Net Estimate</h5>
+                                    <field name="net_salary_estimate" widget="monetary" nolabel="1"
+                                           class="text-white"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body text-center">
+                                    <h5>Benefits</h5>
+                                    <field name="total_benefit_value" widget="monetary" nolabel="1"
+                                           class="text-white"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="card bg-warning text-white">
+                                <div class="card-body text-center">
+                                    <h5>Total Comp</h5>
+                                    <field name="total_compensation" widget="monetary" nolabel="1"
+                                           class="text-white"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+
+            <!-- Replace wage with gross_salary card -->
+            <xpath expr="//field[@name='wage']" position="after">
+                <field name="estimated_pension" widget="monetary" string="Est. Pension"/>
+            </xpath>
+
+            <!-- Add Benefits and Sacrifices tabs -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Benefits">
+                    <field name="benefit_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="benefit_type"/>
+                            <field name="monthly_value" widget="monetary"/>
+                            <field name="taxable"/>
+                            <field name="provider" optional="show"/>
+                        </list>
+                        <form>
+                            <group>
+                                <field name="name"/>
+                                <field name="benefit_type"/>
+                                <field name="monthly_value" widget="monetary"/>
+                                <field name="taxable"/>
+                                <field name="provider"/>
+                            </group>
+                            <field name="description"/>
+                        </form>
+                    </field>
+                </page>
+
+                <page string="Salary Sacrifice">
+                    <field name="salary_sacrifice_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name"/>
+                            <field name="sacrifice_type"/>
+                            <field name="monthly_amount" widget="monetary"/>
+                            <field name="gross_impact" widget="monetary"/>
+                        </list>
+                        <form>
+                            <group>
+                                <field name="name"/>
+                                <field name="sacrifice_type"/>
+                                <field name="monthly_amount" widget="monetary"/>
+                                <field name="gross_impact" widget="monetary"/>
+                            </group>
+                            <field name="description"/>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
