@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="HrDashboardVrtlMain">
+        <div class="vrtl_dashboards">
+            <div class="container-fluid o_hr_dashboard p-3">
+                <t t-if="this.state.login_employee">
+                    <div class="row g-3">
+                        <!-- Left Sidebar Column: Employee Profile -->
+                        <div class="col-12 col-lg-3 col-xl-2">
+                            <t t-call="LoginEmployeeDetails"/>
+                        </div>
+                        <!-- Right Main Content Column -->
+                        <div class="col-12 col-lg-9 col-xl-10">
+                            <!-- Stats widgets row -->
+                            <t t-call="LoginEmployeeStats"/>
+
+                            <!-- Employee & Manager Dashboards -->
+                            <t t-if="this.state.is_manager == true">
+                                <t t-call="EmployeeDashboard"/>
+                                <t t-call="ManagerDashboard"/>
+                            </t>
+                            <t t-else="">
+                                <t t-call="EmployeeDashboard"/>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+                <t t-else="">
+                    <t t-call="EmployeeWarning"/>
+                </t>
+            </div>
+        </div>
+     </t>
+
+    <!-- LoginEmployeeDetails -->
+    <t t-name="LoginEmployeeDetails">
+        <link rel="stylesheet"
+              href="/hr_dashboard_vrtl/static/src/css/dashboard.css"/>
+        <div class="employee_profile_sidebar mb-3">
+            <div class="oh_card h-100">
+                <div class="oh-media" style="background-color: #D3D3D3;">
+                    <div class="employee_icon text-center">
+                        <img class="img-fluid rounded-circle mt-3" alt=""
+                             t-att-src="'data:image/png;base64,'+this.state.login_employee['image_1920']"/>
+                    </div>
+                    <div class="employee_name py-3 px-2 text-center">
+                        <h2 class="text-color display-6 mb-1"><t t-esc="this.state.login_employee['name']"/> </h2>
+                        <t t-if="this.state.login_employee['job_id']">
+                            <p class="text-muted small mb-0"><t t-esc="this.state.login_employee['job_id'][1]"/></p>
+                        </t>
+                        <t t-if="!this.state.login_employee['job_id']">
+                            <p class="text-muted small mb-0"
+                               style="color:#b6b6b6 !important">Add job title</p>
+                        </t>
+                    </div>
+                    <div class="employee_experience py-3 text-center border-top border-bottom" style="background-color: #D3D3D3;">
+                        <t t-if="this.state.login_employee['experience']">
+                            <p class="text-light mb-1">Joined </p>
+                            <p class="font-weight-bold mb-0"><t t-esc="this.state.login_employee['experience']"/> Ago</p>
+                        </t>
+                        <t t-if="!this.state.login_employee['experience']">
+                            <p class="text-light mb-1" style="color:#b6b6b6 !important">Joined Date</p>
+                            <p class="font-weight-bold mb-0" style="color:#b6b6b6 !important">--/--/----</p>
+                        </t>
+                    </div>
+                    <div class="contact p-3 border-bottom">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fa fa-phone me-2 text-primary" style="width: 20px;"/>
+                            <t t-if="this.state.login_employee['mobile_phone']">
+                                <span class="small text-dark"><t t-esc="this.state.login_employee['mobile_phone']"/></span>
+                            </t>
+                            <t t-if="!this.state.login_employee['mobile_phone']">
+                                <span class="small text-muted">---</span>
+                            </t>
+                        </div>
+                        <div class="d-flex align-items-center mb-0">
+                            <i class="fa fa-envelope me-2 text-primary" style="width: 20px;"/>
+                            <t t-if="this.state.login_employee['work_email']">
+                                <span class="small text-dark text-break"><t t-esc="this.state.login_employee['work_email']"/></span>
+                            </t>
+                            <t t-if="!this.state.login_employee['work_email']">
+                                <span class="small text-muted">---</span>
+                            </t>
+                        </div>
+                    </div>
+                    <div class="address p-3">
+                        <div class="d-flex align-items-start">
+                            <i class="fa fa-home me-2 text-primary mt-1" style="width: 20px;"/>
+                            <div>
+                                <p class="small text-dark font-weight-bold mb-1">Private Address</p>
+                                <t t-if="this.state.login_employee['private_street']">
+                                    <p class="small text-dark mb-1"><t t-esc="this.state.login_employee['private_street']"/></p>
+                                </t>
+                                <t t-if="this.state.login_employee['private_street2']">
+                                    <p class="small text-dark mb-1"><t t-esc="this.state.login_employee['private_street2']"/></p>
+                                </t>
+                                <t t-if="this.state.login_employee['private_city']">
+                                    <p class="small text-dark mb-1"><t t-esc="this.state.login_employee['private_city']"/></p>
+                                </t>
+                                <t t-if="this.state.login_employee['private_state_id']">
+                                    <p class="small text-dark mb-1"><t t-esc="this.state.login_employee['private_state_id'][1]"/></p>
+                                </t>
+                                <t t-if="this.state.login_employee['private_zip']">
+                                    <t t-esc="this.state.login_employee['private_zip']"/>
+                                </t>
+                                <t t-if="this.state.login_employee['private_country_id']">
+                                    <p class="small text-dark mb-0"><t t-esc="this.state.login_employee['private_country_id'][1]"/></p>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- LoginEmployeeStats - adapted: removed broad_factor, added contracts -->
+    <t t-name="LoginEmployeeStats">
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-sm-6 col-md-3 col-xl-3 hr_timesheets vrtl-timesheets"
+                 t-on-click="hr_timesheets">
+                <div class="oh-card h-100">
+                    <div class="oh-card-body p-0">
+                        <div class="stat-widget-one d-flex align-items-center w-100">
+                            <div class="stat-icon p-3 d-flex align-items-center justify-content-center h-100"><i class="fa fa-clock-o"/></div>
+                            <div class="stat-content p-3 flex-grow-1">
+                                <div class="stat-text">Timesheets</div>
+                                <div class="stat-digit font-weight-bold"><t t-esc="this.state.login_employee['emp_timesheets']"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 col-xl-3 hr_contract vrtl-contracts"
+                 t-on-click="hr_contract">
+                <div class="oh-card h-100">
+                    <div class="oh-card-body p-0">
+                        <div class="stat-widget-one d-flex align-items-center w-100">
+                            <div class="stat-icon p-3 d-flex align-items-center justify-content-center h-100"><i class="fa fa-fw fa-book"/></div>
+                            <div class="stat-content p-3 flex-grow-1">
+                                <div class="stat-text">Contracts</div>
+                                <div class="stat-digit font-weight-bold"><t t-esc="this.state.login_employee['contracts_count']"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 col-xl-3 hr_expense_stats vrtl-expenses"
+                 t-on-click="view_expenses">
+                <div class="oh-card h-100">
+                    <div class="oh-card-body p-0">
+                        <div class="stat-widget-one d-flex align-items-center w-100">
+                            <div class="stat-icon p-3 d-flex align-items-center justify-content-center h-100"><i class="fa fa-credit-card"/></div>
+                            <div class="stat-content p-3 flex-grow-1">
+                                <div class="stat-text">Expenses</div>
+                                <div class="stat-digit font-weight-bold">-</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 col-xl-3 hr_attendance_login">
+                <div class="oh-card h-100">
+                    <div class="oh-card-body p-0">
+                        <div class="stat-widget-one d-flex align-items-center w-100"
+                             t-ref="log_in_out"
+                             t-on-click="attendance_sign_in_out">
+                            <t t-if="this.state.login_employee['attendance_state'] =='checked_out'">
+                                <div class="stat-icon hr_attendance_btn p-3 d-flex align-items-center justify-content-center h-100">
+                                    <i class="fa fa-sign-in o_hr_attendance_sign_in_out_icon"/>
+                                </div>
+                                <div class="stat-content p-3 flex-grow-1">
+                                    <div class="stat-text">Check In</div>
+                                </div>
+                            </t>
+                            <t t-if="this.state.login_employee['attendance_state'] =='checked_in'">
+                                <div class="stat-icon hr_attendance_btn p-3 d-flex align-items-center justify-content-center h-100">
+                                    <i class="fa fa-sign-out o_hr_attendance_sign_in_out_icon"/>
+                                </div>
+                                <div class="stat-content p-3 flex-grow-1">
+                                    <div class="stat-text">Check out</div>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- ManagerDashboard -->
+    <t t-name="ManagerDashboard">
+        <div class="manager_dashboard_main_responsive">
+            <!-- Row 1: Leave & Allocation Stats + Departments Chart -->
+            <div class="row g-3 mb-3">
+                <div class="col-12 col-lg-5 col-xl-4 d-flex flex-column">
+                    <div class="oh-card p-3 leave-manager m-0 w-100 flex-grow-1 d-flex flex-column justify-content-center">
+                        <div class="row g-2">
+                            <div class="col-6 hr_leave_request_approve" t-on-click="leaves_to_approve">
+                                <div class="text-color text-center h-100 d-flex flex-column justify-content-between">
+                                    <div class="oh-card-body pb-0 flex-column align-items-center justify-content-center">
+                                        <p class="stat-title mb-2">Leave Requests</p>
+                                        <h4 class="mb-0">
+                                            <p class="stat-count font-weight-bold"><t t-esc="this.state.login_employee.leaves_to_approve"/></p>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="row g-2">
+                                    <div class="col-12 leaves_request_today" t-on-click="leaves_request_today">
+                                        <div class="text-color text-center py-2">
+                                            <div class="oh-card-body flex-column align-items-center justify-content-center p-1">
+                                                 <p class="stat-title mb-1 small">Today</p>
+                                                <h4 class="mb-0">
+                                                    <p class="stat-count font-weight-bold"><t t-esc="this.state.login_employee.leaves_today"/></p>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 leaves_request_month" t-on-click="leaves_request_month">
+                                        <div class="text-color text-center py-2">
+                                            <div class="oh-card-body flex-column align-items-center justify-content-center p-1">
+                                                <p class="stat-title mb-1 small">This Month</p>
+                                                <h4 class="mb-0">
+                                                    <p class="stat-count font-weight-bold"><t t-esc="this.state.login_employee.leaves_this_month"/></p>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-2 mt-2">
+                        <div class="col-12 col-sm-6 col-lg-12 hr_leave_allocations_approve" t-on-click="leave_allocations_to_approve">
+                            <div class="oh-card text-color h-100 p-2 d-flex align-items-center justify-content-between">
+                                <p class="stat-title m-0 ps-2 text-start flex-grow-1">Leave Allocations</p>
+                                <h4 class="m-0 pe-2 text-end">
+                                    <p class="stat-count font-weight-bold m-0"><t t-esc="this.state.login_employee.leaves_alloc_req"/></p>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="col-12 col-sm-6 col-lg-12 hr_job_application_approve" t-on-click="job_applications_to_approve">
+                            <div class="oh-card text-color h-100 p-2 d-flex align-items-center justify-content-between">
+                                <p class="stat-title m-0 ps-2 text-start flex-grow-1">Job Applications</p>
+                                <h4 class="m-0 pe-2 text-end">
+                                    <p class="stat-count font-weight-bold m-0"><t t-esc="this.state.login_employee.job_applications"/></p>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Departments Chart -->
+                <div class="col-12 col-lg-7 col-xl-8">
+                    <div class="oh-card text-color hr-chart-1 h-100 p-3 m-0 position-relative d-flex flex-column">
+                        <div class="oh-card-body pb-2 justify-content-between align-items-center">
+                            <div class="oh-ribbon d-none d-sm-block"><span>Departments</span></div>
+                        </div>
+                        <div class="emp_graph" t-ref="emp_graph">
+                            <div class="dept_chart_container">
+                                <canvas id="employeePieChart"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Monthly Leave Analysis -->
+            <div class="row g-3 mb-3">
+                <div class="col-12 monthly_leave_graph_view_responsive">
+                    <div class="oh-card text-color p-3 m-0">
+                        <div class="oh-card-body pb-2 justify-content-start">
+                            <p class="stat-head m-0 font-weight-bold">Monthly Leave Analysis</p>
+                        </div>
+                        <div class="leave_graph" t-ref="leave_graph">
+                            <div class="leave_chart_container">
+                                <canvas id="leave_barChart"/>
+                            </div>
+                            <div class="leave_chart_container">
+                                <canvas id="leave_doughnutChart"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Join/Resign Trend & Attrition Rate -->
+            <div class="row g-3 mb-3">
+                <div class="col-12 col-md-6 monthly_join_resign_trend_responsive">
+                    <div class="oh-card text-color p-3 m-0">
+                        <div class="oh-card-body pb-2 justify-content-start">
+                            <p class="stat-head m-0 font-weight-bold">Monthly Join/Resign Analysis</p>
+                        </div>
+                        <div class="join_resign_trend_res" t-ref="join_resign_trend" style="height: 250px; position: relative;">
+                            <canvas id="lineChart"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 monthly_attrition_rate_responsive">
+                    <div class="oh-card text-color p-3 m-0">
+                        <div class="oh-card-body pb-2 justify-content-start">
+                            <p class="stat-head m-0 font-weight-bold">Attrition Rate</p>
+                        </div>
+                        <div class="attrition_rate_res" t-ref="attrition_rate" style="height: 250px; position: relative;">
+                            <canvas id="attritionRateChart"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- EmployeeDashboard -->
+    <t t-name="EmployeeDashboard">
+        <!-- Row 1: Attendance & Leaves -->
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-lg-6 user_attendance">
+                <div class="oh-card text-color p-3 h-100 m-0">
+                    <div class="oh-card-body pb-2 border-bottom justify-content-between align-items-center">
+                        <p class="stat_head m-0 font-weight-bold">ATTENDANCE</p>
+                        <div class="add_lines" t-on-click="add_attendance" style="cursor: pointer;">
+                            <i class="fa fa-plus"/>
+                        </div>
+                    </div>
+                    <div class="attendance_table table-responsive mt-3">
+                        <table class="table table-sm table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Sign In</th>
+                                    <th>Sign Out</th>
+                                    <th>Worked Hours</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="attendance_lines"
+                                    t-foreach="this.state.login_employee['attendance_lines']"
+                                    t-as="lines" t-key="lines['id']">
+                                    <td t-esc="lines['date']"/>
+                                    <td t-esc="lines['sign_in']"/>
+                                    <td t-esc="lines['sign_out']"/>
+                                    <td t-esc="lines['worked_hours']"/>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 user_leaves">
+                <div class="oh-card text-color p-3 h-100 m-0">
+                    <div class="oh-card-body pb-2 border-bottom justify-content-between align-items-center">
+                        <p class="stat_head m-0 font-weight-bold">LEAVES</p>
+                        <div class="add_lines" t-on-click="add_leave" style="cursor: pointer;">
+                            <i class="fa fa-plus"/>
+                        </div>
+                    </div>
+                    <div class="leaves_table table-responsive mt-3">
+                        <table class="table table-sm table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>From Date</th>
+                                    <th>To Date</th>
+                                    <th>Type</th>
+                                    <th style="min-width:120px;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="leave_lines"
+                                    t-foreach="this.state.login_employee['leave_lines']"
+                                    t-as="lines" t-key="lines['id']">
+                                    <td t-esc="lines['request_date_from']"/>
+                                    <td t-esc="lines['request_date_to']"/>
+                                    <td t-esc="lines['type']"/>
+                                    <td>
+                                        <span class="state_td"
+                                              t-esc="lines['state']"
+                                              t-attf-style="background: #{lines['color']};"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: Expenses & Projects -->
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-lg-6 user_expense">
+                <div class="oh-card text-color p-3 h-100 m-0">
+                    <div class="oh-card-body pb-2 border-bottom justify-content-between align-items-center">
+                        <p class="stat_head m-0 font-weight-bold">EXPENSES</p>
+                        <div class="add_lines" t-on-click="add_expense" style="cursor: pointer;">
+                            <i class="fa fa-plus"/>
+                        </div>
+                    </div>
+                    <div class="expense_table table-responsive mt-3">
+                        <table class="table table-sm table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Subject</th>
+                                    <th>Amount</th>
+                                    <th style="min-width:120px;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="expense_lines"
+                                    t-foreach="this.state.login_employee['expense_lines']"
+                                    t-as="lines" t-key="lines['id']">
+                                    <td t-esc="lines['date']"/>
+                                    <td t-esc="lines['name']"/>
+                                    <td t-esc="lines['total_amount']"/>
+                                    <td>
+                                        <span class="state_td"
+                                              t-esc="lines['state']"
+                                              t-attf-style="background: #{lines['color']};"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 projects">
+                <div class="oh-card text-color p-3 h-100 m-0">
+                    <div class="oh-card-body pb-2 border-bottom justify-content-between align-items-center">
+                        <p class="stat_head m-0 font-weight-bold">PROJECTS</p>
+                        <div class="add_lines" t-on-click="add_project_task" style="cursor: pointer;">
+                            <i class="fa fa-plus"/>
+                        </div>
+                    </div>
+                    <div class="leaves_table table-responsive mt-3">
+                        <table class="table table-sm table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Project</th>
+                                    <th>Task</th>
+                                    <th>Due Date</th>
+                                    <th style="min-width:120px;">Stage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="project_task_lines"
+                                    t-foreach="this.state.login_employee['project_task_lines']"
+                                    t-as="lines" t-key="lines['id']">
+                                    <td t-esc="lines['project_name']"/>
+                                    <td t-esc="lines['task_name']"/>
+                                    <td t-esc="lines['date_deadline']"/>
+                                    <td>
+                                        <span class="state_td"
+                                              t-esc="lines['stage_name']"
+                                              t-attf-style="background: #6c757d;"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3: Upcoming Birthdays, Events, Announcements -->
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="hr_notification_responsive h-100 m-0">
+                    <div class="hr_notification_responsive-head">
+                        Upcoming Birthdays
+                    </div>
+                    <div class="p-2">
+                        <t t-if="this.state.employee_birthday and this.state.employee_birthday.length > 0">
+                            <t t-foreach="this.state.employee_birthday"
+                               t-as="employee" t-key="employee['id']">
+                                <div class="birth_emp p-2 mb-2 rounded"
+                                     t-att-style="employee['is_birthday'] ? 'background: #3e6282; color: white;' : ''">
+                                    <div class="media d-flex align-items-center">
+                                        <div class="pe-3">
+                                            <img class="birth_img"
+                                                 alt=""
+                                                 t-attf-src="/web/image?model=hr.employee&amp;id={{employee['id']}}&amp;field=image_1920"/>
+                                        </div>
+                                        <div class="media-body">
+                                            <h2 class="display-6 m-0"
+                                                t-att-style="employee['is_birthday'] ? 'color: white; font-weight:500; font-size: 15px;' : 'font-size: 15px; color: #333;'">
+                                                <t t-esc="employee['name']"/>
+                                            </h2>
+                                            <p class="m-0" t-att-style="employee['is_birthday'] ? 'color: rgba(255,255,255,0.8); font-size: 12px;' : 'font-size: 12px; color: #666;'"><t t-esc="employee['birthday']"/></p>
+                                            <t t-if="employee['is_birthday']">
+                                                <span class="birthday text-warning font-weight-bold">Happy Birthday..!! 🎁</span>
+                                            </t>
+                                            <t t-if="employee['days']">
+                                                <span class="days_left" t-att-style="employee['is_birthday'] ? 'color: white;' : ''"> <t t-esc="employee['days']"/> Days Left</span>
+                                            </t>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <div class="text-center p-4 text-muted">
+                                <div style="font-size: 40px; margin-bottom: 10px;">🎂</div>
+                                <h5 class="mb-1">No Upcoming Birthdays</h5>
+                                <p class="small m-0">There are no birthdays in the coming days.</p>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-xl-4">
+                <div class="hr_notification_responsive h-100 m-0">
+                    <div class="hr_notification_responsive-head">
+                        Upcoming Events
+                    </div>
+                    <div class="p-2">
+                        <t t-if="this.state.upcoming_events and this.state.upcoming_events.length > 0">
+                            <t t-foreach="this.state.upcoming_events" t-as="event" t-key="event">
+                                <div class="event_emp p-2 mb-2 border-bottom ">
+                                    <div class="media-body hover">
+                                        <h2 class="display-6 m-0" style="font-size: 14px; color: #333; font-weight: 500;"><t t-esc="event[0]"/></h2>
+                                        <p class="text-muted m-0 small mt-1">Date: <t t-esc="event[1]"/> - <t t-esc="event[2]"/></p>
+                                        <t t-if="event[3]">
+                                            <p class="text-muted m-0 small">Venue: <t t-esc="event[3]"/></p>
+                                        </t>
+                                        <t t-if="event[4]">
+                                            <p class="text-success m-0 small font-weight-bold">Online</p>
+                                        </t>
+                                    </div>
+                                </div>
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <div class="text-center p-4 text-muted">
+                                <div style="font-size: 40px; margin-bottom: 10px;">📅</div>
+                                <h5 class="mb-1">No Upcoming Events</h5>
+                                <p class="small m-0">No events scheduled for the coming days.</p>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-12 col-xl-4">
+                <div class="hr_notification_responsive h-100 m-0">
+                    <div class="hr_notification_responsive-head">
+                        Announcements
+                    </div>
+                    <div class="p-2">
+                        <t t-if="this.state.announcements and this.state.announcements.length > 0">
+                            <t t-foreach="this.state.announcements" t-as="announcement" t-key="announcement">
+                                <div class="announcement_emp p-2 mb-2 border-bottom">
+                                    <div class="media-body">
+                                        <h2 class="display-6 m-0" style="font-size: 14px; color: #333; font-weight: 500;"><t t-esc="announcement['announcement_reason']"/></h2>
+                                        <p class="text-muted m-0 small mt-1">Date: <t t-esc="announcement['date_start']"/> --- <t t-esc="announcement['date_end']"/></p>
+                                    </div>
+                                </div>
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <div class="text-center p-4 text-muted">
+                                <div style="font-size: 40px; margin-bottom: 10px;">📢</div>
+                                <h5 class="mb-1">No Announcements</h5>
+                                <p class="small m-0">No announcements available at this time.</p>
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 4: My Leave & Skill Analysis -->
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-md-6 monthly_join_resign_trend_responsive">
+                <div class="oh-card text-color p-3 m-0">
+                    <div class="oh-card-body pb-2 justify-content-start">
+                        <p class="stat-head m-0 font-weight-bold">My Leave Analysis</p>
+                    </div>
+                    <div class="leave_trend_res" t-ref="leave_trend" style="height: 270px; position: relative;">
+                        <canvas id="leaveTrendChart"/>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 monthly_attrition_rate_responsive">
+                <div class="oh-card text-color p-3 m-0">
+                    <div class="oh-card-body pb-2 justify-content-start">
+                        <p class="stat-head m-0 font-weight-bold">My Skill Analysis</p>
+                    </div>
+                    <div class="skill_res" style="height: 275px; position: relative;">
+                        <canvas id="skillChart"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 5: HR KPIs -->
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-sm-6 col-md-3" t-on-click="view_all_employees">
+                <div class="oh-card h-100">
+                    <div class="oh-card-body p-0">
+                        <div class="stat-widget-one d-flex align-items-center w-100">
+                            <div class="stat-icon p-3 d-flex align-items-center justify-content-center h-100" style="background:#208cc230;"><i class="fa fa-users text-primary"/></div>
+                            <div class="stat-content p-3 flex-grow-1">
+                                <div class="stat-text">Total Employees</div>
+                                <div class="stat-digit font-weight-bold"><t t-esc="this.state.hr_kpis['total_employees']"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3" t-on-click="view_new_hires">
+                <div class="oh-card h-100">
+                    <div class="oh-card-body p-0">
+                        <div class="stat-widget-one d-flex align-items-center w-100">
+                            <div class="stat-icon p-3 d-flex align-items-center justify-content-center h-100" style="background:#659d4e30;"><i class="fa fa-user-plus text-success"/></div>
+                            <div class="stat-content p-3 flex-grow-1">
+                                <div class="stat-text">New Hires (Month)</div>
+                                <div class="stat-digit font-weight-bold"><t t-esc="this.state.hr_kpis['new_hires_month']"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3" t-on-click="view_open_positions">
+                <div class="oh-card h-100">
+                    <div class="oh-card-body p-0">
+                        <div class="stat-widget-one d-flex align-items-center w-100">
+                            <div class="stat-icon p-3 d-flex align-items-center justify-content-center h-100" style="background:#ffa43330;"><i class="fa fa-bullhorn text-warning"/></div>
+                            <div class="stat-content p-3 flex-grow-1">
+                                <div class="stat-text">Open Positions</div>
+                                <div class="stat-digit font-weight-bold"><t t-esc="this.state.hr_kpis['open_positions']"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3" t-on-click="view_pending_leaves">
+                <div class="oh-card h-100">
+                    <div class="oh-card-body p-0">
+                        <div class="stat-widget-one d-flex align-items-center w-100">
+                            <div class="stat-icon p-3 d-flex align-items-center justify-content-center h-100" style="background:#cf365030;"><i class="fa fa-calendar-times-o text-danger"/></div>
+                            <div class="stat-content p-3 flex-grow-1">
+                                <div class="stat-text">Pending Leaves</div>
+                                <div class="stat-digit font-weight-bold"><t t-esc="this.state.hr_kpis['pending_leaves']"/></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 6: Gender Distribution + Job Positions -->
+        <div class="row g-3 mb-3">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="oh-card text-color p-3 h-100 m-0">
+                    <div class="oh-card-body pb-2 justify-content-start">
+                        <p class="stat-head m-0 font-weight-bold">Gender Distribution</p>
+                    </div>
+                    <div class="gender_chart" style="height: 250px; position: relative;">
+                        <canvas id="genderDoughnutChart"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-8">
+                <div class="oh-card text-color p-3 h-100 m-0">
+                    <div class="oh-card-body pb-2 justify-content-start">
+                        <p class="stat-head m-0 font-weight-bold">Employees by Job Position</p>
+                    </div>
+                    <div class="job_chart" style="height: 250px; position: relative;">
+                        <canvas id="jobPositionBarChart"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 7: Headcount Trend -->
+        <div class="row g-3 mb-3">
+            <div class="col-12">
+                <div class="oh-card text-color p-3 m-0">
+                    <div class="oh-card-body pb-2 justify-content-start">
+                        <p class="stat-head m-0 font-weight-bold">Headcount Trend (12 Months)</p>
+                    </div>
+                    <div class="headcount_res" style="height: 250px; position: relative;">
+                        <canvas id="headcountTrendChart"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <!-- EmployeeWarning -->
+    <t t-name="EmployeeWarning">
+        <div class="alert alert-warning m-3" role="alert">
+            <h4 class="alert-heading">Employee Not Found</h4>
+            <p>Error: Could not find an employee profile linked to your user account.</p>
+            <hr/>
+            <p class="mb-0">Please contact the system administrator to complete your setup.</p>
+        </div>
+    </t>
+</templates>

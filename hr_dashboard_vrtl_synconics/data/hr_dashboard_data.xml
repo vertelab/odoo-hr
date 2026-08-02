@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <!-- Pre-created HR Overview dashboard in Synconics BI -->
+    <!-- Charts are created via post_init_hook -->
+</odoo>
