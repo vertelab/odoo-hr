@@ -1,0 +1,60 @@
+# Swedish translation for dashboard_vrtl_source_hr
+msgid ""
+msgstr ""
+"Project-Id-Version: dashboard_vrtl_source_hr 18.0.1.0.0\n"
+"Language: sv\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+
+#. module: dashboard_vrtl_source_hr
+#. model: dashboard.source, name
+msgid "Headcount Trend"
+msgstr "Antal anställda — trend"
+
+#. module: hr_dashboard_vrtl_source
+msgid "Department Distribution"
+msgstr "Avdelningsfördelning"
+
+#. module: hr_dashboard_vrtl_source
+msgid "Gender Balance"
+msgstr "Jämställdhetsfördelning"
+
+#. module: hr_dashboard_vrtl_source
+msgid "Payroll Cost Trend"
+msgstr "Lönekostnad — trend"
+
+#. module: hr_dashboard_vrtl_source
+msgid "Salary Distribution"
+msgstr "Lönefördelning"
+
+#. module: hr_dashboard_vrtl_source
+msgid "Absence Trend"
+msgstr "Frånvaro — trend"
+
+#. module: hr_dashboard_vrtl_source
+msgid "Sick Leave by Department"
+msgstr "Sjukfrånvaro per avdelning"
+
+#. module: hr_dashboard_vrtl_source
+msgid "Vacation Utilization"
+msgstr "Semesteruttag"
+
+#. module: hr_dashboard_vrtl_source
+msgid "Employees"
+msgstr "Anställda"
+
+#. module: hr_dashboard_vrtl_source
+msgid "% of Total"
+msgstr "% av total"
+
+#. module: hr_dashboard_vrtl_source
+msgid "Department"
+msgstr "Avdelning"
+
+#. module: hr_dashboard_vrtl_source
+msgid "Month"
+msgstr "Månad"
+
+#. module: hr_dashboard_vrtl_source
+msgid "No Department"
+msgstr "Ingen avdelning"
