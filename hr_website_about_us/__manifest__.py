@@ -39,7 +39,7 @@ See enclosed photos for description.
      """,
     #'sequence': '1',
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-hr/hr_website_about-us',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_website_about_us',
     'images': ['static/description/banner.png'], # 560x280 px.
     'license': 'AGPL-3',
     'contributor': '',

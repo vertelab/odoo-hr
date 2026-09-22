@@ -22,7 +22,7 @@ before their manager evaluation meeting. Features:
 Built as a companion module to hr_evaluation.
     """,
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-hr/',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_self_evaluation',
     'license': 'AGPL-3',
     'depends': ['hr_evaluation'],
     'data': [

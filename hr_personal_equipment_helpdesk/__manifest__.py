@@ -8,7 +8,7 @@
         Allow users submit helpdesk ticket for their Personal Equipment
     """,
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_personal_equipment_helpdesk',
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',
     'depends': ["helpdesk_mgmt", "hr_personal_equipment_request"],

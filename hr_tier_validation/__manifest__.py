@@ -7,7 +7,7 @@
     """,
     "version": "18.0.1.0.0",
     "license": "AGPL-3",
-    "website": "https://github.com/vertel/odoo-hr",
+    "website": "https://vertel.se/apps/odoo-hr/hr_tier_validation",
     "depends": ['hr', 'project_purchase','base_tier_validation'],
     "data": [
         'views/hr_department_views.xml',

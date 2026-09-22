@@ -26,7 +26,7 @@ Integrates with:
 - l10n_se_arbetsgivarintyg (auto-generate employer certificate)
     """,
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-hr/',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_onboarding_ce',
     'license': 'AGPL-3',
     'depends': ['hr', 'hr_contract', 'project'],
     'data': [

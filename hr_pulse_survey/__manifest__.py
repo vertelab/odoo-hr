@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
+    'website': 'https://vertel.se/apps/odoo-hr/hr_pulse_survey',
     'name': 'HR: Pulse Survey',
     'version': '18.0.1.0.0',
     'summary': 'Recurring pulse surveys with automated alarms and trend analysis.',

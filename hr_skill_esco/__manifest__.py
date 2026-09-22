@@ -30,7 +30,7 @@
          Den här modulen lägger till ESCO skill types och skills i HR.
     """,
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-hr/',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_skill_esco',
     'images': ['static/description/banner.png'], 
     'license': 'AGPL-3',
     'depends': ['hr_skills'],

@@ -9,7 +9,7 @@
     'category': 'Human Resources',
     'description': 'Compensation & Benefits management for employee contracts.',
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-hr/',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_contract_compben',
     'license': 'AGPL-3',
     'depends': ['hr_contract', 'hr'],
     'data': [

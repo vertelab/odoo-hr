@@ -26,7 +26,7 @@ Periodic employee evaluations (medarbetarsamtal) with:
 Built as a CE replacement for Odoo EE hr_appraisal.
     """,
     'author': 'Vertel AB',
-    'website': 'https://vertel.se/apps/odoo-hr/',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_evaluation',
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',
     'depends': [
