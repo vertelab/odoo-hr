@@ -21,16 +21,23 @@
 
 {
     'name': 'HR: Recruitment Translation',
-    'version': '1.0',
+    'version': '18.0.1.0.0',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
-    'summary': 'Fixes a translation',
+    'summary': 'Fixes a translation.',
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'HR',
-    'description': """
+    'description': '''
+Recruitment Translation
+=======================
+
     Fixes a translation.
-    """,
+
+    Features:
+
+        - Extends Odoo: Builds on hr.applicant.
+    ''',
     #'sequence': '1',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_recruitment_translation',

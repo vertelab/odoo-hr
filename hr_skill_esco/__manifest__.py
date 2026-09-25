@@ -23,12 +23,20 @@
 #
 {
     'name': 'HR: Skill ESCO',
-    'version': '1.0',
+    'version': '18.0.1.0.0',
     'summary': 'Extend HR with ESCO skills and skill type.',
     'category': 'Human Resources', # Technical Settings|Localization|Payroll Localization|Account Charts|User types|Invoicing|Sales|Human Resources|Operations|Marketing|Manufacturing|Website|Theme|Administration|Appraisals|Sign|Helpdesk|Administration|Extra Rights|Other Extra Rights|
-    'description': """
-         Den här modulen lägger till ESCO skill types och skills i HR.
-    """,
+    'description': '''
+Skill ESCO
+==========
+
+    Den här modulen lägger till ESCO skill types och skills i HR.
+
+    Features:
+
+        - UI Integration: Extends 1 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on display_name, hr.skill, hr.skill.level, hr.skill.type.
+    ''',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_skill_esco',
     'images': ['static/description/banner.png'], 

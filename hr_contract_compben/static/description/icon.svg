@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Hr Contract Compben icon">
+  <!-- Odoo O (purple) -->
+  <circle cx="58" cy="58" r="38" fill="none" stroke="#875A7B" stroke-width="11"/>
+  <rect x="70" y="22" width="22" height="24" fill="#F8FAFC" rx="2"/>
+  <!-- Domain symbol (accent) bottom-right -->
+  <g transform="translate(76, 72) scale(1.05)">
+    <g fill="#EC4899">
+      <circle cx="12" cy="7" r="4.5"/>
+      <path d="M3 23c0-5 4-8 9-8s9 3 9 8z"/></g>
+  </g>
+</svg>

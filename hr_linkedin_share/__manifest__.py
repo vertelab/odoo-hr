@@ -23,14 +23,20 @@
 #
 {
     'name': 'HR: Linkdin Share',
-    'version': '1.0',
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.odoo.com""",
+    'version': '18.0.1.0.0',
+    'summary': "Shares job positions on LinkedIn.",
     'category': '', # Technical Settings|Localization|Payroll Localization|Account Charts|User types|Invoicing|Sales|Human Resources|Operations|Marketing|Manufacturing|Website|Theme|Administration|Appraisals|Sign|Helpdesk|Administration|Extra Rights|Other Extra Rights|
-    'description': """
-        Long description of module's purpose
-    """,
+    'description': '''
+Linkdin Share
+=============
+
+    Shares job positions on LinkedIn.
+
+    Features:
+
+        - UI Integration: Extends 1 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on hr.resume.line.
+    ''',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_linkedin_share',
     'images': ['static/description/banner.png'], 

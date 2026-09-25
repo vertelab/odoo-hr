@@ -1,12 +1,21 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'HR: Personal Equipment Helpdesk',
-    'version': '1.0',
-    'summary': """Allow users submit helpdesk ticket for their Personal Equipment""",
+    'version': '18.0.1.0.0',
+    'summary': """Allow users submit helpdesk ticket for their Personal Equipment.""",
     'category': 'Helpdesk',
-    'description': """
-        Allow users submit helpdesk ticket for their Personal Equipment
-    """,
+    'description': '''
+Personal Equipment Helpdesk
+===========================
+
+    Allow users submit helpdesk ticket for their Personal Equipment.
+
+    Features:
+
+        - Web integration: Exposes HTTP endpoints for external systems.
+        - UI Integration: Extends 2 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on helpdesk.ticket.
+    ''',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_personal_equipment_helpdesk',
     'images': ['static/description/banner.png'],

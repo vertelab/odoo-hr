@@ -21,17 +21,21 @@
 
 {
     'name': 'HR: Timesheet NonBillable',
-    'version': '18.0.0.1',
+    'version': '18.0.0.1.0',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'To be able to report non-billable time when reporting time.',
     'category': 'HR',
-    'description': """
-        To be able to report non-billable time when reporting time.
-    
-        - be able to indicate non-billable time on an activity (e.g. in the details tab of the time report)
-        - compile billable and non billable time on the time report
-        - In report do follow-up Compare schedule time, invoiced time and non-invoiced time
-    """,
+    'description': '''
+Timesheet NonBillable
+=====================
+
+    To be able to report non-billable time when reporting time.
+
+    Features:
+
+        - UI Integration: Extends 2 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on account.analytic.line, account.move, hr_timesheet.sheet, project.create.sale.order.
+    ''',
     #'sequence': '1',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_timesheet_nonbillable',

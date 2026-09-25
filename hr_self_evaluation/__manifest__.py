@@ -7,20 +7,18 @@
     'version': '18.0.1.0.0',
     'summary': 'Employee self-evaluation (självskattning) before manager evaluation.',
     'category': 'Human Resources/Appraisals',
-    'description': """
-Self Evaluation for Employees
-=============================
+    'description': '''
+Self Evaluation
+===============
 
-Adds a structured self-evaluation form for employees to complete 
-before their manager evaluation meeting. Features:
+    Adds a structured self-evaluation form for employees to complete 
+    before their manager evaluation meeting. Features:
 
-- Reflection fields: achievements, challenges, improvements, career goals
-- Likert-scale self-rating on performance, wellbeing, engagement
-- Comparison view: self vs manager ratings side by side
-- Optional anonymous team surveys for work environment
+    Features:
 
-Built as a companion module to hr_evaluation.
-    """,
+        - UI Integration: Extends 1 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on hr.self.evaluation, mail.thread.
+    ''',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_self_evaluation',
     'license': 'AGPL-3',

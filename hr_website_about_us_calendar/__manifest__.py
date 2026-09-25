@@ -21,13 +21,21 @@
 
 {
     'name': 'HR: Website About Us Calendar',
-    'version': '18.0.0.0',
+    'version': '18.0.0.0.0',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'Book meeting with employee.',
     'category': 'HR',
-    'description': """
+    'description': '''
+Website About Us Calendar
+=========================
+
     Glue module for HR Website About us. Implementing calendar button to book meeting with employees with sales role.
-    """,
+
+    Features:
+
+        - UI Integration: Extends 2 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on hr.employee.base.
+    ''',
     #'sequence': '1',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_website_about_us_calendar',

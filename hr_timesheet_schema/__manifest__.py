@@ -21,13 +21,21 @@
 
 {
     'name': 'HR: Timesheet Schema',
-    'version': '0.1',
+    'version': '18.0.1.0.0',
     # Version ledger: XX.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'To be able to quickly compare reported time with expected time for an employee.',
     'category': 'HR',
-    'description': """
+    'description': '''
+Timesheet Schema
+================
+
     To be able to quickly compare reported time with expected time for an employee.
-    """,
+
+    Features:
+
+        - UI Integration: Extends 1 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on hr.employee, hr.employee.public, hr_timesheet.sheet.
+    ''',
     #'sequence': '1',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_timesheet_schema',

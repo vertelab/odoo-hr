@@ -6,6 +6,17 @@
     'name': 'HR: Contract Compensation & Benefits',
     'version': '18.0.1.0.0',
     'summary': 'Total compensation view with salary configurator, benefits registry and total reward statement.',
+    'description': '''
+Contract Compensation & Benefits
+================================
+
+    Total compensation view with salary configurator, benefits registry and total reward statement.
+
+    Features:
+
+        - UI Integration: Extends 2 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on hr.benefit, hr.contract, hr.salary.sacrifice.
+    ''',
     'category': 'Human Resources',
     'description': 'Compensation & Benefits management for employee contracts.',
     'author': 'Vertel AB',

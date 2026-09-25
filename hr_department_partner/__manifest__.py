@@ -21,16 +21,24 @@
 
 {
     'name': 'HR: Partner Department',
-    'version': '1.0',
+    'version': '18.0.1.0.0',
     # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
     'summary': 'To be able to have multiple addresses on department and select them on employee.',
     'category': 'HR',
-    'description': """
-        To be able to have multiple addresses on department and select them on employee.
-        14.0.1.1.0 - Added res.partner type hr_department
-        14.0.1.0.2 - Filtered the department address based on hr_department type
-        14.0.1.0.0 - Added Department Number to Department and Employee and will be able to search and group
-    """,
+    'description': '''
+Partner Department
+==================
+
+    To be able to have multiple addresses on department and select them on employee.
+            14.0.1.1.0 - Added res.partner type hr_department
+            14.0.1.0.2 - Filtered the department address based on hr_department type
+            14.0.1.0.0 - Added Department Number to Department and Employee and will be able to search and group
+
+    Features:
+
+        - UI Integration: Extends 1 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on hr.department, hr.department.address, hr.employee, hr.employee.public.
+    ''',
     #'sequence': '1',
     'author': 'Vertel AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_department_partner',
