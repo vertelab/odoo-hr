@@ -49,4 +49,3 @@ Recruitment Translation
     # any module necessary for this one to work correctly
     'depends': ['website_hr_recruitment'],
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

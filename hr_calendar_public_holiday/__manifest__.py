@@ -50,4 +50,3 @@ Calendar Public Holiday
     # any module necessary for this one to work correctly
     'depends': ['hr_holidays_public'],
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
