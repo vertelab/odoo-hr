@@ -31,6 +31,7 @@
     ],
     'data': [
         'data/okf_artifact_types_hr.xml',
+        'data/okf_debug_actions.xml',
     ],
     'demo': [],
     'application': False,
