@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_hr_key_config"
+              name="KEY: Behaviour"
+              parent="hr_workstyle.menu_hr_workstyle_root"
+              groups="hr.group_hr_manager"
+              sequence="90"/>
+
+    <menuitem id="menu_hr_key_analysis_type"
+              name="Analysis Types"
+              parent="menu_hr_key_config"
+              action="action_hr_key_analysis_type"
+              sequence="10"/>
+
+    <menuitem id="menu_hr_key_rationale"
+              name="Rationales"
+              parent="menu_hr_key_config"
+              action="action_hr_key_rationale"
+              sequence="20"/>
+
+    <menuitem id="menu_hr_key_unit_overview"
+              name="Unit Overview"
+              parent="hr_workstyle.menu_hr_workstyle_root"
+              action="action_hr_key_unit_overview"
+              groups="hr.group_hr_user"
+              sequence="15"/>
+</odoo>

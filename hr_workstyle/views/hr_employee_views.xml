@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Beteendeprofil på hr.employee.
+
+    Zonbandet ritas i en egen vy. Ingen sorterbar poänglista — avvikelsen
+    får inte bli ett gallringsverktyg. Se designprincipen i
+    models/hr_workstyle_gap.py.
+-->
+<odoo>
+
+    <record id="view_hr_employee_form_workstyle" model="ir.ui.view">
+        <field name="name">hr.employee.form.inherit.workstyle</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_workstyle_assessments" type="object"
+                        class="oe_stat_button" icon="fa-compass"
+                        invisible="workstyle_assessment_count == 0">
+                    <field name="workstyle_assessment_count" widget="statinfo"
+                           string="Measurements"/>
+                </button>
+                <button name="action_open_workstyle_trend" type="object"
+                        class="oe_stat_button" icon="fa-line-chart"
+                        string="Development"
+                        invisible="workstyle_assessment_count &lt; 2"/>
+            </xpath>
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Behavioural Profile" name="workstyle_profile"
+                      groups="hr.group_hr_user">
+                    <group string="Latest Measurement">
+                        <group>
+                            <field name="workstyle_latest_id"/>
+                            <field name="workstyle_d_latest"/>
+                            <field name="workstyle_i_latest"/>
+                        </group>
+                        <group>
+                            <field name="workstyle_s_latest"/>
+                            <field name="workstyle_c_latest"/>
+                        </group>
+                    </group>
+                    <group string="Against the job's expected range">
+                        <field name="workstyle_gap_ids" nolabel="1" colspan="2">
+                            <list create="false" edit="false" delete="false">
+                                <field name="style_id"/>
+                                <field name="value"/>
+                                <field name="ideal_min"/>
+                                <field name="ideal_max"/>
+                                <field name="deviation"
+                                       decoration-success="deviation == 'within'"
+                                       decoration-muted="deviation == 'unmeasured'"
+                                       decoration-info="deviation == 'over_zone'"
+                                       decoration-warning="deviation == 'under_zone'"/>
+                                <field name="importance"/>
+                                <field name="rationale"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="History">
+                        <field name="workstyle_assessment_ids" nolabel="1" colspan="2">
+                            <list create="false">
+                                <field name="date"/>
+                                <field name="assessor_id"/>
+                                <field name="source"/>
+                                <field name="copied_from_id"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

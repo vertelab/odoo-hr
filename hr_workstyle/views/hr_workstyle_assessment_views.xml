@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Mätningsvyer. Mätningen är sanningen; personens aktuella värden är
+    härledda.
+-->
+<odoo>
+
+    <!-- ── Mätning: lista ────────────────────────────────────────────── -->
+    <record id="view_hr_workstyle_assessment_list" model="ir.ui.view">
+        <field name="name">hr.workstyle.assessment.list</field>
+        <field name="model">hr.workstyle.assessment</field>
+        <field name="arch" type="xml">
+            <list string="Behavioural Measurements">
+                <field name="date"/>
+                <field name="res_model"/>
+                <field name="res_name"/>
+                <field name="assessor_id"/>
+                <field name="source"/>
+                <field name="copied_from_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ── Mätning: formulär ─────────────────────────────────────────── -->
+    <record id="view_hr_workstyle_assessment_form" model="ir.ui.view">
+        <field name="name">hr.workstyle.assessment.form</field>
+        <field name="model">hr.workstyle.assessment</field>
+        <field name="arch" type="xml">
+            <form string="Behavioural Measurement">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="res_name" string="Person"/>
+                        <h1><field name="res_name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="res_model"/>
+                            <field name="res_id" invisible="1"/>
+                            <field name="date"/>
+                            <field name="assessor_id"/>
+                            <field name="source"/>
+                            <field name="copied_from_id"/>
+                        </group>
+                        <group string="Context">
+                            <field name="company_id" groups="base.group_multi_company"/>
+                            <field name="note" nolabel="1"/>
+                        </group>
+                    </group>
+                    <group string="Scores">
+                        <p class="text-muted" colspan="2">
+                            Poäng per beteendestil. En stil utan poäng behandlas
+                            som omätt — aldrig som noll. Skalan hämtas från stilen.
+                        </p>
+                        <field name="line_ids" nolabel="1" colspan="2">
+                            <list editable="bottom">
+                                <field name="style_id"/>
+                                <field name="score"/>
+                                <field name="scale_min" readonly="1"/>
+                                <field name="scale_max" readonly="1"/>
+                                <field name="rank" readonly="1"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Mätning: åtgärd ───────────────────────────────────────────── -->
+    <record id="action_hr_workstyle_assessment" model="ir.actions.act_window">
+        <field name="name">Behavioural Measurements</field>
+        <field name="res_model">hr.workstyle.assessment</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

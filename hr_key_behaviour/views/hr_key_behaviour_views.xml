@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ── Analystyper ──────────────────────────────────────────────── -->
+    <record id="view_hr_key_analysis_type_list" model="ir.ui.view">
+        <field name="name">hr.key.analysis.type.list</field>
+        <field name="model">hr.key.analysis.type</field>
+        <field name="arch" type="xml">
+            <list string="Analysis Types" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="applies_to_person"/>
+                <field name="has_feedback_providers"/>
+                <field name="measures_group"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_hr_key_analysis_type_form" model="ir.ui.view">
+        <field name="name">hr.key.analysis.type.form</field>
+        <field name="model">hr.key.analysis.type</field>
+        <field name="arch" type="xml">
+            <form string="Analysis Type">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Individ"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Characteristics">
+                            <field name="applies_to_person"/>
+                            <field name="has_feedback_providers"/>
+                            <field name="measures_group"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_hr_key_analysis_type" model="ir.actions.act_window">
+        <field name="name">Analysis Types</field>
+        <field name="res_model">hr.key.analysis.type</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ── Rationale-vokabulär ──────────────────────────────────────── -->
+    <record id="view_hr_key_rationale_list" model="ir.ui.view">
+        <field name="name">hr.key.rationale.list</field>
+        <field name="model">hr.key.rationale</field>
+        <field name="arch" type="xml">
+            <list string="Rationales" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_hr_key_rationale" model="ir.actions.act_window">
+        <field name="name">Rationales</field>
+        <field name="res_model">hr.key.rationale</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="action_hr_key_unit_overview" model="ir.actions.act_window">
+        <field name="name">Unit Behavioural Overview</field>
+        <field name="res_model">hr.key.unit.overview</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+
+    <!-- ── Enhetsöversikt ───────────────────────────────────────────── -->
+    <record id="view_hr_key_unit_overview_form" model="ir.ui.view">
+        <field name="name">hr.key.unit.overview.form</field>
+        <field name="model">hr.key.unit.overview</field>
+        <field name="arch" type="xml">
+            <form string="Unit Behavioural Overview">
+                <sheet>
+                    <group>
+                        <field name="department_id"/>
+                    </group>
+                    <group string="Members' current values">
+                        <p class="text-muted" colspan="2">
+                            Beskrivande översikt — ingen poäng per medlem, ingen
+                            rangordning, ingen bedömning. Visar vilka beteenden
+                            som finns representerade i gruppen.
+                        </p>
+                        <field name="line_ids" nolabel="1" colspan="2">
+                            <list create="false" edit="false" delete="false">
+                                <field name="employee_id"/>
+                                <field name="job_id"/>
+                            </list>
+                        </field>
+                    </group>
+                    <group string="Styles with no bearer in the unit">
+                        <field name="absent_style_ids" nolabel="1" colspan="2"
+                               widget="many2many_tags"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+</odoo>

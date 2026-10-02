@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- ── Beteendestilar: lista ─────────────────────────────────────── -->
+    <record id="view_hr_workstyle_style_list" model="ir.ui.view">
+        <field name="name">hr.workstyle.style.list</field>
+        <field name="model">hr.workstyle.style</field>
+        <field name="arch" type="xml">
+            <list string="Behavioural Styles" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="local_name"/>
+                <field name="color" widget="color"/>
+                <field name="scale_min"/>
+                <field name="scale_max"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- ── Beteendestilar: formulär ──────────────────────────────────── -->
+    <record id="view_hr_workstyle_style_form" model="ir.ui.view">
+        <field name="name">hr.workstyle.style.form</field>
+        <field name="model">hr.workstyle.style</field>
+        <field name="arch" type="xml">
+            <form string="Behavioural Style">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" placeholder="e.g. Dominant"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="local_name"/>
+                            <field name="color" widget="color"/>
+                            <field name="sequence"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Scale">
+                            <field name="scale_min"/>
+                            <field name="scale_max"/>
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1"
+                               placeholder="Describe the BEHAVIOUR, not the person."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ── Beteendestilar: åtgärd + meny ─────────────────────────────── -->
+    <record id="action_hr_workstyle_style" model="ir.actions.act_window">
+        <field name="name">Behavioural Styles</field>
+        <field name="res_model">hr.workstyle.style</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+</odoo>

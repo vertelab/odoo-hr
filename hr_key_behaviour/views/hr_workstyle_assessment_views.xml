@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_workstyle_assessment_form_key" model="ir.ui.view">
+        <field name="name">hr.workstyle.assessment.form.inherit.key</field>
+        <field name="model">hr.workstyle.assessment</field>
+        <field name="inherit_id" ref="hr_workstyle.view_hr_workstyle_assessment_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='source']" position="after">
+                <field name="analysis_type_id"/>
+                <field name="validated"/>
+                <field name="validation_date" invisible="not validated"/>
+                <field name="feedback_provider_count"
+                       invisible="not analysis_type_id.has_feedback_providers"/>
+            </xpath>
+            <xpath expr="//sheet" position="inside">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_mark_validated" type="object"
+                            class="oe_stat_button" icon="fa-check"
+                            string="Mark Validated" invisible="validated"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_hr_workstyle_assessment_list_key" model="ir.ui.view">
+        <field name="name">hr.workstyle.assessment.list.inherit.key</field>
+        <field name="model">hr.workstyle.assessment</field>
+        <field name="inherit_id" ref="hr_workstyle.view_hr_workstyle_assessment_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='source']" position="after">
+                <field name="analysis_type_id"/>
+                <field name="validated"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

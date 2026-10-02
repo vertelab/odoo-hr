@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Leverantörens terminologi och färger.
+
+    noupdate="1": detta är en UTGÅNGSPUNKT. En kunds eller leverantörens
+    ändringar (namn, färg) skrivs inte över vid uppgradering.
+
+    Värdena sätts på BEFINTLIGA stilar (via ref till hr_workstyle), så att
+    seeden aldrig skapar dubbletter. Om en kund redan satt en lokal
+    benämning bevaras den — noupdate hindrar dock bara uppdatering av
+    xml-id:t, så fälten sätts bara vid första installationen.
+-->
+<odoo>
+    <data noupdate="1">
+
+        <record id="hr_workstyle.style_d" model="hr.workstyle.style">
+            <field name="local_name">Röd</field>
+            <field name="color">#D32F2F</field>
+        </record>
+        <record id="hr_workstyle.style_i" model="hr.workstyle.style">
+            <field name="local_name">Gul</field>
+            <field name="color">#FBC02D</field>
+        </record>
+        <record id="hr_workstyle.style_s" model="hr.workstyle.style">
+            <field name="local_name">Grön</field>
+            <field name="color">#388E3C</field>
+        </record>
+        <record id="hr_workstyle.style_c" model="hr.workstyle.style">
+            <field name="local_name">Blå</field>
+            <field name="color">#1976D2</field>
+        </record>
+
+        <!-- ── Analystyper ──────────────────────────────────────────── -->
+        <record id="analysis_individual" model="hr.key.analysis.type">
+            <field name="name">Individ</field>
+            <field name="code">individual</field>
+            <field name="sequence">10</field>
+            <field name="applies_to_person" eval="True"/>
+            <field name="description">Självskattning som valideras i öppen dialog med en handledare. Upprepade analyser spårar och kalibrerar personlig utveckling.</field>
+        </record>
+        <record id="analysis_role" model="hr.key.analysis.type">
+            <field name="name">Roll</field>
+            <field name="code">role</field>
+            <field name="sequence">20</field>
+            <field name="applies_to_person" eval="False"/>
+            <field name="description">Optimala beteenden inför rekrytering eller skapande av en ny roll. Beskriver rollens förväntade beteende.</field>
+        </record>
+        <record id="analysis_360" model="hr.key.analysis.type">
+            <field name="name">360°</field>
+            <field name="code">360</field>
+            <field name="sequence">30</field>
+            <field name="applies_to_person" eval="True"/>
+            <field name="has_feedback_providers" eval="True"/>
+            <field name="description">Självskattning kombinerad med feedback från sex andra personer. Matchar självbild mot kollegornas perspektiv.</field>
+        </record>
+        <record id="analysis_team" model="hr.key.analysis.type">
+            <field name="name">Team</field>
+            <field name="code">team</field>
+            <field name="sequence">40</field>
+            <field name="applies_to_person" eval="False"/>
+            <field name="measures_group" eval="True"/>
+            <field name="description">Individuella profiler jämförda med gruppen som helhet. Visar vilka beteenden gruppen behöver.</field>
+        </record>
+
+        <!-- ── Rationale-vokabulär ───────────────────────────────────── -->
+        <record id="rationale_anchor" model="hr.key.rationale">
+            <field name="name">Förankrar beslut innan de implementeras</field>
+            <field name="sequence">10</field>
+        </record>
+        <record id="rationale_outgoing" model="hr.key.rationale">
+            <field name="name">Utåtriktad — kommunicerar vision och riktning</field>
+            <field name="sequence">20</field>
+        </record>
+        <record id="rationale_drives" model="hr.key.rationale">
+            <field name="name">Driver beslut och håller tempo</field>
+            <field name="sequence">30</field>
+        </record>
+        <record id="rationale_quality" model="hr.key.rationale">
+            <field name="name">Kvalitetssäkrar — underlag före beslut</field>
+            <field name="sequence">40</field>
+        </record>
+        <record id="rationale_cooperation" model="hr.key.rationale">
+            <field name="name">Bygger samarbete och stabilitet i gruppen</field>
+            <field name="sequence">50</field>
+        </record>
+
+    </data>
+</odoo>

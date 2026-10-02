@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Utveckling över tid. Zonen är referens, inte måluppfyllelse.
+-->
+<odoo>
+    <record id="view_hr_workstyle_trend_form" model="ir.ui.view">
+        <field name="name">hr.workstyle.trend.form</field>
+        <field name="model">hr.workstyle.trend</field>
+        <field name="arch" type="xml">
+            <form string="Behavioural Development" create="false">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="res_name" string="Person"/>
+                        <h1><field name="res_name" readonly="1"/></h1>
+                        <field name="job_id" readonly="1"/>
+                    </div>
+                    <group>
+                        <field name="res_model" invisible="1"/>
+                        <field name="res_id" invisible="1"/>
+                        <p class="text-muted" colspan="2">
+                            Poäng per stil över samtliga mätningar. Zonen är
+                            tjänstens förväntade beteende. Beteende kan utvecklas —
+                            detta är utvecklingskontraktet, inte ett betyg.
+                        </p>
+                    </group>
+                    <field name="line_ids" nolabel="1">
+                        <list create="false" edit="false" delete="false"
+                              default_order="style_id, date">
+                            <field name="style_id"/>
+                            <field name="date"/>
+                            <field name="score"/>
+                            <field name="zone_min"/>
+                            <field name="zone_max"/>
+                            <field name="trend_id" column_invisible="1"/>
+                        </list>
+                    </field>
+                    <group>
+                        <field name="line_ids" nolabel="1" widget="graph"
+                               type="line" string="Development">
+                            <graph type="line">
+                                <field name="date" interval="month"/>
+                                <field name="score" type="measure"/>
+                                <field name="style_id"/>
+                            </graph>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

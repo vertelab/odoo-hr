@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_hr_workstyle_root"
+              name="Behavioural Profiles"
+              parent="hr.menu_hr_root"
+              groups="hr.group_hr_user"
+              sequence="95"/>
+
+    <menuitem id="menu_hr_workstyle_assessment"
+              name="Measurements"
+              parent="menu_hr_workstyle_root"
+              action="action_hr_workstyle_assessment"
+              sequence="10"/>
+
+    <menuitem id="menu_hr_workstyle_style"
+              name="Styles"
+              parent="menu_hr_workstyle_root"
+              action="action_hr_workstyle_style"
+              groups="hr.group_hr_manager"
+              sequence="20"/>
+
+</odoo>

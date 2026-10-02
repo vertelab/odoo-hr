@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_workstyle_style_user,hr.workstyle.style.user,model_hr_workstyle_style,base.group_user,1,0,0,0
+access_hr_workstyle_style_manager,hr.workstyle.style.manager,model_hr_workstyle_style,hr.group_hr_manager,1,1,1,1
+access_hr_job_workstyle_line_user,hr.job.workstyle.line.user,model_hr_job_workstyle_line,base.group_user,1,0,0,0
+access_hr_job_workstyle_line_manager,hr.job.workstyle.line.manager,model_hr_job_workstyle_line,hr.group_hr_manager,1,1,1,1
+access_hr_workstyle_assessment_hr,hr.workstyle.assessment.hr,model_hr_workstyle_assessment,hr.group_hr_user,1,1,1,1
+access_hr_workstyle_assessment_manager,hr.workstyle.assessment.manager,model_hr_workstyle_assessment,hr.group_hr_manager,1,1,1,1
+access_hr_workstyle_assessment_line_hr,hr.workstyle.assessment.line.hr,model_hr_workstyle_assessment_line,hr.group_hr_user,1,1,1,1
+access_hr_workstyle_assessment_line_manager,hr.workstyle.assessment.line.manager,model_hr_workstyle_assessment_line,hr.group_hr_manager,1,1,1,1

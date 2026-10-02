@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Beteendestilar — GENERISK seed.
+
+    Neutrala namn och koder. INGA färger: färg-DISC:s röd/gul/grön/blå är
+    en leverantörs ordval och sätts av leverantörsmodulen
+    (hr_key_behaviour). Det gör den generiska modellen användbar med en
+    annan leverantör eller med egen skattning.
+
+    noupdate="1" — seed är utgångspunkt, inte sanning. En administratörs
+    ändringar (namn, färg, beskrivning) skrivs inte över vid uppgradering.
+-->
+<odoo>
+    <data noupdate="1">
+
+        <record id="style_d" model="hr.workstyle.style">
+            <field name="code">D</field>
+            <field name="name">Dominant</field>
+            <field name="sequence">10</field>
+            <field name="description">Direkt och resultatfokuserad. Drivs av tempo och av att lösa problem.</field>
+            <field name="scale_min">1</field>
+            <field name="scale_max">10</field>
+        </record>
+
+        <record id="style_i" model="hr.workstyle.style">
+            <field name="code">I</field>
+            <field name="name">Inspiring</field>
+            <field name="sequence">20</field>
+            <field name="description">Utåtriktad och entusiastisk. Drivs av relationer och interaktion.</field>
+            <field name="scale_min">1</field>
+            <field name="scale_max">10</field>
+        </record>
+
+        <record id="style_s" model="hr.workstyle.style">
+            <field name="code">S</field>
+            <field name="name">Supportive</field>
+            <field name="sequence">30</field>
+            <field name="description">Stabil och tålmodig. Drivs av samarbete och stabilitet.</field>
+            <field name="scale_min">1</field>
+            <field name="scale_max">10</field>
+        </record>
+
+        <record id="style_c" model="hr.workstyle.style">
+            <field name="code">C</field>
+            <field name="name">Cautious</field>
+            <field name="sequence">40</field>
+            <field name="description">Analytisk och detaljorienterad. Drivs av noggrannhet och kvalitet.</field>
+            <field name="scale_min">1</field>
+            <field name="scale_max">10</field>
+        </record>
+
+    </data>
+</odoo>

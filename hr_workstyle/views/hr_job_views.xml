@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Fliken "Beteendeprofil" på hr.job.
+
+    Odoo 18: <list> (inte <tree>), inline-attribut (inga attrs=).
+
+    Intervall per stil — både nedre och övre gräns. Den övre gränsen är
+    obligatorisk: utan den blir avvikelsen uppåt osynlig, och en roll kan
+    lida lika mycket av ett beteende som tar över som av ett som saknas.
+-->
+<odoo>
+
+    <record id="view_hr_job_form_workstyle" model="ir.ui.view">
+        <field name="name">hr.job.form.inherit.workstyle</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//notebook" position="inside">
+                <page string="Behavioural Profile" name="workstyle_profile">
+                    <group>
+                        <p class="text-muted" colspan="2">
+                            Beskriver vilka BETEENDEN tjänsten förväntar sig — ett
+                            intervall per stil. Beteende är inte kompetens: det
+                            beskriver HUR någon agerar, inte vad någon kan.
+                            Avvikelse både under och över intervallet är information.
+                        </p>
+                    </group>
+                    <field name="workstyle_line_ids">
+                        <list editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="style_id"/>
+                            <field name="ideal_min"/>
+                            <field name="ideal_max"/>
+                            <field name="importance"/>
+                            <field name="rationale"/>
+                        </list>
+                    </field>
+                    <group>
+                        <field name="workstyle_line_count" invisible="1"/>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
