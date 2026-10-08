@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 # https://www.odoo.com/documentation/18.0/reference/module.html
 
 {
     'name': 'HR: Key Behaviour',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.1.0',
     'summary': 'KEY: Behaviour terminology and analysis types for behavioural profiles.',
     'category': 'Human Resources',
     'description': '''
@@ -33,7 +33,7 @@ HR: Key Behaviour
     beteenden, aldrig personer. Enhetsöversikten är beskrivande och rangordnar
     eller betygsätter inte enskilda medlemmar.
     ''',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_key_behaviour',
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',

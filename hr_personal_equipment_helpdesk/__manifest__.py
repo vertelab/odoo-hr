@@ -16,7 +16,7 @@ Personal Equipment Helpdesk
         - UI Integration: Extends 2 view(s) in the Odoo interface.
         - Extends Odoo: Builds on helpdesk.ticket.
     ''',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_personal_equipment_helpdesk',
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',

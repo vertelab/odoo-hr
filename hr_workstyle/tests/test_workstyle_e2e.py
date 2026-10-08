@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 """End-to-end: VD-profilen från rekrytering till utveckling över tid.
@@ -39,9 +39,9 @@ class TestWorkstyleE2E(TransactionCase):
                 'importance': imp, 'rationale': rat,
             })
 
-    def _measure(self, res_model, res_id, scores, date=None):
+    def _measure(self, person_ref, scores, date=None):
         vals = {
-            'res_model': res_model, 'res_id': res_id,
+            'person_ref': person_ref,
             'line_ids': [(0, 0, {'style_id': st.id, 'score': sc})
                          for st, sc in scores],
         }
@@ -58,7 +58,7 @@ class TestWorkstyleE2E(TransactionCase):
             'candidate_id': candidate.id, 'partner_name': 'Kandidat',
             'job_id': self.job.id,
         })
-        self._measure('hr.applicant', applicant.id, [
+        self._measure('hr.applicant,%s' % applicant.id, [
             (self.d, 7), (self.i, 3), (self.s, 7), (self.c, 8)],
             date='2025-01-15')
         applicant.invalidate_recordset()
@@ -79,17 +79,17 @@ class TestWorkstyleE2E(TransactionCase):
         self.assertEqual(employee.workstyle_i_latest, 3)
         # Kopian behåller rekryteringsmätningens datum.
         copied = self.env['hr.workstyle.assessment'].search([
-            ('res_model', '=', 'hr.employee'), ('res_id', '=', employee.id)])
+            ('person_ref', '=', 'hr.employee,%s' % employee.id)])
         self.assertEqual(str(copied.date), '2025-01-15')
 
         # 3. Utveckling över tid: I går 3 -> 5 -> 7.
         #    Kopian behåller rekryteringsmätningens datum (2025-01-15),
         #    så utvecklingsmätningarna läggs därefter.
-        self._measure('hr.employee', employee.id, [(self.i, 5)],
+        self._measure('hr.employee,%s' % employee.id, [(self.i, 5)],
                       date='2026-03-01')
         employee.invalidate_recordset()
         self.assertEqual(employee.workstyle_i_latest, 5)
-        self._measure('hr.employee', employee.id, [(self.i, 7)],
+        self._measure('hr.employee,%s' % employee.id, [(self.i, 7)],
                       date='2026-09-01')
         employee.invalidate_recordset()
         self.assertEqual(employee.workstyle_i_latest, 7)
@@ -99,10 +99,36 @@ class TestWorkstyleE2E(TransactionCase):
                    for g in employee.workstyle_gap_ids}
         self.assertEqual(by_code['I'], 'within', "I ska nå målzonen 6-9")
 
-        # 4. Ingen aggregerad poäng någonstans i kedjan.
+        # 4. Aggregerade fält: bara på personmodellerna, aldrig på
+        #    analysmodellerna.
+        #
+        #    PRODUKTÄGARBESLUT 2026-10-05: gaugerna behavioural_match och
+        #    matching_score är LAGRADE och får visas valbara/sorterbara i
+        #    listvyn. Användaren får ett av flera verktyg för att utvärdera
+        #    en sökande — modulen tvingar inte på en bedömning, men döljer
+        #    den inte heller.
+        #
+        #    Kvar som vakt: analysmodellerna (gap, assessment) får INTE bära
+        #    aggregerade fält. Där vore ett tal en del av själva analysen,
+        #    inte ett verktyg användaren väljer att titta på.
+        #
+        #    match_job_id är en Many2one (befattningen man jämför mot), inte
+        #    ett tal — namn-heuristiken fångar den på token 'match'.
+        GAUGES = {
+            'hr.employee': {'behavioural_match', 'matching_score'},
+            'hr.applicant': {'behavioural_match', 'matching_score'},
+        }
+        NOT_AGGREGATES = {
+            'hr.employee': {'match_job_id'},
+            'hr.applicant': {'match_job_id'},
+        }
         for model in ('hr.workstyle.gap', 'hr.workstyle.assessment',
                       'hr.employee', 'hr.applicant'):
+            gauges = GAUGES.get(model, set())
+            not_aggregates = NOT_AGGREGATES.get(model, set())
             for name in self.env[model]._fields:
+                if name in not_aggregates or name in gauges:
+                    continue
                 tokens = set(name.lower().split('_'))
                 self.assertFalse(
                     tokens & {'match', 'total', 'percent', 'fit', 'rank'},
@@ -112,11 +138,11 @@ class TestWorkstyleE2E(TransactionCase):
         """Utvecklingsvyn visar poäng över tid med zonen som referens."""
         employee = self.env['hr.employee'].create({
             'name': 'Utveckling', 'job_id': self.job.id})
-        self._measure('hr.employee', employee.id, [(self.i, 3)],
+        self._measure('hr.employee,%s' % employee.id, [(self.i, 3)],
                       date='2026-01-01')
-        self._measure('hr.employee', employee.id, [(self.i, 5)],
+        self._measure('hr.employee,%s' % employee.id, [(self.i, 5)],
                       date='2026-06-01')
-        self._measure('hr.employee', employee.id, [(self.i, 7)],
+        self._measure('hr.employee,%s' % employee.id, [(self.i, 7)],
                       date='2026-12-01')
         trend = self.env['hr.workstyle.trend'].create({
             'res_model': 'hr.employee', 'res_id': employee.id})

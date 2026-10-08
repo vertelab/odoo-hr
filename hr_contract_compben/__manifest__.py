@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
@@ -19,7 +19,7 @@ Contract Compensation & Benefits
     ''',
     'category': 'Human Resources',
     'description': 'Compensation & Benefits management for employee contracts.',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_contract_compben',
     'license': 'AGPL-3',
     'depends': ['hr_contract', 'hr'],

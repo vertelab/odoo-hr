@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 # https://www.odoo.com/documentation/18.0/reference/module.html
@@ -28,7 +28,7 @@ Employee Evaluations (Medarbetarsamtal)
         - UI Integration: Extends 3 view(s) in the Odoo interface.
         - Extends Odoo: Builds on employee_id, hr.evaluation, hr.evaluation.goal, hr.evaluation.plan.
     ''',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_evaluation',
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',

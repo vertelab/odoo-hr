@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 """Tester för hr_workstyle.
@@ -139,7 +139,7 @@ class TestWorkstyle(TransactionCase):
 
     def _measure(self, employee, scores, date=None):
         vals = {
-            'res_model': 'hr.employee', 'res_id': employee.id,
+            'person_ref': 'hr.employee,%s' % employee.id,
             'line_ids': [(0, 0, {'style_id': st.id, 'score': sc})
                          for st, sc in scores],
         }
@@ -151,8 +151,8 @@ class TestWorkstyle(TransactionCase):
         employee = self.env['hr.employee'].create({
             'name': 'Test', 'job_id': self.job.id})
         assessment = self._measure(employee, [(self.d, 7)])
-        self.assertEqual(assessment.res_model, 'hr.employee')
-        self.assertEqual(assessment.res_id, employee.id)
+        self.assertEqual(assessment.person_ref._name, 'hr.employee')
+        self.assertEqual(assessment.person_ref.id, employee.id)
 
     def test_score_outside_scale_rejected(self):
         employee = self.env['hr.employee'].create({'name': 'Test'})
@@ -279,7 +279,7 @@ class TestWorkstyleHire(TransactionCase):
         applicant = self.env['hr.applicant'].create({
             'candidate_id': candidate.id, 'partner_name': 'Kandidat'})
         assessment = self.env['hr.workstyle.assessment'].create({
-            'res_model': 'hr.applicant', 'res_id': applicant.id,
+            'person_ref': 'hr.applicant,%s' % applicant.id,
             'source': 'recruitment',
             'line_ids': [(0, 0, {'style_id': self.d.id, 'score': 6})],
         })
@@ -291,7 +291,7 @@ class TestWorkstyleHire(TransactionCase):
         created = applicant._copy_workstyle_to_employee(employee)
         self.assertEqual(created, 1)
         copied = self.env['hr.workstyle.assessment'].search([
-            ('res_model', '=', 'hr.employee'), ('res_id', '=', employee.id)])
+            ('person_ref', '=', 'hr.employee,%s' % employee.id)])
         self.assertEqual(len(copied), 1)
         self.assertEqual(copied.copied_from_id, assessment)
 
@@ -300,7 +300,7 @@ class TestWorkstyleHire(TransactionCase):
         employee = self.env['hr.employee'].create({'name': 'Kandidat'})
         applicant._copy_workstyle_to_employee(employee)
         self.assertTrue(assessment.exists())
-        self.assertEqual(assessment.res_model, 'hr.applicant')
+        self.assertEqual(assessment.person_ref._name, 'hr.applicant')
 
     def test_copy_preserves_scores(self):
         applicant, assessment = self._applicant_with_measurement()
@@ -318,7 +318,7 @@ class TestWorkstyleHire(TransactionCase):
         again = applicant._copy_workstyle_to_employee(employee)
         self.assertEqual(again, 0)
         copied = self.env['hr.workstyle.assessment'].search([
-            ('res_model', '=', 'hr.employee'), ('res_id', '=', employee.id)])
+            ('person_ref', '=', 'hr.employee,%s' % employee.id)])
         self.assertEqual(len(copied), 1)
 
     def test_no_measurement_no_copy(self):

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 """Gap-analys: tjänstens förväntade beteende mot personens nuvarande.
@@ -90,8 +90,20 @@ class HrWorkstyleGap(models.TransientModel):
         return 'within'
 
     @api.model
-    def _rows_for(self, res_model, res_id):
-        """Gap-rader för en person mot personens tjänst.
+    def debug_rows(self, res_model, res_id):
+        """Diagnostik: returnera raderna som _rows_for skulle ge.
+
+        Publik (inte _-prefixad) sa att den kan anropas via RPC under
+        felsokning. Ror ingen data.
+        """
+        return self._rows_for(res_model, res_id)
+
+    @api.model
+    def _rows_for(self, res_model, res_id, job=None):
+        """Gap-rader för en person mot en befattnings kravprofil.
+
+        `job` är befattningen att jämföra mot; utelämnad används personens
+        egen tjänst (record.job_id).
 
         Returnerar en lista av dicts. Tom lista när personen saknar
         tjänst, när tjänsten saknar kravprofil, eller när personen inte
@@ -101,7 +113,7 @@ class HrWorkstyleGap(models.TransientModel):
         if not record:
             return []
 
-        job = record.job_id
+        job = job or record.job_id
         if not job or not job.workstyle_line_ids:
             return []
 
@@ -140,3 +152,36 @@ class HrWorkstyleGap(models.TransientModel):
                      ('res_id', '=', res_id)]).unlink()
         rows = self._rows_for(res_model, res_id)
         return self.create(rows) if rows else self.browse()
+
+    @api.model
+    def _behavioural_match(self, res_model, res_id, job=None):
+        """Andel kravställda stilar som ligger inom rollens intervall.
+
+        ── MEDVETET AVSTEG FRÅN MODULENS DESIGNPRINCIP ──────────────────
+        Filhuvudet förbjuder en aggregerad matchningspoäng. Skälet står
+        där: ett sådant tal läses oundvikligen som ett betyg och blir ett
+        sorteringsverktyg — och i svensk rekrytering är automatiserat
+        personlighetsbaserat urval en diskrimineringsrisk.
+
+        Talet finns ändå, på uttrycklig begäran, som en GAUGE PÅ
+        PERSONENS EGEN FLIK — för att en handledare ska se översikten
+        över sin egen profil mot rollen. Det får därför INTE lyftas in i
+        listor, kanban eller sökdomäner: då blir det just det
+        sorteringsverktyg principen vill undvika. Ser du fältet någon
+        annanstans än i den enskilda personvyn är det en bugg.
+
+        Definition: andel av tjänstens kravställda stilar vars avvikelse
+        är 'within'. En omätt kravställd stil räknas INTE som inom — den
+        är obekräftad, inte godkänd. Saknar tjänsten kravprofil, eller
+        saknas mätning helt, returneras 0 (ingen falsk positiv).
+
+        `job` är befattningen att jämföra mot. Utelämnad används personens
+        egen tjänst (record.job_id).
+        """
+        record = self.env[res_model].browse(res_id).exists()
+        job = job or (record.job_id if record else None)
+        rows = self._rows_for(res_model, res_id, job=job)
+        if not rows:
+            return 0.0
+        within = sum(1 for row in rows if row['deviation'] == 'within')
+        return within / len(rows) * 100

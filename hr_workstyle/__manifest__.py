@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 # https://www.odoo.com/documentation/18.0/reference/module.html
 
 {
     'name': 'HR: Workstyle Profile (Beteendeprofil)',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.5.0',
     'summary': 'Behavioural style profiles for job positions and people (DISC-style).',
     'category': 'Human Resources',
     'description': '''
@@ -33,13 +33,14 @@ HR: Workstyle Profile (Beteendeprofil)
     matchningsprocent, aldrig rangordning av kandidater, aldrig automatisk
     gallring.
     ''',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_workstyle',
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',
     'depends': [
         'hr',
         'hr_recruitment',
+        'hr_recruitment_skills',
     ],
     'data': [
         'security/ir.model.access.csv',
@@ -48,11 +49,14 @@ HR: Workstyle Profile (Beteendeprofil)
         'views/hr_workstyle_style_views.xml',
         'views/hr_job_views.xml',
         'views/hr_employee_views.xml',
+        'views/hr_applicant_views.xml',
         'views/hr_workstyle_assessment_views.xml',
         'views/hr_workstyle_trend_views.xml',
         'views/menu.xml',
     ],
-    'demo': [],
+    'demo': [
+        'demo/hr_workstyle_demo.xml',
+    ],
     'application': True,
     'installable': True,
     'auto_install': False,
