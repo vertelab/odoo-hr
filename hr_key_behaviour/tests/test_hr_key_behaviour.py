@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo.tests import tagged
@@ -52,7 +52,7 @@ class TestKeyBehaviour(TransactionCase):
         d = self.env['hr.workstyle.style'].search([('code', '=', 'D')])
         t = self.env['hr.key.analysis.type'].search([('code', '=', 'individual')])
         assessment = self.env['hr.workstyle.assessment'].create({
-            'res_model': 'hr.employee', 'res_id': employee.id,
+            'person_ref': 'hr.employee,%s' % employee.id,
             'analysis_type_id': t.id,
             'line_ids': [(0, 0, {'style_id': d.id, 'score': 5})],
         })
@@ -67,7 +67,7 @@ class TestKeyBehaviour(TransactionCase):
         d = self.env['hr.workstyle.style'].search([('code', '=', 'D')])
         t = self.env['hr.key.analysis.type'].search([('code', '=', '360')])
         assessment = self.env['hr.workstyle.assessment'].create({
-            'res_model': 'hr.employee', 'res_id': employee.id,
+            'person_ref': 'hr.employee,%s' % employee.id,
             'analysis_type_id': t.id, 'feedback_provider_count': 6,
             'line_ids': [(0, 0, {'style_id': d.id, 'score': 5})],
         })
@@ -89,7 +89,7 @@ class TestKeyBehaviour(TransactionCase):
             emp = self.env['hr.employee'].create({
                 'name': name, 'department_id': dept.id})
             self.env['hr.workstyle.assessment'].create({
-                'res_model': 'hr.employee', 'res_id': emp.id,
+                'person_ref': 'hr.employee,%s' % emp.id,
                 'line_ids': [(0, 0, {'style_id': d.id, 'score': score})],
             })
         overview = self.env['hr.key.unit.overview'].new(

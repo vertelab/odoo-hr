@@ -37,7 +37,7 @@ Skill ESCO
         - UI Integration: Extends 1 view(s) in the Odoo interface.
         - Extends Odoo: Builds on display_name, hr.skill, hr.skill.level, hr.skill.type.
     ''',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_skill_esco',
     'images': ['static/description/banner.png'], 
     'license': 'AGPL-3',

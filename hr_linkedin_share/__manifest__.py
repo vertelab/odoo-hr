@@ -37,7 +37,7 @@ Linkdin Share
         - UI Integration: Extends 1 view(s) in the Odoo interface.
         - Extends Odoo: Builds on hr.resume.line.
     ''',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_linkedin_share',
     'images': ['static/description/banner.png'], 
     'license': 'AGPL-3',

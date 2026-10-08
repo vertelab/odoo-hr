@@ -37,7 +37,7 @@ Remove Attendance Barcode
         - UI Integration: Extends 2 view(s) in the Odoo interface.
         - Extends Odoo: Builds on existing Odoo models.
     ''',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_remove_attendance_barcode',
     'images': ['static/description/banner.png'],
     'license': 'AGPL-3',

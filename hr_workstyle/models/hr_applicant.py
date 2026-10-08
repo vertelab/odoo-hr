@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 """Mätningar på hr.applicant — kandidatens nuvarande beteende.
@@ -17,10 +17,47 @@ from odoo import api, fields, models
 class HrApplicant(models.Model):
     _inherit = 'hr.applicant'
 
+    # Compute, inte invers One2many — samma skäl och samma två fallgropar
+    # som i hr_employee.py: fältet måste vara sökbart och cachen måste
+    # invalideras när en mätning ändras.
     workstyle_assessment_ids = fields.One2many(
-        'hr.workstyle.assessment', 'res_id',
-        string='Behavioural Measurements',
-        domain=[('res_model', '=', 'hr.applicant')])
+        'hr.workstyle.assessment',
+        compute='_compute_workstyle_assessment_ids',
+        search='_search_workstyle_assessment_ids',
+        string='Behavioural Measurements')
+
+    def _compute_workstyle_assessment_ids(self):
+        Assessment = self.env['hr.workstyle.assessment']
+        for applicant in self:
+            applicant.workstyle_assessment_ids = Assessment.search([
+                ('person_ref', '=', 'hr.applicant,%s' % applicant.id)],
+                order='date desc, id desc')
+
+    def _search_workstyle_assessment_ids(self, operator, value):
+        """Översätt en domän på fältet till ett filter på hr.applicant.
+
+        Samma skäl som i hr_employee.py: fältet är ett polymorft
+        Reference och Odoo kan inte bygga en invers själv.
+        """
+        Assessment = self.env['hr.workstyle.assessment']
+
+        if value is False:
+            # Även här ger mapped() på ett Reference-fält en LISTA.
+            found = Assessment.search(
+                [('person_ref', '=like', 'hr.applicant,%')])
+            ids = [a.person_ref.id for a in found if a.person_ref]
+            return [('id', 'in' if operator in ('!=', 'not in') else 'not in', ids)]
+
+        identifiers = value if isinstance(value, list) else [value]
+        assessments = Assessment.search([('id', operator, identifiers)])
+        # mapped() på ett Reference-fält ger en LISTA av recordsets —
+        # inte ett recordset. Plocka ut id:na per post i stället.
+        person_ids = [
+            a.person_ref.id for a in assessments
+            if a.person_ref and a.person_ref._name == 'hr.applicant']
+        if operator in ('!=', 'not in'):
+            return [('id', 'not in', person_ids)]
+        return [('id', 'in', person_ids)]
 
     workstyle_assessment_count = fields.Integer(
         string='Measurements',
@@ -31,17 +68,119 @@ class HrApplicant(models.Model):
         compute='_compute_workstyle_latest')
 
     workstyle_d_latest = fields.Integer(
-        string='D', compute='_compute_workstyle_latest', store=False)
+        string='D', compute='_compute_workstyle_latest', store=False,
+        inverse='_inverse_workstyle_d_latest')
     workstyle_i_latest = fields.Integer(
-        string='I', compute='_compute_workstyle_latest', store=False)
+        string='I', compute='_compute_workstyle_latest', store=False,
+        inverse='_inverse_workstyle_i_latest')
     workstyle_s_latest = fields.Integer(
-        string='S', compute='_compute_workstyle_latest', store=False)
+        string='S', compute='_compute_workstyle_latest', store=False,
+        inverse='_inverse_workstyle_s_latest')
     workstyle_c_latest = fields.Integer(
-        string='C', compute='_compute_workstyle_latest', store=False)
+        string='C', compute='_compute_workstyle_latest', store=False,
+        inverse='_inverse_workstyle_c_latest')
+
+    def _inverse_workstyle_d_latest(self):
+        for applicant in self:
+            self.env['hr.workstyle.assessment']._set_person_score(
+                'hr.applicant', applicant.id, 'D',
+                applicant.workstyle_d_latest)
+
+    def _inverse_workstyle_i_latest(self):
+        for applicant in self:
+            self.env['hr.workstyle.assessment']._set_person_score(
+                'hr.applicant', applicant.id, 'I',
+                applicant.workstyle_i_latest)
+
+    def _inverse_workstyle_s_latest(self):
+        for applicant in self:
+            self.env['hr.workstyle.assessment']._set_person_score(
+                'hr.applicant', applicant.id, 'S',
+                applicant.workstyle_s_latest)
+
+    def _inverse_workstyle_c_latest(self):
+        for applicant in self:
+            self.env['hr.workstyle.assessment']._set_person_score(
+                'hr.applicant', applicant.id, 'C',
+                applicant.workstyle_c_latest)
 
     workstyle_gap_ids = fields.One2many(
         'hr.workstyle.gap', compute='_compute_workstyle_gap',
         string='Behavioural Gap')
+
+    # Befattningen man JÄMFÖR mot i Beteende-fliken. Default = personens
+    # egen tjänst. Samma mönster som hr.employee.match_job_id.
+    match_job_id = fields.Many2one(
+        'hr.job', string='Compare Against',
+        help="Befattning att jämföra profilen mot. Ändra för att se hur "
+             "kandidaten matchar en annan roll.")
+
+    # Beteendematchning mot rollens intervall — VISNING i personens egen
+    # flik. Se hr_workstyle_gap._behavioural_match för varför detta är ett
+    # medvetet avsteg från modulens princip, och varför fältet inte får
+    # lyftas in i listor/kanban/sökdomäner.
+    behavioural_match = fields.Float(
+        string='Behavioural Match (%)',
+        compute='_compute_behavioural_match', store=True)
+
+    @api.depends('workstyle_latest_id', 'match_job_id',
+                 'match_job_id.workstyle_line_ids',
+                 'job_id', 'job_id.workstyle_line_ids')
+    def _compute_behavioural_match(self):
+        Gap = self.env['hr.workstyle.gap']
+        for applicant in self:
+            # Tomt match_job_id = personens egen tjänst.
+            applicant.behavioural_match = Gap._behavioural_match(
+                'hr.applicant', applicant.id,
+                job=applicant.match_job_id or applicant.job_id)
+
+    # ── Kompetensmatchning mot tjänsten (visning) ──────────────────────
+    #
+    # hr_recruitment_skills har matching_score på hr.candidate, men dess
+    # compute läser context['active_id'] = TJÄNSTEN man bläddrar i. På ett
+    # applicant-formulär är active_id applicantens eget id, så ett rakt
+    # related-fält hade gett fel tal (oftast 0). Vi räknar därför mot den
+    # VALDA befattningen (match_job_id), med personens egen tjänst som
+    # fallback — rätt svar var man än öppnar posten ifrån.
+    #
+    # Fälten är bara VISNING (gauge + taggar). Ingen gallring, ingen
+    # rangordning — samma designprincip som resten av modulen.
+    matching_score = fields.Float(
+        string='Skill Match (%)', compute='_compute_matching_score',
+        store=True, compute_sudo=True)
+    # Tagglisterna är VISNING — de lagras inte. Ett lagrat many2many
+    # skulle dela tabell med skill_ids (samma relation) och krascha
+    # vid registreringen. Gaugen (matching_score) är den som lagras.
+    matching_skill_ids = fields.Many2many(
+        'hr.skill', string='Matching Skills',
+        compute='_compute_matching_skill_ids', store=False)
+    missing_skill_ids = fields.Many2many(
+        'hr.skill', string='Missing Skills',
+        compute='_compute_matching_skill_ids', store=False)
+
+    def _matching_skills(self):
+        """Returnera (träffar, saknade, alla krav) mot vald befattning."""
+        self.ensure_one()
+        job = self.match_job_id or self.job_id
+        job_skills = job.skill_ids
+        return (job_skills & self.skill_ids, job_skills - self.skill_ids,
+                job_skills)
+
+    @api.depends('skill_ids', 'match_job_id', 'match_job_id.skill_ids',
+                 'job_id', 'job_id.skill_ids')
+    def _compute_matching_score(self):
+        for applicant in self:
+            matched, _missing, job_skills = applicant._matching_skills()
+            applicant.matching_score = (
+                len(matched) / len(job_skills) * 100 if job_skills else 0)
+
+    @api.depends('skill_ids', 'match_job_id', 'match_job_id.skill_ids',
+                 'job_id', 'job_id.skill_ids')
+    def _compute_matching_skill_ids(self):
+        for applicant in self:
+            matched, missing, _job_skills = applicant._matching_skills()
+            applicant.matching_skill_ids = matched
+            applicant.missing_skill_ids = missing
 
     @api.depends('workstyle_assessment_ids')
     def _compute_workstyle_assessment_count(self):
@@ -74,8 +213,8 @@ class HrApplicant(models.Model):
         Gap = self.env['hr.workstyle.gap']
         for applicant in self:
             rows = Gap._rows_for('hr.applicant', applicant.id)
-            applicant.workstyle_gap_ids = Gap.browse(
-                [Gap.new(row).id for row in rows])
+            applicant.workstyle_gap_ids = Gap.create(rows) if rows \
+                else Gap.browse()
 
     def action_view_workstyle_assessments(self):
         self.ensure_one()
@@ -84,10 +223,8 @@ class HrApplicant(models.Model):
             'name': 'Behavioural Measurements',
             'res_model': 'hr.workstyle.assessment',
             'view_mode': 'list,form',
-            'domain': [('res_model', '=', 'hr.applicant'),
-                       ('res_id', '=', self.id)],
-            'context': {'default_res_model': 'hr.applicant',
-                        'default_res_id': self.id},
+            'domain': [('person_ref', '=', 'hr.applicant,%s' % self.id)],
+            'context': {'default_person_ref': 'hr.applicant,%s' % self.id},
         }
 
     def action_open_workstyle_trend(self):
@@ -119,14 +256,12 @@ class HrApplicant(models.Model):
         for assessment in self.workstyle_assessment_ids:
             already = Assessment.search_count([
                 ('copied_from_id', '=', assessment.id),
-                ('res_model', '=', 'hr.employee'),
-                ('res_id', '=', employee.id),
+                ('person_ref', '=', 'hr.employee,%s' % employee.id),
             ])
             if already:
                 continue
             Assessment.create({
-                'res_model': 'hr.employee',
-                'res_id': employee.id,
+                'person_ref': 'hr.employee,%s' % employee.id,
                 'date': assessment.date,
                 'assessor_id': assessment.assessor_id.id,
                 'source': 'recruitment',
