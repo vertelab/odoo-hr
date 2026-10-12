@@ -7,3 +7,9 @@ access_hr_workstyle_assessment_hr,hr.workstyle.assessment.hr,model_hr_workstyle_
 access_hr_workstyle_assessment_manager,hr.workstyle.assessment.manager,model_hr_workstyle_assessment,hr.group_hr_manager,1,1,1,1
 access_hr_workstyle_assessment_line_hr,hr.workstyle.assessment.line.hr,model_hr_workstyle_assessment_line,hr.group_hr_user,1,1,1,1
 access_hr_workstyle_assessment_line_manager,hr.workstyle.assessment.line.manager,model_hr_workstyle_assessment_line,hr.group_hr_manager,1,1,1,1
+access_hr_workstyle_gap_hr,hr.workstyle.gap.hr,model_hr_workstyle_gap,hr.group_hr_user,1,1,1,1
+access_hr_workstyle_gap_manager,hr.workstyle.gap.manager,model_hr_workstyle_gap,hr.group_hr_manager,1,1,1,1
+access_hr_workstyle_trend_hr,hr.workstyle.trend.hr,model_hr_workstyle_trend,hr.group_hr_user,1,1,1,1
+access_hr_workstyle_trend_manager,hr.workstyle.trend.manager,model_hr_workstyle_trend,hr.group_hr_manager,1,1,1,1
+access_hr_workstyle_trend_line_hr,hr.workstyle.trend.line.hr,model_hr_workstyle_trend_line,hr.group_hr_user,1,1,1,1
+access_hr_workstyle_trend_line_manager,hr.workstyle.trend.line.manager,model_hr_workstyle_trend_line,hr.group_hr_manager,1,1,1,1

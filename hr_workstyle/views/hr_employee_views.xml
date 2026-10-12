@@ -2,9 +2,10 @@
 <!--
     Beteendeprofil på hr.employee.
 
-    Zonbandet ritas i en egen vy. Ingen sorterbar poänglista — avvikelsen
-    får inte bli ett gallringsverktyg. Se designprincipen i
-    models/hr_workstyle_gap.py.
+    Formuläret visar profilen mot en vald befattning (match_job_id) med två
+    gauges. Gaugerna finns även i listvyn, valbara och sorterbara — ett av
+    flera verktyg för att utvärdera, på uttrycklig begäran
+    (produktägarbeslut 2026-10-05).
 -->
 <odoo>
 
@@ -30,47 +31,69 @@
             <xpath expr="//notebook" position="inside">
                 <page string="Behavioural Profile" name="workstyle_profile"
                       groups="hr.group_hr_user">
-                    <group string="Latest Measurement">
-                        <group>
-                            <field name="workstyle_latest_id"/>
-                            <field name="workstyle_d_latest"/>
-                            <field name="workstyle_i_latest"/>
-                        </group>
-                        <group>
-                            <field name="workstyle_s_latest"/>
-                            <field name="workstyle_c_latest"/>
-                        </group>
+
+                    <!-- Två kolumner: inmatning till vänster, gauges till
+                         höger.
+
+                         Fälten workstyle_d/i/s/c_latest är compute +
+                         inverse. VARJE ändring skapar en NY mätning
+                         daterad idag — historiken är avsiktlig
+                         (produktägarbeslut 2026-10-05). De andra
+                         stilarnas poäng bärs vidare från föregående
+                         mätning, så profilen alltid är komplett.
+
+                         match_job_id styr vad gaugerna jämför mot. Tomt =
+                         personens egen tjänst. Ändra den för att se hur
+                         personen matchar en annan roll. -->
+                    <group>
+                        <field name="match_job_id"
+                               options="{'no_create': True}"/>
                     </group>
-                    <group string="Against the job's expected range">
-                        <field name="workstyle_gap_ids" nolabel="1" colspan="2">
-                            <list create="false" edit="false" delete="false">
-                                <field name="style_id"/>
-                                <field name="value"/>
-                                <field name="ideal_min"/>
-                                <field name="ideal_max"/>
-                                <field name="deviation"
-                                       decoration-success="deviation == 'within'"
-                                       decoration-muted="deviation == 'unmeasured'"
-                                       decoration-info="deviation == 'over_zone'"
-                                       decoration-warning="deviation == 'under_zone'"/>
-                                <field name="importance"/>
-                                <field name="rationale"/>
-                            </list>
-                        </field>
-                    </group>
-                    <group string="History">
-                        <field name="workstyle_assessment_ids" nolabel="1" colspan="2">
-                            <list create="false">
-                                <field name="date"/>
-                                <field name="assessor_id"/>
-                                <field name="source"/>
-                                <field name="copied_from_id"/>
-                            </list>
-                        </field>
-                    </group>
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <group string="Latest Measurement">
+                                <field name="workstyle_latest_id"/>
+                                <group>
+                                    <field name="workstyle_d_latest"/>
+                                    <field name="workstyle_i_latest"/>
+                                </group>
+                                <group>
+                                    <field name="workstyle_s_latest"/>
+                                    <field name="workstyle_c_latest"/>
+                                </group>
+                            </group>
+                        </div>
+                        <div class="col-lg-5">
+                            <group string="Match">
+                                <field name="matching_score" nolabel="1"
+                                       widget="gauge"
+                                       options="{'max_value': 100}"/>
+                                <field name="behavioural_match" nolabel="1"
+                                       widget="gauge"
+                                       options="{'max_value': 100}"/>
+                            </group>
+                        </div>
+                    </div>
                 </page>
             </xpath>
 
+        </field>
+    </record>
+
+    <!-- Gaugerna i personal-listan: valbara (optional) och sorterbara.
+         optional="show" = synliga direkt; användaren kan slå av dem.
+         Fälten är lagrade, så sortering sker i SQL. -->
+    <record id="view_hr_employee_list_workstyle" model="ir.ui.view">
+        <field name="name">hr.employee.list.inherit.workstyle</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="matching_score" optional="show"
+                       widget="gauge" options="{'max_value': 100}"/>
+                <field name="behavioural_match" optional="show"
+                       widget="gauge" options="{'max_value': 100}"/>
+            </field>
         </field>
     </record>
 
