@@ -5,7 +5,7 @@
               name="Behavioural Profiles"
               parent="hr.menu_hr_root"
               groups="hr.group_hr_user"
-              sequence="95"/>
+              sequence="50"/>
 
     <menuitem id="menu_hr_workstyle_assessment"
               name="Measurements"

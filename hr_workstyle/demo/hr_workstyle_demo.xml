@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Demo: beteendeprofiler på befattningar och anställda.
+
+    Laddas bara när Odoo installeras MED demo (hr:s egen demodata måste
+    finnas — vi refererar hr.job_* och hr.employee_*).
+
+    Två lager:
+      1. Kravprofiler (hr.job.workstyle.line) — rollens förväntade
+         intervall per stil, med motiv. Intervallet är en ZON, inte ett
+         idealvärde: både under och över är information.
+      2. Mätningar (hr.workstyle.assessment) — personernas profiler.
+         De flesta ligger inom rollens zon (mätningen "passar"), men
+         några avviker medvetet på EN stil. En demo där alla matchar
+         100 % vore missvisande: modulen handlar om avvikelser, inte
+         om att sätta betyg.
+
+    Skalan är 1-10 (se hr_workstyle.style).
+
+    Personreferensen är ett Reference-fält: 'hr.employee,<id>'. I demo
+    löses id:t med ref(), t.ex. eval="'hr.employee,%s' % ref('hr.employee_admin')".
+-->
+<odoo>
+    <data>
+
+        <!-- ── Kompetenskrav per befattning ─────────────────────────
+             Så att Skill Match-gaugen blir meningsfull i demot: utan
+             krav på tjänsten är nämnaren noll och gaugen står på 0.
+             Kompetenser = vad någon KAN (hr_skills); beteende = HUR
+             någon agerar (denna modul). De två hålls åtskilda men
+             visas sida vid sida. -->
+        <record id="hr.job_ceo" model="hr.job">
+            <field name="skill_ids" eval="[Command.set([
+                ref('hr_skills.hr_skill_leadership'),
+                ref('hr_skills.hr_skill_decision_making'),
+                ref('hr_skills.hr_skill_communication'),
+                ref('hr_skills.hr_skill_organizational'),
+            ])]"/>
+        </record>
+        <record id="hr.job_cto" model="hr.job">
+            <field name="skill_ids" eval="[Command.set([
+                ref('hr_skills.hr_skill_python'),
+                ref('hr_skills.hr_skill_js'),
+                ref('hr_skills.hr_skill_critical_thinking'),
+                ref('hr_skills.hr_skill_communication'),
+            ])]"/>
+        </record>
+        <record id="hr.job_consultant" model="hr.job">
+            <field name="skill_ids" eval="[Command.set([
+                ref('hr_skills.hr_skill_communication'),
+                ref('hr_skills.hr_skill_organizational'),
+                ref('hr_skills.hr_skill_time_management'),
+                ref('hr_skills.hr_skill_adaptability'),
+            ])]"/>
+        </record>
+        <record id="hr.job_developer" model="hr.job">
+            <field name="skill_ids" eval="[Command.set([
+                ref('hr_skills.hr_skill_python'),
+                ref('hr_skills.hr_skill_js'),
+                ref('hr_skills.hr_skill_sql'),
+                ref('hr_skills.hr_skill_problem_solving'),
+            ])]"/>
+        </record>
+        <record id="hr.job_hrm" model="hr.job">
+            <field name="skill_ids" eval="[Command.set([
+                ref('hr_skills.hr_skill_communication'),
+                ref('hr_skills.hr_skill_conflict_management'),
+                ref('hr_skills.hr_skill_organizational'),
+                ref('hr_skills.hr_skill_leadership'),
+            ])]"/>
+        </record>
+        <record id="hr.job_marketing" model="hr.job">
+            <field name="skill_ids" eval="[Command.set([
+                ref('hr_skills.hr_skill_communication'),
+                ref('hr_skills.hr_skill_digital_ad'),
+                ref('hr_skills.hr_skill_email'),
+                ref('hr_skills.hr_skill_creativity'),
+            ])]"/>
+        </record>
+        <record id="hr.job_trainee" model="hr.job">
+            <field name="skill_ids" eval="[Command.set([
+                ref('hr_skills.hr_skill_communication'),
+                ref('hr_skills.hr_skill_teamwork'),
+                ref('hr_skills.hr_skill_adaptability'),
+            ])]"/>
+        </record>
+
+        <!-- ── Kravprofiler per befattning ───────────────────────────── -->
+
+        <!-- CEO: driver resultat, bygger relationer, står stadigt,
+             analyserar. Brett spektrum — toppen kräver allt. -->
+        <record id="jobreq_ceo_d" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_ceo"/>
+            <field name="style_id" ref="style_d"/>
+            <field name="ideal_min">7</field>
+            <field name="ideal_max">9</field>
+            <field name="importance">critical</field>
+            <field name="rationale">Driver beslut och tar ansvar för riktningen.</field>
+        </record>
+        <record id="jobreq_ceo_i" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_ceo"/>
+            <field name="style_id" ref="style_i"/>
+            <field name="ideal_min">5</field>
+            <field name="ideal_max">7</field>
+            <field name="importance">important</field>
+            <field name="rationale">Förmår entusiasmera och representera utåt.</field>
+        </record>
+        <record id="jobreq_ceo_s" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_ceo"/>
+            <field name="style_id" ref="style_s"/>
+            <field name="ideal_min">3</field>
+            <field name="ideal_max">6</field>
+            <field name="importance">important</field>
+            <field name="rationale">Uthållighet när motgångar kommer.</field>
+        </record>
+        <record id="jobreq_ceo_c" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_ceo"/>
+            <field name="style_id" ref="style_c"/>
+            <field name="ideal_min">5</field>
+            <field name="ideal_max">7</field>
+            <field name="importance">important</field>
+            <field name="rationale">Väger underlag innan stora beslut.</field>
+        </record>
+
+        <!-- CTO: tekniskt djup, analys och kvalitet går före tempo. -->
+        <record id="jobreq_cto_d" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_cto"/>
+            <field name="style_id" ref="style_d"/>
+            <field name="ideal_min">6</field>
+            <field name="ideal_max">8</field>
+            <field name="importance">important</field>
+            <field name="rationale">Tar tekniska beslut och håller kursen.</field>
+        </record>
+        <record id="jobreq_cto_i" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_cto"/>
+            <field name="style_id" ref="style_i"/>
+            <field name="ideal_min">3</field>
+            <field name="ideal_max">5</field>
+            <field name="importance">nice_to_have</field>
+            <field name="rationale">Sprider tekniken internt — inte ett säljjobb.</field>
+        </record>
+        <record id="jobreq_cto_s" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_cto"/>
+            <field name="style_id" ref="style_s"/>
+            <field name="ideal_min">3</field>
+            <field name="ideal_max">5</field>
+            <field name="importance">nice_to_have</field>
+            <field name="rationale">Stöttar teamet utan att ta över.</field>
+        </record>
+        <record id="jobreq_cto_c" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_cto"/>
+            <field name="style_id" ref="style_c"/>
+            <field name="ideal_min">7</field>
+            <field name="ideal_max">9</field>
+            <field name="importance">critical</field>
+            <field name="rationale">Arkitektur- och kvalitetsbeslut kräver noggrannhet.</field>
+        </record>
+
+        <!-- Consultant: kundrelation i centrum, brett spektrum. -->
+        <record id="jobreq_cons_d" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_consultant"/>
+            <field name="style_id" ref="style_d"/>
+            <field name="ideal_min">5</field>
+            <field name="ideal_max">7</field>
+            <field name="importance">important</field>
+            <field name="rationale">Driver uppdrag framåt mot deadline.</field>
+        </record>
+        <record id="jobreq_cons_i" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_consultant"/>
+            <field name="style_id" ref="style_i"/>
+            <field name="ideal_min">6</field>
+            <field name="ideal_max">8</field>
+            <field name="importance">critical</field>
+            <field name="rationale">Bygger förtroende hos kunden.</field>
+        </record>
+        <record id="jobreq_cons_s" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_consultant"/>
+            <field name="style_id" ref="style_s"/>
+            <field name="ideal_min">4</field>
+            <field name="ideal_max">6</field>
+            <field name="importance">important</field>
+            <field name="rationale">Lugn i kundens förändringsarbete.</field>
+        </record>
+        <record id="jobreq_cons_c" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_consultant"/>
+            <field name="style_id" ref="style_c"/>
+            <field name="ideal_min">4</field>
+            <field name="ideal_max">6</field>
+            <field name="importance">important</field>
+            <field name="rationale">Levererar underlag som håller.</field>
+        </record>
+
+        <!-- Developer: fokus, liten social yta, hög noggrannhet. -->
+        <record id="jobreq_dev_d" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_developer"/>
+            <field name="style_id" ref="style_d"/>
+            <field name="ideal_min">4</field>
+            <field name="ideal_max">6</field>
+            <field name="importance">nice_to_have</field>
+            <field name="rationale">Tar sig igenom problem utan att fastna.</field>
+        </record>
+        <record id="jobreq_dev_i" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_developer"/>
+            <field name="style_id" ref="style_i"/>
+            <field name="ideal_min">2</field>
+            <field name="ideal_max">4</field>
+            <field name="importance">nice_to_have</field>
+            <field name="rationale">Fokuserat arbete gynnas av låg social yta.</field>
+        </record>
+        <record id="jobreq_dev_s" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_developer"/>
+            <field name="style_id" ref="style_s"/>
+            <field name="ideal_min">4</field>
+            <field name="ideal_max">6</field>
+            <field name="importance">important</field>
+            <field name="rationale">Metodiskt arbete över tid.</field>
+        </record>
+        <record id="jobreq_dev_c" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_developer"/>
+            <field name="style_id" ref="style_c"/>
+            <field name="ideal_min">7</field>
+            <field name="ideal_max">9</field>
+            <field name="importance">critical</field>
+            <field name="rationale">Korrekthet och detaljer är hela yrket.</field>
+        </record>
+
+        <!-- HR Manager: människor och stabilitet, inte analysdjup. -->
+        <record id="jobreq_hrm_d" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_hrm"/>
+            <field name="style_id" ref="style_d"/>
+            <field name="ideal_min">4</field>
+            <field name="ideal_max">6</field>
+            <field name="importance">nice_to_have</field>
+            <field name="rationale">Förmår driva frågor men lyssnar först.</field>
+        </record>
+        <record id="jobreq_hrm_i" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_hrm"/>
+            <field name="style_id" ref="style_i"/>
+            <field name="ideal_min">6</field>
+            <field name="ideal_max">8</field>
+            <field name="importance">important</field>
+            <field name="rationale">Möter människor med värme.</field>
+        </record>
+        <record id="jobreq_hrm_s" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_hrm"/>
+            <field name="style_id" ref="style_s"/>
+            <field name="ideal_min">7</field>
+            <field name="ideal_max">9</field>
+            <field name="importance">critical</field>
+            <field name="rationale">Bär förtroenden och håller över tid.</field>
+        </record>
+        <record id="jobreq_hrm_c" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_hrm"/>
+            <field name="style_id" ref="style_c"/>
+            <field name="ideal_min">4</field>
+            <field name="ideal_max">6</field>
+            <field name="importance">nice_to_have</field>
+            <field name="rationale">Håller ordning i regelverk och rutiner.</field>
+        </record>
+
+        <!-- Marketing: utåtriktad, låg analys, högt tempo. -->
+        <record id="jobreq_mkt_d" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_marketing"/>
+            <field name="style_id" ref="style_d"/>
+            <field name="ideal_min">5</field>
+            <field name="ideal_max">7</field>
+            <field name="importance">important</field>
+            <field name="rationale">Driver kampanjer och håller tempo.</field>
+        </record>
+        <record id="jobreq_mkt_i" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_marketing"/>
+            <field name="style_id" ref="style_i"/>
+            <field name="ideal_min">8</field>
+            <field name="ideal_max">9</field>
+            <field name="importance">critical</field>
+            <field name="rationale">Berättar och engagerar — kärnan i rollen.</field>
+        </record>
+        <record id="jobreq_mkt_s" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_marketing"/>
+            <field name="style_id" ref="style_s"/>
+            <field name="ideal_min">4</field>
+            <field name="ideal_max">6</field>
+            <field name="importance">nice_to_have</field>
+            <field name="rationale">Följer upp relationer över tid.</field>
+        </record>
+        <record id="jobreq_mkt_c" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_marketing"/>
+            <field name="style_id" ref="style_c"/>
+            <field name="ideal_min">3</field>
+            <field name="ideal_max">5</field>
+            <field name="importance">nice_to_have</field>
+            <field name="rationale">Mäter resultat utan att fastna i detaljer.</field>
+        </record>
+
+        <!-- Trainee: brett och förlåtande — ännu ingen nisch. -->
+        <record id="jobreq_tra_d" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_trainee"/>
+            <field name="style_id" ref="style_d"/>
+            <field name="ideal_min">3</field>
+            <field name="ideal_max">6</field>
+            <field name="importance">nice_to_have</field>
+            <field name="rationale">Vågar ta initiativ under handledning.</field>
+        </record>
+        <record id="jobreq_tra_i" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_trainee"/>
+            <field name="style_id" ref="style_i"/>
+            <field name="ideal_min">4</field>
+            <field name="ideal_max">7</field>
+            <field name="importance">nice_to_have</field>
+            <field name="rationale">Frågar och lär i samspel med andra.</field>
+        </record>
+        <record id="jobreq_tra_s" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_trainee"/>
+            <field name="style_id" ref="style_s"/>
+            <field name="ideal_min">4</field>
+            <field name="ideal_max">7</field>
+            <field name="importance">important</field>
+            <field name="rationale">Tar emot handledning utan att tappa fart.</field>
+        </record>
+        <record id="jobreq_tra_c" model="hr.job.workstyle.line">
+            <field name="job_id" ref="hr.job_trainee"/>
+            <field name="style_id" ref="style_c"/>
+            <field name="ideal_min">4</field>
+            <field name="ideal_max">7</field>
+            <field name="importance">nice_to_have</field>
+            <field name="rationale">Lär sig rutinerna ordentligt.</field>
+        </record>
+
+        <!-- ── Mätningar ─────────────────────────────────────────────
+             Varje person får en profil som i huvudsak ligger inom
+             rollens zon. Några avviker på EN stil — det är där
+             gap-analysen blir läsbar. -->
+
+        <!-- CEO — inom alla zoner -->
+        <record id="assessment_admin" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_admin')"/>
+            <field name="date">2025-09-01</field>
+            <field name="source">development</field>
+            <field name="note">Baslinje vid rollövertagande.</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 8}),
+                Command.create({'style_id': ref('style_i'), 'score': 8}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 6}),
+            ]"/>
+        </record>
+
+        <!-- CTO — inom alla zoner -->
+        <record id="assessment_al" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_al')"/>
+            <field name="date">2025-10-01</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 7}),
+                Command.create({'style_id': ref('style_i'), 'score': 4}),
+                Command.create({'style_id': ref('style_s'), 'score': 4}),
+                Command.create({'style_id': ref('style_c'), 'score': 6}),
+            ]"/>
+        </record>
+
+        <!-- HR Manager — inom alla zoner -->
+        <record id="assessment_vad" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_vad')"/>
+            <field name="date">2025-09-15</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 5}),
+                Command.create({'style_id': ref('style_i'), 'score': 7}),
+                Command.create({'style_id': ref('style_s'), 'score': 10}),
+                Command.create({'style_id': ref('style_c'), 'score': 5}),
+            ]"/>
+        </record>
+
+        <!-- Marketing — inom alla zoner -->
+        <record id="assessment_ngh" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_ngh')"/>
+            <field name="date">2025-09-20</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 6}),
+                Command.create({'style_id': ref('style_i'), 'score': 8}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 4}),
+            ]"/>
+        </record>
+
+        <!-- Marketing — C ligger ÖVER zonen (3-5): tänker efter för mycket
+             för att hålla kampanjtempo. Avvikelsen är information. -->
+        <record id="assessment_lur" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_lur')"/>
+            <field name="date">2025-10-05</field>
+            <field name="source">development</field>
+            <field name="note">Stark analytiker i en roll som vill ha tempo.</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 6}),
+                Command.create({'style_id': ref('style_i'), 'score': 8}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 7}),
+            ]"/>
+        </record>
+
+        <!-- Developer — inom alla zoner -->
+        <record id="assessment_qdp" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_qdp')"/>
+            <field name="date">2025-09-10</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 5}),
+                Command.create({'style_id': ref('style_i'), 'score': 3}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 8}),
+            ]"/>
+        </record>
+
+        <!-- Developer — D UNDER zonen (4-6): tar sällan initiativ
+             utåt, levererar ändå. -->
+        <record id="assessment_chs" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_chs')"/>
+            <field name="date">2025-10-12</field>
+            <field name="source">development</field>
+            <field name="note">Djup specialist; behöver tydliga uppdrag.</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 3}),
+                Command.create({'style_id': ref('style_i'), 'score': 2}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 9}),
+            ]"/>
+        </record>
+
+        <!-- Consultant — inom alla zoner -->
+        <record id="assessment_hne" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_hne')"/>
+            <field name="date">2025-09-25</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 6}),
+                Command.create({'style_id': ref('style_i'), 'score': 9}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 5}),
+            ]"/>
+        </record>
+
+        <!-- Consultant — I UNDER zonen (6-8): stark leverans, svagare
+             relationsbygge. -->
+        <record id="assessment_jep" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_jep')"/>
+            <field name="date">2025-10-18</field>
+            <field name="source">development</field>
+            <field name="note">Tekniskt stark; bygger relationer långsammare.</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 6}),
+                Command.create({'style_id': ref('style_i'), 'score': 4}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 6}),
+            ]"/>
+        </record>
+
+        <!-- Fler konsulter, inom zon -->
+        <record id="assessment_fpi" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_fpi')"/>
+            <field name="date">2025-09-28</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 5}),
+                Command.create({'style_id': ref('style_i'), 'score': 7}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 7}),
+            ]"/>
+        </record>
+        <record id="assessment_jgo" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_jgo')"/>
+            <field name="date">2025-10-02</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 5}),
+                Command.create({'style_id': ref('style_i'), 'score': 8}),
+                Command.create({'style_id': ref('style_s'), 'score': 7}),
+                Command.create({'style_id': ref('style_c'), 'score': 4}),
+            ]"/>
+        </record>
+
+        <!-- Fler utvecklare, inom zon -->
+        <record id="assessment_fme" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_fme')"/>
+            <field name="date">2025-09-12</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 4}),
+                Command.create({'style_id': ref('style_i'), 'score': 2}),
+                Command.create({'style_id': ref('style_s'), 'score': 6}),
+                Command.create({'style_id': ref('style_c'), 'score': 9}),
+            ]"/>
+        </record>
+        <record id="assessment_mit" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_mit')"/>
+            <field name="date">2025-09-16</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 7}),
+                Command.create({'style_id': ref('style_i'), 'score': 3}),
+                Command.create({'style_id': ref('style_s'), 'score': 4}),
+                Command.create({'style_id': ref('style_c'), 'score': 8}),
+            ]"/>
+        </record>
+        <record id="assessment_niv" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_niv')"/>
+            <field name="date">2025-09-19</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 5}),
+                Command.create({'style_id': ref('style_i'), 'score': 4}),
+                Command.create({'style_id': ref('style_s'), 'score': 3}),
+                Command.create({'style_id': ref('style_c'), 'score': 7}),
+            ]"/>
+        </record>
+        <record id="assessment_stw" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_stw')"/>
+            <field name="date">2025-09-22</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 4}),
+                Command.create({'style_id': ref('style_i'), 'score': 5}),
+                Command.create({'style_id': ref('style_s'), 'score': 6}),
+                Command.create({'style_id': ref('style_c'), 'score': 8}),
+            ]"/>
+        </record>
+        <record id="assessment_jve" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_jve')"/>
+            <field name="date">2025-10-08</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 5}),
+                Command.create({'style_id': ref('style_i'), 'score': 2}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 6}),
+            ]"/>
+        </record>
+        <record id="assessment_han" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_han')"/>
+            <field name="date">2025-10-15</field>
+            <field name="source">development</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 5}),
+                Command.create({'style_id': ref('style_i'), 'score': 3}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 7}),
+            ]"/>
+        </record>
+
+        <!-- ── Uppföljning över tid ─────────────────────────────────
+             Några personer har en andra mätning så att utvecklingsvyn
+             (poäng över tid mot rollens zon) får något att visa. -->
+
+        <record id="assessment_admin_2" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_admin')"/>
+            <field name="date">2026-03-01</field>
+            <field name="source">followup</field>
+            <field name="note">Uppföljning efter ett år i rollen.</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 8}),
+                Command.create({'style_id': ref('style_i'), 'score': 7}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 6}),
+            ]"/>
+        </record>
+        <record id="assessment_qdp_2" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_qdp')"/>
+            <field name="date">2026-03-15</field>
+            <field name="source">followup</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 5}),
+                Command.create({'style_id': ref('style_i'), 'score': 4}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 8}),
+            ]"/>
+        </record>
+        <record id="assessment_vad_2" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_vad')"/>
+            <field name="date">2026-04-01</field>
+            <field name="source">followup</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 5}),
+                Command.create({'style_id': ref('style_i'), 'score': 7}),
+                Command.create({'style_id': ref('style_s'), 'score': 9}),
+                Command.create({'style_id': ref('style_c'), 'score': 5}),
+            ]"/>
+        </record>
+        <record id="assessment_lur_2" model="hr.workstyle.assessment">
+            <field name="person_ref" eval="'hr.employee,%s' % ref('hr.employee_lur')"/>
+            <field name="date">2026-04-15</field>
+            <field name="source">followup</field>
+            <field name="note">Har släppt en del analysfokus; närmar sig zonen.</field>
+            <field name="line_ids" eval="[
+                Command.create({'style_id': ref('style_d'), 'score': 6}),
+                Command.create({'style_id': ref('style_i'), 'score': 8}),
+                Command.create({'style_id': ref('style_s'), 'score': 5}),
+                Command.create({'style_id': ref('style_c'), 'score': 6}),
+            ]"/>
+        </record>
+
+    </data>
+</odoo>

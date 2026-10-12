@@ -12,8 +12,7 @@
         <field name="arch" type="xml">
             <list string="Behavioural Measurements">
                 <field name="date"/>
-                <field name="res_model"/>
-                <field name="res_name"/>
+                <field name="person_ref"/>
                 <field name="assessor_id"/>
                 <field name="source"/>
                 <field name="copied_from_id"/>
@@ -29,13 +28,11 @@
             <form string="Behavioural Measurement">
                 <sheet>
                     <div class="oe_title">
-                        <label for="res_name" string="Person"/>
-                        <h1><field name="res_name" readonly="1"/></h1>
+                        <label for="person_ref" string="Person"/>
+                        <h1><field name="person_ref" options="{'no_open': True}"/></h1>
                     </div>
                     <group>
                         <group>
-                            <field name="res_model"/>
-                            <field name="res_id" invisible="1"/>
                             <field name="date"/>
                             <field name="assessor_id"/>
                             <field name="source"/>

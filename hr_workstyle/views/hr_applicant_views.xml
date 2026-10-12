@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Kandidatens beteendeprofil.
+
+    Två flikar:
+      * Skills            — kompetensmatchning (gauge) mot vald befattning.
+      * Behavioural Profile — inmatning av DISC + beteendematchning (gauge).
+
+    Samma designprincip som hr.employee: modulen beskriver beteenden, aldrig
+    personer. Ingen sorterbar poänglista, ingen rangordning av kandidater.
+
+    Odoo 18: <list> (inte <tree>), inline-attribut (inga attrs=).
+-->
+<odoo>
+
+    <record id="view_hr_applicant_form_workstyle" model="ir.ui.view">
+        <field name="name">hr.applicant.form.inherit.workstyle</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment_skills.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Räknare i knappraden -->
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_workstyle_assessments" type="object"
+                        class="oe_stat_button" icon="fa-compass"
+                        invisible="workstyle_assessment_count == 0">
+                    <field name="workstyle_assessment_count" widget="statinfo"
+                           string="Measurements"/>
+                </button>
+            </xpath>
+
+            <!-- Ge Skills-sidan ett name så vi kan nå den med xpath.
+                 Odoo 18 tillåter inte 'string' som xpath-väljare. Sidan
+                 skapas av hr_recruitment_skills och saknar name. -->
+            <xpath expr="//notebook/page[.//field[@name='candidate_skill_ids']]"
+                   position="attributes">
+                <attribute name="name">skills</attribute>
+            </xpath>
+
+            <!-- Kompetensmatchning mot vald befattning — gauge i Skills-fliken.
+
+                 Odoo 18 har ingen skill_match_gauge_field (den är ny i 19).
+                 Den generiska gauge-widgeten ger samma visuella effekt.
+                 Skillnaden mot hr.candidate:s matching_score är att vårt
+                 fält räknas mot match_job_id (med personens egen tjänst som
+                 fallback), inte mot context['active_id'] — som på ett
+                 formulär är applicantens id och alltså fel. -->
+            <xpath expr="//page[@name='skills']" position="inside">
+                <group string="Skill Match">
+                    <field name="match_job_id" options="{'no_create': True}"/>
+                    <field name="matching_score" nolabel="1"
+                           widget="gauge" options="{'max_value': 100}"/>
+                    <field name="matching_skill_ids" widget="many2many_tags"
+                           options="{'color_field': 'color'}"/>
+                    <field name="missing_skill_ids" widget="many2many_tags"
+                           options="{'color_field': 'color'}"/>
+                </group>
+            </xpath>
+
+            <!-- Beteendeprofil: inmatning av DISC + beteendematchning. -->
+            <xpath expr="//notebook" position="inside">
+                <page string="Behavioural Profile" name="workstyle_profile"
+                      groups="hr_recruitment.group_hr_recruitment_user">
+
+                    <!-- Två kolumner: inmatning till vänster, gauges till
+                         höger.
+
+                         workstyle_d/i/s/c_latest är compute + inverse.
+                         VARJE ändring skapar en NY mätning daterad idag —
+                         historiken är avsiktlig (produktägarbeslut
+                         2026-10-05). De andra stilarnas poäng bärs vidare
+                         från föregående mätning, så profilen alltid är
+                         komplett. -->
+                    <group>
+                        <field name="match_job_id"
+                               options="{'no_create': True}"/>
+                    </group>
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <group string="Latest Measurement">
+                                <field name="workstyle_latest_id"/>
+                                <group>
+                                    <field name="workstyle_d_latest"/>
+                                    <field name="workstyle_i_latest"/>
+                                </group>
+                                <group>
+                                    <field name="workstyle_s_latest"/>
+                                    <field name="workstyle_c_latest"/>
+                                </group>
+                            </group>
+                        </div>
+                        <div class="col-lg-5">
+                            <group string="Match">
+                                <field name="matching_score" nolabel="1"
+                                       widget="gauge"
+                                       options="{'max_value': 100}"/>
+                                <field name="behavioural_match" nolabel="1"
+                                       widget="gauge"
+                                       options="{'max_value': 100}"/>
+                            </group>
+                        </div>
+                    </div>
+
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Gaugerna i kandidatlistan: valbara (optional) och sorterbara.
+         Fälten är lagrade, så sortering sker i SQL. -->
+    <record id="view_hr_applicant_list_workstyle" model="ir.ui.view">
+        <field name="name">hr.applicant.list.inherit.workstyle</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.crm_case_tree_view_job"/>
+        <field name="arch" type="xml">
+            <field name="partner_name" position="after">
+                <field name="matching_score" optional="show"
+                       widget="gauge" options="{'max_value': 100}"/>
+                <field name="behavioural_match" optional="show"
+                       widget="gauge" options="{'max_value': 100}"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
