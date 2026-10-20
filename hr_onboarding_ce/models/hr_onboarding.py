@@ -33,7 +33,8 @@ class HrOnboardingTemplate(models.Model):
             task = self.env['project.task'].create({
                 'name': step.name,
                 'project_id': project.id,
-                'user_id': step.default_user_id.id,
+                # Odoo 18: project.task har user_ids (many2many), inte user_id.
+                'user_ids': [(6, 0, step.default_user_id.ids)],
                 'date_deadline': date.today() + timedelta(days=step.deadline_days),
                 'description': step.description,
             })
