@@ -48,5 +48,9 @@ Calendar Public Holiday
     'maintainer': 'Vertel Sverige AB',
     'data': ['views/resource_calendar_leaves_view.xml',],
     # any module necessary for this one to work correctly
-    'depends': ['hr_holidays_public'],
+    # Beroendet var hr_holidays_public, men koden använder uteslutande
+    # calendar.public.holiday — som ägs av OCA/calendar (calendar_public_holiday).
+    # hr_holidays_public importerades aldrig och finns inte i något 18.0-repo
+    # vi använder. Rättat 2026-10-20.
+    'depends': ['calendar_public_holiday'],
 }
