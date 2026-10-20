@@ -103,11 +103,14 @@
                         <field name="progress" widget="progressbar"/>
                         <field name="overdue" invisible="1"/>
                     </group>
-                    <!-- user_id -> user_ids (2026-10-20): Odoo 18 har ingen
+                    <!-- active_id -> id (2026-10-20): active_id finns inte i
+                         hr.onboarding. Odoo 18:s vy-validering fäller vyn:
+                           fältet "active_id" finns inte i modellen "hr.onboarding"
+                         user_id -> user_ids: Odoo 18 har ingen
                          user_id på project.task; tilldelning är many2many.
                            Fältet "user_id" finns inte i modellen "project.task" -->
                     <group string="Tasks" invisible="state == 'draft'">
-                        <field name="task_ids" context="{'default_onboarding_id': active_id}">
+                        <field name="task_ids" context="{'default_onboarding_id': id}">
                             <list>
                                 <field name="name"/>
                                 <field name="user_ids" widget="many2many_tags"/>
