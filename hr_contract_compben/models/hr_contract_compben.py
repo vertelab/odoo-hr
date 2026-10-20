@@ -14,6 +14,10 @@ class HrContractCompBen(models.Model):
     net_salary_estimate = fields.Monetary(
         string="Estimated Net Salary",
         compute='_compute_net_salary', store=True)
+    total_benefit_value = fields.Monetary(
+        string="Benefits",
+        compute='_compute_total_benefit_value', store=True,
+        help="Summan av förmånernas månadsvärde.")
     total_compensation = fields.Monetary(
         string="Total Compensation",
         compute='_compute_total_compensation', store=True)
@@ -30,6 +34,15 @@ class HrContractCompBen(models.Model):
         for rec in self:
             gross = rec.gross_salary or rec.wage or 0
             rec.net_salary_estimate = int(gross * 0.68) if gross else 0
+
+    @api.depends('benefit_ids.monthly_value')
+    def _compute_total_benefit_value(self):
+        # Vyn hr_contract_compben_views.xml visar förmånsvärdet i ett eget
+        # kort ("Benefits") skilt från total_compensation. Fältet saknades
+        # i modellen och fällde hela installationen:
+        #   Fältet "total_benefit_value" finns inte i modellen "hr.contract"
+        for rec in self:
+            rec.total_benefit_value = sum(rec.benefit_ids.mapped('monthly_value'))
 
     @api.depends('gross_salary', 'wage', 'benefit_ids.monthly_value',
                  'salary_sacrifice_ids.monthly_amount')
