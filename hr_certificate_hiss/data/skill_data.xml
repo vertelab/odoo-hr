@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<odoo>
 
     <!-- ================================================================
          Elevator certifications.
@@ -11,6 +11,7 @@
          ================================================================ -->
 
     <record id="skill_type_hiss" model="hr.skill.type">
+        <field name="is_certification" eval="True"/>
         <field name="name">Hisscertifiering</field>
     </record>
 
