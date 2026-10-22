@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- ================================================================
+         Elsäkerhetsverket certifications.
+
+         The elevator variant is separate on purpose: the general
+         electrical safety training does not cover work inside a shaft.
+         ================================================================ -->
+
+    <record id="skill_type_elsakerhet" model="hr.skill.type">
+        <field name="name">Elsäkerhetscertifiering</field>
+    </record>
+
+    <record id="skill_level_certified" model="hr.skill.level">
+        <field name="name">Certifierad</field>
+        <field name="skill_type_id" ref="skill_type_elsakerhet"/>
+        <field name="level_progress">100</field>
+        <field name="default_level" eval="True"/>
+    </record>
+
+    <!-- ESA 2006:1. 5 years. -->
+    <record id="skill_elsakerhet" model="hr.skill">
+        <field name="name">Elsäkerhet</field>
+        <field name="skill_type_id" ref="skill_type_elsakerhet"/>
+    </record>
+
+    <!-- ESA 2006:1. Behörighetskrav för arbete i elanläggning. -->
+    <record id="skill_elanlaggning" model="hr.skill">
+        <field name="name">Arbete i elanläggning</field>
+        <field name="skill_type_id" ref="skill_type_elsakerhet"/>
+    </record>
+
+    <!-- ESA 2006:1. The shaft-specific addition: work inside an elevator
+         car or shaft has its own risks — moving parts, low voltage
+         control circuits, and no room to step back. -->
+    <record id="skill_elsakerhet_hiss" model="hr.skill">
+        <field name="name">Elsäkerhet vid arbete i hiss</field>
+        <field name="skill_type_id" ref="skill_type_elsakerhet"/>
+    </record>
+
+</odoo>

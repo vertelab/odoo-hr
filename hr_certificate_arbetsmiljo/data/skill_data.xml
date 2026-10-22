@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- ================================================================
+         Arbetsmiljöverket certifications.
+
+         Validity periods in comments: they are what the training schemes
+         issue, and a customer who disagrees can change the skill level
+         without touching code.
+         ================================================================ -->
+
+    <record id="skill_type_arbetsmiljo" model="hr.skill.type">
+        <field name="name">Arbetsmiljöcertifiering</field>
+    </record>
+
+    <record id="skill_level_certified" model="hr.skill.level">
+        <field name="name">Certifierad</field>
+        <field name="skill_type_id" ref="skill_type_arbetsmiljo"/>
+        <field name="level_progress">100</field>
+        <field name="default_level" eval="True"/>
+    </record>
+
+    <!-- AFS 2006:4. 5 years. The certificate number matters: the insurance
+         company asks for it after a fire. -->
+    <record id="skill_heta_arbeten" model="hr.skill">
+        <field name="name">Heta arbeten</field>
+        <field name="skill_type_id" ref="skill_type_arbetsmiljo"/>
+    </record>
+
+    <!-- AFS 2001:1. 2 years — the shortest of the set, and the one most
+         often allowed to lapse. -->
+    <record id="skill_fallskydd" model="hr.skill">
+        <field name="name">Fallskydd / Höjdarbete</field>
+        <field name="skill_type_id" ref="skill_type_arbetsmiljo"/>
+    </record>
+
+    <!-- AFS 2001:1. 3 years. -->
+    <record id="skill_sakerhetsutbildning" model="hr.skill">
+        <field name="name">Säkerhetsutbildning</field>
+        <field name="skill_type_id" ref="skill_type_arbetsmiljo"/>
+    </record>
+
+    <!-- AFS 2023:1. No fixed expiry; refreshed when routines change. -->
+    <record id="skill_tunga_lyft" model="hr.skill">
+        <field name="name">Tunga lyft</field>
+        <field name="skill_type_id" ref="skill_type_arbetsmiljo"/>
+    </record>
+
+    <!-- AFS 2023:10. Required from ten employees; the skill itself has no
+         expiry, but the risk assessment has to be redone yearly. -->
+    <record id="skill_osa" model="hr.skill">
+        <field name="name">OSA — Organisatorisk och social arbetsmiljö</field>
+        <field name="skill_type_id" ref="skill_type_arbetsmiljo"/>
+    </record>
+
+</odoo>

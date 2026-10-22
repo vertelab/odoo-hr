@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- ================================================================
+         Restaurant certifications.
+
+         Allergenhantering is separate from livsmedelshygien on purpose:
+         since EU 1169/2011 the information must be available in writing,
+         and whoever answers the question has to know. The general hygiene
+         course does not cover it.
+         ================================================================ -->
+
+    <record id="skill_type_restaurant" model="hr.skill.type">
+        <field name="name">Restaurangcertifiering</field>
+    </record>
+
+    <record id="skill_level_certified" model="hr.skill.level">
+        <field name="name">Certifierad</field>
+        <field name="skill_type_id" ref="skill_type_restaurant"/>
+        <field name="level_progress">100</field>
+        <field name="default_level" eval="True"/>
+    </record>
+
+    <!-- EG 852/2004 + HACCP. No fixed expiry in law, but the schemes issue
+         three years and most chains require renewal. -->
+    <record id="skill_livsmedelshygien" model="hr.skill">
+        <field name="name">Livsmedelshygien</field>
+        <field name="skill_type_id" ref="skill_type_restaurant"/>
+    </record>
+
+    <!-- Alkohollagen (2010:1622) 3 kap. Personal and tied to the
+         establishment: the holder must be present or reachable during
+         serving, which is why the roster is checked against it. -->
+    <record id="skill_alkoholservering" model="hr.skill">
+        <field name="name">Alkoholservering</field>
+        <field name="skill_type_id" ref="skill_type_restaurant"/>
+    </record>
+
+    <!-- EG 852/2004. The establishment's own control programme; the person
+         responsible has to know how to write and follow it. -->
+    <record id="skill_egenkontroll" model="hr.skill">
+        <field name="name">Egenkontroll / HACCP</field>
+        <field name="skill_type_id" ref="skill_type_restaurant"/>
+    </record>
+
+    <!-- EU 1169/2011. Written information about the fourteen allergens,
+         and staff who can answer questions about them. -->
+    <record id="skill_allergen" model="hr.skill">
+        <field name="name">Allergenhantering</field>
+        <field name="skill_type_id" ref="skill_type_restaurant"/>
+    </record>
+
+</odoo>
