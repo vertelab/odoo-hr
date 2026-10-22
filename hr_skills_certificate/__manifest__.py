@@ -20,7 +20,7 @@
 
 {
     'name': 'HR: Skills Certificate',
-    'version': '18.0.1.0.0',
+    'version': '18.0.1.0.2',
     # Version ledger: 18.0 = Odoo version. 1 = Major. Non regressionable code.
     # 0 = Minor. 1 = Bug fixes
     'summary': 'Certificate number and issuer on CV certification lines.',
@@ -51,8 +51,6 @@ HR: Skills Certificate
     expiration_status. Adding a second status machine would mean two
     sources of truth for "is this still valid?".
 
-    Industry bridges
-    ----------------
     Which certifications an industry needs is customer knowledge, not
     generic. Those live in separate modules that depend on this one:
 
