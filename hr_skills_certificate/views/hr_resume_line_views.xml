@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Certificate fields on the CV line form.
+
+         Anchored on //group rather than on a named field: hr_skills_survey
+         extends this form with the survey and expiration fields, and
+         anchoring on a field another module may move is how views break.
+         The fields are hidden unless the line is a certification, so an
+         experience line is not cluttered with an empty certificate number.
+         ================================================================ -->
+    <record id="hr_resume_line_form_certificate" model="ir.ui.view">
+        <field name="name">hr.resume.line.form.certificate</field>
+        <field name="model">hr.resume.line</field>
+        <field name="inherit_id" ref="hr_skills.resume_line_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <group string="Certificate"
+                       invisible="display_type != 'certification'">
+                    <field name="certificate_number"/>
+                    <field name="certificate_issuer"/>
+                    <field name="certificate_url" widget="url"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
