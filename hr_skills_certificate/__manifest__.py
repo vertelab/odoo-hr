@@ -20,7 +20,7 @@
 
 {
     'name': 'HR: Skills Certificate',
-    'version': '18.0.1.0.2',
+    'version': '18.0.1.0.3',
     # Version ledger: 18.0 = Odoo version. 1 = Major. Non regressionable code.
     # 0 = Minor. 1 = Bug fixes
     'summary': 'Certificate number and issuer on CV certification lines.',

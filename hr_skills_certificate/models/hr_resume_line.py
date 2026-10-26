@@ -18,7 +18,9 @@
 #
 ##############################################################################
 
-from odoo import fields, models
+from dateutil.relativedelta import relativedelta
+
+from odoo import api, fields, models
 
 
 class HrResumeLine(models.Model):
@@ -50,4 +52,55 @@ class HrResumeLine(models.Model):
         string='Verification URL',
         help='Where the certificate can be checked, if the issuer offers '
              'an online register.',
+    )
+    expiration_status = fields.Selection(
+        selection=[
+            ('valid', 'Valid'),
+            ('expiring', 'Expiring Soon'),
+            ('expired', 'Expired'),
+            ('no_date', 'No Expiry'),
+        ],
+        string='Status',
+        compute='_compute_expiration_status',
+        store=True,
+        help='Derived from the end date. hr_skills_survey adds its own '
+             'three-value version when installed; this one adds no_date so '
+             'a certification without an expiry is not reported as valid '
+             'forever.',
+    )
+
+    @api.depends('date_end')
+    def _compute_expiration_status(self):
+        today = fields.Date.context_today(self)
+        soon = today + relativedelta(days=60)
+        for line in self:
+            if not line.date_end:
+                line.expiration_status = 'no_date'
+            elif line.date_end < today:
+                line.expiration_status = 'expired'
+            elif line.date_end <= soon:
+                line.expiration_status = 'expiring'
+            else:
+                line.expiration_status = 'valid'
+
+
+class HrSkillType(models.Model):
+    """Mark which skill types are certifications.
+
+    A certification is a skill with a proof and an expiry: a licence, a
+    course certificate, an authorisation. A plain skill — "speaks German",
+    "drives a forklift" — has neither, and treating them the same means
+    either every skill gets an expiry field it does not need, or no skill
+    gets one.
+
+    The flag lives on the type rather than on the skill so a customer marks
+    "Certifications" once and every skill under it inherits the behaviour.
+    """
+
+    _inherit = 'hr.skill.type'
+
+    is_certification = fields.Boolean(
+        string='Is Certification Type',
+        help='Skills of this type are certifications: they have a '
+             'certificate number and an expiry date.',
     )
