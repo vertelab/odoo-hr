@@ -2,7 +2,7 @@
 <!--
     Fliken "Beteendeprofil" på hr.job.
 
-    Odoo 18: <list> (inte <tree>), inline-attribut (inga attrs=).
+    Odoo 18: <list> (inte <list>), inline-attribut (inga attrs=).
 
     Intervall per stil — både nedre och övre gräns. Den övre gränsen är
     obligatorisk: utan den blir avvikelsen uppåt osynlig, och en roll kan
