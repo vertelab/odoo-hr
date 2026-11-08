@@ -9,7 +9,7 @@
     Samma designprincip som hr.employee: modulen beskriver beteenden, aldrig
     personer. Ingen sorterbar poänglista, ingen rangordning av kandidater.
 
-    Odoo 18: <list> (inte <tree>), inline-attribut (inga attrs=).
+    Odoo 18: <list> (inte <list>), inline-attribut (inga attrs=).
 -->
 <odoo>
 
