@@ -22,10 +22,10 @@
                 <page name="members" position="after">
                     <page name="helpdesk_ticket_members" string="Helpdesk Responsible Rotation" invisible="ticket_rotation == False">
                         <field name="helpdesk_user_ids">
-                            <tree>
+                            <list>
                                 <field name="sequence" widget="handle"/>
                                 <field name="name"/>
-                            </tree>
+                            </list>
                         </field>
                     </page>
                 </page>
