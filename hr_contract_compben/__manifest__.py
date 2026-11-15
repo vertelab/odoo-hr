@@ -4,7 +4,7 @@
 
 {
     'name': 'HR: Contract Compensation & Benefits',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'Total compensation view with salary configurator, benefits registry and total reward statement.',
     'description': '''
 Contract Compensation & Benefits

@@ -6,7 +6,7 @@
 
 {
     'name': 'HR: Key Behaviour',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'KEY: Behaviour terminology and analysis types for behavioural profiles.',
     'category': 'Human Resources',
     'description': '''

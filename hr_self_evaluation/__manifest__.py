@@ -4,7 +4,7 @@
 
 {
     'name': 'HR: Self Evaluation',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'Employee self-evaluation (självskattning) before manager evaluation.',
     'category': 'Human Resources/Appraisals',
     'description': '''
