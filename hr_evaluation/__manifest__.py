@@ -40,7 +40,7 @@ Employee Evaluations (Medarbetarsamtal)
         'mail',
     ],
     'data': [
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'views/hr_evaluation_plan_views.xml',
         'views/hr_evaluation_views.xml',
         'views/menu.xml',

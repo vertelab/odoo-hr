@@ -21,7 +21,7 @@ Pulse Survey
     'category': 'Human Resources',
     'depends': ['hr', 'survey', 'hr_evaluation'],
     'data': [
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'views/hr_pulse_survey_views.xml',
     ],
     'application': True,

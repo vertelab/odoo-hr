@@ -1,0 +1,3 @@
+id,name,model_id,group_id/id,operation,domain
+acl_hr_personal_equipment_portal,hr_personal_equipment_portal,hr_personal_equipment_request.model_hr_personal_equipment,base.group_portal,r,
+acl_hr_personal_equipment_request_portal,hr_personal_equipment_portal,hr_personal_equipment_request.model_hr_personal_equipment_request,base.group_portal,r,

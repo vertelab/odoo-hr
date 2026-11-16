@@ -24,7 +24,7 @@ Personal Equipment Helpdesk
     'data': [
         "views/helpdesk_ticket_templates.xml",
         "views/helpdesk_ticket_view.xml",
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
     ],
     'demo': [],
     'application': False,

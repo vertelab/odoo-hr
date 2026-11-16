@@ -49,7 +49,7 @@ Partner Department
     'repository': 'https://github.com/vertelab/odoo-hr',
     'depends': ['hr'],
     'data': [
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'views/hr_view.xml',
     ],
     'application': False,

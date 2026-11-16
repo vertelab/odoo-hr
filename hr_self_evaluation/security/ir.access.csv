@@ -1,0 +1,2 @@
+id,name,model_id,group_id/id,operation,domain
+access_hr_self_evaluation_user,hr.self.evaluation.user,hr.self.evaluation,base.group_user,crud,

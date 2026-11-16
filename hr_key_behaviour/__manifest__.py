@@ -41,7 +41,7 @@ HR: Key Behaviour
         'hr_workstyle',
     ],
     'data': [
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'data/hr_key_behaviour_data.xml',
         'views/hr_key_behaviour_views.xml',
         'views/hr_workstyle_assessment_views.xml',

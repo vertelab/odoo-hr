@@ -1,0 +1,39 @@
+# -*- coding: utf-8 -*-
+# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
+{
+    'name': 'HR: Contract Compensation & Benefits',
+    'version': '1.0.0',
+    'summary': 'Total compensation view with salary configurator, benefits registry and total reward statement.',
+    'description': '''
+Contract Compensation & Benefits
+================================
+
+    Total compensation view with salary configurator, benefits registry and total reward statement.
+
+    Features:
+
+        - UI Integration: Extends 2 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on hr.benefit, hr.contract, hr.salary.sacrifice.
+    ''',
+    'category': 'Human Resources',
+    'description': 'Compensation & Benefits management for employee contracts.',
+    'author': 'Vertel AB',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_contract_compben',
+    'license': 'AGPL-3',
+    'depends': ['hr_contract', 'hr'],
+    'data': [
+        # #if VERSION >= "20.0"
+        'security/ir.access.csv',
+        # #else
+        'security/ir.model.access.csv',
+        # #endif
+        'views/hr_contract_compben_views.xml',
+        'views/hr_benefit_views.xml',
+    ],
+    'demo': [],
+    'application': False,
+    'installable': True,
+    'auto_install': False,
+}

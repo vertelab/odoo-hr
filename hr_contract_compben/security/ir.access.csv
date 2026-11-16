@@ -1,0 +1,3 @@
+id,name,model_id,group_id/id,operation,domain
+access_hr_benefit_user,hr.benefit.user,hr.benefit,base.group_user,crud,
+access_hr_salary_sacrifice_user,hr.salary.sacrifice.user,hr.salary.sacrifice,base.group_user,crud,

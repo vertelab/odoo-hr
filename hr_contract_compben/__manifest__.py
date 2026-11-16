@@ -24,7 +24,7 @@ Contract Compensation & Benefits
     'license': 'AGPL-3',
     'depends': ['hr_contract', 'hr'],
     'data': [
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'views/hr_contract_compben_views.xml',
         'views/hr_benefit_views.xml',
     ],

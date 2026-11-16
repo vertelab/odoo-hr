@@ -35,7 +35,7 @@ Onboarding & Offboarding
     'license': 'AGPL-3',
     'depends': ['hr', 'hr_contract', 'project'],
     'data': [
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'data/hr_onboarding_data.xml',
         'views/hr_onboarding_views.xml',
         'views/hr_onboarding_template_views.xml',

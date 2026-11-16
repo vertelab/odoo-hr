@@ -1,5 +1,5 @@
 from odoo import models, fields, api, _
-from odoo.osv import expression
+from odoo.fields import Domain
 
 
 class TimesheetSchema(models.Model):
@@ -82,10 +82,10 @@ class AccountMove(models.Model):
             if sale_line_delivery:
                 domain = line._timesheet_domain_get_invoiced_lines(sale_line_delivery)
                 if start_date:
-                    domain = expression.AND([domain, [('date', '>=', start_date)]])
+                    domain = Domain.AND([Domain(domain), Domain([('date', '>=', start_date)])])
                 if end_date:
-                    domain = expression.AND([domain, [('date', '<=', end_date)]])
-                domain = expression.AND([domain, [('non_billable', '=', False)]])
+                    domain = Domain.AND([Domain(domain), Domain([('date', '<=', end_date)])])
+                domain = Domain.AND([Domain(domain), Domain([('non_billable', '=', False)])])
                 timesheets = self.env['account.analytic.line'].sudo().search(domain)
                 timesheets.write({'timesheet_invoice_id': line.move_id.id})
 

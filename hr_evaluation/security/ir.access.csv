@@ -1,0 +1,8 @@
+id,name,model_id,group_id/id,operation,domain
+access_hr_evaluation_plan_user,hr.evaluation.plan.user,hr.evaluation.plan,base.group_user,r,
+access_hr_evaluation_plan_manager,hr.evaluation.plan.manager,hr.evaluation.plan,hr.group_hr_manager,crud,
+access_hr_evaluation_plan_step_user,hr.evaluation.plan.step.user,hr.evaluation.plan.step,base.group_user,r,
+access_hr_evaluation_plan_step_manager,hr.evaluation.plan.step.manager,hr.evaluation.plan.step,hr.group_hr_manager,crud,
+access_hr_evaluation_user,hr.evaluation.user,hr.evaluation,base.group_user,crud,
+access_hr_evaluation_goal_user,hr.evaluation.goal.user,hr.evaluation.goal,base.group_user,crud,
+access_hr_evaluation_skill_user,hr.evaluation.skill.user,hr.evaluation.skill,base.group_user,crud,

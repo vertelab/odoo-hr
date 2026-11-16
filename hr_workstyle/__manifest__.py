@@ -42,7 +42,7 @@ HR: Workstyle Profile (Beteendeprofil)
         'hr_recruitment',
     ],
     'data': [
-        'security/ir.model.access.csv',
+        'security/ir.access.csv',
         'security/hr_workstyle_security.xml',
         'data/hr_workstyle_data.xml',
         'views/hr_workstyle_style_views.xml',
