@@ -33,7 +33,8 @@ Onboarding & Offboarding
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_onboarding_ce',
     'license': 'AGPL-3',
-    'depends': ['hr', 'hr_contract', 'project'],
+    # hr_contract was removed in 19.0 and 20.0. Employment is hr.version.
+    'depends': ['hr', 'project'],
     'data': [
         'security/ir.model.access.csv',
         'data/hr_onboarding_data.xml',

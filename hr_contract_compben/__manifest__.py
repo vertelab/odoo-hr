@@ -21,7 +21,9 @@ Contract Compensation & Benefits
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_contract_compben',
     'license': 'AGPL-3',
-    'depends': ['hr_contract', 'hr'],
+    # hr_contract was removed in 19.0 and 20.0: employment is hr.version, and
+    # hr.employee inherits it. Nothing to depend on beyond hr.
+    'depends': ['hr'],
     'data': [
         'security/ir.model.access.csv',
         'views/hr_contract_compben_views.xml',

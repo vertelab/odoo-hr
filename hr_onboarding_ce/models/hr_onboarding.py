@@ -71,7 +71,7 @@ class HrOnboarding(models.Model):
 
     name = fields.Char(string="Reference", compute='_compute_name', store=True)
     employee_id = fields.Many2one('hr.employee', required=True, string="Employee")
-    contract_id = fields.Many2one('hr.contract', string="Contract")
+    contract_id = fields.Many2one('hr.version', string="Contract")
     department_id = fields.Many2one('hr.department', related='employee_id.department_id')
     template_id = fields.Many2one('hr.onboarding.template', string="Template")
     task_ids = fields.One2many('project.task', 'onboarding_id', string="Tasks")
@@ -127,7 +127,7 @@ class HrOffboarding(models.Model):
     _description = 'Employee Offboarding'
 
     employee_id = fields.Many2one('hr.employee', required=True, string="Employee")
-    contract_id = fields.Many2one('hr.contract', string="Contract")
+    contract_id = fields.Many2one('hr.version', string="Contract")
     department_id = fields.Many2one('hr.department', related='employee_id.department_id')
     reason = fields.Selection([
         ('resignation', 'Resignation'),
