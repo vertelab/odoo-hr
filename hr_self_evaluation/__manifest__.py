@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
@@ -19,7 +19,7 @@ Self Evaluation
         - UI Integration: Extends 1 view(s) in the Odoo interface.
         - Extends Odoo: Builds on hr.self.evaluation, mail.thread.
     ''',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_self_evaluation',
     'license': 'AGPL-3',
     'depends': ['hr_evaluation'],
