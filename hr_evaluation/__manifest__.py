@@ -6,7 +6,7 @@
 
 {
     'name': 'HR: Employee Evaluations (Medarbetarsamtal)',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'Periodic employee evaluations with self-evaluation, goals, and skills assessment.',
     'category': 'Human Resources/Appraisals',
     'description': '''

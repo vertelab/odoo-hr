@@ -4,7 +4,7 @@
 
 {
     'name': 'HR: Onboarding & Offboarding',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'Structured onboarding and offboarding with checklists and task delegation.',
     'category': 'Human Resources',
     'description': '''
