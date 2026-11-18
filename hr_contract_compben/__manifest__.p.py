@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
@@ -18,11 +18,16 @@ Contract Compensation & Benefits
         - Extends Odoo: Builds on hr.benefit, hr.contract, hr.salary.sacrifice.
     ''',
     'category': 'Human Resources',
-    'description': 'Compensation & Benefits management for employee contracts.',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_contract_compben',
     'license': 'AGPL-3',
+    # #if VERSION >= "19.0"
+    # hr_contract was removed in 19.0 and 20.0: employment is hr.version, and
+    # hr.employee inherits it. Nothing to depend on beyond hr.
+    'depends': ['hr'],
+    # #else
     'depends': ['hr_contract', 'hr'],
+    # #endif
     'data': [
         # #if VERSION >= "20.0"
         'security/ir.access.csv',

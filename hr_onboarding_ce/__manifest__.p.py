@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
@@ -30,10 +30,15 @@ Onboarding & Offboarding
         - UI Integration: Extends 2 view(s) in the Odoo interface.
         - Extends Odoo: Builds on hr.offboarding, hr.onboarding, hr.onboarding.template, hr.onboarding.template.step.
     ''',
-    'author': 'Vertel AB',
+    'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_onboarding_ce',
     'license': 'AGPL-3',
+    # #if VERSION >= "19.0"
+    # hr_contract was removed in 19.0 and 20.0. Employment is hr.version.
+    'depends': ['hr', 'project'],
+    # #else
     'depends': ['hr', 'hr_contract', 'project'],
+    # #endif
     'data': [
         # #if VERSION >= "20.0"
         'security/ir.access.csv',

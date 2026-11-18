@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models, _
 
 
+# hr.contract is gone in 19.0 and 20.0. Employment is hr.version, and
+# hr.employee inherits it (hr_employee.py: _inherits = {'hr.version': 'version_id'}),
+# so a field added here is visible on the employee form without touching
+# hr.employee. wage already exists on hr.version; gross_salary and
+# estimated_pension do not.
 class HrContractCompBen(models.Model):
-    _inherit = 'hr.contract'
+    _inherit = 'hr.version'
 
     gross_salary = fields.Monetary(
         string="Gross Monthly Salary", tracking=True,
@@ -14,6 +19,10 @@ class HrContractCompBen(models.Model):
     net_salary_estimate = fields.Monetary(
         string="Estimated Net Salary",
         compute='_compute_net_salary', store=True)
+    total_benefit_value = fields.Monetary(
+        string="Benefits",
+        compute='_compute_total_benefit_value', store=True,
+        help="Summan av förmånernas månadsvärde.")
     total_compensation = fields.Monetary(
         string="Total Compensation",
         compute='_compute_total_compensation', store=True)
@@ -30,6 +39,15 @@ class HrContractCompBen(models.Model):
         for rec in self:
             gross = rec.gross_salary or rec.wage or 0
             rec.net_salary_estimate = int(gross * 0.68) if gross else 0
+
+    @api.depends('benefit_ids.monthly_value')
+    def _compute_total_benefit_value(self):
+        # Vyn hr_contract_compben_views.xml visar förmånsvärdet i ett eget
+        # kort ("Benefits") skilt från total_compensation. Fältet saknades
+        # i modellen och fällde hela installationen:
+        #   Fältet "total_benefit_value" finns inte i modellen "hr.contract"
+        for rec in self:
+            rec.total_benefit_value = sum(rec.benefit_ids.mapped('monthly_value'))
 
     @api.depends('gross_salary', 'wage', 'benefit_ids.monthly_value',
                  'salary_sacrifice_ids.monthly_amount')
@@ -52,7 +70,7 @@ class HrBenefit(models.Model):
     _description = 'Employee Benefit'
     _order = 'sequence'
 
-    contract_id = fields.Many2one('hr.contract', required=True, ondelete='cascade')
+    contract_id = fields.Many2one('hr.version', required=True, ondelete='cascade')
     sequence = fields.Integer(default=10)
     name = fields.Char(required=True, string="Benefit")
     benefit_type = fields.Selection([
@@ -79,7 +97,7 @@ class HrSalarySacrifice(models.Model):
     _description = 'Salary Sacrifice'
     _order = 'sequence'
 
-    contract_id = fields.Many2one('hr.contract', required=True, ondelete='cascade')
+    contract_id = fields.Many2one('hr.version', required=True, ondelete='cascade')
     sequence = fields.Integer(default=10)
     name = fields.Char(required=True, string="Sacrifice")
     sacrifice_type = fields.Selection([

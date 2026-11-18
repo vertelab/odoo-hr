@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2026 Vertel AB <info@vertel.se>
+# Copyright (C) 2026 Vertel Sverige AB <info@vertel.se>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from datetime import date, timedelta
@@ -33,7 +33,8 @@ class HrOnboardingTemplate(models.Model):
             task = self.env['project.task'].create({
                 'name': step.name,
                 'project_id': project.id,
-                'user_id': step.default_user_id.id,
+                # Odoo 18: project.task har user_ids (many2many), inte user_id.
+                'user_ids': [(6, 0, step.default_user_id.ids)],
                 'date_deadline': date.today() + timedelta(days=step.deadline_days),
                 'description': step.description,
             })
@@ -70,7 +71,7 @@ class HrOnboarding(models.Model):
 
     name = fields.Char(string="Reference", compute='_compute_name', store=True)
     employee_id = fields.Many2one('hr.employee', required=True, string="Employee")
-    contract_id = fields.Many2one('hr.contract', string="Contract")
+    contract_id = fields.Many2one('hr.version', string="Contract")
     department_id = fields.Many2one('hr.department', related='employee_id.department_id')
     template_id = fields.Many2one('hr.onboarding.template', string="Template")
     task_ids = fields.One2many('project.task', 'onboarding_id', string="Tasks")
@@ -126,7 +127,7 @@ class HrOffboarding(models.Model):
     _description = 'Employee Offboarding'
 
     employee_id = fields.Many2one('hr.employee', required=True, string="Employee")
-    contract_id = fields.Many2one('hr.contract', string="Contract")
+    contract_id = fields.Many2one('hr.version', string="Contract")
     department_id = fields.Many2one('hr.department', related='employee_id.department_id')
     reason = fields.Selection([
         ('resignation', 'Resignation'),
