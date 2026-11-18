@@ -28,7 +28,7 @@ class HrResumeLine(models.Model):
                     issueMonth=issueMonth, 
                     expirationYear=expirationYear, 
                     expirationMonth=expirationMonth,
-                    certUrl= cert.url_to_cert if cert.url_to_cert else self.env['ir.config_parameter'].get_param('web.base.url'),
+                    certUrl= cert.url_to_cert if cert.url_to_cert else self.env['ir.config_parameter'].get_str('web.base.url'),
                     certId=cert.id)
                 cert.linkedin_cert_url = url
             else:
