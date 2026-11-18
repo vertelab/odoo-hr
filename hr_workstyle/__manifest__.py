@@ -6,7 +6,7 @@
 
 {
     'name': 'HR: Workstyle Profile (Beteendeprofil)',
-    'version': '18.0.1.5.0',
+    'version': '1.5.0',
     'summary': 'Behavioural style profiles for job positions and people (DISC-style).',
     'category': 'Human Resources',
     'description': '''

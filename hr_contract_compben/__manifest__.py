@@ -4,7 +4,7 @@
 
 {
     'name': 'HR: Contract Compensation & Benefits',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'Total compensation view with salary configurator, benefits registry and total reward statement.',
     'description': '''
 Contract Compensation & Benefits
@@ -18,7 +18,6 @@ Contract Compensation & Benefits
         - Extends Odoo: Builds on hr.benefit, hr.contract, hr.salary.sacrifice.
     ''',
     'category': 'Human Resources',
-    'description': 'Compensation & Benefits management for employee contracts.',
     'author': 'Vertel Sverige AB',
     'website': 'https://vertel.se/apps/odoo-hr/hr_contract_compben',
     'license': 'AGPL-3',

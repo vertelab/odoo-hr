@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'HR: Personal Equipment Helpdesk',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': """Allow users submit helpdesk ticket for their Personal Equipment.""",
     'category': 'Helpdesk',
     'description': '''

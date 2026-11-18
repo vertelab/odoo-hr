@@ -1,0 +1,22 @@
+name: pfiles
+
+# Ateranvandbar grind for versionsagnostisk kod (p-filer). Se /skill:odoo-pfiles.
+#
+# Fem kontroller: tackning, expansion, syntax, bygge, installation per utgava.
+# Plus en synkkontroll: samma p-filer ska finnas pa alla utgavegrenar.
+#
+# Repo-specifikt (ligger kvar har):
+#   .pfiles-ci     vilka utgavor repot har, och vilka repon det beror pa
+#   .pfiles-allow  filer som annu inte ar p-filer
+
+on:
+  push:
+    branches: ['*.0', 'ci/**', 'pfiles/**']
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pfiles:
+    uses: vertelab/pfiles-ci/.github/workflows/pfiles.yml@v1
