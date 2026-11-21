@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Discovery proposes, the user decides. The list is editable so the
+         checkbox can be ticked per row; nothing is created until "Add
+         selected". -->
+    <record id="view_lunch_discovery_form" model="ir.ui.view">
+        <field name="name">lunch.discovery.wizard.form</field>
+        <field name="model">lunch.discovery.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Find restaurants">
+                <group>
+                    <group>
+                        <field name="radius_m"/>
+                        <field name="max_results"/>
+                    </group>
+                </group>
+                <field name="line_ids">
+                    <list editable="bottom" create="false">
+                        <field name="selected" string="Add"/>
+                        <field name="name"/>
+                        <field name="address"/>
+                        <field name="cuisine"/>
+                        <field name="cuisine_tags" string="Tags"/>
+                        <field name="distance_m"/>
+                        <field name="possible_duplicate" optional="show"/>
+                        <field name="osm_id" optional="hide"/>
+                        <field name="geo_lat" optional="hide"/>
+                        <field name="geo_lon" optional="hide"/>
+                    </list>
+                </field>
+                <footer>
+                    <button name="fetch_suggestions" string="Fetch suggestions"
+                            type="object" class="btn-secondary"/>
+                    <button name="action_add_selected" string="Add selected"
+                            type="object" class="btn-primary"/>
+                    <button string="Close" special="cancel" class="btn-link"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_lunch_discovery" model="ir.actions.act_window">
+        <field name="name">Find restaurants</field>
+        <field name="res_model">lunch.discovery.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_lunch_discovery_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="lunch_menu_discovery"
+        name="Find restaurants"
+        parent="options_menu"
+        action="action_lunch_discovery"
+        sequence="9"/>
+
+</odoo>
