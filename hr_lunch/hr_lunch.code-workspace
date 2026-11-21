@@ -1,0 +1,28 @@
+{
+    "folders": [
+        {
+            "path": "../.."
+        },
+        {
+            "path": ".."
+        }
+    ],
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [ {
+            "name": "Odoo 14",
+            "type": "python",
+            "request": "launch",
+            "program": "/usr/bin/odoo",
+            //"externalConsole": false,
+            "args": [
+                "-c",
+                "/etc/odoo/odoo.conf",
+            ],
+            "justMyCode": false,
+        }]
+    },
+    "settings": {
+        "python.languageServer": "Pylance"
+    }
+}

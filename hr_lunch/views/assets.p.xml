@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Odoo 18: assets are a bundle record, not a template with
+             inherit_id. The Odoo 14 form (<template inherit_id="web.assets_backend">
+             with an xpath) fails to parse: web.assets_backend is an ir.asset
+             bundle now, and the loader looks for a template that is not there. -->
+        <record id="assets_backend_lunch" model="ir.asset">
+            <field name="name">hr_lunch backend assets</field>
+            <field name="bundle">web.assets_backend</field>
+            <field name="path">hr_lunch/static/src/css/message-wizard.css</field>
+            <field name="target">include</field>
+        </record>
+        <record id="assets_backend_lunch_css" model="ir.asset">
+            <field name="name">hr_lunch backend css</field>
+            <field name="bundle">web.assets_backend</field>
+            <field name="path">hr_lunch/static/src/css/hr_lunch.css</field>
+            <field name="target">include</field>
+        </record>
+    </data>
+</odoo>
