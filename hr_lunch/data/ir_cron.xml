@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- One tick, not two cron rows.
+
+             The tick reads the clock and decides what to do. Two separate cron
+             entries would encode 06:00 and 11:00 in XML, and if the server was
+             down at 06:00 the reset simply did not happen that day. A tick that
+             reads the clock recovers: the next run does the right thing.
+
+             active=False: a customer turns the automation on deliberately. -->
+        <record id="ir_cron_lunch_tick" model="ir.cron">
+            <field name="name">Lunch: daily tick</field>
+            <field name="model_id" ref="model_lunch_choice"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_tick()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="active" eval="False"/>
+        </record>
+
+    </data>
+</odoo>

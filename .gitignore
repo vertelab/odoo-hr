@@ -6,6 +6,9 @@ _build/
 !.gitignore
 !.github
 !.mailmap
+!.pfiles-ci
+!.pfiles-allow
+!.githooks
 # compiled python files
 *.py[co]
 __pycache__/
