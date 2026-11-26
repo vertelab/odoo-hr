@@ -136,3 +136,5 @@ hr_workstyle/views/hr_workstyle_style_views.xml
 hr_workstyle/views/hr_workstyle_trend_views.xml
 hr_workstyle/views/menu.xml
 hr_department_partner/tests/test_department_partner.py
+hr_skill_esco/tests/test_hr_skill_esco.py
+hr_skills_certificate/tests/test_hr_skills_certificate.py
