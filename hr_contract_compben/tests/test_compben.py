@@ -19,7 +19,7 @@ class TestCompBen(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.employment = cls.env['hr.contract']
+        cls.employment = cls.env['hr.version']
 
     def test_benefit_is_readable_from_the_employment_record(self):
         rec = self.employment.create({'name': 'Test employment'})

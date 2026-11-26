@@ -1,0 +1,50 @@
+#!/bin/sh
+# Expand p-files and verify the committed output matches.
+#
+# A p-file is the source for every edition. The generated file is what Odoo
+# loads, so it must be regenerated whenever its p-file changes — otherwise the
+# module silently runs stale code (the "silent lie": a groups_id that survived
+# an expansion nobody re-ran).
+#
+# The edition is taken from the branch name. A non-edition branch (ci/**,
+# feature branches) is checked against the lowest edition the repo supports.
+set -e
+
+branch=$(git symbolic-ref --short HEAD 2>/dev/null || echo "")
+case "$branch" in
+  [0-9][0-9].0) version="$branch" ;;
+  *) version=$(printf '%s' "$branch" | grep -oE '[0-9][0-9]\.0' | head -1)
+     [ -n "$version" ] || version="18.0" ;;
+esac
+
+command -v preprocess >/dev/null 2>&1 || {
+  echo "pre-commit: preprocess not found — skipping expansion" >&2
+  exit 0
+}
+
+fail=0
+for pf in $(git diff --cached --name-only --diff-filter=ACM | grep -E '\.p\.(py|xml|js|csv|sh|html?)$'); do
+  gen=$(printf '%s' "$pf" | sed 's/\.p\././')
+  preprocess -D VERSION="$version" "$pf" > /tmp/pf.$$ 2>/dev/null || {
+    echo "pre-commit: $pf could not be expanded for $version" >&2
+    fail=1; continue
+  }
+  if [ -f "$gen" ]; then
+    if ! diff -q /tmp/pf.$$ "$gen" >/dev/null 2>&1; then
+      # The version string legitimately differs: adapt_version() supplies the
+      # edition prefix, so the p-file carries '1.5.0' and the output '18.0.1.5.0'.
+      if [ "$(diff /tmp/pf.$$ "$gen" | grep -E '^[<>]' | grep -vc "'version'")" -eq 0 ]; then
+        :
+      else
+        echo "pre-commit: $gen is stale — re-run preprocess -D VERSION=$version $pf" >&2
+        fail=1
+      fi
+    fi
+  else
+    echo "pre-commit: $gen is missing — generate it from $pf" >&2
+    fail=1
+  fi
+  rm -f /tmp/pf.$$
+done
+
+[ "$fail" -eq 0 ] || exit 1

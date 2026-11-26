@@ -1,6 +1,72 @@
 # odoo-hr
 
-Vertel HR-moduler för Odoo 18.
+Vertel HR-moduler för Odoo 18, 19 och 20.
+
+## Porteringsstatus
+
+Grenarna är inte jämställda. `18.0` är originalet. `19.0` och `20.0` porteras
+härifrån, modul för modul.
+
+**Portad** betyder: installerad i en databas för utgåvan utan ERROR/CRITICAL,
+och modulens testsvit grön med minst en testmetod. Att modulen finns i grenens
+filträd räknas inte — att filerna ligger där säger ingenting om de fungerar.
+
+| Modul | 18.0 | 19.0 | 20.0 | Blockerare |
+|---|---|---|---|---|
+| `hr_ai` | ✅ | ⬜ | ⬜ | `ai_agent_core@20.0` är en kopia, inte en port |
+| `hr_calendar_public_holiday` | ✅ | ⬜ | ⛔ | `calendar_public_holiday` saknas på 20.0 |
+| `hr_certificate_arbetsmiljo` | ✅ | ⬜ | ⬜ | `hr_skills_certificate` |
+| `hr_certificate_esa` | ✅ | ⬜ | ⬜ | `hr_skills_certificate` |
+| `hr_certificate_hiss` | ✅ | ⬜ | ⬜ | `hr_skills_certificate` |
+| `hr_certificate_restaurant` | ✅ | ⬜ | ⬜ | `hr_skills_certificate` |
+| `hr_contract_compben` | ✅ | ⬜ | ⬜ | `hr.contract` borttagen — se `hr.version` |
+| `hr_dashboard_vrtl` | ⛔ | ⛔ | ⛔ | manifest saknas; nyutveckling |
+| `hr_dashboard_vrtl_synconics` | ⛔ | ⛔ | ⛔ | manifest saknas |
+| `hr_department_partner` | ✅ | ⬜ | ⬜ | – |
+| `hr_evaluation` | ✅ | ⬜ | ⬜ | – |
+| `hr_key_behaviour` | ✅ | ⬜ | ⬜ | `hr_workstyle` |
+| `hr_linkedin_share` | ✅ | ⬜ | ⬜ | – |
+| `hr_lunch` | ✅ | ⬜ | ⬜ | nytillkommen på 18.0; ej installerad på 19/20 |
+| `hr_onboarding_ce` | ✅ | ⬜ | ⬜ | `hr.contract` borttagen |
+| `hr_personal_equipment_helpdesk` | ✅ | ⛔ | ⛔ | `hr_personal_equipment_request` saknas på båda |
+| `hr_pulse_survey` | ✅ | ⬜ | ⬜ | `hr_evaluation` |
+| `hr_recruitment_translation` | ✅ | ⬜ | ⬜ | – |
+| `hr_remove_attendance_barcode` | ✅ | ⬜ | ⬜ | – |
+| `hr_self_evaluation` | ✅ | ⬜ | ⬜ | `hr_evaluation` |
+| `hr_skill_esco` | ✅ | ⬜ | ⬜ | – |
+| `hr_skills_certificate` | ✅ | ⬜ | ⬜ | – (saknas helt på 20.0) |
+| `hr_tier_validation` | ✅ | ⛔ | ⛔ | `base_tier_validation` saknas på båda |
+| `hr_timesheet_nonbillable` | ✅ | ⬜ | ⛔ | `hr_timesheet_sheet` saknas på 20.0 |
+| `hr_timesheet_schema` | ✅ | ⬜ | ⛔ | `hr_timesheet_sheet` saknas på 20.0 |
+| `hr_website_about_us` | ⛔ | ⛔ | ⛔ | `website_imagemagick` ej installerbar |
+| `hr_website_about_us_calendar` | ⛔ | ⛔ | ⛔ | `website_imagemagick` |
+| `hr_website_about_us_vcard` | ⛔ | ⛔ | ⛔ | `website_imagemagick` |
+| `hr_workstyle` | ✅ | ⬜ | ⬜ | – |
+| `helpdesk_responsibility` | ✅ | ⬜ | ⛔ | `helpdesk_mgmt` saknas på 20.0 |
+
+✅ installerad · ⬜ ej porterad · ⛔ blockerad
+
+### Oporterade moduler markeras, de raderas inte
+
+En modul som inte kan portas får `installable: False` med en kommentar som
+namnger beroendet. Den raderas inte: en borttagen modul är osynlig och kan tas
+för portad, och `pfiles-sync` kräver samma p-filer på alla grenar.
+
+### P-filen är originalet
+
+En p-fil (`*.p.py`, `*.p.xml`) finns på **alla** grenar med identiskt innehåll.
+Utgåveskillnader uttrycks inuti filen:
+
+```python
+# #if VERSION >= "20.0"
+    'security/ir.access.csv',      # Odoo 20: ir.model.access.csv -> ir.access.csv
+# #else
+    'security/ir.model.access.csv',
+# #endif
+```
+
+Generera aldrig för hand — kör `preprocess -D VERSION=<utgåva> <p-fil>`.
+`--version` är verktygets egen flagga, inte Odoo-utgåvan.
 
 ## Beteendeprofiler (DISC)
 
