@@ -49,7 +49,12 @@ class HrApplicant(models.Model):
             return [('id', 'in' if operator in ('!=', 'not in') else 'not in', ids)]
 
         identifiers = value if isinstance(value, list) else [value]
-        assessments = Assessment.search([('id', operator, identifiers)])
+        # Assessment ids are not hr.applicant ids. Searching the assessment by
+        # 'id' here made the domain optimiser re-enter this method with an
+        # OrderedSet, which is unhashable. The ids in the domain belong to
+        # hr.applicant, so filter the assessments by person.
+        assessments = Assessment.search(
+            [('person_ref', 'in', ['hr.applicant,%s' % i for i in identifiers])])
         # mapped() på ett Reference-fält ger en LISTA av recordsets —
         # inte ett recordset. Plocka ut id:na per post i stället.
         person_ids = [

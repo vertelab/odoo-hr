@@ -52,10 +52,10 @@ class TestWorkstyleE2E(TransactionCase):
     def test_full_flow(self):
         # 1. Kandidat mäts mot VD-profilen.
         partner = self.env['res.partner'].create({'name': 'Kandidat'})
-        candidate = self.env['hr.candidate'].create({
+        candidate = self.env['hr.applicant'].create({
             'partner_name': 'Kandidat', 'partner_id': partner.id})
         applicant = self.env['hr.applicant'].create({
-            'candidate_id': candidate.id, 'partner_name': 'Kandidat',
+            'partner_id': candidate.partner_id.id, 'partner_name': 'Kandidat',
             'job_id': self.job.id,
         })
         self._measure('hr.applicant,%s' % applicant.id, [
@@ -122,12 +122,26 @@ class TestWorkstyleE2E(TransactionCase):
             'hr.employee': {'match_job_id'},
             'hr.applicant': {'match_job_id'},
         }
+        # Fields that come from core or from other modules, not from this one.
+        # The test guards OUR aggregates; a token in someone else's field name
+        # is not our design decision. 'total_overtime' is hr's own field in
+        # 19.0 and did not exist when the test was written.
+        FOREIGN = {
+            # Fields that come from core or from other modules, not from this
+            # one. The test guards OUR aggregates; a token in someone else's
+            # field name is not our design decision. total_overtime is hr's
+            # own field in 19.0, total_benefit_value is hr_contract_compben's.
+            'hr.employee': {'total_overtime', 'total_benefit_value',
+                            'total_compensation'},
+            'hr.applicant': set(),
+        }
         for model in ('hr.workstyle.gap', 'hr.workstyle.assessment',
                       'hr.employee', 'hr.applicant'):
             gauges = GAUGES.get(model, set())
             not_aggregates = NOT_AGGREGATES.get(model, set())
+            foreign = FOREIGN.get(model, set())
             for name in self.env[model]._fields:
-                if name in not_aggregates or name in gauges:
+                if name in not_aggregates or name in gauges or name in foreign:
                     continue
                 tokens = set(name.lower().split('_'))
                 self.assertFalse(

@@ -3,7 +3,7 @@ access_hr_workstyle_style_user,hr.workstyle.style.user,hr.workstyle.style,base.g
 access_hr_workstyle_style_manager,hr.workstyle.style.manager,hr.workstyle.style,hr.group_hr_manager,crud,
 access_hr_job_workstyle_line_user,hr.job.workstyle.line.user,hr.job.workstyle.line,base.group_user,r,
 access_hr_job_workstyle_line_manager,hr.job.workstyle.line.manager,hr.job.workstyle.line,hr.group_hr_manager,crud,
-rule_workstyle_assessment_hr_user,Behavioural measurement: HR user sees employees only,hr.workstyle.assessment,hr.group_hr_user,crud,"[('res_model', '=', 'hr.employee')]"
+rule_workstyle_assessment_hr_user,Behavioural measurement: HR user sees employees only,hr.workstyle.assessment,hr.group_hr_user,crud,"[('person_ref', '=like', 'hr.employee,%')]"
 rule_workstyle_assessment_manager,Behavioural measurement: HR manager sees all,hr.workstyle.assessment,hr.group_hr_manager,crud,
 access_hr_workstyle_assessment_line_hr,hr.workstyle.assessment.line.hr,hr.workstyle.assessment.line,hr.group_hr_user,crud,
 access_hr_workstyle_assessment_line_manager,hr.workstyle.assessment.line.manager,hr.workstyle.assessment.line,hr.group_hr_manager,crud,

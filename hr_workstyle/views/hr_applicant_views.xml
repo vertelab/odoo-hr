@@ -32,7 +32,9 @@
             <!-- Ge Skills-sidan ett name så vi kan nå den med xpath.
                  Odoo 18 tillåter inte 'string' som xpath-väljare. Sidan
                  skapas av hr_recruitment_skills och saknar name. -->
-            <xpath expr="//notebook/page[.//field[@name='candidate_skill_ids']]"
+            <!-- 19.0 renamed the field: hr_recruitment_skills now uses
+                 current_applicant_skill_ids for the editable list. -->
+            <xpath expr="//notebook/page[.//field[@name='current_applicant_skill_ids']]"
                    position="attributes">
                 <attribute name="name">skills</attribute>
             </xpath>
