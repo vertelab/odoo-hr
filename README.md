@@ -176,3 +176,43 @@ samt ett end-to-end-flöde från kandidat till utveckling över tre mätningar.
   `res_id` på en `Many2oneReference` ger `TypeError` vid modellbygge.
 - **`hr_workstyle.gap` är virtuella poster.** Ingen tabell fylls; raderna
   försvinner när vyn stängs. `_rows_for()` skriver inget, `_build()` sparar.
+
+<!-- porting-status:begin -->
+
+### Porteringsstatus
+
+Genererad av `scripts/porting_status.py` — redigera inte för hand.
+
+| Modul | 18.0 | 19.0 | 20.0 | Blockerare |
+|---|---|---|---|---|
+| `helpdesk_responsibility` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_ai` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_calendar_public_holiday` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_certificate_arbetsmiljo` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_certificate_esa` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_certificate_hiss` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_certificate_restaurant` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_contract_compben` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_department_partner` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_evaluation` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_key_behaviour` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_linkedin_share` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_lunch` | ⬜ | ⛔ | ⬜ | ej installerad, saknas på grenen |
+| `hr_onboarding_ce` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_personal_equipment_helpdesk` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_pulse_survey` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_recruitment_translation` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_remove_attendance_barcode` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_self_evaluation` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_skill_esco` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_skills_certificate` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_tier_validation` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_timesheet_nonbillable` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_timesheet_schema` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_website_about_us` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_website_about_us_calendar` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_website_about_us_vcard` | ⬜ | ⬜ | ⬜ | ej installerad |
+| `hr_workstyle` | ⬜ | ⬜ | ⬜ | ej installerad |
+
+✅ installerad · ⬜ ej porterad · ⛔ blockerad
+<!-- porting-status:end -->
