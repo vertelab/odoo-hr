@@ -1,0 +1,31 @@
+<odoo>
+  <data>
+
+    <record id="from" model="ir.ui.view">
+      <field name="name">hr.resume.line.linkedin.cert.form</field>
+      <field name="model">hr.resume.line</field>
+      <field name="inherit_id" ref="hr_skills_survey.resume_survey_line_view_form"/>
+      <field name="arch" type="xml">
+        <sheet position="before">
+          <header>
+            <!-- #if VERSION >= "19.0" -->
+            <!-- 19.0 dropped display_type from hr.resume.line; the
+                 certification flag lives on line_type_id. -->
+            <button name="action_add_cert_to_linkedin" type="object" string="Add To Linkedin" invisible="line_type_id != %(hr_skills_survey.resume_type_certification)d"/>
+            <!-- #else -->
+            <button name="action_add_cert_to_linkedin" type="object" string="Add To Linkedin" invisible="display_type != 'certification'"/>
+            <!-- #endif -->
+          </header>
+        </sheet>
+        <field name="survey_id" position="after">
+          <!-- #if VERSION >= "19.0" -->
+          <field name="url_to_cert" invisible="line_type_id != %(hr_skills_survey.resume_type_certification)d"/>
+          <!-- #else -->
+          <field name="url_to_cert" invisible="display_type != 'certification'"/>
+          <!-- #endif -->
+        </field>
+      </field>
+    </record>
+
+  </data>
+</odoo>
