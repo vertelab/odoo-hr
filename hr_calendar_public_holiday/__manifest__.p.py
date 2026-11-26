@@ -1,0 +1,56 @@
+# -*- coding: utf-8 -*-
+##############################################################################
+#
+#    Odoo SA, Open Source Management Solution, third party addon
+#    Copyright (C) 2025- Vertel Sverige AB (<https://vertel.se>).
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program. If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
+{
+    'name': 'HR: Calendar Public Holiday',
+    'version': '1.0.0',
+    # Version ledger: 14.0 = Odoo version. 1 = Major. Non regressionable code. 2 = Minor. New features that are regressionable. 3 = Bug fixes
+    'summary': 'Copies public holiday to a resource calendar.',
+    # Categories can be used to filter modules in modules listing
+    # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
+    # for the full list
+    'category': 'HR',
+    'description': '''
+Calendar Public Holiday
+=======================
+
+    Copies public holiday to a resource calendar.
+
+    Features:
+
+        - UI Integration: Extends 1 view(s) in the Odoo interface.
+        - Extends Odoo: Builds on resource.calendar.leaves.
+    ''',
+    #'sequence': '1',
+    'author': 'Vertel Sverige AB',
+    'website': 'https://vertel.se/apps/odoo-hr/hr_calendar_public_holiday',
+    'images': ['static/description/banner.png'], # 560x280 px.
+    'license': 'AGPL-3',
+    'contributor': '',
+    'maintainer': 'Vertel Sverige AB',
+    'data': ['views/resource_calendar_leaves_view.xml',],
+    # any module necessary for this one to work correctly
+    # Beroendet var hr_holidays_public, men koden använder uteslutande
+    # calendar.public.holiday — som ägs av OCA/calendar (calendar_public_holiday).
+    # hr_holidays_public importerades aldrig och finns inte i något 18.0-repo
+    # vi använder. Rättat 2026-10-20.
+    'depends': ['calendar_public_holiday'],
+}

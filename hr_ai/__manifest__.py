@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 {
     'name': 'HR: AI',
-    'version': '18.0.1.0.0',
+    'version': '1.0.0',
     'summary': 'OKF-indexering av hr.job och hr.employee',
     'category': 'Hidden',
     'author': 'Vertel Sverige AB',

@@ -274,10 +274,10 @@ class TestWorkstyleHire(TransactionCase):
 
     def _applicant_with_measurement(self):
         partner = self.env['res.partner'].create({'name': 'Kandidat'})
-        candidate = self.env['hr.candidate'].create({
+        candidate = self.env['hr.applicant'].create({
             'partner_name': 'Kandidat', 'partner_id': partner.id})
         applicant = self.env['hr.applicant'].create({
-            'candidate_id': candidate.id, 'partner_name': 'Kandidat'})
+            'partner_id': candidate.partner_id.id, 'partner_name': 'Kandidat'})
         assessment = self.env['hr.workstyle.assessment'].create({
             'person_ref': 'hr.applicant,%s' % applicant.id,
             'source': 'recruitment',
@@ -323,10 +323,10 @@ class TestWorkstyleHire(TransactionCase):
 
     def test_no_measurement_no_copy(self):
         partner = self.env['res.partner'].create({'name': 'Tom'})
-        candidate = self.env['hr.candidate'].create({
+        candidate = self.env['hr.applicant'].create({
             'partner_name': 'Tom', 'partner_id': partner.id})
         applicant = self.env['hr.applicant'].create({
-            'candidate_id': candidate.id, 'partner_name': 'Tom'})
+            'partner_id': candidate.partner_id.id, 'partner_name': 'Tom'})
         employee = self.env['hr.employee'].create({'name': 'Tom'})
         self.assertEqual(applicant._copy_workstyle_to_employee(employee), 0)
 

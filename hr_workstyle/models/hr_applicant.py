@@ -49,7 +49,12 @@ class HrApplicant(models.Model):
             return [('id', 'in' if operator in ('!=', 'not in') else 'not in', ids)]
 
         identifiers = value if isinstance(value, list) else [value]
-        assessments = Assessment.search([('id', operator, identifiers)])
+        # Same reasoning as hr_employee.py: the ids belong to hr.applicant,
+        # not to the assessment. Searching the assessment by 'id' made the
+        # domain optimiser re-enter this method with an OrderedSet, which is
+        # unhashable.
+        assessments = Assessment.search(
+            [('person_ref', 'in', ['hr.applicant,%s' % i for i in identifiers])])
         # mapped() på ett Reference-fält ger en LISTA av recordsets —
         # inte ett recordset. Plocka ut id:na per post i stället.
         person_ids = [

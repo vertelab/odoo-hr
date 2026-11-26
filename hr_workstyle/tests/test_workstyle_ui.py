@@ -53,6 +53,11 @@ class TestWorkstyleViews(TransactionCase):
         self._check('hr.workstyle.trend', [(False, 'form')])
 
     def test_key_views_render(self):
+        # The hr.key.* views belong to hr_key_behaviour, not to this module.
+        # Rendering them here made the test depend on a module that is not a
+        # dependency of hr_workstyle.
+        if 'hr.key.analysis.type' not in self.env:
+            self.skipTest('hr_key_behaviour is not installed')
         self._check('hr.key.analysis.type', [(False, 'form')])
         self._check('hr.key.analysis.type', [(False, 'list')])
         self._check('hr.key.rationale', [(False, 'list')])
