@@ -65,7 +65,12 @@ class HrEmployee(models.Model):
             return [('id', 'in' if operator in ('!=', 'not in') else 'not in', ids)]
 
         identifiers = value if isinstance(value, list) else [value]
-        assessments = Assessment.search([('id', operator, identifiers)])
+        # Assessment ids are not employee ids. Searching the assessment by
+        # 'id' here made the domain optimiser call this method again with the
+        # same field, which recursed until the stack ran out. The ids in the
+        # domain belong to hr.employee, so filter the assessments by person.
+        assessments = Assessment.search(
+            [('person_ref', 'in', ['hr.employee,%s' % i for i in identifiers])])
         # mapped() på ett Reference-fält ger en LISTA av recordsets —
         # inte ett recordset. Plocka ut id:na per post i stället.
         person_ids = [
