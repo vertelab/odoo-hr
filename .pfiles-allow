@@ -135,3 +135,4 @@ hr_workstyle/views/hr_workstyle_assessment_views.xml
 hr_workstyle/views/hr_workstyle_style_views.xml
 hr_workstyle/views/hr_workstyle_trend_views.xml
 hr_workstyle/views/menu.xml
+hr_department_partner/tests/test_department_partner.py
