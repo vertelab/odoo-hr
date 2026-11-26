@@ -15,8 +15,11 @@
         <field name="inherit_id" ref="hr_skills.resume_line_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//group" position="inside">
+                <!-- 19.0 dropped display_type from hr.resume.line; the
+                     certification flag now lives on line_type_id, and
+                     hr_skills_survey owns resume_type_certification. -->
                 <group string="Certificate"
-                       invisible="display_type != 'certification'">
+                       invisible="line_type_id != %(hr_skills_survey.resume_type_certification)d">
                     <field name="certificate_number"/>
                     <field name="certificate_issuer"/>
                     <field name="certificate_url" widget="url"/>
