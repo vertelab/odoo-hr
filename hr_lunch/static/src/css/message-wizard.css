@@ -1,0 +1,74 @@
+.wizard-form 
+{
+    margin-left: -15px;
+}
+
+.wizard-form img
+{
+    border: 1px solid #1b0c36;
+    border-radius: 5px;
+    animation: shadow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes shadow-pulse {
+    0% {box-shadow: 3px 3px 7px #0000004d;}
+    50% {box-shadow: 0 0 0 10px #0000004d;}
+    100% {box-shadow: 3px 3px 7px #0000004d;}
+}
+
+.colorloop {
+    animation: colorChange 2s ease-in-out infinite;
+    padding: 20px;
+    border: 1px solid #1b0c36;
+    border-radius: 5px;
+}
+
+@keyframes colorChange {
+    0% { background-color: #e6d1ee; }
+    50% { background-color: #c9a2d8; }
+    100% { background-color: #bc9bc9; }
+}
+
+.ticker
+{
+    margin-left: 70px;
+    margin-top: 15px;
+    margin-bottom: -15px;
+}
+
+.tickertext
+{
+    text-decoration: none;
+    position: relative;
+    left: -4px;
+    top: 2px
+}
+/* 
+.custom_tree_view
+{
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+} */
+/* OLD CODE THAT JUST COMPLICATED THING IN ODOO
+ 
+-- To get rid of an annoying white stripe --
+.modal-header
+{
+    margin-bottom: -5px;
+}
+
+-- To manipulate the wizard header and footer  --
+.modal-content
+{
+    background-color: #a27de6;
+    border:6px solid #1b0c36; 
+    border-radius: 10px !important;
+    color:#1b0c36;
+}
+
+-- Change color of the form/body --
+.wizard-form
+{
+    background-color: #a27de6;
+}
