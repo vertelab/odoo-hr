@@ -144,3 +144,5 @@ hr_personal_equipment_helpdesk/security/ir.access.csv
 hr_pulse_survey/security/ir.access.csv
 hr_self_evaluation/security/ir.access.csv
 hr_workstyle/security/ir.access.csv
+hr_skill_esco/tests/test_hr_skill_esco.py
+hr_skills_certificate/tests/test_hr_skills_certificate.py
