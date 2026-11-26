@@ -5,13 +5,8 @@
 from odoo import api, fields, models, _
 
 
-# hr.contract is gone in 19.0 and 20.0. Employment is hr.version, and
-# hr.employee inherits it (hr_employee.py: _inherits = {'hr.version': 'version_id'}),
-# so a field added here is visible on the employee form without touching
-# hr.employee. wage already exists on hr.version; gross_salary and
-# estimated_pension do not.
 class HrContractCompBen(models.Model):
-    _inherit = 'hr.version'
+    _inherit = 'hr.contract'
 
     gross_salary = fields.Monetary(
         string="Gross Monthly Salary", tracking=True,
@@ -70,7 +65,7 @@ class HrBenefit(models.Model):
     _description = 'Employee Benefit'
     _order = 'sequence'
 
-    contract_id = fields.Many2one('hr.version', required=True, ondelete='cascade')
+    contract_id = fields.Many2one('hr.contract', required=True, ondelete='cascade')
     sequence = fields.Integer(default=10)
     name = fields.Char(required=True, string="Benefit")
     benefit_type = fields.Selection([
@@ -97,7 +92,7 @@ class HrSalarySacrifice(models.Model):
     _description = 'Salary Sacrifice'
     _order = 'sequence'
 
-    contract_id = fields.Many2one('hr.version', required=True, ondelete='cascade')
+    contract_id = fields.Many2one('hr.contract', required=True, ondelete='cascade')
     sequence = fields.Integer(default=10)
     name = fields.Char(required=True, string="Sacrifice")
     sacrifice_type = fields.Selection([

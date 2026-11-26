@@ -3,12 +3,8 @@
     <!-- Extend hr.contract form with Compensation & Benefits -->
     <record id="view_hr_contract_form_compben" model="ir.ui.view">
         <field name="name">hr.contract.form.compben</field>
-        <!-- hr_contract_view_form does not exist in 19.0/20.0. The fields
-             live on hr.version, which hr.employee inherits, so the employee
-             form is where they belong. version_id carries the versions
-             timeline widget (hr_employee_views.xml). -->
-        <field name="model">hr.employee</field>
-        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
         <field name="arch" type="xml">
             <!-- Add salary cards at top -->
             <xpath expr="//sheet" position="before">
