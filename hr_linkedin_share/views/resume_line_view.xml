@@ -8,11 +8,11 @@
       <field name="arch" type="xml">
         <sheet position="before">
           <header>
-            <button name="action_add_cert_to_linkedin" type="object" string="Add To Linkedin" invisible="line_type_id != %(hr_skills_survey.resume_type_certification)d"/>
+            <button name="action_add_cert_to_linkedin" type="object" string="Add To Linkedin" invisible="display_type != 'certification'"/>
           </header>
         </sheet>
         <field name="survey_id" position="after">
-          <field name="url_to_cert" invisible="line_type_id != %(hr_skills_survey.resume_type_certification)d"/>
+          <field name="url_to_cert" invisible="display_type != 'certification'"/>
         </field>
       </field>
     </record>
