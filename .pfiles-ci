@@ -1,5 +1,9 @@
 pfiles-ci: 1
-editions: 18.0
-# 20.0 saknas som gren (origin/20.0 finns inte). Att lista den har ar ett
-# konfigurationsfel som faller jobbet. Lagg till den nar grenen finns.
-# Inga deps: hr_lunch beror bara pa base och web.
+editions: 18.0 19.0 20.0
+# Alla tre utgavor finns som grenar. Att lista en utgave som inte finns ar ett
+# konfigurationsfel som faller jobbet; att utelamna en som finns betyder att den
+# aldrig kontrolleras.
+#
+# deps: repon som modulerna beror pa. En gren som finns men ar tom ska ge MODULE,
+# inte ENV -- grinden skiljer pa kodfel och miljofel.
+deps: OCA/timesheet OCA/calendar OCA/helpdesk OCA/server-ux OCA/hr
