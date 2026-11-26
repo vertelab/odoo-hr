@@ -13,7 +13,10 @@ class HrResumeLine(models.Model):
 
     def _compute_linkedin_cert_url(self):
         for cert in self:
-            if cert.display_type == "certification":
+            # display_type is gone from hr.resume.line in 19.0: the selection
+            # that carried 'certification' was replaced by line_type_id, and
+            # hr_skills_survey now sets resume_type_certification there.
+            if cert.line_type_id == self.env.ref('hr_skills_survey.resume_type_certification', raise_if_not_found=False):
                 issueYear = cert.date_start.year 
                 issueMonth = cert.date_start.month 
                 expirationYear = cert.date_end.year
