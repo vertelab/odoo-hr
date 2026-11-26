@@ -62,6 +62,7 @@ HR: Certificates — Elsäkerhetsverket
         'hr_skills_certificate',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'data/skill_data.xml',
     ],
     'application': False,

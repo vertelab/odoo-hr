@@ -50,7 +50,5 @@ Timesheet NonBillable
         'views/hr_timesheet_nonbillable_view.xml',
     ],
     'application': True,
-    # Ported to 19.0 only -- hr_timesheet_sheet has no 20.0 branch.
-    # Remove this line when OCA ports the dependency.
-    'installable': False,
+    'installable': True,
 }

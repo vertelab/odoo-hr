@@ -53,7 +53,4 @@ Calendar Public Holiday
     # hr_holidays_public importerades aldrig och finns inte i något 18.0-repo
     # vi använder. Rättat 2026-10-20.
     'depends': ['calendar_public_holiday'],
-    # Ported to 19.0 only -- calendar_public_holiday has no 20.0 branch.
-    # Remove this line when OCA ports the dependency.
-    'installable': False,
 }

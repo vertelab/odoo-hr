@@ -68,11 +68,7 @@ HR: Certificates — Restaurant
         'hr_skills_certificate',
     ],
     'data': [
-        # #if VERSION < "20.0"
-        # The file has a header and nothing else -- no access rule is
-        # granted by it. 20.0 removed ir.model.access, so it is dropped.
         'security/ir.model.access.csv',
-        # #endif
         'data/skill_data.xml',
     ],
     'application': False,

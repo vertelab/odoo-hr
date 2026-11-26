@@ -57,7 +57,5 @@ Helpdesk Responsibility
         'data/ir_cron.xml',
     ],
     'application': False,
-    # Ported to 19.0 only -- helpdesk_mgmt has no 20.0 branch.
-    # Remove this line when OCA ports the dependency.
-    'installable': False,
+    'installable': True,
 }
