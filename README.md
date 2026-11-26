@@ -1,6 +1,50 @@
 # odoo-hr
 
-Vertel HR-moduler för Odoo 18.
+Vertel HR-moduler för Odoo 18, 19 och 20.
+
+## Porteringsstatus
+
+Grenarna är inte jämställda. `18.0` är originalet. `19.0` och `20.0` porteras
+härifrån, modul för modul.
+
+**Portad** betyder: installerad i en databas för utgåvan utan ERROR/CRITICAL,
+och modulens testsvit grön med minst en testmetod. Att modulen finns i grenens
+filträd räknas inte — att filerna ligger där säger ingenting om de fungerar.
+
+| Modul | 18.0 | 19.0 | 20.0 | Blockerare |
+|---|---|---|---|---|
+| `hr_ai` | ✅ | ⬜ | ⬜ | `ai_agent_core@20.0` är en kopia, inte en port |
+| `hr_calendar_public_holiday` | ✅ | ⬜ | ⛔ | `calendar_public_holiday` saknas på 20.0 |
+| `hr_certificate_arbetsmiljo` | ✅ | ⬜ | ⬜ | `hr_skills_certificate` |
+| `hr_certificate_esa` | ✅ | ⬜ | ⬜ | `hr_skills_certificate` |
+| `hr_certificate_hiss` | ✅ | ⬜ | ⬜ | `hr_skills_certificate` |
+| `hr_certificate_restaurant` | ✅ | ⬜ | ⬜ | `hr_skills_certificate` |
+| `hr_contract_compben` | ✅ | ⬜ | ⬜ | `hr.contract` borttagen — se `hr.version` |
+| `hr_dashboard_vrtl` | ⛔ | ⛔ | ⛔ | manifest saknas; nyutveckling |
+| `hr_dashboard_vrtl_synconics` | ⛔ | ⛔ | ⛔ | manifest saknas |
+| `hr_department_partner` | ✅ | ⬜ | ⬜ | – |
+| `hr_evaluation` | ✅ | ⬜ | ⬜ | – |
+| `hr_key_behaviour` | ✅ | ⬜ | ⬜ | `hr_workstyle` |
+| `hr_linkedin_share` | ✅ | ⬜ | ⬜ | – |
+| `hr_lunch` | ✅ | ⬜ | ⬜ | nytillkommen på 18.0; ej installerad på 19/20 |
+| `hr_onboarding_ce` | ✅ | ⬜ | ⬜ | `hr.contract` borttagen |
+| `hr_personal_equipment_helpdesk` | ✅ | ⛔ | ⛔ | `hr_personal_equipment_request` saknas på båda |
+| `hr_pulse_survey` | ✅ | ⬜ | ⬜ | `hr_evaluation` |
+| `hr_recruitment_translation` | ✅ | ⬜ | ⬜ | – |
+| `hr_remove_attendance_barcode` | ✅ | ⬜ | ⬜ | – |
+| `hr_self_evaluation` | ✅ | ⬜ | ⬜ | `hr_evaluation` |
+| `hr_skill_esco` | ✅ | ⬜ | ⬜ | – |
+| `hr_skills_certificate` | ✅ | ⬜ | ⬜ | – (saknas helt på 20.0) |
+| `hr_tier_validation` | ✅ | ⛔ | ⛔ | `base_tier_validation` saknas på båda |
+| `hr_timesheet_nonbillable` | ✅ | ⬜ | ⛔ | `hr_timesheet_sheet` saknas på 20.0 |
+| `hr_timesheet_schema` | ✅ | ⬜ | ⛔ | `hr_timesheet_sheet` saknas på 20.0 |
+| `hr_website_about_us` | ⛔ | ⛔ | ⛔ | `website_imagemagick` ej installerbar |
+| `hr_website_about_us_calendar` | ⛔ | ⛔ | ⛔ | `website_imagemagick` |
+| `hr_website_about_us_vcard` | ⛔ | ⛔ | ⛔ | `website_imagemagick` |
+| `hr_workstyle` | ✅ | ⬜ | ⬜ | – |
+| `helpdesk_responsibility` | ✅ | ⬜ | ⛔ | `helpdesk_mgmt` saknas på 20.0 |
+
+✅ installerad · ⬜ ej porterad · ⛔ blockerad
 
 ## Beteendeprofiler (DISC)
 
@@ -110,34 +154,3 @@ samt ett end-to-end-flöde från kandidat till utveckling över tre mätningar.
   `res_id` på en `Many2oneReference` ger `TypeError` vid modellbygge.
 - **`hr_workstyle.gap` är virtuella poster.** Ingen tabell fylls; raderna
   försvinner när vyn stängs. `_rows_for()` skriver inget, `_build()` sparar.
-
-## Porteringsstatus
-
-18.0 är baseline. 19.0/20.0 visar om p-filen har ett villkor för utgåvan
-— inte om grenen finns. Blockerare är `depends` som saknas i 20.0
-(kärna + alla 20.0-grenar).
-
-| Modul | Beskrivning | Manifest | p-fil | 19.0 | 20.0 | Blockerare |
-|---|---|---|---|---|---|---|
-| helpdesk_responsibility | To share responsibilities between helpdesk teams. | 1.0.0 | 0 | — | — | `helpdesk_mgmt` |
-| hr_ai | OKF-indexering av hr.job och hr.employee | 1.0.0 | 1 | — | — | — |
-| hr_calendar_public_holiday | Copies public holiday to a resource calendar. | 1.0.0 | 0 | — | — | `hr_holidays_public` |
-| hr_contract_compben | Total compensation view with salary configurator, benefit... | 1.0.0 | 1 | — | ✓ | `hr_contract` |
-| hr_department_partner | To be able to have multiple addresses on department and s... | 1.0.0 | 1 | — | ✓ | — |
-| hr_evaluation | Periodic employee evaluations with self-evaluation, goals... | 1.0.0 | 1 | — | ✓ | — |
-| hr_key_behaviour | KEY: Behaviour terminology and analysis types for behavio... | 1.0.0 | 1 | — | ✓ | — |
-| hr_linkedin_share | Shares job positions on LinkedIn. | 1.0.0 | 0 | — | — | — |
-| hr_onboarding_ce | Structured onboarding and offboarding with checklists and... | 1.0.0 | 1 | — | ✓ | `hr_contract` |
-| hr_personal_equipment_helpdesk | Allow users submit helpdesk ticket for their Personal Equ... | 1.0.0 | 1 | — | ✓ | `helpdesk_mgmt` `hr_personal_equipment_request` |
-| hr_pulse_survey | Recurring pulse surveys with automated alarms and trend a... | 1.0.0 | 1 | — | ✓ | — |
-| hr_recruitment_translation | Fixes a translation. | 1.0.0 | 0 | — | — | — |
-| hr_remove_attendance_barcode | Removes the barcode field from the attendance view. | 1.0.0 | 0 | — | — | — |
-| hr_self_evaluation | Employee self-evaluation (självskattning) before manager ... | 1.0.0 | 1 | — | ✓ | — |
-| hr_skill_esco | Extend HR with ESCO skills and skill type. | 1.0.0 | 0 | — | — | — |
-| hr_tier_validation | HR Tier Validation | 1.0.0 | 0 | — | — | `base_tier_validation` |
-| hr_timesheet_nonbillable | To be able to report non-billable time when reporting time. | 0.1.0 | 1 | — | ✓ | `hr_timesheet_sheet` |
-| hr_timesheet_schema | To be able to quickly compare reported time with expected... | 1.0.0 | 0 | — | — | `hr_timesheet_sheet` |
-| hr_website_about_us | Show employee on webpage. | 0.1.0 | 0 | — | — | `website_imagemagick` |
-| hr_website_about_us_calendar | Book meeting with employee. | 0.0.0 | 0 | — | — | — |
-| hr_website_about_us_vcard | Create and show Vcard as QRcode. | 0.0.0 | 0 | — | — | — |
-| hr_workstyle | Behavioural style profiles for job positions and people (... | 1.0.0 | 2 | — | ✓ | — |
