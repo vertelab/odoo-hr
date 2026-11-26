@@ -57,11 +57,10 @@ class HrJobWorkstyleLine(models.Model):
     company_id = fields.Many2one(
         related='job_id.company_id', string='Company', store=True)
 
-    # 19.0 removed _sql_constraints; models.Constraint is the replacement.
-    _job_style_uniq = models.Constraint(
-        'unique(job_id, style_id)',
-        "En tjänst kan bara ha ett krav per beteendestil.",
-    )
+    _sql_constraints = [
+        ('job_style_uniq', 'unique(job_id, style_id)',
+         "En tjänst kan bara ha ett krav per beteendestil."),
+    ]
 
     @api.constrains('ideal_min', 'ideal_max')
     def _check_range(self):

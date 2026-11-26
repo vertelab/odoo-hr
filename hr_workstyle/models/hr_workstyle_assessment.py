@@ -272,11 +272,10 @@ class HrWorkstyleAssessmentLine(models.Model):
     date = fields.Date(
         related='assessment_id.date', string='Measurement Date', store=True)
 
-    # 19.0 removed _sql_constraints; models.Constraint is the replacement.
-    _assessment_style_uniq = models.Constraint(
-        'unique(assessment_id, style_id)',
-        "En stil kan bara ha en poäng per mätning.",
-    )
+    _sql_constraints = [
+        ('assessment_style_uniq', 'unique(assessment_id, style_id)',
+         "En stil kan bara ha en poäng per mätning."),
+    ]
 
     @api.constrains('score', 'style_id')
     def _check_score(self):

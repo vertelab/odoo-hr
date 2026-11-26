@@ -62,11 +62,10 @@ class HrWorkstyleStyle(models.Model):
     display_name_full = fields.Char(
         string='Display Name', compute='_compute_display_name_full')
 
-    # 19.0 removed _sql_constraints; models.Constraint is the replacement.
-    _code_uniq = models.Constraint(
-        'unique(code)',
-        "Koden för en beteendestil måste vara unik.",
-    )
+    _sql_constraints = [
+        ('code_uniq', 'unique(code)',
+         "Koden för en beteendestil måste vara unik."),
+    ]
 
     @api.constrains('scale_min', 'scale_max')
     def _check_scale(self):
