@@ -26,6 +26,7 @@ filträd räknas inte — att filerna ligger där säger ingenting om de fungera
 | `hr_evaluation` | ✅ | ⬜ | ⬜ | – |
 | `hr_key_behaviour` | ✅ | ⬜ | ⬜ | `hr_workstyle` |
 | `hr_linkedin_share` | ✅ | ⬜ | ⬜ | – |
+| `hr_lunch` | ✅ | ⬜ | ⬜ | nytillkommen på 18.0; ej installerad på 19/20 |
 | `hr_onboarding_ce` | ✅ | ⬜ | ⬜ | `hr.contract` borttagen |
 | `hr_personal_equipment_helpdesk` | ✅ | ⛔ | ⛔ | `hr_personal_equipment_request` saknas på båda |
 | `hr_pulse_survey` | ✅ | ⬜ | ⬜ | `hr_evaluation` |
