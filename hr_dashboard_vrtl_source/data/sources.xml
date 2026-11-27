@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================================================================ -->
+    <!-- HR Workforce Sources                                              -->
+    <!-- ================================================================ -->
+
+    <record id="source_hr_headcount" model="dashboard.source">
+        <field name="name">Headcount Trend</field>
+        <field name="technical_name">hr.headcount</field>
+        <field name="model_name">dashboard.source.hr.headcount</field>
+        <field name="category">Human Resources</field>
+        <field name="source_type">service</field>
+    </record>
+
+    <record id="source_hr_department_distribution" model="dashboard.source">
+        <field name="name">Department Distribution</field>
+        <field name="technical_name">hr.department_distribution</field>
+        <field name="model_name">dashboard.source.hr.department_distribution</field>
+        <field name="category">Human Resources</field>
+        <field name="source_type">service</field>
+    </record>
+
+    <record id="source_hr_gender_balance" model="dashboard.source">
+        <field name="name">Gender Balance</field>
+        <field name="technical_name">hr.gender_balance</field>
+        <field name="model_name">dashboard.source.hr.gender_balance</field>
+        <field name="category">Human Resources</field>
+        <field name="source_type">service</field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!-- HR Payroll Sources                                                -->
+    <!-- ================================================================ -->
+
+    <record id="source_hr_payroll_trend" model="dashboard.source">
+        <field name="name">Payroll Cost Trend</field>
+        <field name="technical_name">hr.payroll_trend</field>
+        <field name="model_name">dashboard.source.hr.payroll_trend</field>
+        <field name="category">Human Resources</field>
+        <field name="source_type">service</field>
+    </record>
+
+    <record id="source_hr_salary_distribution" model="dashboard.source">
+        <field name="name">Salary Distribution</field>
+        <field name="technical_name">hr.salary_distribution</field>
+        <field name="model_name">dashboard.source.hr.salary_distribution</field>
+        <field name="category">Human Resources</field>
+        <field name="source_type">service</field>
+    </record>
+
+    <!-- ================================================================ -->
+    <!-- HR Absence Sources                                                -->
+    <!-- ================================================================ -->
+
+    <record id="source_hr_absence_trend" model="dashboard.source">
+        <field name="name">Absence Trend</field>
+        <field name="technical_name">hr.absence_trend</field>
+        <field name="model_name">dashboard.source.hr.absence_trend</field>
+        <field name="category">Human Resources</field>
+        <field name="source_type">service</field>
+    </record>
+
+    <record id="source_hr_sick_leave_by_dept" model="dashboard.source">
+        <field name="name">Sick Leave by Department</field>
+        <field name="technical_name">hr.sick_leave_by_dept</field>
+        <field name="model_name">dashboard.source.hr.sick_leave_by_dept</field>
+        <field name="category">Human Resources</field>
+        <field name="source_type">service</field>
+    </record>
+
+    <record id="source_hr_vacation_utilization" model="dashboard.source">
+        <field name="name">Vacation Utilization</field>
+        <field name="technical_name">hr.vacation_utilization</field>
+        <field name="model_name">dashboard.source.hr.vacation_utilization</field>
+        <field name="category">Human Resources</field>
+        <field name="source_type">service</field>
+    </record>
+</odoo>

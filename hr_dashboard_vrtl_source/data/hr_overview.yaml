@@ -1,0 +1,258 @@
+# HR Overview Dashboard — dashboard_vrtl YAML definition
+# Generated: 2026-07-11
+# Module: dashboard_vrtl_source_hr
+# Deployment: dashboard_vrtl/dashboards YAML → ORM sync
+
+name: "HR Overview"
+key: "hr_overview"
+description: "Comprehensive HR analytics: workforce, payroll, absence, and compensation"
+icon: "fa-users"
+category: "Human Resources"
+owner_group: "hr.group_hr_manager"
+auto_refresh: 300  # 5 minutes
+
+filters:
+  - key: "period"
+    label: "Period"
+    label_sv: "Period"
+    type: "date_range"
+    shortcuts:
+      - label: "Last 30 Days"
+        from: "30d"
+      - label: "Last 90 Days"
+        from: "90d"
+      - label: "Last 12 Months"
+        from: "365d"
+      - label: "Year to Date"
+        from: "ytd"
+      - label: "This Year"
+        from: "1y"
+    optional: false
+    sequence: 1
+
+  - key: "department"
+    label: "Department"
+    label_sv: "Avdelning"
+    type: "many2many"
+    model: "hr.department"
+    optional: true
+    sequence: 2
+
+layout:
+  type: "grid"
+  columns: 12
+
+rows:
+  # ============================
+  # ROW 1: KPI Cards — Summary
+  # ============================
+  - charts:
+      - key: "kpi_headcount"
+        title: "Total Headcount"
+        title_sv: "Antal anställda"
+        source: "hr.headcount"
+        chart_type: "kpi"
+        layout: "kpi_layout_one"
+        width: 3
+        height: 2
+        measures: ["headcount"]
+        filters:
+          date_from: "ytd"
+          date_to: "today"
+        drill:
+          type: "action"
+          action: "hr.open_view_employee_list_my"
+
+      - key: "kpi_new_hires"
+        title: "New Hires (YTD)"
+        title_sv: "Nyanställda (ÅTD)"
+        source: "hr.headcount"
+        chart_type: "kpi"
+        layout: "kpi_layout_two"
+        width: 2
+        height: 2
+        measures: ["new_hires"]
+        filters:
+          date_from: "ytd"
+          date_to: "today"
+
+      - key: "kpi_turnover"
+        title: "Turnover % (YTD)"
+        title_sv: "Personalomsättning % (ÅTD)"
+        source: "hr.headcount"
+        chart_type: "kpi"
+        layout: "kpi_layout_three"
+        width: 2
+        height: 2
+        measures: ["departures"]
+        filters:
+          date_from: "ytd"
+          date_to: "today"
+
+      - key: "kpi_sick_rate"
+        title: "Sick Rate"
+        title_sv: "Sjukfrånvaro"
+        source: "hr.sick_leave_by_dept"
+        chart_type: "kpi"
+        layout: "kpi_layout_four"
+        width: 2
+        height: 2
+        measures: ["sick_rate"]
+
+      - key: "kpi_payroll_cost"
+        title: "Monthly Payroll"
+        title_sv: "Månadslönekostnad"
+        source: "hr.payroll_trend"
+        chart_type: "kpi"
+        layout: "kpi_layout_five"
+        width: 3
+        height: 2
+        measures: ["total_cost"]
+        filters:
+          date_from: "30d"
+          date_to: "today"
+
+  # ============================
+  # ROW 2: Main Trend Charts
+  # ============================
+  - charts:
+      - key: "chart_headcount_trend"
+        title: "Headcount Trend (12 Months)"
+        title_sv: "Antal anställda — trend (12 mån)"
+        source: "hr.headcount"
+        chart_type: "area"
+        width: 6
+        height: 4
+        measures: ["headcount", "new_hires", "departures"]
+        filters:
+          date_from: "365d"
+          date_to: "today"
+        filter_mapping:
+          period:
+            compatible: true
+            mapping: {from: date_from, to: date_to}
+          department:
+            compatible: true
+            mapping: {ids: department_ids}
+        drill:
+          type: "group_by"
+          path:
+            - field: "department_id"
+              label: "Department"
+
+      - key: "chart_department_distribution"
+        title: "Department Distribution"
+        title_sv: "Avdelningsfördelning"
+        source: "hr.department_distribution"
+        chart_type: "doughnut"
+        width: 3
+        height: 4
+        measures: ["count"]
+        filter_mapping:
+          department:
+            compatible: false
+        drill:
+          type: "action"
+          action: "hr.open_view_employee_list_my"
+          param_field: "department_id"
+
+      - key: "chart_gender_balance"
+        title: "Gender Balance"
+        title_sv: "Jämställdhet"
+        source: "hr.gender_balance"
+        chart_type: "pie"
+        width: 3
+        height: 4
+        measures: ["count"]
+        filter_mapping:
+          department:
+            compatible: true
+            mapping: {ids: department_ids}
+
+  # ============================
+  # ROW 3: Payroll & Absence
+  # ============================
+  - charts:
+      - key: "chart_payroll_trend"
+        title: "Payroll Cost Trend"
+        title_sv: "Lönekostnad — trend"
+        source: "hr.payroll_trend"
+        chart_type: "stacked_column"
+        width: 6
+        height: 4
+        measures: ["gross_salary", "contributions"]
+        filters:
+          date_from: "365d"
+          date_to: "today"
+        filter_mapping:
+          period:
+            compatible: true
+            mapping: {from: date_from, to: date_to}
+          department:
+            compatible: true
+            mapping: {ids: department_ids}
+
+      - key: "chart_absence_trend"
+        title: "Absence Trend"
+        title_sv: "Frånvarotrend"
+        source: "hr.absence_trend"
+        chart_type: "stacked_column"
+        width: 6
+        height: 4
+        measures: ["sick_days", "vacation_days", "other_leave"]
+        filters:
+          date_from: "365d"
+          date_to: "today"
+        filter_mapping:
+          period:
+            compatible: true
+            mapping: {from: date_from, to: date_to}
+          department:
+            compatible: true
+            mapping: {ids: department_ids}
+        drill:
+          type: "action"
+          action: "hr_holidays.hr_leave_action"
+
+  # ============================
+  # ROW 4: Detailed Tables
+  # ============================
+  - charts:
+      - key: "table_vacation_utilization"
+        title: "Vacation Utilization"
+        title_sv: "Semesteruttag"
+        source: "hr.vacation_utilization"
+        chart_type: "table"
+        width: 6
+        height: 5
+        measures: ["allocated", "taken", "remaining", "utilization_pct"]
+        drill:
+          type: "action"
+          action: "hr_holidays.hr_leave_action"
+
+      - key: "table_salary_distribution"
+        title: "Salary Distribution by Department"
+        title_sv: "Lönefördelning per avdelning"
+        source: "hr.salary_distribution"
+        chart_type: "table"
+        width: 6
+        height: 5
+        measures: ["avg_salary", "median_salary", "employee_count"]
+        drill:
+          type: "action"
+          action: "hr_contract.action_hr_contract"
+
+# ========================================
+# Alerting
+# ========================================
+alerts:
+  - metric_source: "hr.sick_leave_by_dept"
+    condition: "sick_rate > 5"
+    severity: "warning"
+    trigger_type: "cron"
+    schedule: "0 8 * * 1"  # Every Monday at 08:00
+    cooldown: 86400  # 24 hours
+    channels: ["notification"]
+    recipients:
+      - type: "group"
+        id: "hr.group_hr_manager"
