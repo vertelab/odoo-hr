@@ -21,10 +21,10 @@
 
 {
     'name': 'HR: Vote For Lunch',
-    # Version = <Odoo series>.<module version>. The series must match the branch
-    # (pfiles-check gate 3 fails otherwise). Bump the module version in ALL
-    # branches when the code changes.
-    'version': '18.0.3.0',
+    # Version without the series: adapt_version() adds the branch's edition
+    # when the module loads. Naming a series here makes one branch's output
+    # wrong on every other branch (20.0.3.0 on 19.0 fails the registry).
+    'version': '3.0',
     'summary': 'Choose where to eat!',
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
