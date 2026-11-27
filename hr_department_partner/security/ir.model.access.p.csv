@@ -1,0 +1,7 @@
+# #if VERSION >= "20.0"
+id,name,model_id,group_id/id,operation,domain
+access_hr_department_address_user,hr.department.address user,hr.department.address,base.group_user,crud,
+# #else
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_department_address_user,hr.department.address user,model_hr_department_address,base.group_user,1,1,1,1
+# #endif

@@ -1,0 +1,17 @@
+# #if VERSION >= "20.0"
+id,name,model_id,group_id/id,operation,domain
+access_hr_key_analysis_type_hr,hr.key.analysis.type.hr,hr.key.analysis.type,hr.group_hr_user,r,
+access_hr_key_analysis_type_manager,hr.key.analysis.type.manager,hr.key.analysis.type,hr.group_hr_manager,crud,
+access_hr_key_rationale_hr,hr.key.rationale.hr,hr.key.rationale,hr.group_hr_user,r,
+access_hr_key_rationale_manager,hr.key.rationale.manager,hr.key.rationale,hr.group_hr_manager,crud,
+access_hr_key_unit_overview_hr,hr.key.unit.overview.hr,hr.key.unit.overview,hr.group_hr_user,crud,
+access_hr_key_unit_overview_line_hr,hr.key.unit.overview.line.hr,hr.key.unit.overview.line,hr.group_hr_user,crud,
+# #else
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_key_analysis_type_hr,hr.key.analysis.type.hr,model_hr_key_analysis_type,hr.group_hr_user,1,0,0,0
+access_hr_key_analysis_type_manager,hr.key.analysis.type.manager,model_hr_key_analysis_type,hr.group_hr_manager,1,1,1,1
+access_hr_key_rationale_hr,hr.key.rationale.hr,model_hr_key_rationale,hr.group_hr_user,1,0,0,0
+access_hr_key_rationale_manager,hr.key.rationale.manager,model_hr_key_rationale,hr.group_hr_manager,1,1,1,1
+access_hr_key_unit_overview_hr,hr.key.unit.overview.hr,model_hr_key_unit_overview,hr.group_hr_user,1,1,1,1
+access_hr_key_unit_overview_line_hr,hr.key.unit.overview.line.hr,model_hr_key_unit_overview_line,hr.group_hr_user,1,1,1,1
+# #endif
