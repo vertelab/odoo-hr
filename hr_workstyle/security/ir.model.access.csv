@@ -1,15 +1,9 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_hr_workstyle_style_user,hr.workstyle.style.user,model_hr_workstyle_style,base.group_user,1,0,0,0
-access_hr_workstyle_style_manager,hr.workstyle.style.manager,model_hr_workstyle_style,hr.group_hr_manager,1,1,1,1
-access_hr_job_workstyle_line_user,hr.job.workstyle.line.user,model_hr_job_workstyle_line,base.group_user,1,0,0,0
-access_hr_job_workstyle_line_manager,hr.job.workstyle.line.manager,model_hr_job_workstyle_line,hr.group_hr_manager,1,1,1,1
-access_hr_workstyle_assessment_hr,hr.workstyle.assessment.hr,model_hr_workstyle_assessment,hr.group_hr_user,1,1,1,1
-access_hr_workstyle_assessment_manager,hr.workstyle.assessment.manager,model_hr_workstyle_assessment,hr.group_hr_manager,1,1,1,1
-access_hr_workstyle_assessment_line_hr,hr.workstyle.assessment.line.hr,model_hr_workstyle_assessment_line,hr.group_hr_user,1,1,1,1
-access_hr_workstyle_assessment_line_manager,hr.workstyle.assessment.line.manager,model_hr_workstyle_assessment_line,hr.group_hr_manager,1,1,1,1
-access_hr_workstyle_gap_hr,hr.workstyle.gap.hr,model_hr_workstyle_gap,hr.group_hr_user,1,1,1,1
-access_hr_workstyle_gap_manager,hr.workstyle.gap.manager,model_hr_workstyle_gap,hr.group_hr_manager,1,1,1,1
-access_hr_workstyle_trend_hr,hr.workstyle.trend.hr,model_hr_workstyle_trend,hr.group_hr_user,1,1,1,1
-access_hr_workstyle_trend_manager,hr.workstyle.trend.manager,model_hr_workstyle_trend,hr.group_hr_manager,1,1,1,1
-access_hr_workstyle_trend_line_hr,hr.workstyle.trend.line.hr,model_hr_workstyle_trend_line,hr.group_hr_user,1,1,1,1
-access_hr_workstyle_trend_line_manager,hr.workstyle.trend.line.manager,model_hr_workstyle_trend_line,hr.group_hr_manager,1,1,1,1
+id,name,model_id,group_id/id,operation,domain
+access_hr_workstyle_style_user,hr.workstyle.style.user,hr.workstyle.style,base.group_user,r,
+access_hr_workstyle_style_manager,hr.workstyle.style.manager,hr.workstyle.style,hr.group_hr_manager,crud,
+access_hr_job_workstyle_line_user,hr.job.workstyle.line.user,hr.job.workstyle.line,base.group_user,r,
+access_hr_job_workstyle_line_manager,hr.job.workstyle.line.manager,hr.job.workstyle.line,hr.group_hr_manager,crud,
+rule_workstyle_assessment_hr_user,Behavioural measurement: HR user sees employees only,hr.workstyle.assessment,hr.group_hr_user,crud,"[('person_ref', '=like', 'hr.employee,%')]"
+rule_workstyle_assessment_manager,Behavioural measurement: HR manager sees all,hr.workstyle.assessment,hr.group_hr_manager,crud,
+access_hr_workstyle_assessment_line_hr,hr.workstyle.assessment.line.hr,hr.workstyle.assessment.line,hr.group_hr_user,crud,
+access_hr_workstyle_assessment_line_manager,hr.workstyle.assessment.line.manager,hr.workstyle.assessment.line,hr.group_hr_manager,crud,
