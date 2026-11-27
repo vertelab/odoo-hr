@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_onboarding_template_user,hr.onboarding.template.user,model_hr_onboarding_template,base.group_user,1,0,0,0
+access_hr_onboarding_template_manager,hr.onboarding.template.manager,model_hr_onboarding_template,hr.group_hr_manager,1,1,1,1
+access_hr_onboarding_user,hr.onboarding.user,model_hr_onboarding,base.group_user,1,1,1,1
+access_hr_offboarding_user,hr.offboarding.user,model_hr_offboarding,base.group_user,1,1,1,1

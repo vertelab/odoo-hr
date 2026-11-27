@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_self_evaluation_user,hr.self.evaluation.user,model_hr_self_evaluation,base.group_user,1,1,1,1
