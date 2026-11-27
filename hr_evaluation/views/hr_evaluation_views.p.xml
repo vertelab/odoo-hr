@@ -232,7 +232,7 @@
                 <separator/>
                 <filter name="this_quarter" string="This Quarter"
                         domain="[('date_planned', '>=', context_today().strftime('%Y-%m-%d'))]"/>
-                <!-- #if VERSION < "19.0" -->
+                <!-- #if VERSION <= "19.0" -->
                 <group expand="1" string="Group By">
                     <filter name="group_state" string="State" domain="[]" context="{'group_by': 'state'}"/>
                     <filter name="group_department" string="Department" domain="[]" context="{'group_by': 'department_id'}"/>
