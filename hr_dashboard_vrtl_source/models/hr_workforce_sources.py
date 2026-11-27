@@ -59,7 +59,6 @@ class HRWorkforceHeadcountSource(models.AbstractModel):
         date_to = filters.get("date_to", date.today().isoformat())
         department_ids = filters.get("department_ids", [])
 
-        Employee = self.env["hr.employee"]
         company_ids = filters.get("company_ids", self.env.companies.ids)
 
         # Monthly headcount snapshots via _read_group on hr.employee

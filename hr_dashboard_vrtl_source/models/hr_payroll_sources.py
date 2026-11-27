@@ -88,14 +88,8 @@ class HRPayrollTrendSource(models.AbstractModel):
             if department_ids:
                 payslip_domain.append(("employee_id.department_id", "in", department_ids))
 
-            # _read_group is safest for respecting ir.rule
-            records = self.env["hr.payslip"]._read_group(
-                domain=payslip_domain,
-                groupby=[],
-                aggregates=["_get_total_worked_days:sum", "_get_total_worked_hours:sum"],
-            )
-            # hr.payslip doesn't have a direct aggregated gross total via _read_group,
-            # so we use a raw SQL approach with the security bridge for efficiency.
+            # hr.payslip has no aggregated gross total via _read_group, so the
+            # gross is summed from the payslip lines with raw SQL below.
 
             employee_ids = self.env["hr.employee"].search([
                 ("company_id", "in", company_ids),
@@ -128,19 +122,6 @@ class HRPayrollTrendSource(models.AbstractModel):
                   AND p.date_from <= %s AND p.date_to >= %s
             """, (employee_ids, month_end.isoformat(), month_start.isoformat()))
             gross, net = self.env.cr.fetchone()
-
-            # Employer contributions are approximately (gross - net) minus employee tax
-            # More accurately, contributions = total - gross where total is the cost
-            self.env.cr.execute("""
-                SELECT COALESCE(SUM(pl.total), 0)
-                FROM hr_payslip p
-                JOIN hr_payslip_line pl ON pl.slip_id = p.id
-                    AND pl.code IN ('GROSS', 'TAXABLE_GROSS')
-                WHERE p.employee_id = ANY(%s)
-                  AND p.state IN ('done', 'paid')
-                  AND p.date_from <= %s AND p.date_to >= %s
-            """, (employee_ids, month_end.isoformat(), month_start.isoformat()))
-            taxable_gross = self.env.cr.fetchone()[0]
 
             if gross:
                 # Standard Swedish employer contribution is ~31.42% of gross
