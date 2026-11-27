@@ -119,8 +119,8 @@ class LunchDiscoveryWizard(models.TransientModel):
         Same parameter as lunch.choice uses; the position has one home.
         """
         params = self.env["ir.config_parameter"].sudo()
-        raw_lat = params.get_param("hr_lunch.company_lat", default="")
-        raw_lon = params.get_param("hr_lunch.company_lon", default="")
+        raw_lat = params.get_str("hr_lunch.company_lat", default="")
+        raw_lon = params.get_str("hr_lunch.company_lon", default="")
         try:
             return float(raw_lat), float(raw_lon)
         except (TypeError, ValueError):

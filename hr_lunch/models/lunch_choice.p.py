@@ -226,8 +226,13 @@ class LunchChoice(models.Model):
         a position.
         """
         params = self.env["ir.config_parameter"].sudo()
+        # #if VERSION >= "20.0"
+        raw_lat = params.get_str(self.COMPANY_LAT_PARAM, default="")
+        raw_lon = params.get_str(self.COMPANY_LON_PARAM, default="")
+        # #else
         raw_lat = params.get_param(self.COMPANY_LAT_PARAM, default="")
         raw_lon = params.get_param(self.COMPANY_LON_PARAM, default="")
+        # #endif
         try:
             return float(raw_lat), float(raw_lon)
         except (TypeError, ValueError):
