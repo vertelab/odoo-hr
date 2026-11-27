@@ -63,9 +63,13 @@ class ResConfigSettings(models.TransientModel):
         traceback: the coordinates are left untouched and the message says so.
         """
         self.ensure_one()
+        # res.company is not a res.partner -- it inherits format.address.mixin
+        # and carries the address on partner_id. Calling _display_address() on
+        # the company raised AttributeError on every click, so the button never
+        # reached Nominatim at all.
         company = self.env.company
-        address = company._display_address(without_company=True).replace("\n", ", ")
-        address = " ".join(address.split())
+        address = company.partner_id._display_address(without_company=True)
+        address = " ".join(address.replace("\n", ", ").split())
         if not address:
             raise UserError(
                 _("The company has no address. Fill it in under Settings > "
@@ -94,17 +98,49 @@ class ResConfigSettings(models.TransientModel):
                 _("No position found for the company address: %s") % address
             )
 
-        self.lunch_company_lat = float(results[0]["lat"])
-        self.lunch_company_lon = float(results[0]["lon"])
-        # The wizard is transient; the values reach ir.config_parameter when
-        # the user saves. Say so, rather than let the button look like a save.
+        lat = float(results[0]["lat"])
+        lon = float(results[0]["lon"])
+
+        # Write through, do not just fill the widget. res.config.settings is a
+        # TransientModel: the row is dropped when the dialog closes, and the
+        # only path to ir.config_parameter is set_values(), which runs on Save.
+        # Filling the field and closing therefore saved nothing -- the button
+        # looked like a save and was not one. The user still has to press Save
+        # for the rest of the page, but the coordinates are already stored.
+        params = self.env["ir.config_parameter"].sudo()
+        # #if VERSION >= "20.0"
+        params.set_str("hr_lunch.company_lat", lat)
+        params.set_str("hr_lunch.company_lon", lon)
+        # #else
+        params.set_param("hr_lunch.company_lat", lat)
+        params.set_param("hr_lunch.company_lon", lon)
+        # #endif
+
+        # The form is still showing the old numbers. Reload it instead of
+        # closing: a closed dialog hides the result, and a stale form invites
+        # the user to save the values they had before.
+        self.lunch_company_lat = lat
+        self.lunch_company_lon = lon
+        return self._reload_settings(
+            _("Position found and saved: %(lat)s, %(lon)s")
+            % {"lat": lat, "lon": lon}
+        )
+
+    def _reload_settings(self, message):
+        """Reload the settings form so it shows what was just written.
+
+        act_window_close would drop the transient row and hide the result.
+        soft_reload restores the current controller, which re-runs default_get
+        and reads ir.config_parameter back into the fields -- the same chain
+        account and payment_razorpay_oauth use after writing a setting from a
+        button.
+        """
         return {
             "type": "ir.actions.client",
             "tag": "display_notification",
             "params": {
                 "type": "success",
-                "message": _("Position found: %(lat)s, %(lon)s — save to keep it.")
-                           % {"lat": self.lunch_company_lat, "lon": self.lunch_company_lon},
-                "next": {"type": "ir.actions.act_window_close"},
+                "message": message,
+                "next": {"type": "ir.actions.client", "tag": "soft_reload"},
             },
         }
