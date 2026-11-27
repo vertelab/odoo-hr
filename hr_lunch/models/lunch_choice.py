@@ -425,7 +425,10 @@ class LunchChoice(models.Model):
         if Vote.search_count([("parent_id", "=", self.id), ("vote_user", "=", user.id)]):
             raise UserError(_("You have already voted for this restaurant."))
 
+        # The created row is the proof the vote exists; keep it in the log so a
+        # failed limit check can be traced to the id that was rolled back.
         vote = Vote.create({"parent_id": self.id, "vote_user": user.id})
+        _logger.debug("Vote %s cast by %s for %s", vote.id, user.id, self.id)
 
         # Count inside the same transaction as the insert. If the limit is
         # exceeded, the rollback removes the vote we just created.
